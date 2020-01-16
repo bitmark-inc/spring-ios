@@ -254,6 +254,12 @@
 		5B590A7B23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7C23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7D23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
+		5B5B948B23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948C23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948D23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
+		5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
+		5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
 		5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC33237A863300FA3196 /* IconButtonView.swift */; };
 		5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222909123950B2500412CBC /* Post.swift */; };
 		5B5D000223A1F0F4003D1A1C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB2237A9F6200FA3196 /* Application.swift */; };
@@ -881,6 +887,8 @@
 		5B590A7123B31D6D006C194D /* StackedBarValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarValueFormatter.swift; sourceTree = "<group>"; };
 		5B590A7523B37CD0006C194D /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
 		5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthViewController.swift; sourceTree = "<group>"; };
+		5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetService+Rx.swift"; sourceTree = "<group>"; };
+		5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchiveDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		5B5D007423A1F0F4003D1A1C /* Spring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5D007523A1F0F4003D1A1C /* Inhouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Inhouse-Info.plist"; sourceTree = "<group>"; };
 		5B67AA6323C829AC00136B68 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
@@ -1802,6 +1810,7 @@
 				E222909E2395116900412CBC /* PostDataEngine+Rx.swift */,
 				5B2097A823B464A40079B421 /* ReactionDataEngine+Rx.swift */,
 				5BA9FF6A23B22A9400E57A20 /* InsightDataEngine+Rx.swift */,
+				5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */,
 			);
 			path = "Data Engine";
 			sourceTree = "<group>";
@@ -1819,6 +1828,7 @@
 			isa = PBXGroup;
 			children = (
 				E27959D72386309C000E9CB9 /* AccountService+Rx.swift */,
+				5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */,
 			);
 			path = Bitmark;
 			sourceTree = "<group>";
@@ -2643,6 +2653,7 @@
 				E27959DC23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5BB319B123A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238323B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232423A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -2700,6 +2711,7 @@
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948B23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				5B9322F823A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5832FC50237A863300FA3196 /* MakeUnderline.swift in Sources */,
 				E236B676238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
@@ -2843,6 +2855,7 @@
 				5B5DFFCF23A1F0F4003D1A1C /* DataRequestedViewModel.swift in Sources */,
 				5B5DFFD023A1F0F4003D1A1C /* AskNotificationsViewModel.swift in Sources */,
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238523B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232623A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -2900,6 +2913,7 @@
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948D23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				5B5DFFFC23A1F0F4003D1A1C /* MakeUnderline.swift in Sources */,
 				5B9322FA23A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5B5DFFFE23A1F0F4003D1A1C /* Storage.swift in Sources */,
@@ -3040,6 +3054,7 @@
 				E28B55EE238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */,
 				5BB319B223A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238423B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232523A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -3097,6 +3112,7 @@
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948C23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				E2DB6696237D3B69005367C2 /* MakeUnderline.swift in Sources */,
 				5B9322F923A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				E2DB6697237D3B69005367C2 /* Storage.swift in Sources */,
