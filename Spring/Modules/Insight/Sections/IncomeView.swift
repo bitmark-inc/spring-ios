@@ -16,6 +16,7 @@ class IncomeView: UIView {
     // MARK: - Properties
     fileprivate lazy var amountLabel = makeAmountLabel()
     fileprivate lazy var descriptionLabel = makeDescriptionLabel()
+    fileprivate lazy var questionButton = makeQuestionButton()
 
     weak var containerLayoutDelegate: ContainerLayoutDelegate?
     let disposeBag = DisposeBag()
@@ -31,7 +32,12 @@ class IncomeView: UIView {
                 flex.addItem()
                     .padding(30, 0, 40, 0)
                     .alignItems(.center).define { (flex) in
-                        flex.addItem(amountLabel)
+                        flex.addItem()
+                            .alignItems(.start)
+                            .direction(.row).define { (flex) in
+                                flex.addItem(amountLabel)
+                                flex.addItem(questionButton).marginTop(-10).marginLeft(3)
+                        }
                         flex.addItem(descriptionLabel).marginTop(18)
                     }
             }
@@ -50,6 +56,10 @@ class IncomeView: UIView {
                 .subscribe(onNext: { [weak self] (insight) in
                     self?.fillData(amount: insight.fbIncome, since: insight.fbIncomeFrom)
                 }).disposed(by: disposeBag)
+
+            questionButton.rx.tap.bind { [weak container] in
+                container?.gotoIncomeQuestionURL()
+            }.disposed(by: disposeBag)
 
         default:
             break
@@ -88,5 +98,11 @@ extension IncomeView {
             font: R.font.atlasGroteskLight(size: Size.ds(12)),
             colorTheme: ColorTheme.black)
         return label
+    }
+
+    fileprivate func makeQuestionButton() -> Button {
+        let button = Button()
+        button.setBackgroundImage(R.image.questionIcon(), for: .normal)
+        return button
     }
 }

@@ -147,4 +147,9 @@ extension InsightViewController {
         let viewModel = AccountViewModel()
         navigator.show(segue: .account(viewModel: viewModel), sender: self)
     }
+
+    func gotoIncomeQuestionURL() {
+        guard let websiteURL = AppLink.incomeQuestion.websiteURL else { return }
+        navigator.show(segue: .safariController(websiteURL), sender: self, transition: .alert)
+    }
 }
