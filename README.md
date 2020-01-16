@@ -1,5 +1,5 @@
-# Synergy app
-Synergy iOS client.
+# Spring app
+Spring iOS client.
 ---
 
 ## Building and Running
@@ -21,7 +21,7 @@ After that, Cocoapods will help you install all of dependencies.
 pod install
 ```
 
-Alrighty! We're ready to go! Open `Synergy.xcworkspace` to start.
+Alrighty! We're ready to go! Open `Spring.xcworkspace` to start.
 
 ## Design
 - [Wireframe](https://www.figma.com/file/iMYfd6FWGNVF9i65hbxyV4/SDN_synergy_wires?node-id=1%3A2)

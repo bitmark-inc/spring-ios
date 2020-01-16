@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  Spring
+
+  Created by Thuyen Truong on 12/11/19.
+  Copyright © 2019 Bitmark Inc. All rights reserved.
+*/
+
+NSPhotoLibraryUsageDescription = "Spring will use photos from your library.";
+NSFaceIDUsageDescription = "Spring will use Face ID to secure your account and data.";

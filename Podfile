@@ -41,14 +41,14 @@ def sharedPods
   pod 'SwiftRichString'
 end
 
-target 'Synergy' do
+target 'Spring' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Synergy
+  # Pods for Spring
   sharedPods
 
-  target 'SynergyTests' do
+  target 'SpringTests' do
     inherit! :search_paths
 
     pod 'Quick'
@@ -58,20 +58,20 @@ target 'Synergy' do
 end
 
 
-target 'Synergy Dev' do
+target 'Spring Dev' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Synergy Dev
+  # Pods for Spring Dev
   sharedPods
   pod 'SwiftLint'
 end
 
-target 'Synergy Inhouse' do
+target 'Spring Inhouse' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Synergy Dev
+  # Pods for Spring Inhouse
   sharedPods
   pod 'SwiftLint'
 end
