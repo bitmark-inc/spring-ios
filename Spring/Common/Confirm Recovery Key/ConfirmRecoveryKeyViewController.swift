@@ -31,6 +31,14 @@ class ConfirmRecoveryKeyViewController: ViewController {
             .disposed(by: disposeBag)
 
         _ = recoveryKeyTextView.rx.textInput => viewModel.recoveryKeyStringRelay
+
+        viewModel.submitEnabled
+            .drive(onNext: { [weak self] (isEnabled) in
+                self?.recoveryKeyTextView.textColor = isEnabled ?
+                    ColorTheme.internationalKleinBlue.color :
+                    ColorTheme.black.color
+            })
+            .disposed(by: disposeBag)
     }
 }
 
