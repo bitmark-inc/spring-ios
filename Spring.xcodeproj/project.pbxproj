@@ -878,6 +878,7 @@
 		5B80A69B23C5D00B002E591E /* IBMPlexMono-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-LightItalic.ttf"; sourceTree = "<group>"; };
 		5B80A69C23C5D00B002E591E /* IBMPlexMono-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		5B80A69D23C5D89E002E591E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		5B8BEA2A23D19757007C0C7B /* Spring.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spring.entitlements; sourceTree = "<group>"; };
 		5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutWarningViewController.swift; sourceTree = "<group>"; };
 		5B9322FB23A3635200C3C408 /* SignOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewModel.swift; sourceTree = "<group>"; };
 		5B9322FF23A3635E00C3C408 /* SignOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewController.swift; sourceTree = "<group>"; };
@@ -1092,6 +1093,7 @@
 		5832FBE0237A6DB700FA3196 = {
 			isa = PBXGroup;
 			children = (
+				5B8BEA2A23D19757007C0C7B /* Spring.entitlements */,
 				5BE22E6A23A227C5007EBFC9 /* Spring Inhouse.entitlements */,
 				E28B55EA238CCB9200F1BCF2 /* Spring Dev.entitlements */,
 				5832FBEB237A6DB700FA3196 /* Spring */,
@@ -3275,9 +3277,9 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D PRODUCTION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.Synergy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3290,7 +3292,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Info.plist";
@@ -3299,9 +3301,9 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D PRODUCTION";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.Synergy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3420,9 +3422,9 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEVELOPMENT";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.Synergy.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.test;
 				PRODUCT_NAME = Spring;
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Test Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Test Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -3445,9 +3447,9 @@
 				);
 				MARKETING_VERSION = 0.1.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D DEVELOPMENT";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.Synergy.test;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.test;
 				PRODUCT_NAME = Spring;
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Ad Hoc";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

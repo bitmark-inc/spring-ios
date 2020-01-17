@@ -25,7 +25,7 @@ Push a new dev build to AppCenter
 ```
 fastlane ios enterprise
 ```
-
+Push a new enterprise build to AppCenter
 
 ----
 
