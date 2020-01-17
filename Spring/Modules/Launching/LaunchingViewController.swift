@@ -22,9 +22,11 @@ class LaunchingViewController: ViewController, LaunchingNavigatorDelegate {
         super.viewDidAppear(animated)
 
         if SettingsBundle.shouldShowReleaseNote() {
+            SettingsBundle.setVersion()
             gotoReleaseNoteScreen()
         } else {
             SettingsBundle.setVersion()
+            loadingState.onNext(.loading)
             navigate()
         }
     }
