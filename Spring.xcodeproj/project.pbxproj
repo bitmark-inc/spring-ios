@@ -2365,11 +2365,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Synergy/Resources/R.generated.swift,
+				$SRCROOT/Spring/Resources/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Synergy/Resources/R.generated.swift\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
 		816E6A6EC516DCAC525207CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2462,11 +2462,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Synergy/Resources/R.generated.swift,
+				$SRCROOT/Spring/Resources/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Synergy/Resources/R.generated.swift\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
 		E2DB66BD237D3B69005367C2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
