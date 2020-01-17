@@ -25,6 +25,7 @@ class InsightViewController: ViewController {
     lazy var headingView = makeHeadingView()
     lazy var fbIncomeView = makeFBIncomeView()
     lazy var adsCategoryView = makeAdsCategoryView()
+    lazy var howFBTrackView = makeHowFBTrackView()
 
     // SECTION: FB Income
     lazy var realmInsightObservable: Observable<Insight> = {
@@ -81,6 +82,7 @@ class InsightViewController: ViewController {
             flex.addItem(headingView)
             flex.addItem(fbIncomeView)
             flex.addItem(adsCategoryView)
+            flex.addItem(howFBTrackView)
         }
 
         scroll.addSubview(insightView)
@@ -126,13 +128,17 @@ extension InsightViewController {
         return incomeView
     }
 
-
-
     fileprivate func  makeAdsCategoryView() -> AdsCategoryView {
         let adsCategoryView = AdsCategoryView()
         adsCategoryView.containerLayoutDelegate = self
         adsCategoryView.setProperties(container: self)
         return adsCategoryView
+    }
+
+    fileprivate func makeHowFBTrackView() -> LongContentView {
+        let howFBTrackView = LongContentView()
+        howFBTrackView.setProperties(container: self)
+        return howFBTrackView
     }
 }
 
@@ -146,5 +152,9 @@ extension InsightViewController {
     fileprivate func gotoAccountScreen() {
         let viewModel = AccountViewModel()
         navigator.show(segue: .account(viewModel: viewModel), sender: self)
+    }
+
+    func gotoHowFBTrackScreen() {
+        navigator.show(segue: .howFBTrack, sender: self)
     }
 }

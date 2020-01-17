@@ -45,6 +45,7 @@ class Navigator {
         case biometricAuth
         case viewRecoveryKeyWarning
         case viewRecoverykey(viewModel: ViewRecoveryKeyViewModel)
+        case howFBTrack
         case increasePrivacyList
         case increasePrivacy(viewModel: IncreasePrivacyViewModel)
         case about
@@ -102,6 +103,7 @@ class Navigator {
         case .viewRecoveryKeyWarning: return ViewRecoveryKeyWarningViewController()
         case .viewRecoverykey(let viewModel): return ViewRecoveryKeyViewController(viewModel: viewModel)
         case .increasePrivacyList: return IncreasePrivacyListViewController()
+        case .howFBTrack: return HowFBTrackViewController()
         case .increasePrivacy(let viewModel): return IncreasePrivacyViewController(viewModel: viewModel)
         case .about: return AboutViewController()
         case .faq: return FAQViewController()

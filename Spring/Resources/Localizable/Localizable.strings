@@ -92,3 +92,5 @@
 "Cancel" = "Cancel";
 "TryAgain" = "Try Again";
 "friends.withOther" = "%@ and %@ others";
+
+"readMore" = "<a>Read more</a> »";

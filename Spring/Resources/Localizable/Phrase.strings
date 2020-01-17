@@ -57,6 +57,10 @@
 "adsCategory.header" = "CATEGORIES FOR ADS";
 "adsCategory.description" = "These categories are based on your activity. They are used by advertisers to personalize your information.";
 
+"howFBTrack.title" = "HOW YOU ARE TRACKED?";
+"howFBTrack.shortContent" = "Fringilla elementum massa convallis lectus rhoncus faucibus. Semper egestas vel porta dolor ut egestas quis non luctus. Lectus in porta ut diam tellus nulla pretium. Eget faucibus vulputate mi pharetra rutrum a. Porttitor varius tellus condimentum elementum iaculis. Adipiscing lacus, cursus feugiat egestas ut varius. Nunc pharetra massa proin quam pulvinar non feugiat dictumst molestie.";
+"howFBTrack.content" = "Fringilla elementum massa convallis lectus rhoncus faucibus. Semper egestas vel porta dolor ut egestas quis non luctus. Lectus in porta ut diam tellus nulla pretium. Eget faucibus vulputate mi pharetra rutrum a. Porttitor varius tellus condimentum elementum iaculis. Adipiscing lacus, cursus feugiat egestas ut varius. Nunc pharetra massa proin quam pulvinar non feugiat dictumst molestie.";
+
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
 "post.postInfo.locationTag" = " @%@";

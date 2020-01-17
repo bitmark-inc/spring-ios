@@ -255,6 +255,9 @@
 		5B590A7B23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7C23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7D23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
+		5B5B949323D0771400D1ED97 /* LongContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B949223D0771400D1ED97 /* LongContentView.swift */; };
+		5B5B949423D0771400D1ED97 /* LongContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B949223D0771400D1ED97 /* LongContentView.swift */; };
+		5B5B949523D0771400D1ED97 /* LongContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B949223D0771400D1ED97 /* LongContentView.swift */; };
 		5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC33237A863300FA3196 /* IconButtonView.swift */; };
 		5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222909123950B2500412CBC /* Post.swift */; };
 		5B5D000223A1F0F4003D1A1C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB2237A9F6200FA3196 /* Application.swift */; };
@@ -415,6 +418,9 @@
 		5B80A69E23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A69F23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A6A023C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
+		5B8BEA2723D15229007C0C7B /* HowFBTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BEA2623D15229007C0C7B /* HowFBTrackViewController.swift */; };
+		5B8BEA2823D15229007C0C7B /* HowFBTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BEA2623D15229007C0C7B /* HowFBTrackViewController.swift */; };
+		5B8BEA2923D15229007C0C7B /* HowFBTrackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8BEA2623D15229007C0C7B /* HowFBTrackViewController.swift */; };
 		5B9322F823A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
 		5B9322F923A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
 		5B9322FA23A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
@@ -856,6 +862,7 @@
 		5B590A7123B31D6D006C194D /* StackedBarValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarValueFormatter.swift; sourceTree = "<group>"; };
 		5B590A7523B37CD0006C194D /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
 		5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthViewController.swift; sourceTree = "<group>"; };
+		5B5B949223D0771400D1ED97 /* LongContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongContentView.swift; sourceTree = "<group>"; };
 		5B5D007423A1F0F4003D1A1C /* Spring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5D007523A1F0F4003D1A1C /* Inhouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Inhouse-Info.plist"; sourceTree = "<group>"; };
 		5B67AA6323C829AC00136B68 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
@@ -878,6 +885,7 @@
 		5B80A69B23C5D00B002E591E /* IBMPlexMono-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-LightItalic.ttf"; sourceTree = "<group>"; };
 		5B80A69C23C5D00B002E591E /* IBMPlexMono-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		5B80A69D23C5D89E002E591E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		5B8BEA2623D15229007C0C7B /* HowFBTrackViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowFBTrackViewController.swift; sourceTree = "<group>"; };
 		5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutWarningViewController.swift; sourceTree = "<group>"; };
 		5B9322FB23A3635200C3C408 /* SignOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewModel.swift; sourceTree = "<group>"; };
 		5B9322FF23A3635E00C3C408 /* SignOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewController.swift; sourceTree = "<group>"; };
@@ -1085,6 +1093,7 @@
 				5832D6FC238BC23D0074AEDC /* InsightViewModel.swift */,
 				5832D6FB238BC23D0074AEDC /* InsightViewController.swift */,
 				5B54FAD923C6DAA90029B5D5 /* Sections */,
+				5B8BEA2623D15229007C0C7B /* HowFBTrackViewController.swift */,
 			);
 			path = Insight;
 			sourceTree = "<group>";
@@ -1450,6 +1459,7 @@
 			children = (
 				5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */,
 				5B54FADA23C6DACA0029B5D5 /* AdsCategoryView.swift */,
+				5B5B949223D0771400D1ED97 /* LongContentView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -2365,11 +2375,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Synergy/Resources/R.generated.swift,
+				$SRCROOT/Spring/Resources/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Synergy/Resources/R.generated.swift\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
 		816E6A6EC516DCAC525207CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2462,11 +2472,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/Synergy/Resources/R.generated.swift,
+				$SRCROOT/Spring/Resources/R.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Synergy/Resources/R.generated.swift\"\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
 		E2DB66BD237D3B69005367C2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2609,6 +2619,7 @@
 				5832FC94237A889A00FA3196 /* Storage.swift in Sources */,
 				E222909223950B2500412CBC /* Post.swift in Sources */,
 				5832FC59237A863300FA3196 /* IconButtonView.swift in Sources */,
+				5B8BEA2723D15229007C0C7B /* HowFBTrackViewController.swift in Sources */,
 				5832FCB3237A9F6200FA3196 /* Application.swift in Sources */,
 				5B13D3A723CF000100F82350 /* IncreasePrivacyViewModel.swift in Sources */,
 				5832FCAD237A8A9300FA3196 /* UIButton+Image.swift in Sources */,
@@ -2671,6 +2682,7 @@
 				E2259CD0238783AE00746280 /* FBScript.swift in Sources */,
 				5BE86EA223C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				5832FC46237A863300FA3196 /* ViewController.swift in Sources */,
+				5B5B949323D0771400D1ED97 /* LongContentView.swift in Sources */,
 				5B4A238F23B118E500447366 /* SectionHeadingView.swift in Sources */,
 				5B32F5C423CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5832FC96237A889A00FA3196 /* KeychainStore.swift in Sources */,
@@ -2808,6 +2820,7 @@
 				5B5DFFFF23A1F0F4003D1A1C /* FbmAccountDataEngine+Rx.swift in Sources */,
 				5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */,
 				5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */,
+				5B8BEA2923D15229007C0C7B /* HowFBTrackViewController.swift in Sources */,
 				5B5D000223A1F0F4003D1A1C /* Application.swift in Sources */,
 				5B13D3A923CF000100F82350 /* IncreasePrivacyViewModel.swift in Sources */,
 				5B5D000323A1F0F4003D1A1C /* UIButton+Image.swift in Sources */,
@@ -2870,6 +2883,7 @@
 				5B5D002923A1F0F4003D1A1C /* KeychainStore.swift in Sources */,
 				5BE86EA423C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				5B5D002A23A1F0F4003D1A1C /* ConfirmRecoveryKeyViewController.swift in Sources */,
+				5B5B949523D0771400D1ED97 /* LongContentView.swift in Sources */,
 				5B5D002B23A1F0F4003D1A1C /* R.generated.swift in Sources */,
 				5B32F5C623CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5B4A239123B118E500447366 /* SectionHeadingView.swift in Sources */,
@@ -2996,6 +3010,7 @@
 				E236B677238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
 				E2DB6698237D3B69005367C2 /* IconButtonView.swift in Sources */,
 				E222909323950B2500412CBC /* Post.swift in Sources */,
+				5B8BEA2823D15229007C0C7B /* HowFBTrackViewController.swift in Sources */,
 				E2DB6699237D3B69005367C2 /* Application.swift in Sources */,
 				5B13D3A823CF000100F82350 /* IncreasePrivacyViewModel.swift in Sources */,
 				E2DB669A237D3B69005367C2 /* UIButton+Image.swift in Sources */,
@@ -3058,6 +3073,7 @@
 				E2DB66A8237D3B69005367C2 /* KeychainStore.swift in Sources */,
 				5BE86EA323C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				E2DB66A9237D3B69005367C2 /* ConfirmRecoveryKeyViewController.swift in Sources */,
+				5B5B949423D0771400D1ED97 /* LongContentView.swift in Sources */,
 				E2DB66AA237D3B69005367C2 /* R.generated.swift in Sources */,
 				5B32F5C523CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5B4A239023B118E500447366 /* SectionHeadingView.swift in Sources */,
