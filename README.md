@@ -1,5 +1,4 @@
 # Spring app
-Spring iOS client.
 ---
 
 ## Building and Running
