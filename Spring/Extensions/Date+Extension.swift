@@ -68,6 +68,23 @@ extension DateInRegion {
     }
 }
 
+extension Date {
+    func dateAtStartOfTimeUnit(timeUnit: TimeUnit, distance: Int) -> Date {
+        switch timeUnit {
+        case .week:
+            let currentDateRegion = self.adding(.weekOfMonth, value: distance).in(.english)
+            return currentDateRegion.dateAtStartOf(.weekOfMonth).date
+
+        case .year:
+            let currentDateRegion = self.adding(.year, value: distance).in(.english)
+            return currentDateRegion.dateAtStartOf(.year).date
+
+        case .decade:
+            return self.in(.english).dateAtStartOfDecade(distance: distance).date
+        }
+    }
+}
+
 extension String {
     var appDate: Date {
         return Date(timeIntervalSince1970: TimeInterval(Double(self) ?? 0))

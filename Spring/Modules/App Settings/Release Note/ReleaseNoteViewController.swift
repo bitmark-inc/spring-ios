@@ -39,8 +39,8 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
 
         if let pathToInfoPlist = Bundle.main.path(forResource: "Info", ofType: "plist"),
            let updateDate = try? FileManager.default.attributesOfItem(atPath: pathToInfoPlist)[.modificationDate] as? Date {
-            let durationInDays = Calendar.current.dateComponents([.day], from: updateDate)
-            versionDateLabel.setText(R.string.phrase.releaseNoteAppVersionDate(durationInDays.day!))
+            let durationInDays = Calendar.current.dateComponents([.day], from: updateDate, to: Date())
+            versionDateLabel.setText(R.string.phrase.releaseNoteAppVersionDate(durationInDays.day ?? 0))
         }
 
         continueButton.rx.tap.bind { [weak self] in

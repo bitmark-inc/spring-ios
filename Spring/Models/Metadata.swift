@@ -10,13 +10,19 @@ import Foundation
 
 struct Metadata: Codable {
     var fbIdentifier: String?
+    var lastActivityTimestamp: Double?
 
     enum CodingKeys: String, CodingKey {
         case fbIdentifier = "fb-identifier"
+        case lastActivityTimestamp = "last_activity_timestamp"
     }
+}
 
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        fbIdentifier = try values.decodeIfPresent(String.self, forKey: .fbIdentifier)
+extension Metadata {
+    var lastActivityDate: Date? {
+        guard let lastActivityTimestamp = lastActivityTimestamp else {
+            return nil
+        }
+        return Date(timeIntervalSince1970: lastActivityTimestamp)
     }
 }

@@ -83,7 +83,20 @@ extension Reactive where Base: FbmAccountDataEngine {
 
                            event(.success(fbmAccount))
                        }, onError: { (error) in
-                           event(.error(error))
+                            if let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number) {
+                                event(.success(fbmAccount))
+                            }
+
+                            // sends error if error is not networkConnection or requireUpdateVersion
+                            guard !AppError.errorByNetworkConnection(error) else { return }
+                            if let error = error as? ServerAPIError {
+                                switch error.code {
+                                case .RequireUpdateVersion : return
+                                default: break
+                                }
+                            }
+
+                            Global.log.error(error)
                        })
                 } catch {
                     event(.error(error))

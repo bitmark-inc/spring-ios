@@ -22,19 +22,22 @@ extension LaunchingNavigatorDelegate {
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (account) in
                 guard let self = self else { return }
-                if let account = account {
-                    AccountService.registerIntercom(for: account.getAccountNumber())
-                    SettingsBundle.setAccountNumber(accountNumber: account.getAccountNumber())
-                }
 
-                if UserDefaults.standard.FBArchiveCreatedAt != nil {
-                    self.checkToNavigateOnboarding()
-                } else {
-                    do {
-                        _ = try self.prepareAndGotoNext(account: account).subscribe()
-                    } catch {
-                        Global.log.error(error)
+                do {
+                    if let account = account {
+                        Global.current.account = account
+
+                        AccountService.registerIntercom(for: account.getAccountNumber())
+                        SettingsBundle.setAccountNumber(accountNumber: account.getAccountNumber())
+                        try RealmConfig.setupDBForCurrentAccount()
                     }
+
+                    UserDefaults.standard.FBArchiveCreatedAt != nil ?
+                        self.checkToNavigateOnboarding() :
+                        self.prepareAndGotoNext(account: account)
+
+                } catch {
+                    Global.log.error(error)
                 }
 
             }, onError: { (error) in
@@ -56,11 +59,8 @@ extension LaunchingNavigatorDelegate {
         }
     }
 
-    fileprivate func prepareAndGotoNext(account: Account?) throws -> Completable {
-        if let account = account {
-            Global.current.account = account
-            try RealmConfig.setupDBForCurrentAccount()
-
+    fileprivate func prepareAndGotoNext(account: Account?) {
+        if account != nil {
             FbmAccountDataEngine.rx.fetchCurrentFbmAccount()
                 .subscribe(onSuccess: {  [weak self] (_) in
                     self?.checkArchivesStatusToNavigate()
@@ -90,8 +90,6 @@ extension LaunchingNavigatorDelegate {
             loadingState.onNext(.hide)
             gotoSignInWallScreen()
         }
-
-        return Completable.empty()
     }
 
     fileprivate func checkArchivesStatusToNavigate() {

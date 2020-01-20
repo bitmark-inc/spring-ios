@@ -16,12 +16,45 @@ class UsageViewModel: ViewModel {
     // MARK: - Inputs
     let dateRelay = BehaviorRelay(value: Date().in(Locales.english).dateAtStartOf(.weekOfMonth).date)
     let timeUnitRelay = BehaviorRelay<TimeUnit>(value: .week)
+    let segmentDistances = BehaviorRelay<[TimeUnit: Int]>(value: [.week: 0, .year: 0, .decade: 0])
 
     // MARK: - Outputs
     let fetchDataResultSubject = PublishSubject<Event<Void>>()
     let realmPostUsageRelay = BehaviorRelay<Usage?>(value: nil)
     let realmReactionUsageRelay = BehaviorRelay<Usage?>(value: nil)
     let realmMoodRelay = BehaviorRelay<Usage?>(value: nil)
+
+    func fetchActivity() -> Completable {
+        return FbmAccountDataEngine.rx.fetchLatestFbmAccount()
+            .map { try Converter<Metadata>(from: $0.metadata).value }
+            .map { $0.lastActivityDate ?? Date() }
+            .flatMapCompletable { [weak self] (lastActivityDate) -> Completable in
+                guard let self = self else { return Completable.never() }
+
+                var weekDistance = 0
+                var yearDistance = 0
+                var decadeDistance = 0
+
+                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .week, distance: weekDistance) {
+                    weekDistance -= 1
+                }
+
+                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .year, distance: yearDistance) {
+                    yearDistance -= 1
+                }
+
+                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .decade, distance: decadeDistance) {
+                    decadeDistance -= 1
+                }
+
+                self.segmentDistances.accept(
+                    [.week: weekDistance, .year: yearDistance, .decade: decadeDistance]
+                )
+                self.dateRelay.accept(lastActivityDate.in(Locales.english).dateAtStartOf(.weekOfMonth).date)
+
+                return Completable.empty()
+            }
+    }
 
     func fetchUsage() {
         dateRelay // ignore timeUnit change, cause when timeUnit change, it trigger date change also

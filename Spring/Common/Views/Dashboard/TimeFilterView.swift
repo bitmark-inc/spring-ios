@@ -79,10 +79,16 @@ class TimeFilterView: UIView {
         }.disposed(by: disposeBag)
     }
 
-    func bindData(periodName: String, periodDescription: String, distance: Int) {
+    func bindData(periodName: String, periodDescription: String, distance: Int, limitedDistance: Int) {
         periodNameLabel.text = periodName.localizedUppercase
         periodDescriptionLabel.text = periodDescription
-        nextPeriodButton.isEnabled = distance < 0
+        nextPeriodButton.isEnabled = distance < limitedDistance
+
+        periodNameLabel.flex.markDirty()
+        periodNameLabel.flex.layout()
+        periodDescriptionLabel.flex.markDirty()
+        periodDescriptionLabel.flex.layout()
+        flex.layout()
     }
 }
 

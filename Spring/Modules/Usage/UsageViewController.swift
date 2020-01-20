@@ -114,20 +114,34 @@ class UsageViewController: ViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.fetchUsage()
-
-        thisViewModel.dateRelay
-            .subscribe(onNext: { [weak self] (startDate) in
+        loadingState.onNext(.loading)
+        viewModel.fetchActivity()
+            .subscribe(onCompleted: { [weak self] in
+                loadingState.onNext(.hide)
                 guard let self = self else { return }
+                self.segmentDistances = viewModel.segmentDistances.value
 
-                let timeUnit = self.thisViewModel.timeUnitRelay.value
-                let datePeriod = startDate.extractDatePeriod(timeUnit: timeUnit)
+                viewModel.fetchUsage()
 
-                let distance = self.segmentDistances[timeUnit]!
-                self.timelineView.bindData(
-                    periodName: timeUnit.meaningTimeText(with: distance),
-                    periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
-                    distance: distance)
+                viewModel.dateRelay
+                    .subscribe(onNext: { [weak self] (startDate) in
+                        guard let self = self else { return }
+
+                        let timeUnit = self.thisViewModel.timeUnitRelay.value
+                        let datePeriod = startDate.extractDatePeriod(timeUnit: timeUnit)
+
+                        let distance = self.segmentDistances[timeUnit]!
+                        let limitedDistance = viewModel.segmentDistances.value[timeUnit]!
+                        self.timelineView.bindData(
+                            periodName: timeUnit.meaningTimeText(with: distance),
+                            periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
+                            distance: distance, limitedDistance: limitedDistance)
+                    })
+                    .disposed(by: self.disposeBag)
+
+            }, onError: { (error) in
+                loadingState.onNext(.hide)
+                Global.log.error(error)
             })
             .disposed(by: disposeBag)
     }
@@ -242,22 +256,7 @@ extension UsageViewController: ContainerLayoutDelegate {
 extension UsageViewController: TimelineDelegate {
     func updateTimeUnit(_ timeUnit: TimeUnit) {
         let distance = segmentDistances[timeUnit]!
-        let updatedDate: Date!
-
-        switch timeUnit {
-        case .week:
-            let currentDateRegion = Date().adding(.weekOfMonth, value: distance).in(.english)
-            updatedDate = currentDateRegion.dateAtStartOf(.weekOfMonth).date
-
-        case .year:
-            let distance = segmentDistances[timeUnit]!
-            let currentDateRegion = Date().adding(.year, value: distance).in(.english)
-            updatedDate = currentDateRegion.dateAtStartOf(.year).date
-
-        case .decade:
-            let distance = segmentDistances[timeUnit]!
-            updatedDate = Date()?.in(.english).dateAtStartOfDecade(distance: distance).date
-        }
+        let updatedDate = Date().dateAtStartOfTimeUnit(timeUnit: timeUnit, distance: distance)
 
         thisViewModel.timeUnitRelay.accept(timeUnit)
         thisViewModel.dateRelay.accept(updatedDate)
