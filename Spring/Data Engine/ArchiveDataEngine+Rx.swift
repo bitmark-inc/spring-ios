@@ -69,15 +69,18 @@ extension Reactive where Base: ArchiveDataEngine {
                                         return AssetService.rx.existsBitmarks(issuer: account, assetID: assetID)
                                             .flatMap { return $0 ? Single.never() : Single.just(assetID) }
                                     } else {
-                                        let assetInfo = AssetInfo(
-                                            registrant: account,
-                                            assetName: "", fingerprint: archive.contentHash,
-                                            metadata: [
-                                                "type": "fbdata"
-                                                // TODO: missing metadata
-                                            ])
-
-                                        return AssetService.rx.registerAsset(assetInfo: assetInfo)
+                                        return Single.zip(ServerAssetsService.getAppInformation(), DocumentationService.getEula())
+                                            .map { (appInfo, eula) -> AssetInfo in
+                                                return AssetInfo(
+                                                    registrant: account,
+                                                    assetName: "", fingerprint: archive.contentHash,
+                                                    metadata: [
+                                                        "TYPE": "fbdata",
+                                                        "SYSTEM_VERSION": appInfo.systemVersion,
+                                                        "EULA": eula.sha3()
+                                                ])
+                                            }
+                                        .flatMap { AssetService.rx.registerAsset(assetInfo: $0) }
                                     }
                                 }
 

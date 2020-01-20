@@ -6,7 +6,6 @@
 //  Copyright © 2019 Bitmark Inc. All rights reserved.
 //
 
-import UIKit
 import RxSwift
 import Moya
 

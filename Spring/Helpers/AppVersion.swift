@@ -19,10 +19,13 @@ class AppVersion {
 
         return Completable.create { (event) -> Disposable in
             _ = ServerAssetsService.getAppInformation()
+                .map { $0.updateInfo }
                 .subscribe(onSuccess: { (iosInfo) in
-                    guard let minimumClientVersion = iosInfo.minimumClientVersion else { return }
+                    let minimumClientVersion = iosInfo.minimumClientVersion
+                    let appUpdatePath = iosInfo.appUpdateURL
+
                     if buildVersionNumber < minimumClientVersion {
-                        guard let appUpdatePath = iosInfo.appUpdateURL, let appUpdateURL = URL(string: appUpdatePath) else { return }
+                        guard let appUpdateURL = URL(string: appUpdatePath) else { return }
                         event(.error(AppError.requireAppUpdate(updateURL: appUpdateURL)))
                     } else {
                         event(.completed)
@@ -59,19 +62,20 @@ extension UIViewController {
             switch error.code {
             case .RequireUpdateVersion:
                 _ = ServerAssetsService.getAppInformation()
-                .subscribe(onSuccess: { (iosInfo) in
-                    guard let appUpdatePath = iosInfo.appUpdateURL,
-                        let appUpdateURL = URL(string: appUpdatePath)
-                        else {
-                            return
-                    }
-                    AppVersion.showAppRequireUpdateAlert(updateURL: appUpdateURL)
-                }, onError: { [weak self] (error) in
-                    guard let self = self,
-                        !AppError.errorByNetworkConnection(error) else { return }
-                    Global.log.error(error)
-                    self.showErrorAlertWithSupport(message: R.string.error.requestData())
-                })
+                    .map { $0.updateInfo }
+                    .subscribe(onSuccess: { (iosInfo) in
+                        let appUpdatePath = iosInfo.appUpdateURL
+                        guard let appUpdateURL = URL(string: appUpdatePath)
+                            else {
+                                return
+                        }
+                        AppVersion.showAppRequireUpdateAlert(updateURL: appUpdateURL)
+                    }, onError: { [weak self] (error) in
+                        guard let self = self,
+                            !AppError.errorByNetworkConnection(error) else { return }
+                        Global.log.error(error)
+                        self.showErrorAlertWithSupport(message: R.string.error.requestData())
+                    })
                 return true
 
             default:
