@@ -18,37 +18,41 @@ protocol LaunchingNavigatorDelegate: ViewController {
 
 extension LaunchingNavigatorDelegate {
     func navigate() {
-        if UserDefaults.standard.FBArchiveCreatedAt != nil {
-            loadingState.onNext(.hide)
-            if Global.current.didUserTapNotification {
-                Global.current.didUserTapNotification = false
-                gotoDownloadFBArchiveScreen()
-            } else {
-                gotoDataRequestedWithCheckButtonScreen()
-            }
-        } else {
-            AccountService.rx.existsCurrentAccount()
-                .observeOn(MainScheduler.instance)
-                .subscribe(onSuccess: { [weak self] (account) in
-                    guard let self = self else { return }
-                    if let account = account {
-                        AccountService.registerIntercom(for: account.getAccountNumber())
-                        SettingsBundle.setAccountNumber(accountNumber: account.getAccountNumber())
-                    }
+        AccountService.rx.existsCurrentAccount()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] (account) in
+                guard let self = self else { return }
+                if let account = account {
+                    AccountService.registerIntercom(for: account.getAccountNumber())
+                    SettingsBundle.setAccountNumber(accountNumber: account.getAccountNumber())
+                }
 
+                if UserDefaults.standard.FBArchiveCreatedAt != nil {
+                    self.checkToNavigateOnboarding()
+                } else {
                     do {
                         _ = try self.prepareAndGotoNext(account: account).subscribe()
                     } catch {
                         Global.log.error(error)
                     }
+                }
 
-                }, onError: { (error) in
-                    loadingState.onNext(.hide)
-                    _ = ErrorAlert.showAuthenticationRequiredAlert { [weak self] in
-                        self?.navigate()
-                    }
-                })
-                .disposed(by: disposeBag)
+            }, onError: { (error) in
+                loadingState.onNext(.hide)
+                _ = ErrorAlert.showAuthenticationRequiredAlert { [weak self] in
+                    self?.navigate()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func checkToNavigateOnboarding() {
+        loadingState.onNext(.hide)
+        if Global.current.didUserTapNotification {
+            Global.current.didUserTapNotification = false
+            gotoDownloadFBArchiveScreen()
+        } else {
+            gotoDataRequestedWithCheckButtonScreen()
         }
     }
 
