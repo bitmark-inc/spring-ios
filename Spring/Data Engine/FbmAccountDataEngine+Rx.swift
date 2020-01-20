@@ -94,6 +94,14 @@ extension Reactive where Base: FbmAccountDataEngine {
        }
     }
 
+    static func create() -> Single<FbmAccount> {
+        return KeychainStore.getFBUsername()
+            .map { (username) in
+                return ["fb-identifier": username.sha3()]
+            }
+            .flatMap { FbmAccountService.create(metadata: $0) }
+    }
+
     static func updateMetadata(for fbmAccount: FbmAccount) -> Completable {
         Completable.deferred {
             var metadataValue: Metadata!

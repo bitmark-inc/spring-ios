@@ -11,7 +11,7 @@ import BitmarkSDK
 import Moya
 
 enum FbmAccountAPI {
-    case create(encryptedPublicKey: String)
+    case create(encryptedPublicKey: String, metadata: [String: Any])
     case getMe
     case updateMe(metadata: [String: Any])
 }
@@ -46,8 +46,9 @@ extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
     var parameters: [String: Any]? {
         var params: [String: Any] = [:]
         switch self {
-        case .create(let encryptedPublicKey):
+        case .create(let encryptedPublicKey, let metadata):
             params["enc_pub_key"] = encryptedPublicKey
+            params["metadata"] = metadata
         case .getMe:
             return nil
         case .updateMe(let metadata):

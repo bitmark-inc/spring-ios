@@ -13,7 +13,7 @@ import Moya
 class FbmAccountService {
     static var provider = MoyaProvider<FbmAccountAPI>(plugins: Global.default.networkLoggerPlugin)
 
-    static func create() -> Single<FbmAccount> {
+    static func create(metadata: [String: Any]) -> Single<FbmAccount> {
         return Single.deferred {
             guard let currentAccount = Global.current.account else {
                 Global.log.error(AppError.emptyCurrentAccount)
@@ -24,7 +24,8 @@ class FbmAccountService {
             let encryptedPublicKey = currentAccount.encryptionKey.publicKey.hexEncodedString
 
             return provider.rx
-                .requestWithRefreshJwt(.create(encryptedPublicKey: encryptedPublicKey))
+                .requestWithRefreshJwt(
+                    .create(encryptedPublicKey: encryptedPublicKey, metadata: metadata))
                 .filterSuccess()
                 .map(FbmAccount.self, atKeyPath: "result", using: Global.default.decoder)
         }

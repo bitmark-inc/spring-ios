@@ -117,7 +117,7 @@ class RequestDataViewModel: ViewModel {
         }
 
         createdAccounCompletable
-            .andThen(FbmAccountService.create())
+            .andThen(FbmAccountDataEngine.rx.create())
             .catchError { (error) -> Single<FbmAccount> in
                 if let error = error as? ServerAPIError, error.code == .AccountHasTaken {
                     return Single.just(FbmAccount())
