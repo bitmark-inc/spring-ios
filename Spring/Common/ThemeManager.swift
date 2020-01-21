@@ -25,6 +25,7 @@ struct OurTheme {
     static let postCellPadding  = UIEdgeInsets(top: Size.dh(27), left: 18, bottom: Size.dh(32), right: 18)
     static let reactionCellPadding  = UIEdgeInsets(top: Size.dh(27), left: 18, bottom: Size.dh(32), right: 18)
     static let titlePaddingWithoutBack  = UIEdgeInsets(top: Size.dh(43), left: 0, bottom: Size.dh(43), right: 18)
+    static let titlePaddingInset = UIEdgeInsets(top: Size.dh(21), left: 0, bottom: Size.dh(43), right: 0)
 }
 
 protocol Theme {

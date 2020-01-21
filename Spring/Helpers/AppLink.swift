@@ -11,6 +11,7 @@ import Foundation
 enum AppLink: String {
     case termsOfService = "legal-terms"
     case privacyOfPolicy = "legal-privacy"
+    case incomeQuestion = "income-question"
     case support
     case viewRecoveryKey = "view-recovery-key"
 

@@ -147,4 +147,8 @@ extension InsightViewController {
         let viewModel = AccountViewModel()
         navigator.show(segue: .account(viewModel: viewModel), sender: self)
     }
+
+    func gotoIncomeQuestionURL() {
+        navigator.show(segue: .incomeQuestion, sender: self)
+    }
 }

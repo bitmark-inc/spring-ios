@@ -78,7 +78,6 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
 
         if type(of: error) == RecoverPhrase.RecoverPhraseError.self {
             errorRecoveryKeyView.isHidden = false
-            recoveryKeyTextView.textColor = ColorTheme.internationalKleinBlue.color
             return
         }
 

@@ -46,7 +46,6 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
         continueButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             loadingState.onNext(.loading)
-            SettingsBundle.setVersion()
             self.navigate()
         }.disposed(by: disposeBag)
     }
@@ -157,7 +156,8 @@ extension ReleaseNoteViewController {
             }
         }
 
-        let textView = AttributedReadTextView()
+        let textView = ReadingTextView()
+        textView.apply(colorTheme: .black)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.releaseNoteContent(content, Constant.supportEmail),

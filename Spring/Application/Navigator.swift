@@ -41,6 +41,7 @@ class Navigator {
         case hometabs
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
+        case incomeQuestion
         case account(viewModel: AccountViewModel)
         case signOutWarning
         case signOut(viewModel: SignOutViewModel)
@@ -98,6 +99,7 @@ class Navigator {
             return HomeTabbarController.tabbarController()
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
+        case .incomeQuestion: return IncomeQuestionViewController()
         case .account(let viewModel):
             let accountViewController = AccountViewController(viewModel: viewModel)
             accountViewController.hidesBottomBarWhenPushed = true
