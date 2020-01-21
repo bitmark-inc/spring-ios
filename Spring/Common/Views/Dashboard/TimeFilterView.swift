@@ -38,12 +38,14 @@ class TimeFilterView: UIView {
             .padding(13, 18, 26, 18)
             .define { (flex) in
                 flex.addItem(filterSegment).height(40)
-                flex.addItem().marginTop(26).direction(.row).define { (flex) in
+                flex.addItem().marginTop(18).direction(.row).define { (flex) in
                     flex.addItem(previousPeriodButton)
-                    flex.addItem(periodNameLabel).grow(1)
+                    flex.addItem().grow(1).define { (flex) in
+                        flex.addItem(periodNameLabel)
+                        flex.addItem(periodDescriptionLabel).alignSelf(.stretch).marginTop(9)
+                    }
                     flex.addItem(nextPeriodButton)
                 }
-                flex.addItem(periodDescriptionLabel).alignSelf(.stretch).marginTop(9)
             }
 
         bindData()
@@ -97,6 +99,7 @@ extension TimeFilterView {
         let button = Button()
         button.setImage(R.image.previous_period(), for: .normal)
         button.setImage(R.image.disabled_previous_period(), for: .disabled)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 34)
         return button
     }
 
@@ -104,6 +107,7 @@ extension TimeFilterView {
         let button = Button()
         button.setImage(R.image.next_period()!, for: .normal)
         button.setImage(R.image.disabled_next_period(), for: .disabled)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 34, bottom: 10, right: 0)
         button.isEnabled = false
         return button
     }
