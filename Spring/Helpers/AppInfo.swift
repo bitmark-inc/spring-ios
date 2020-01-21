@@ -8,17 +8,19 @@
 
 import Foundation
 
-struct AppInfo: Codable {
+struct AppInfo: Decodable {
     let updateInfo: UpdateInfo
     let systemVersion: String
+    let docs: AppDocs
 
     enum CodingKeys: String, CodingKey {
         case updateInfo = "ios"
         case systemVersion = "system_version"
+        case docs
     }
 }
 
-struct UpdateInfo: Codable {
+struct UpdateInfo: Decodable {
     let appUpdateURL: String
     let minimumClientVersion: Int
 
@@ -26,4 +28,8 @@ struct UpdateInfo: Codable {
         case appUpdateURL = "app_update_url"
         case minimumClientVersion = "minimum_client_version"
     }
+}
+
+struct AppDocs: Decodable {
+    let eula: String
 }

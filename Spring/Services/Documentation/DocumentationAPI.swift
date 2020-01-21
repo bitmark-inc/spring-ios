@@ -10,16 +10,19 @@ import Foundation
 import Moya
 
 enum DocumentationAPI {
-    case eula
+    case link(linkPath: String)
 }
 
 extension DocumentationAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "https://raw.githubusercontent.com/bitmark-inc/spring/master")!
+        switch self {
+        case .link(let linkPath):
+            return URL(string: linkPath) ?? URL(string: "https://raw.githubusercontent.com/bitmark-inc/spring/master")!
+        }
     }
 
     var path: String {
-        return "eula.md"
+        return ""
     }
 
     var method: Moya.Method {

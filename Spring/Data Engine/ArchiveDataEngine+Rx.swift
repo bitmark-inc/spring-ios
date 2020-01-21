@@ -70,7 +70,10 @@ extension Reactive where Base: ArchiveDataEngine {
                                         .flatMapMaybe { $0 ? Maybe.empty() : Maybe.just(assetID) }
 
                                     } else {
-                                        return Single.zip(ServerAssetsService.getAppInformation(), DocumentationService.getEula())
+                                        let appInfoSingle = ServerAssetsService.getAppInformation().asObservable().share()
+                                        let eulaSingle = appInfoSingle.flatMap { DocumentationService.get(linkPath: $0.docs.eula) }
+
+                                        return Observable.zip(appInfoSingle, eulaSingle)
                                             .map { (appInfo, eula) -> AssetInfo in
                                                 return AssetInfo(
                                                     registrant: account,
@@ -81,6 +84,7 @@ extension Reactive where Base: ArchiveDataEngine {
                                                         "EULA": eula.sha3()
                                                 ])
                                             }
+                                            .asSingle()
                                             .flatMapMaybe { AssetService.rx.registerAsset(assetInfo: $0).asMaybe() }
                                     }
                                 }
@@ -98,6 +102,7 @@ extension Reactive where Base: ArchiveDataEngine {
                                             }
                                         }
                                     }, onError: { (error) in
+                                        guard !AppError.errorByNetworkConnection(error) else { return }
                                         Global.log.error(error)
                                     })
                             }

@@ -12,8 +12,8 @@ import Moya
 class DocumentationService {
     static var provider = MoyaProvider<DocumentationAPI>(plugins: Global.default.networkLoggerPlugin)
 
-    static func getEula() -> Single<String> {
-        return provider.rx.onlineRequest(.eula)
+    static func get(linkPath: String) -> Single<String> {
+        return provider.rx.onlineRequest(.link(linkPath: linkPath))
             .filterSuccess()
             .map({ (response) -> String in
                 return String(data: response.data, encoding: .utf8) ?? ""
