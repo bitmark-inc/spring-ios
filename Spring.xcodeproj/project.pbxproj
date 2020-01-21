@@ -254,6 +254,12 @@
 		5B590A7B23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7C23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
 		5B590A7D23B380A5006C194D /* BiometricAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */; };
+		5B5B948B23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948C23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948D23D071A200D1ED97 /* AssetService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */; };
+		5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
+		5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
+		5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */; };
 		5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC33237A863300FA3196 /* IconButtonView.swift */; };
 		5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222909123950B2500412CBC /* Post.swift */; };
 		5B5D000223A1F0F4003D1A1C /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB2237A9F6200FA3196 /* Application.swift */; };
@@ -446,6 +452,15 @@
 		5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
+		5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
+		5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
+		5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
+		5B93B2A923D567BC004CCD51 /* DocumentationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */; };
+		5B93B2AA23D567BC004CCD51 /* DocumentationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */; };
+		5B93B2AB23D567BC004CCD51 /* DocumentationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */; };
+		5B93B2AD23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
+		5B93B2AE23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
+		5B93B2AF23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
 		5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
@@ -881,6 +896,8 @@
 		5B590A7123B31D6D006C194D /* StackedBarValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarValueFormatter.swift; sourceTree = "<group>"; };
 		5B590A7523B37CD0006C194D /* BiometricAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuth.swift; sourceTree = "<group>"; };
 		5B590A7A23B380A5006C194D /* BiometricAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricAuthViewController.swift; sourceTree = "<group>"; };
+		5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AssetService+Rx.swift"; sourceTree = "<group>"; };
+		5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchiveDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		5B5D007423A1F0F4003D1A1C /* Spring.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spring.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5D007523A1F0F4003D1A1C /* Inhouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Inhouse-Info.plist"; sourceTree = "<group>"; };
 		5B67AA6323C829AC00136B68 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
@@ -916,6 +933,8 @@
 		5B93B2A323D5618E004CCD51 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		5B93B2B023D59D17004CCD51 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingDeeplinkViewController.swift; sourceTree = "<group>"; };
+		5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationAPI.swift; sourceTree = "<group>"; };
+		5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationService.swift; sourceTree = "<group>"; };
 		5B98950023AA0EC000B72700 /* FilterScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScope.swift; sourceTree = "<group>"; };
 		5B98950423AA338300B72700 /* GraphDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDataConverter.swift; sourceTree = "<group>"; };
 		5B997CF123D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceInhouseExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1291,6 +1310,7 @@
 				E22290972395107700412CBC /* Post */,
 				5B20979F23B4641C0079B421 /* Reaction */,
 				5B2097BE23B477ED0079B421 /* Media */,
+				5B93B2A723D567AE004CCD51 /* Documentation */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1640,6 +1660,15 @@
 			path = FAQ;
 			sourceTree = "<group>";
 		};
+		5B93B2A723D567AE004CCD51 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */,
+				5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 		5BA9FF6123B2292100E57A20 /* Insights */ = {
 			isa = PBXGroup;
 			children = (
@@ -1802,6 +1831,7 @@
 				E222909E2395116900412CBC /* PostDataEngine+Rx.swift */,
 				5B2097A823B464A40079B421 /* ReactionDataEngine+Rx.swift */,
 				5BA9FF6A23B22A9400E57A20 /* InsightDataEngine+Rx.swift */,
+				5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */,
 			);
 			path = "Data Engine";
 			sourceTree = "<group>";
@@ -1819,6 +1849,7 @@
 			isa = PBXGroup;
 			children = (
 				E27959D72386309C000E9CB9 /* AccountService+Rx.swift */,
+				5B5B948A23D071A200D1ED97 /* AssetService+Rx.swift */,
 			);
 			path = Bitmark;
 			sourceTree = "<group>";
@@ -2643,6 +2674,7 @@
 				E27959DC23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5BB319B123A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238323B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232423A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -2666,6 +2698,7 @@
 				5832FC93237A889A00FA3196 /* BitmarkSDKService.swift in Sources */,
 				5BB319B423A09882005F7C58 /* AskNotificationsViewController.swift in Sources */,
 				5B75A14823BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
+				5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5832FC12237A85B000FA3196 /* SceneDelegate.swift in Sources */,
 				58C009D82398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
 				58C009E62398C6CF00302F49 /* LensViewController.swift in Sources */,
@@ -2700,9 +2733,11 @@
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948B23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				5B9322F823A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5832FC50237A863300FA3196 /* MakeUnderline.swift in Sources */,
 				E236B676238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
+				5B93B2AD23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				5832FC94237A889A00FA3196 /* Storage.swift in Sources */,
 				E222909223950B2500412CBC /* Post.swift in Sources */,
 				5832FC59237A863300FA3196 /* IconButtonView.swift in Sources */,
@@ -2803,6 +2838,7 @@
 				5832FCAB237A8A9200FA3196 /* String+SupportBitmark.swift in Sources */,
 				5BA9FF6723B2294900E57A20 /* InsightService.swift in Sources */,
 				5B2097AD23B465070079B421 /* Reaction.swift in Sources */,
+				5B93B2A923D567BC004CCD51 /* DocumentationAPI.swift in Sources */,
 				5B32F5C023CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */,
 				E23807CC23962F380079A3C4 /* PostAPI.swift in Sources */,
 				5B4A238B23B1166300447366 /* FilterGeneralView.swift in Sources */,
@@ -2843,6 +2879,7 @@
 				5B5DFFCF23A1F0F4003D1A1C /* DataRequestedViewModel.swift in Sources */,
 				5B5DFFD023A1F0F4003D1A1C /* AskNotificationsViewModel.swift in Sources */,
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238523B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232623A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -2866,6 +2903,7 @@
 				5B5DFFDE23A1F0F4003D1A1C /* AskNotificationsViewController.swift in Sources */,
 				5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */,
 				5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
+				5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */,
 				5B5DFFE123A1F0F4003D1A1C /* LensViewController.swift in Sources */,
 				5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */,
@@ -2900,9 +2938,11 @@
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948D23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				5B5DFFFC23A1F0F4003D1A1C /* MakeUnderline.swift in Sources */,
 				5B9322FA23A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5B5DFFFE23A1F0F4003D1A1C /* Storage.swift in Sources */,
+				5B93B2AF23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				5B5DFFFF23A1F0F4003D1A1C /* FbmAccountDataEngine+Rx.swift in Sources */,
 				5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */,
 				5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */,
@@ -3003,6 +3043,7 @@
 				5B5D004523A1F0F4003D1A1C /* String+SupportBitmark.swift in Sources */,
 				5BA9FF6923B2294900E57A20 /* InsightService.swift in Sources */,
 				5B2097AF23B465070079B421 /* Reaction.swift in Sources */,
+				5B93B2AB23D567BC004CCD51 /* DocumentationAPI.swift in Sources */,
 				5B32F5C223CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */,
 				5B5D004623A1F0F4003D1A1C /* PostAPI.swift in Sources */,
 				5B4A238D23B1166300447366 /* FilterGeneralView.swift in Sources */,
@@ -3040,6 +3081,7 @@
 				E28B55EE238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */,
 				5BB319B223A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238423B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232523A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -3063,6 +3105,7 @@
 				5BB319B523A09882005F7C58 /* AskNotificationsViewController.swift in Sources */,
 				E2DB6689237D3B69005367C2 /* BitmarkSDKService.swift in Sources */,
 				5B75A14923BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
+				5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */,
 				58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
 				58C009E72398C6CF00302F49 /* LensViewController.swift in Sources */,
 				E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
@@ -3097,9 +3140,11 @@
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,
+				5B5B948C23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
 				E2DB6696237D3B69005367C2 /* MakeUnderline.swift in Sources */,
 				5B9322F923A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				E2DB6697237D3B69005367C2 /* Storage.swift in Sources */,
+				5B93B2AE23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				E236B677238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
 				E2DB6698237D3B69005367C2 /* IconButtonView.swift in Sources */,
 				E222909323950B2500412CBC /* Post.swift in Sources */,
@@ -3200,6 +3245,7 @@
 				E2DB66B4237D3B69005367C2 /* String+SupportBitmark.swift in Sources */,
 				5BA9FF6823B2294900E57A20 /* InsightService.swift in Sources */,
 				5B2097AE23B465070079B421 /* Reaction.swift in Sources */,
+				5B93B2AA23D567BC004CCD51 /* DocumentationAPI.swift in Sources */,
 				5B32F5C123CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */,
 				E23807CD23962F380079A3C4 /* PostAPI.swift in Sources */,
 				5B4A238C23B1166300447366 /* FilterGeneralView.swift in Sources */,

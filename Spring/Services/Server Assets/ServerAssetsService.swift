@@ -23,17 +23,12 @@ class ServerAssetsService {
             .map([FBScript].self, atKeyPath: "pages")
     }
 
-    static func getAppInformation() -> Single<(minimumClientVersion: Int?, appUpdateURL: String?)> {
+    static func getAppInformation() -> Single<AppInfo> {
         Global.log.info("[start] getAppInformation")
 
         return provider.rx
             .onlineRequest(.appInformation)
-            .mapJSON()
-            .map { ($0 as? [String: Any])?["information"] as? [String: Any] }.errorOnNil()
-            .map { $0["ios"] as? [String: Any] }.errorOnNil()
-            .map({ (iosInfo) in
-                return (minimumClientVersion: iosInfo["minimum_client_version"] as? Int,
-                        appUpdateURL: iosInfo["app_update_url"] as? String)
-            })
+            .filterSuccess()
+            .map(AppInfo.self, atKeyPath: "information")
     }
 }
