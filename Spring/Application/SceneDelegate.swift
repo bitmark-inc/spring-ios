@@ -23,7 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         SVProgressHUD.setContainerView(window)
 
         // Show initial screen
-        Application.shared.presentInitialScreen(in: window!)
+        if let url = connectionOptions.urlContexts.first?.url {
+            Application.shared.presentInitialScreen(in: window!, fromDeeplink: true)
+            Navigator.handleDeeplink(url: url)
+        } else {
+            Application.shared.presentInitialScreen(in: window!, fromDeeplink: false)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -48,5 +53,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         UserDefaults.standard.enteredBackgroundTime = Date()
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url
+            else {
+                return
+        }
+
+        Navigator.handleDeeplink(url: url)
     }
 }

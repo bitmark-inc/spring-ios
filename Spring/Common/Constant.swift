@@ -44,6 +44,17 @@ public struct Constant {
         public static let key = "account_id"
     }
 
+    static var appURLScheme: String {
+        if let bundleURLTypes = Bundle.main.infoDictionary?["CFBundleURLTypes"] as? [[String: Any]],
+            let urlSchemes = bundleURLTypes.first?["CFBundleURLSchemes"] as? [String] {
+            return urlSchemes.first ?? ""
+        }
+
+        return ""
+    }
+
+    static let appStoreURLScheme = "com.spring"
+
     static let separator = ","
     static let fbImageServerURL = Credential.valueForKey(keyName: "API_FBM_SERVER_URL") + "/api/media"
     static let surveyURL = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLScL41kNU6SBzo7ndcraUf7O-YJ_JrPqg_rlI588UjLK-_sGtQ/viewform?usp=sf_link")!

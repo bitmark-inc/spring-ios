@@ -34,3 +34,5 @@
 
 "biometricAuth.required" = "%@ Required";
 "biometricAuth.description" = "%@ has been enabled to secure this app.";
+
+"error.deeplink" = "The link is invalid. Please recheck";

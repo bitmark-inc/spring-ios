@@ -13,6 +13,7 @@ import RxCocoa
 import Hero
 import SafariServices
 import ESTabBarController_swift
+import BitmarkSDK
 
 protocol Navigatable {
     var navigator: Navigator! { get set }
@@ -23,8 +24,9 @@ class Navigator {
 
     // MARK: - segues list, all app scenes
     enum Scene {
-        case launchingNavigation(viewModel: LaunchingViewModel)
-        case launching(viewModel: LaunchingViewModel)
+        case launchingNavigation
+        case launching
+        case launchingDeeplinkNavigation
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case howItWorks
@@ -66,10 +68,15 @@ class Navigator {
     // MARK: - get a single VC
     func get(segue: Scene) -> UIViewController? {
         switch segue {
-        case .launchingNavigation(let viewModel):
-            guard let launchVC = get(segue: .launching(viewModel: viewModel)) else { return NavigationController() }
+        case .launchingNavigation:
+            let launchVC = LaunchingViewController()
             return NavigationController(rootViewController: launchVC)
-        case .launching(let viewModel): return LaunchingViewController(viewModel: viewModel)
+
+        case .launching: return LaunchingViewController()
+        case .launchingDeeplinkNavigation:
+            let launchVC = LaunchingDeeplinkViewController()
+            return NavigationController(rootViewController: launchVC)
+
         case .signInWall(let viewModel): return SignInWallViewController(viewModel: viewModel)
         case .signIn(let viewModel): return SignInViewController(viewModel: viewModel)
         case .howItWorks: return HowItWorksViewController()
@@ -136,6 +143,21 @@ class Navigator {
         case .root(in: let window):
             window.rootViewController = target
             return
+        case .replace(let type):
+            guard let rootViewController = Self.getRootViewController() else {
+                Global.log.error("rootViewController is empty")
+                return
+            }
+
+            // replace controllers in navigation stack
+            rootViewController.hero.navigationAnimationType = .autoReverse(presenting: type)
+            switch type {
+            case .none:
+                rootViewController.setViewControllers([target], animated: false)
+            default:
+                rootViewController.setViewControllers([target], animated: true)
+            }
+            return
         case .custom: return
         default: break
         }
@@ -164,21 +186,6 @@ class Navigator {
                 nav.hero.modalAnimationType = .autoReverse(presenting: type)
                 sender.present(nav, animated: true, completion: nil)
             }
-        case .replace(let type):
-            guard let rootViewController = Self.getRootViewController() else {
-                Global.log.error("rootViewController is empty")
-                return
-            }
-
-            // replace controllers in navigation stack
-            rootViewController.hero.navigationAnimationType = .autoReverse(presenting: type)
-            switch type {
-            case .none:
-                rootViewController.setViewControllers([target], animated: false)
-            default:
-                rootViewController.setViewControllers([target], animated: true)
-            }
-
         case .modal:
             // present modally
             DispatchQueue.main.async {
@@ -219,8 +226,7 @@ class Navigator {
                         return
                 }
 
-                let viewModel = LaunchingViewModel()
-                Navigator.default.show(segue: .launchingNavigation(viewModel: viewModel), sender: nil, transition: .root(in: window))
+                Navigator.default.show(segue: .launchingNavigation, sender: nil, transition: .root(in: window))
             }, onError: { (error) in
                 if let error = error as? AppError {
                     switch error {
@@ -270,6 +276,63 @@ class Navigator {
 
         window?.makeKeyAndVisible()
         return window
+    }
+}
+
+// MARK: - Handle Deeplink
+extension Navigator {
+    static func handleDeeplink(url: URL) {
+        guard let scheme = url.scheme, scheme == Constant.appURLScheme,
+            let host = url.host, let deeplinkHost = DeeplinkHost(rawValue: host)
+            else {
+                return
+        }
+
+        switch deeplinkHost {
+        case .login:
+            _ = AccountService.rx.existsCurrentAccount()
+                .observeOn(MainScheduler.instance)
+                .subscribe(onSuccess: { (account) in
+                    guard account == nil else {
+                        Navigator.default.show(segue: .launching, sender: nil, transition: .replace(type: .none))
+                        return
+                    }
+
+                    guard let phrases = url.queryValue(for: "phrases")?.split(separator: "-").map(String.init), phrases.count == 12
+                        else {
+                            ErrorAlert.showErrorAlert(message: R.string.error.errorDeeplink())
+                            return
+                    }
+
+                    _ = AccountService.rx.getAccount(phrases: phrases)
+                        .observeOn(MainScheduler.instance)
+                        .flatMapCompletable({ (account) -> Completable in
+                            Global.current.account = account
+                            return Global.current.setupCoreData()
+                        })
+                        .subscribe(onCompleted: {
+                            Global.log.info("[done] execute lauching from deeplink")
+                            Navigator.default.show(segue: .launching, sender: nil, transition: .replace(type: .none))
+                        }, onError: { (error) in
+                            errorWhenSignInAccount(error: error)
+                        })
+                }, onError: { (error) in
+                    Global.log.error(error)
+                    ErrorAlert.showErrorAlertWithSupport(message: R.string.error.system())
+                })
+        }
+    }
+
+    static func errorWhenSignInAccount(error: Error) {
+        guard !AppError.errorByNetworkConnection(error) else { return }
+
+        if type(of: error) == RecoverPhrase.RecoverPhraseError.self {
+            ErrorAlert.showErrorAlert(message: R.string.error.errorDeeplink())
+            return
+        }
+
+        Global.log.error(error)
+        ErrorAlert.showErrorAlertWithSupport(message: R.string.error.system())
     }
 }
 
