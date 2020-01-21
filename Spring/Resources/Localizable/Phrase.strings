@@ -65,6 +65,8 @@
 "reactions.empty" = "You have no reactions!";
 
 "lens.description" = "We are making a simple lens builder and store. Like cooking recipes, people will be able to experiment, share, and sell lenses to get more utility from your data.";
+"incomeQuestion.title" = "How much your worth to facebook";
+"incomeQuestion.description" = "Average revenue per user, or ARPU is how Facebook assesses its ability to monetize users. ARPU is calculated by computing revenue by user geography based on Facebook’s estimate of the geography in which ad impressions are delivered. These numbers are made public in <a href='https://investor.fb.com/financials/?section=quarterlyearnings'>their quarterly earning reports</a>.\n\nYet besides the dollar value, analyzing user value based only on ARPU underestimates the value to Facebook. Even though Facebook doesn’t make much money with their users outside US, Canada, and Western Europe, they still collect lots of data. That data creates the network effect that makes their platform become stronger and more valuable over time.\n";
 
 "account.settings.title" = "Settings";
 "account.settings.security" = "Security";

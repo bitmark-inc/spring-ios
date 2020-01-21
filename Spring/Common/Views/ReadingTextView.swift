@@ -35,6 +35,8 @@ class ReadingTextView: UITextView {
         font = Avenir.size(24)
         isUserInteractionEnabled = true
         isEditable = false
+        textContainerInset = .zero
+        textContainer.lineFragmentPadding = 0
 
         themeService.rx
             .bind({ $0.blackTextColor }, to: rx.textColor)

@@ -35,8 +35,8 @@ class IncomeView: UIView {
                         flex.addItem()
                             .alignItems(.start)
                             .direction(.row).define { (flex) in
-                                flex.addItem(amountLabel)
-                                flex.addItem(questionButton).marginTop(-10).marginLeft(3)
+                                flex.addItem(amountLabel).marginLeft(44)
+                                flex.addItem(questionButton).marginTop(-15).marginLeft(3)
                         }
                         flex.addItem(descriptionLabel).marginTop(18)
                     }
@@ -102,7 +102,8 @@ extension IncomeView {
 
     fileprivate func makeQuestionButton() -> Button {
         let button = Button()
-        button.setBackgroundImage(R.image.questionIcon(), for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 23, right: 28)
+        button.setImage(R.image.questionIcon(), for: .normal)
         return button
     }
 }

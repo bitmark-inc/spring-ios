@@ -142,9 +142,9 @@
 		5B32F5C023CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */; };
 		5B32F5C123CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */; };
 		5B32F5C223CDBCCA00959DFF /* IncreasePrivacyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */; };
-		5B32F5C423CDD38000959DFF /* AttributedReadTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5C323CDD38000959DFF /* AttributedReadTextView.swift */; };
-		5B32F5C523CDD38000959DFF /* AttributedReadTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5C323CDD38000959DFF /* AttributedReadTextView.swift */; };
-		5B32F5C623CDD38000959DFF /* AttributedReadTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5C323CDD38000959DFF /* AttributedReadTextView.swift */; };
+		5B3C54FC23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */; };
+		5B3C54FD23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */; };
+		5B3C54FE23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */; };
 		5B466DBC23C334EA0027D4CB /* ArrayStringSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B466DBB23C334EA0027D4CB /* ArrayStringSpec.swift */; };
 		5B4A237723B1132E00447366 /* UsageBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A237623B1132E00447366 /* UsageBadgeView.swift */; };
 		5B4A237823B1132E00447366 /* UsageBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4A237623B1132E00447366 /* UsageBadgeView.swift */; };
@@ -872,7 +872,7 @@
 		5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingNavigatorDelegate.swift; sourceTree = "<group>"; };
 		5B32F5BA23CD830100959DFF /* AppLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLink.swift; sourceTree = "<group>"; };
 		5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyListViewController.swift; sourceTree = "<group>"; };
-		5B32F5C323CDD38000959DFF /* AttributedReadTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedReadTextView.swift; sourceTree = "<group>"; };
+		5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeQuestionViewController.swift; sourceTree = "<group>"; };
 		5B466DBB23C334EA0027D4CB /* ArrayStringSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStringSpec.swift; sourceTree = "<group>"; };
 		5B4A237623B1132E00447366 /* UsageBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageBadgeView.swift; sourceTree = "<group>"; };
 		5B4A237A23B1136E00447366 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
@@ -1290,7 +1290,6 @@
 				58682EDA238F7079009BDDDF /* FilterSegment.swift */,
 				582CC4C82390DBC400E4530B /* CollectionView.swift */,
 				E23807C52396023F0079A3C4 /* LinkAttributedString.swift */,
-				5B32F5C323CDD38000959DFF /* AttributedReadTextView.swift */,
 				58097056239E28C30081715C /* HeadingTableViewCell.swift */,
 			);
 			path = Views;
@@ -1515,6 +1514,7 @@
 			children = (
 				5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */,
 				5B54FADA23C6DACA0029B5D5 /* AdsCategoryView.swift */,
+				5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -2673,6 +2673,7 @@
 				E23807D223963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
 				E27959DC23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5BB319B123A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
+				5B3C54FC23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
@@ -2804,7 +2805,6 @@
 				5BE86EA223C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				5832FC46237A863300FA3196 /* ViewController.swift in Sources */,
 				5B4A238F23B118E500447366 /* SectionHeadingView.swift in Sources */,
-				5B32F5C423CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5832FC96237A889A00FA3196 /* KeychainStore.swift in Sources */,
 				5832FC45237A863300FA3196 /* ConfirmRecoveryKeyViewController.swift in Sources */,
 				5B4A237723B1132E00447366 /* UsageBadgeView.swift in Sources */,
@@ -2878,6 +2878,7 @@
 				5B5DFFCE23A1F0F4003D1A1C /* Array+Sentence.swift in Sources */,
 				5B5DFFCF23A1F0F4003D1A1C /* DataRequestedViewModel.swift in Sources */,
 				5B5DFFD023A1F0F4003D1A1C /* AskNotificationsViewModel.swift in Sources */,
+				5B3C54FE23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */,
@@ -3009,7 +3010,6 @@
 				5BE86EA423C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				5B5D002A23A1F0F4003D1A1C /* ConfirmRecoveryKeyViewController.swift in Sources */,
 				5B5D002B23A1F0F4003D1A1C /* R.generated.swift in Sources */,
-				5B32F5C623CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5B4A239123B118E500447366 /* SectionHeadingView.swift in Sources */,
 				5B5D002D23A1F0F4003D1A1C /* ThemeManager.swift in Sources */,
 				5B4A237923B1132E00447366 /* UsageBadgeView.swift in Sources */,
@@ -3080,6 +3080,7 @@
 				E23807D323963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
 				E28B55EE238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */,
 				5BB319B223A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
+				5B3C54FD23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */,
@@ -3211,7 +3212,6 @@
 				5BE86EA323C45ADB00D3D9BB /* Int+Formatter.swift in Sources */,
 				E2DB66A9237D3B69005367C2 /* ConfirmRecoveryKeyViewController.swift in Sources */,
 				E2DB66AA237D3B69005367C2 /* R.generated.swift in Sources */,
-				5B32F5C523CDD38000959DFF /* AttributedReadTextView.swift in Sources */,
 				5B4A239023B118E500447366 /* SectionHeadingView.swift in Sources */,
 				E2DB66AB237D3B69005367C2 /* ThemeManager.swift in Sources */,
 				5B4A237823B1132E00447366 /* UsageBadgeView.swift in Sources */,

@@ -156,7 +156,7 @@ extension ReleaseNoteViewController {
             }
         }
 
-        let textView = AttributedReadTextView()
+        let textView = ReadingTextView()
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.releaseNoteContent(content, Constant.supportEmail),

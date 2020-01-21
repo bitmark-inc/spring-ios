@@ -19,7 +19,7 @@ class IncreasePrivacyListViewController: ViewController, BackNavigator {
     lazy var privacyListView = UIView()
     lazy var screenTitle = makeScreenTitle()
 
-    var privacyOptionTitleTextViews = [IncreasePrivacyOption: AttributedReadTextView]()
+    var privacyOptionTitleTextViews = [IncreasePrivacyOption: ReadingTextView]()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -121,7 +121,8 @@ extension IncreasePrivacyListViewController {
             font: R.font.atlasGroteskLight(size: Size.ds(14)),
             colorTheme: .black, lineHeight: 1.2)
 
-        let titleTextView = AttributedReadTextView()
+        let titleTextView = ReadingTextView()
+        titleTextView.isScrollEnabled = false
         titleTextView.delegate = self
         titleTextView.attributedText = increasePrivacyOption.title
         titleTextView.linkTextAttributes = [

@@ -149,7 +149,6 @@ extension InsightViewController {
     }
 
     func gotoIncomeQuestionURL() {
-        guard let websiteURL = AppLink.incomeQuestion.websiteURL else { return }
-        navigator.show(segue: .safariController(websiteURL), sender: self, transition: .alert)
+        navigator.show(segue: .incomeQuestion, sender: self)
     }
 }
