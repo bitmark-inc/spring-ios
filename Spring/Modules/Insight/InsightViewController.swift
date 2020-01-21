@@ -65,7 +65,7 @@ class InsightViewController: ViewController {
         guard !showIfRequireUpdateVersion(with: error) else { return }
 
         Global.log.error(error)
-        showErrorAlertWithSupport(message: R.string.error.signInError())
+        showErrorAlertWithSupport(message: R.string.error.system())
     }
 
     override func viewDidLayoutSubviews() {

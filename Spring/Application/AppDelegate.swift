@@ -56,7 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if #available(iOS 13, *) {
             // already execute app flow in SceneDelegate
         } else {
-            Application.shared.presentInitialScreen(in: window!)
+            Application.shared.presentInitialScreen(
+                in: window!,
+                fromDeeplink: (launchOptions ?? [:]).count > 0)
         }
 
         // Override point for customization after application launch.
@@ -88,6 +90,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         Navigator.evaluatePolicyWhenUserSetEnable()
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        guard let scheme = url.scheme, scheme == Constant.appURLScheme
+            else {
+                return false
+        }
+
+        Navigator.handleDeeplink(url: url)
+        return true
     }
 }
 

@@ -56,4 +56,30 @@ struct ErrorAlert {
         retryAuthenticationAlert.show()
         return retryAuthenticationAlert
     }
+
+    static func showErrorAlert(message: String) {
+        let alertController = UIAlertController(
+            title: R.string.error.generalTitle(),
+            message: message,
+            preferredStyle: .alert)
+        alertController.addAction(title: R.string.localizable.ok(), style: .default, handler: nil)
+        alertController.show()
+    }
+
+    static func showErrorAlertWithSupport(message: String) {
+        let supportMessage = R.string.localizable.supportMessage(message)
+        let alertController = UIAlertController(
+            title: R.string.error.generalTitle(),
+            message: supportMessage,
+            preferredStyle: .alert)
+
+        let supportButton = UIAlertAction(title: R.string.localizable.contact(), style: .default) { (_) in
+            Intercom.presentMessenger()
+        }
+
+        alertController.addAction(title: R.string.localizable.cancel(), style: .default, handler: nil)
+        alertController.addAction(supportButton)
+        alertController.preferredAction = supportButton
+        alertController.show()
+    }
 }

@@ -81,3 +81,9 @@ target 'OneSignalNotificationServiceExtension' do
 
   pod 'OneSignal'
 end
+
+target 'OneSignalNotificationServiceInhouseExtension' do
+  use_frameworks!
+
+  pod 'OneSignal'
+end

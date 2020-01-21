@@ -23,12 +23,13 @@ final class Application: NSObject {
     private func updateProvider() {
     }
 
-    func presentInitialScreen(in window: UIWindow?) {
+    func presentInitialScreen(in window: UIWindow?, fromDeeplink: Bool) {
         updateProvider()
         guard let window = window else { return }
         self.window = window
 
-        let viewModel = LaunchingViewModel()
-        self.navigator.show(segue: .launchingNavigation(viewModel: viewModel), sender: nil, transition: .root(in: window))
+        self.navigator.show(
+            segue: fromDeeplink ? .launchingDeeplinkNavigation : .launchingNavigation,
+            sender: nil, transition: .root(in: window))
     }
 }
