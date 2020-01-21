@@ -446,12 +446,6 @@
 		5B93232423A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232523A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232623A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
-		5B93B2B123D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
-		5B93B2B223D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
-		5B93B2B323D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
-		5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
-		5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
-		5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
 		5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
 		5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2A323D5618E004CCD51 /* AppInfo.swift */; };
@@ -461,6 +455,12 @@
 		5B93B2AD23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
 		5B93B2AE23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
 		5B93B2AF23D567CA004CCD51 /* DocumentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */; };
+		5B93B2B123D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
+		5B93B2B223D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
+		5B93B2B323D59D17004CCD51 /* Deeplink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B023D59D17004CCD51 /* Deeplink.swift */; };
+		5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
+		5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
+		5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
@@ -931,10 +931,10 @@
 		5B93231F23A363E200C3C408 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		5B93232323A39BFC00C3C408 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		5B93B2A323D5618E004CCD51 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
-		5B93B2B023D59D17004CCD51 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
-		5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingDeeplinkViewController.swift; sourceTree = "<group>"; };
 		5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationAPI.swift; sourceTree = "<group>"; };
 		5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationService.swift; sourceTree = "<group>"; };
+		5B93B2B023D59D17004CCD51 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
+		5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingDeeplinkViewController.swift; sourceTree = "<group>"; };
 		5B98950023AA0EC000B72700 /* FilterScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScope.swift; sourceTree = "<group>"; };
 		5B98950423AA338300B72700 /* GraphDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDataConverter.swift; sourceTree = "<group>"; };
 		5B997CF123D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceInhouseExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };

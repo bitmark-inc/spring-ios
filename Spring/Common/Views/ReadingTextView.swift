@@ -37,9 +37,24 @@ class ReadingTextView: UITextView {
         isEditable = false
         textContainerInset = .zero
         textContainer.lineFragmentPadding = 0
+    }
 
-        themeService.rx
-            .bind({ $0.blackTextColor }, to: rx.textColor)
-            .disposed(by: disposeBag)
+    func apply(colorTheme: ColorTheme) {
+        switch colorTheme {
+        case .black:
+            themeService.rx
+                .bind({ $0.blackTextColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+
+        case .tundora:
+            themeService.rx
+                .bind({ $0.tundoraTextColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+
+        default:
+            themeService.rx
+                .bind({ $0.blackTextColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+        }
     }
 }

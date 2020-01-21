@@ -262,6 +262,7 @@ extension AccountViewController {
 
     fileprivate func makeTermsAndPolicyTextView() -> UITextView {
         let textView = ReadingTextView()
+        textView.apply(colorTheme: .black)
         textView.isScrollEnabled = false
         textView.delegate = self
         textView.linkTextAttributes = [

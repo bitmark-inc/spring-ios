@@ -73,7 +73,6 @@ class HeadingView: UIView {
                 flex.addItem(subTitleLabel).marginTop(0)
 
                 flex.addItem(accountButton)
-                    .width(20).height(20)
                     .position(.absolute).top(21).right(18)
         }
 
@@ -92,8 +91,9 @@ class HeadingView: UIView {
 
 extension HeadingView {
     fileprivate func makeAccountButton() -> Button {
-        let button = SubmitButton()
+        let button = Button()
         button.setImage(R.image.account_icon(), for: .normal)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 24, right: 0)
         return button
     }
 }

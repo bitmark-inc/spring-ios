@@ -58,19 +58,22 @@ class IncomeQuestionViewController: ViewController, BackNavigator {
 extension IncomeQuestionViewController {
     fileprivate func makeScreenTitle() -> Label {
         let label = Label()
-        label.numberOfLines = 0
-        label.applyTitleTheme(
+        label.apply(
             text: R.string.phrase.incomeQuestionTitle().localizedUppercase,
-            colorTheme: OurTheme.accountColorTheme)
+            font: R.font.domaineSansTextLight(size: Size.ds(28)),
+            colorTheme: OurTheme.accountColorTheme, lineHeight: 1.056)
+        label.numberOfLines = 0
         return label
     }
 
     fileprivate func makeAttributedDescriptionTextView() -> UITextView {
         let normal = Style {
             $0.font = R.font.atlasGroteskLight(size: Size.ds(22))
+            $0.color = themeService.attrs.tundoraTextColor
         }
 
         let textView = ReadingTextView()
+        textView.apply(colorTheme: .tundora)
         textView.isScrollEnabled = false
         textView.attributedText = R.string.phrase.incomeQuestionDescription().set(style: StyleXML(base: normal))
         return textView

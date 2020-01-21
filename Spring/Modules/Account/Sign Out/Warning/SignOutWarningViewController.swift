@@ -128,6 +128,7 @@ extension SignOutWarningViewController {
             ])
 
         let textView = ReadingTextView()
+        textView.apply(colorTheme: .black)
         textView.delegate = self
         textView.linkTextAttributes = [
           .foregroundColor: themeService.attrs.tundoraTextColor
