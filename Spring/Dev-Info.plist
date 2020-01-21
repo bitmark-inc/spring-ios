@@ -40,7 +40,7 @@
 			<string>com.bitmark.spring.test</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.spring-dev</string>
+				<string>com.spring.dev</string>
 			</array>
 		</dict>
 	</array>

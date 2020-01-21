@@ -5,7 +5,7 @@
 	<key>AppCredentials</key>
 	<dict>
 		<key>API_FBM_SERVER_URL</key>
-		<string>https://fbm.test.bitmark.com</string>
+		<string>https://fbm.bitmark.com</string>
 		<key>ENVIRONMENT</key>
 		<string>production</string>
 		<key>INTERCOM_APP_ID</key>
@@ -45,7 +45,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSFaceIDUsageDescription</key>

@@ -40,7 +40,7 @@
 			<string>com.bitmark.synergy.inhouse</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.spring-inhouse</string>
+				<string>com.spring.inhouse</string>
 			</array>
 		</dict>
 	</array>
