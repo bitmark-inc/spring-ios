@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
 
         OneSignal.inFocusDisplayType = OSNotificationDisplayType.notification
+        OneSignal.setLocationShared(false)
 
         // IQKeyboardManager
         IQKeyboardManager.shared.enable = true
