@@ -27,7 +27,13 @@ class UsageViewModel: ViewModel {
     func fetchActivity() -> Completable {
         return FbmAccountDataEngine.rx.fetchLatestFbmAccount()
             .map { try Converter<Metadata>(from: $0.metadata).value }
-            .map { $0.lastActivityDate ?? Date() }
+            .map { $0.lastActivityDate }
+            .map { (lastActivityDate) -> Date in
+                guard let lastActivityDate = lastActivityDate, Int(lastActivityDate.timeIntervalSince1970) != 0 else {
+                    return Date()
+                }
+                return lastActivityDate
+            }
             .flatMapCompletable { [weak self] (lastActivityDate) -> Completable in
                 guard let self = self else { return Completable.never() }
 

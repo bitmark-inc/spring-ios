@@ -130,7 +130,7 @@ extension SignInWallViewController {
             lineHeight: 1.2)
 
         let textView = ReadingTextView()
-        textView.apply(colorTheme: .black)
+        textView.apply(colorTheme: .white)
         textView.isScrollEnabled = false
         textView.delegate = self
         textView.linkTextAttributes = [

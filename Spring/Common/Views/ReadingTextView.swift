@@ -46,6 +46,11 @@ class ReadingTextView: UITextView {
                 .bind({ $0.blackTextColor }, to: rx.textColor)
                 .disposed(by: disposeBag)
 
+        case .white:
+            themeService.rx
+                .bind({ $0.lightTextColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+
         case .tundora:
             themeService.rx
                 .bind({ $0.tundoraTextColor }, to: rx.textColor)

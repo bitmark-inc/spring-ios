@@ -47,7 +47,8 @@ class PostListViewModel: ViewModel {
         PostDataEngine.triggerSubject?
             .filter({ $0 == .remoteLoaded}).take(1)
             .asSingle()
-            .subscribe(onSuccess: { (_) in
+            .subscribe(onSuccess: { [weak self] (_) in
+                guard let self = self else { return }
                 let updatedNumberOfPosts = posts.count
 
                 if updatedNumberOfPosts <= currentNumberOfPosts {
