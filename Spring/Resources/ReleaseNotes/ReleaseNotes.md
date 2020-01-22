@@ -1,6 +1,5 @@
-Highlights of the new features
-—   
-
-Enhancements
-— 
-— 
+What’s New in This Update
+—   Options to increase Facebook privacy
+—   Categories used by Advertisers
+—   Spring FAQ
+—   Misc bug fixes and UX improvements.

@@ -53,7 +53,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
     override func setupViews() {
         super.setupViews()
 
-        var marginBottomForContent: CGFloat = 60
+        var marginBottomForContent: CGFloat = 0
 
         if buttonItemType == .continue {
             marginBottomForContent += 50.0
@@ -75,6 +75,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
                             }
 
                         flex.addItem(feedbackTextView).marginTop(10).height(0).grow(1)
+                            .marginRight(-OurTheme.paddingInset.right)
                     }
 
                 switch buttonItemType {
@@ -158,6 +159,7 @@ extension ReleaseNoteViewController {
 
         let textView = ReadingTextView()
         textView.apply(colorTheme: .black)
+        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: OurTheme.paddingInset.right)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.releaseNoteContent(content, Constant.supportEmail),

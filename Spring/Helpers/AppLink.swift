@@ -31,7 +31,7 @@ enum AppLink: String {
     }
 
     var websiteURL: URL? {
-        let serverURL = "https://github.com/bitmark-inc/spring/blob/master"
+        let serverURL = "https://raw.githubusercontent.com/bitmark-inc/spring/master"
 
         switch self {
         case .termsOfService:
