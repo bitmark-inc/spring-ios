@@ -588,15 +588,11 @@ extension RequestDataViewController {
     }
 
     fileprivate func navigateWithArchiveStatus(_ archiveStatus: ArchiveStatus?) {
-        if let archiveStatus = archiveStatus {
-            switch archiveStatus {
-            case .processed:
-                gotoMainScreen()
-            default:
-                gotoDataAnalyzingScreen()
-            }
-        } else {
-            gotoHowItWorksScreen()
+        switch archiveStatus {
+        case .processed:
+            gotoMainScreen()
+        default:
+            gotoDataAnalyzingScreen()
         }
     }
 
@@ -649,10 +645,6 @@ extension RequestDataViewController {
 
     func gotoMainScreen() {
         navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
-    }
-
-    func gotoHowItWorksScreen() {
-        navigator.show(segue: .howItWorks, sender: self, transition: .replace(type: .none))
     }
 }
 
