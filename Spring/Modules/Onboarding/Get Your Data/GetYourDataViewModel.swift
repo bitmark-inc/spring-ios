@@ -52,6 +52,13 @@ class GetYourDataViewModel: ViewModel {
                         return true
                     }
                 }
+                .catchError { (error) -> Single<Bool> in
+                    if let error = error as? ServerAPIError, error.code == .AccountNotFound {
+                        return Single.just(true)
+                    } else {
+                        return Single.error(error)
+                    }
+                }
         }
     }
 

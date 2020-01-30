@@ -58,6 +58,25 @@ extension Reactive where Base: FbmAccountDataEngine {
         }
     }
 
+    static func fetchLocalFbmAccount() -> Single<FbmAccount?> {
+        return Single<FbmAccount?>.create { (event) -> Disposable in
+            guard let number = Global.current.account?.getAccountNumber() else {
+                return Disposables.create()
+            }
+
+            autoreleasepool {
+                do {
+                    let realm = try RealmConfig.currentRealm()
+                    event(.success(realm.object(ofType: FbmAccount.self, forPrimaryKey: number)))
+                } catch {
+                    event(.error(error))
+                }
+            }
+
+            return Disposables.create()
+        }
+    }
+
     static func fetchLatestFbmAccount() -> Single<FbmAccount> {
         Global.log.info("[start] FbmAccountDataEngine.rx.fetchLatestFbmAccount")
 
@@ -85,18 +104,20 @@ extension Reactive where Base: FbmAccountDataEngine {
                        }, onError: { (error) in
                             if let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number) {
                                 event(.success(fbmAccount))
-                            }
 
-                            // sends error if error is not networkConnection or requireUpdateVersion
-                            guard !AppError.errorByNetworkConnection(error) else { return }
-                            if let error = error as? ServerAPIError {
-                                switch error.code {
-                                case .RequireUpdateVersion : return
-                                default: break
+                                // sends error if error is not networkConnection or requireUpdateVersion
+                                guard !AppError.errorByNetworkConnection(error) else { return }
+                                if let error = error as? ServerAPIError {
+                                    switch error.code {
+                                    case .RequireUpdateVersion : return
+                                    default: break
+                                    }
                                 }
-                            }
 
-                            Global.log.error(error)
+                                Global.log.error(error)
+                            } else {
+                                event(.error(error))
+                            }
                        })
                 } catch {
                     event(.error(error))
@@ -108,11 +129,18 @@ extension Reactive where Base: FbmAccountDataEngine {
     }
 
     static func create() -> Single<FbmAccount> {
-        return KeychainStore.getFBUsername()
-            .map { (username) in
-                return ["fb-identifier": username.sha3()]
+        fetchLocalFbmAccount()
+            .flatMap { (fbmAccount) in
+                guard let fbmAccount = fbmAccount else {
+                    return KeychainStore.getFBUsername()
+                        .map { (username) in
+                            return ["fb-identifier": username.sha3()]
+                        }
+                        .flatMap { FbmAccountService.create(metadata: $0) }
+                }
+
+                return Single.just(fbmAccount)
             }
-            .flatMap { FbmAccountService.create(metadata: $0) }
     }
 
     static func updateMetadata(for fbmAccount: FbmAccount) -> Completable {

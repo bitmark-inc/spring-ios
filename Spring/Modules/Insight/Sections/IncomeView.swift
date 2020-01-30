@@ -67,7 +67,7 @@ class IncomeView: UIView {
     }
 
     func fillData(amount: Double?, since: Date) {
-        if let amount = amount, amount >= 0 {
+        if let amount = amount, amount > 0 {
             amountLabel.text = String(format: "$%.02f", amount)
             descriptionLabel.setText(R.string.phrase.incomeDescription(
                 since.toFormat(Constant.TimeFormat.date)))
