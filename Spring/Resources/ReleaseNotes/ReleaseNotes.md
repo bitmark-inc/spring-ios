@@ -1,4 +1,3 @@
-What’s New in This Update
 —   Options to increase Facebook privacy
 —   Categories used by Advertisers
 —   Spring FAQ

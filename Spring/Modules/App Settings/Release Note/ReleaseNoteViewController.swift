@@ -17,7 +17,6 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
     // MARK: - Properties
     lazy var screenTitle = makeScreenTitle()
     lazy var versionLabel = makeVersionLabel()
-    lazy var versionDateLabel = makeVersionDateLabel()
     lazy var feedbackTextView = makeFeedbackTextView()
     lazy var continueButton = makeContinueButton()
 
@@ -36,12 +35,6 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
 
     override func bindViewModel() {
         super.bindViewModel()
-
-        if let pathToInfoPlist = Bundle.main.path(forResource: "Info", ofType: "plist"),
-           let updateDate = try? FileManager.default.attributesOfItem(atPath: pathToInfoPlist)[.modificationDate] as? Date {
-            let durationInDays = Calendar.current.dateComponents([.day], from: updateDate, to: Date())
-            versionDateLabel.setText(R.string.phrase.releaseNoteAppVersionDate(durationInDays.day ?? 0))
-        }
 
         continueButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
@@ -66,14 +59,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
                     .grow(1).marginBottom(marginBottomForContent)
                     .define { (flex) in
                         flex.addItem(screenTitle).margin(OurTheme.titlePaddingWithoutBack)
-
-                        flex.addItem()
-                            .direction(.row).justifyContent(.spaceBetween)
-                            .define { (flex) in
-                                flex.addItem(versionLabel)
-                                flex.addItem(versionDateLabel)
-                            }
-
+                        flex.addItem(versionLabel)
                         flex.addItem(feedbackTextView).marginTop(10).height(0).grow(1)
                             .marginRight(-OurTheme.paddingInset.right)
                     }
@@ -162,13 +148,13 @@ extension ReleaseNoteViewController {
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: OurTheme.paddingInset.right)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
-            string: R.string.phrase.releaseNoteContent(content, Constant.supportEmail),
+            string: R.string.phrase.releaseNoteContent(content, R.string.phrase.releaseNoteLetUsKnow()),
             lineHeight: 1.315,
             attributes: [.font: R.font.atlasGroteskLight(size: 22)!, .foregroundColor: ColorTheme.tundora.color],
-            links: [(text: Constant.supportEmail, url: AppLink.support.path)],
-            linkAttributes: [
-                .foregroundColor: ColorTheme.cornFlowerBlue.color
-            ])
+            links: [(text: R.string.phrase.releaseNoteLetUsKnow(), url: AppLink.support.path)])
+        textView.linkTextAttributes = [
+          .foregroundColor: ColorTheme.internationalKleinBlue.color
+        ]
         return textView
     }
 }
