@@ -53,6 +53,10 @@ target 'Spring' do
 
     pod 'Quick'
     pod 'Nimble'
+    pod 'RxTest'
+    pod 'RxBlocking'
+    pod 'Mockit'
+    pod 'Fakery'
   end
 
 end

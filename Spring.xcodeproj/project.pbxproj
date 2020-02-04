@@ -411,6 +411,8 @@
 		5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67AA6723C830D300136B68 /* String+Extension.swift */; };
 		5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67AA6723C830D300136B68 /* String+Extension.swift */; };
 		5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B67AA6723C830D300136B68 /* String+Extension.swift */; };
+		5B755DF623E981C6008DA3AE /* Mock+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B755DF523E981C6008DA3AE /* Mock+Extension.swift */; };
+		5B755DF823E9836F008DA3AE /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B755DF723E9836F008DA3AE /* TestData.swift */; };
 		5B75A14823BD95EE00FFF910 /* DataBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */; };
 		5B75A14923BD95EE00FFF910 /* DataBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */; };
 		5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */; };
@@ -419,6 +421,9 @@
 		5B80A69E23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A69F23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A6A023C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
+		5B8C414723E7C18600A00438 /* RequestDataViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8C414623E7C18600A00438 /* RequestDataViewModelSpec.swift */; };
+		5B8C414A23E7CA8200A00438 /* AccountServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8C414923E7CA8200A00438 /* AccountServiceMock.swift */; };
+		5B8C414C23E7D87E00A00438 /* FBArchiveServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B8C414B23E7D87E00A00438 /* FBArchiveServiceMock.swift */; };
 		5B9322F823A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
 		5B9322F923A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
 		5B9322FA23A362B800C3C408 /* SignOutWarningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */; };
@@ -461,6 +466,10 @@
 		5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
+		5B94F64623E2932300AD7578 /* FbmAccountServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B94F64523E2932300AD7578 /* FbmAccountServiceSpec.swift */; };
+		5B94F64923E2BB6500AD7578 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B94F64823E2BB6500AD7578 /* auth.json */; };
+		5B94F64C23E2E50900AD7578 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B94F64823E2BB6500AD7578 /* auth.json */; };
+		5B94F64D23E2E50900AD7578 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B94F64823E2BB6500AD7578 /* auth.json */; };
 		5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
 		5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B98950023AA0EC000B72700 /* FilterScope.swift */; };
@@ -505,6 +514,10 @@
 		5BC91CD323CC66E4000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
 		5BC91CD423CC66E5000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
 		5BC91CD523CC66E5000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
+		5BE39E7A23E3D85D0098811C /* XCGLoggerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE39E7923E3D85D0098811C /* XCGLoggerMock.swift */; };
+		5BE39E8523E425BE0098811C /* springAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BE39E8423E425BE0098811C /* springAccount.json */; };
+		5BE39E8623E425BE0098811C /* springAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BE39E8423E425BE0098811C /* springAccount.json */; };
+		5BE39E8723E425BE0098811C /* springAccount.json in Resources */ = {isa = PBXBuildFile; fileRef = 5BE39E8423E425BE0098811C /* springAccount.json */; };
 		5BE86EA223C45ADB00D3D9BB /* Int+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE86EA123C45ADB00D3D9BB /* Int+Formatter.swift */; };
 		5BE86EA323C45ADB00D3D9BB /* Int+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE86EA123C45ADB00D3D9BB /* Int+Formatter.swift */; };
 		5BE86EA423C45ADB00D3D9BB /* Int+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE86EA123C45ADB00D3D9BB /* Int+Formatter.swift */; };
@@ -902,6 +915,8 @@
 		5B5D007523A1F0F4003D1A1C /* Inhouse-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Inhouse-Info.plist"; sourceTree = "<group>"; };
 		5B67AA6323C829AC00136B68 /* Metadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
 		5B67AA6723C830D300136B68 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		5B755DF523E981C6008DA3AE /* Mock+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Mock+Extension.swift"; sourceTree = "<group>"; };
+		5B755DF723E9836F008DA3AE /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBadgeView.swift; sourceTree = "<group>"; };
 		5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePeriodSpec.swift; sourceTree = "<group>"; };
 		5B75A15123BDD66000FFF910 /* QueryTrackSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryTrackSpec.swift; sourceTree = "<group>"; };
@@ -921,6 +936,9 @@
 		5B80A69C23C5D00B002E591E /* IBMPlexMono-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		5B80A69D23C5D89E002E591E /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		5B8BEA2A23D19757007C0C7B /* Spring.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spring.entitlements; sourceTree = "<group>"; };
+		5B8C414623E7C18600A00438 /* RequestDataViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDataViewModelSpec.swift; sourceTree = "<group>"; };
+		5B8C414923E7CA8200A00438 /* AccountServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceMock.swift; sourceTree = "<group>"; };
+		5B8C414B23E7D87E00A00438 /* FBArchiveServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArchiveServiceMock.swift; sourceTree = "<group>"; };
 		5B9322F723A362B800C3C408 /* SignOutWarningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutWarningViewController.swift; sourceTree = "<group>"; };
 		5B9322FB23A3635200C3C408 /* SignOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewModel.swift; sourceTree = "<group>"; };
 		5B9322FF23A3635E00C3C408 /* SignOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignOutViewController.swift; sourceTree = "<group>"; };
@@ -935,6 +953,9 @@
 		5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationService.swift; sourceTree = "<group>"; };
 		5B93B2B023D59D17004CCD51 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingDeeplinkViewController.swift; sourceTree = "<group>"; };
+		5B94F64523E2932300AD7578 /* FbmAccountServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountServiceSpec.swift; sourceTree = "<group>"; };
+		5B94F64823E2BB6500AD7578 /* auth.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = auth.json; sourceTree = "<group>"; };
+		5B94F64A23E2C69E00AD7578 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B98950023AA0EC000B72700 /* FilterScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterScope.swift; sourceTree = "<group>"; };
 		5B98950423AA338300B72700 /* GraphDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDataConverter.swift; sourceTree = "<group>"; };
 		5B997CF123D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceInhouseExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -952,6 +973,8 @@
 		5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseNoteViewController.swift; sourceTree = "<group>"; };
 		5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReleaseNotes.md; sourceTree = "<group>"; };
 		5BE22E6A23A227C5007EBFC9 /* Spring Inhouse.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spring Inhouse.entitlements"; sourceTree = "<group>"; };
+		5BE39E7923E3D85D0098811C /* XCGLoggerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCGLoggerMock.swift; sourceTree = "<group>"; };
+		5BE39E8423E425BE0098811C /* springAccount.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = springAccount.json; sourceTree = "<group>"; };
 		5BE86EA123C45ADB00D3D9BB /* Int+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Formatter.swift"; sourceTree = "<group>"; };
 		5BEB478B23AC7EB100750AC6 /* UsageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAPI.swift; sourceTree = "<group>"; };
 		5BEF584323AB2EA500901D52 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
@@ -1203,6 +1226,9 @@
 		5832FC02237A6DB900FA3196 /* SpringTests */ = {
 			isa = PBXGroup;
 			children = (
+				5BE39E7823E3D84B0098811C /* Mocks */,
+				5B8C414523E7C16C00A00438 /* Modules */,
+				5B94F64323E2930F00AD7578 /* Services */,
 				5B75A15023BDD64100FFF910 /* Models */,
 				5B466DBA23C334CD0027D4CB /* Extensions */,
 				5B75A14B23BD9E7A00FFF910 /* Helpers */,
@@ -1310,6 +1336,7 @@
 				5B20979F23B4641C0079B421 /* Reaction */,
 				5B2097BE23B477ED0079B421 /* Media */,
 				5B93B2A723D567AE004CCD51 /* Documentation */,
+				5B94F64723E2BB3100AD7578 /* Stubbed Responses */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1582,6 +1609,23 @@
 			path = IBM_Plex_Mono;
 			sourceTree = "<group>";
 		};
+		5B8C414523E7C16C00A00438 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				5B8C414623E7C18600A00438 /* RequestDataViewModelSpec.swift */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		5B8C414823E7CA7500A00438 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5B8C414923E7CA8200A00438 /* AccountServiceMock.swift */,
+				5B8C414B23E7D87E00A00438 /* FBArchiveServiceMock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		5B9322E923A361E200C3C408 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -1669,6 +1713,31 @@
 			path = Documentation;
 			sourceTree = "<group>";
 		};
+		5B94F64323E2930F00AD7578 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				5B94F64423E2931500AD7578 /* FbmAccount */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		5B94F64423E2931500AD7578 /* FbmAccount */ = {
+			isa = PBXGroup;
+			children = (
+				5B94F64523E2932300AD7578 /* FbmAccountServiceSpec.swift */,
+			);
+			path = FbmAccount;
+			sourceTree = "<group>";
+		};
+		5B94F64723E2BB3100AD7578 /* Stubbed Responses */ = {
+			isa = PBXGroup;
+			children = (
+				5B94F64823E2BB6500AD7578 /* auth.json */,
+				5BE39E8423E425BE0098811C /* springAccount.json */,
+			);
+			path = "Stubbed Responses";
+			sourceTree = "<group>";
+		};
 		5BA9FF6123B2292100E57A20 /* Insights */ = {
 			isa = PBXGroup;
 			children = (
@@ -1712,9 +1781,21 @@
 			path = ReleaseNotes;
 			sourceTree = "<group>";
 		};
+		5BE39E7823E3D84B0098811C /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				5B755DF723E9836F008DA3AE /* TestData.swift */,
+				5B755DF523E981C6008DA3AE /* Mock+Extension.swift */,
+				5BE39E7923E3D85D0098811C /* XCGLoggerMock.swift */,
+				5B8C414823E7CA7500A00438 /* Services */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		86BC69C7FD35A72B7CC32EB1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B94F64A23E2C69E00AD7578 /* RxTest.framework */,
 				CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */,
 				92DFDE2269C4999B2EC0A546 /* Pods_Spring.framework */,
 				8898C24D1E8EC21CE74A1202 /* Pods_Spring_Dev.framework */,
@@ -2180,6 +2261,7 @@
 				E29F5A472383E59700C1D9D8 /* AtlasGrotesk-Light.otf in Resources */,
 				5B54FAB723C6D4470029B5D5 /* IBMPlexMono-Regular.ttf in Resources */,
 				5B54FAB223C6D4470029B5D5 /* IBMPlexMono-BoldItalic.ttf in Resources */,
+				5B94F64923E2BB6500AD7578 /* auth.json in Resources */,
 				E29F5A4B2383E59700C1D9D8 /* AtlasGrotesk-ThinItalic.otf in Resources */,
 				E29F5A6D2383E70000C1D9D8 /* DomaineSansText-LightItalic.otf in Resources */,
 				E29F5A3F2383E59700C1D9D8 /* AtlasGrotesk-BoldItalic.otf in Resources */,
@@ -2198,6 +2280,7 @@
 				E29F5A3D2383E59700C1D9D8 /* AtlasGrotesk-LightItalic.otf in Resources */,
 				E29F5A652383E70000C1D9D8 /* DomaineSansText-MediumItalic.otf in Resources */,
 				E29F5A5D2383E70000C1D9D8 /* DomaineSansText-BlackItalic.otf in Resources */,
+				5BE39E8523E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAB523C6D4470029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,
 				E29F5A392383E59700C1D9D8 /* AtlasGrotesk-Black.otf in Resources */,
 				5BB2852A23A33796000C04CA /* Settings.bundle in Resources */,
@@ -2246,6 +2329,7 @@
 				5B5D005B23A1F0F4003D1A1C /* AtlasGrotesk-Medium.otf in Resources */,
 				5B5D005C23A1F0F4003D1A1C /* DomaineSansText-RegularItalic.otf in Resources */,
 				5B54FAD523C6D4480029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
+				5B94F64D23E2E50900AD7578 /* auth.json in Resources */,
 				5B5D005D23A1F0F4003D1A1C /* Error.strings in Resources */,
 				5B5D005E23A1F0F4003D1A1C /* AtlasGrotesk-Thin.otf in Resources */,
 				5B5D005F23A1F0F4003D1A1C /* AtlasGrotesk-RegularItalic.otf in Resources */,
@@ -2258,6 +2342,7 @@
 				5B5D006323A1F0F4003D1A1C /* AtlasGrotesk-LightItalic.otf in Resources */,
 				5B5D006423A1F0F4003D1A1C /* DomaineSansText-MediumItalic.otf in Resources */,
 				5B5D006523A1F0F4003D1A1C /* DomaineSansText-BlackItalic.otf in Resources */,
+				5BE39E8723E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAD123C6D4480029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,
 				5B5D006723A1F0F4003D1A1C /* AtlasGrotesk-Black.otf in Resources */,
 				5BB2852C23A33796000C04CA /* Settings.bundle in Resources */,
@@ -2306,6 +2391,7 @@
 				E29F5A4E2383E59700C1D9D8 /* AtlasGrotesk-Medium.otf in Resources */,
 				E29F5A682383E70000C1D9D8 /* DomaineSansText-RegularItalic.otf in Resources */,
 				5B54FAC723C6D4470029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
+				5B94F64C23E2E50900AD7578 /* auth.json in Resources */,
 				E26268C223964638000D7F51 /* Error.strings in Resources */,
 				E29F5A462383E59700C1D9D8 /* AtlasGrotesk-Thin.otf in Resources */,
 				E29F5A4A2383E59700C1D9D8 /* AtlasGrotesk-RegularItalic.otf in Resources */,
@@ -2318,6 +2404,7 @@
 				E29F5A3E2383E59700C1D9D8 /* AtlasGrotesk-LightItalic.otf in Resources */,
 				E29F5A662383E70000C1D9D8 /* DomaineSansText-MediumItalic.otf in Resources */,
 				E29F5A5E2383E70000C1D9D8 /* DomaineSansText-BlackItalic.otf in Resources */,
+				5BE39E8623E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAC323C6D4470029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,
 				E29F5A3A2383E59700C1D9D8 /* AtlasGrotesk-Black.otf in Resources */,
 				5BB2852B23A33796000C04CA /* Settings.bundle in Resources */,
@@ -2854,10 +2941,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B8C414C23E7D87E00A00438 /* FBArchiveServiceMock.swift in Sources */,
+				5B755DF823E9836F008DA3AE /* TestData.swift in Sources */,
+				5BE39E7A23E3D85D0098811C /* XCGLoggerMock.swift in Sources */,
 				5832FC04237A6DB900FA3196 /* SpringTests.swift in Sources */,
 				5B466DBC23C334EA0027D4CB /* ArrayStringSpec.swift in Sources */,
+				5B8C414723E7C18600A00438 /* RequestDataViewModelSpec.swift in Sources */,
 				5B75A14D23BD9EA400FFF910 /* DatePeriodSpec.swift in Sources */,
 				5B75A15223BDD66000FFF910 /* QueryTrackSpec.swift in Sources */,
+				5B755DF623E981C6008DA3AE /* Mock+Extension.swift in Sources */,
+				5B8C414A23E7CA8200A00438 /* AccountServiceMock.swift in Sources */,
+				5B94F64623E2932300AD7578 /* FbmAccountServiceSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

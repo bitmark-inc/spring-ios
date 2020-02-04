@@ -40,6 +40,16 @@ extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
     }
 
     var sampleData: Data {
+        var dataURL: URL?
+        switch self {
+        case .create: dataURL = R.file.springAccountJson()
+        default:
+            break
+        }
+
+        if let dataURL = dataURL, let data = try? Data(contentsOf: dataURL) {
+            return data
+        }
         return Data()
     }
 

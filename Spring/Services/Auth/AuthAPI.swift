@@ -28,6 +28,10 @@ extension AuthAPI: VersionTargetType {
     }
 
     var sampleData: Data {
+        if let dataURL = R.file.authJson(), let data = try? Data(contentsOf: dataURL) {
+            return data
+        }
+
         return Data()
     }
 

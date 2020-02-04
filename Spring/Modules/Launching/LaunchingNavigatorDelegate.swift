@@ -18,7 +18,7 @@ protocol LaunchingNavigatorDelegate: ViewController {
 
 extension LaunchingNavigatorDelegate {
     func navigate() {
-        AccountService.rx.existsCurrentAccount()
+        AccountService.rxExistsCurrentAccount()
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (account) in
                 guard let self = self else { return }

@@ -10,7 +10,22 @@ import BitmarkSDK
 import RxSwift
 import Intercom
 
-class AccountService {
+protocol AccountServiceDelegate {
+    static func registerIntercom(for accountNumber: String?, metadata: [String: String])
+
+    // Reactive
+    static func rxCreateNewAccount() -> Single<Account>
+    static func rxExistsCurrentAccount() -> Single<Account?>
+    static func rxGetAccount(phrases: [String]) -> Single<Account>
+}
+
+extension AccountServiceDelegate {
+    static func registerIntercom(for accountNumber: String?, metadata: [String: String] = [:]) {
+        return registerIntercom(for: accountNumber, metadata: metadata)
+    }
+}
+
+class AccountService: AccountServiceDelegate {
     static func registerIntercom(for accountNumber: String?, metadata: [String: String] = [:]) {
         Global.log.info("[start] registerIntercom")
         
@@ -32,18 +47,15 @@ class AccountService {
         Intercom.updateUser(userAttributes)
         Global.log.info("[done] registerIntercom")
     }
-}
 
-extension AccountService: ReactiveCompatible {}
 
-extension Reactive where Base: AccountService {
-
-    static func createNewAccount() -> Single<Account> {
+    static func rxCreateNewAccount() -> Single<Account> {
         Global.log.info("[start] createNewAccount")
+
         return Single.just(()).map { try Account() }
     }
 
-    static func existsCurrentAccount() -> Single<Account?> {
+    static func rxExistsCurrentAccount() -> Single<Account?> {
         Global.log.info("[start] existsCurrentAccount")
 
         return KeychainStore.getSeedDataFromKeychain()
@@ -58,7 +70,7 @@ extension Reactive where Base: AccountService {
             })
     }
 
-    static func getAccount(phrases: [String]) -> Single<Account> {
+    static func rxGetAccount(phrases: [String]) -> Single<Account> {
         do {
             let account = try Account(recoverPhrase: phrases, language: .english)
             return Single.just(account)

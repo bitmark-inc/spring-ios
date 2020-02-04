@@ -10,8 +10,11 @@ import Foundation
 import RxSwift
 import Moya
 
-class FBArchiveService {
+protocol FBArchiveServiceDelegate {
+    static func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable
+}
 
+class FBArchiveService: FBArchiveServiceDelegate {
     static var provider = MoyaProvider<FBArchiveAPI>(plugins: Global.default.networkLoggerPlugin)
 
     static func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable {

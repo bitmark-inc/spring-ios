@@ -24,6 +24,8 @@ class RequestDataViewModel: ViewModel {
     var login: String?
     var password: String?
     var missions = [Mission]()
+    static var AccountServiceBase: AccountServiceDelegate.Type = AccountService.self
+    static var FBArchiveServiceBase: FBArchiveServiceDelegate.Type = FBArchiveService.self
 
     // MARK: - Output
     let fbScriptsRelay = BehaviorRelay<[FBScript]>(value: [])
@@ -87,10 +89,10 @@ class RequestDataViewModel: ViewModel {
             if Global.current.account != nil {
                 return Completable.empty()
             } else {
-                return AccountService.rx.createNewAccount()
+                return Self.AccountServiceBase.rxCreateNewAccount()
                     .flatMapCompletable({
                         Global.current.account = $0
-                        AccountService.registerIntercom(for: $0.getAccountNumber())
+                        Self.AccountServiceBase.registerIntercom(for: $0.getAccountNumber())
                         return Global.current.setupCoreData()
                     })
             }
@@ -131,7 +133,7 @@ class RequestDataViewModel: ViewModel {
             }
             .andThen(registerOneSignalNotificationCompletable)
             .andThen(
-                FBArchiveService.submit(
+                Self.FBArchiveServiceBase.submit(
                     headers: headers,
                     fileURL: archiveURL.absoluteString,
                     rawCookie: rawCookie,

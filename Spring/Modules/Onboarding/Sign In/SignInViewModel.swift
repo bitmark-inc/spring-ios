@@ -32,7 +32,7 @@ class SignInViewModel: ConfirmRecoveryKeyViewModel {
             return Global.current.setupCoreData()
         }
 
-        AccountService.rx.getAccount(phrases: recoveryKeyRelay.value)
+        AccountService.rxGetAccount(phrases: recoveryKeyRelay.value)
             .flatMap { (account) -> Single<FbmAccount> in
                 Global.current.account = account
                 return setupAccountCompletable

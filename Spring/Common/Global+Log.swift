@@ -13,7 +13,7 @@ import Sentry
 extension Global {
 
     // Global logger
-    static let log: XCGLogger = {
+    static var log: XCGLogger = {
         // Create a logger object with no destinations
         let log = XCGLogger(identifier: "synergy.logger", includeDefaultDestinations: false)
 

@@ -258,7 +258,7 @@ class Navigator {
 
         retryAuthenticationAlert?.dismiss(animated: false, completion: nil)
 
-        _ = AccountService.rx.existsCurrentAccount()
+        _ = AccountService.rxExistsCurrentAccount()
             .observeOn(MainScheduler.instance)
             .subscribe(onError: { (_) in
                 Navigator.retryAuthenticationAlert = ErrorAlert.showAuthenticationRequiredAlert {
@@ -292,7 +292,7 @@ extension Navigator {
 
         switch deeplinkHost {
         case .login:
-            _ = AccountService.rx.existsCurrentAccount()
+            _ = AccountService.rxExistsCurrentAccount()
                 .observeOn(MainScheduler.instance)
                 .subscribe(onSuccess: { (account) in
                     guard account == nil else {
@@ -306,7 +306,7 @@ extension Navigator {
                             return
                     }
 
-                    _ = AccountService.rx.getAccount(phrases: phrases)
+                    _ = AccountService.rxGetAccount(phrases: phrases)
                         .observeOn(MainScheduler.instance)
                         .flatMapCompletable({ (account) -> Completable in
                             Global.current.account = account
