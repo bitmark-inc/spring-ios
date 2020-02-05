@@ -103,19 +103,33 @@ class Navigator {
             accountViewController.hidesBottomBarWhenPushed = true
             return accountViewController
 
-        case .signOutWarning: return SignOutWarningViewController()
-        case .signOut(let viewModel): return SignOutViewController(viewModel: viewModel)
-        case .biometricAuth: return BiometricAuthViewController()
-        case .viewRecoveryKeyWarning: return ViewRecoveryKeyWarningViewController()
-        case .viewRecoverykey(let viewModel): return ViewRecoveryKeyViewController(viewModel: viewModel)
-        case .increasePrivacyList: return IncreasePrivacyListViewController()
-        case .increasePrivacy(let viewModel): return IncreasePrivacyViewController(viewModel: viewModel)
-        case .about: return AboutViewController()
-        case .faq: return FAQViewController()
-        case .releaseNote(let buttonItemType):
-            let releaseNoteViewController = ReleaseNoteViewController()
-            releaseNoteViewController.buttonItemType = buttonItemType
-            return releaseNoteViewController
+        case .signOutWarning, .signOut,
+             .biometricAuth,
+             .viewRecoveryKeyWarning, .viewRecoverykey,
+             .increasePrivacyList, .increasePrivacy,
+             .about, .faq, .releaseNote:
+
+            let viewController: UIViewController!
+            switch segue {
+            case .signOutWarning:                   viewController = SignOutWarningViewController()
+            case .signOut(let viewModel):           viewController = SignOutViewController(viewModel: viewModel)
+            case .biometricAuth:                    viewController = BiometricAuthViewController()
+            case .viewRecoveryKeyWarning:           viewController = ViewRecoveryKeyWarningViewController()
+            case .viewRecoverykey(let viewModel):   viewController = ViewRecoveryKeyViewController(viewModel: viewModel)
+            case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
+            case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
+            case .about:                            viewController = AboutViewController()
+            case .faq:                              viewController = FAQViewController()
+            case .releaseNote(let buttonItemType):
+                let releaseNoteViewController = ReleaseNoteViewController()
+                releaseNoteViewController.buttonItemType = buttonItemType
+                viewController = releaseNoteViewController
+            default:
+                viewController = UIViewController()
+            }
+
+            viewController.hidesBottomBarWhenPushed = true
+            return viewController
         }
     }
 
