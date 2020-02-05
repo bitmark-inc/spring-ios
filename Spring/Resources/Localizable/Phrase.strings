@@ -128,7 +128,7 @@
 "releaseNote.title" = "What's New";
 "releaseNote.appVersion" = "Version %@";
 "releaseNote.letUsKnow" = "let us know";
-"releaseNote.content" = "%@\nWe value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.";
+"releaseNote.content" = "%@\nWe value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";
 
 "termsOfService" = "Terms of Service";
 "privacyPolicy" = "Privacy Policy";

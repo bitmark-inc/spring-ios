@@ -119,6 +119,11 @@ extension Label {
                 .bind({ $0.themeColor }, to: rx.textColor)
                 .disposed(by: disposeBag)
 
+        case .yukonGold:
+            themeService.rx
+                .bind({ $0.themeGreenColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+
         default:
             themeService.rx
                 .bind({ $0.blackTextColor }, to: rx.textColor)

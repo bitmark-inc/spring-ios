@@ -192,9 +192,6 @@ extension UsageViewController {
         let headingView = HeadingView()
         headingView.setHeading(title: R.string.localizable.usage().localizedUppercase, color:  UIColor(hexString: "#932C19"))
         headingView.subTitle = R.string.localizable.howyouusefacebooK()
-        headingView.accountButton.rx.tap.bind { [weak self] in
-            self?.gotoAccountScreen()
-        }.disposed(by: disposeBag)
         return headingView
     }
 
@@ -317,12 +314,3 @@ extension UsageViewController: NavigatorDelegate {
         navigator.show(segue: .reactionList(viewModel: viewModel), sender: self)
     }
 }
-
-// MARK: - Navigator
-extension UsageViewController {
-    fileprivate func gotoAccountScreen() {
-        let viewModel = AccountViewModel()
-        navigator.show(segue: .account(viewModel: viewModel), sender: self)
-    }
-}
-
