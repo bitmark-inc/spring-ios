@@ -2254,8 +2254,8 @@
 				5B5DFFC423A1F0F4003D1A1C /* Spring Inhouse */,
 				5832FBFE237A6DB900FA3196 /* SpringTests */,
 				E2DB66CA237D40A8005367C2 /* OneSignalNotificationServiceExtension */,
-				5B997CE723D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension */,
 				5B75C8BD23EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension */,
+				5B997CE723D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -3737,7 +3737,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
@@ -3750,7 +3750,7 @@
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.test.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal Adhoc";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3761,7 +3761,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16448561B63E83FDDA2B1A1A /* Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = A52M7AQ8B2;
@@ -3773,7 +3773,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.synergy.inhouse.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Inhouse OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Inhouse OneSignal";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3796,7 +3796,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.synergy.inhouse.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Inhouse OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Inhouse OneSignal Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3811,7 +3811,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3836,7 +3836,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3870,7 +3870,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring OneSignal";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3881,7 +3881,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
@@ -3894,7 +3894,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring OneSignal AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

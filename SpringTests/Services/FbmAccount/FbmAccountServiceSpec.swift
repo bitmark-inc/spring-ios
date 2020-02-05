@@ -41,7 +41,8 @@ class FbmAccountServiceSpec: QuickSpec {
             }
 
             afterEach {
-                Global.current =  Global()
+                Global.current = Global()
+                try? KeychainStore.removeSeedCoreFromKeychain()
             }
 
             context("currentAccount is nil") {
