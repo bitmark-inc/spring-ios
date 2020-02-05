@@ -367,7 +367,6 @@
 		5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1C237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift */; };
 		5B5DFFD223A1F0F4003D1A1C /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222907B2394F19D00412CBC /* Groups.swift */; };
 		5B5DFFD323A1F0F4003D1A1C /* FbmAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B560A238D162400F1BCF2 /* FbmAccountService.swift */; };
-		5B5DFFD423A1F0F4003D1A1C /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
 		5B5DFFD523A1F0F4003D1A1C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2C237A863300FA3196 /* ActivityIndicator.swift */; };
 		5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC99237A8A9200FA3196 /* UITableView+ApplyChanges.swift */; };
 		5B5DFFD723A1F0F4003D1A1C /* PostDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23807C8239618000079A3C4 /* PostDataTableViewCell.swift */; };
@@ -400,7 +399,6 @@
 		5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
 		5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24420392399067600520FE9 /* MediaPostTableViewCell.swift */; };
 		5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB4237A9FD700FA3196 /* Navigator.swift */; };
-		5B5DFFF823A1F0F4003D1A1C /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
 		5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2D237A863300FA3196 /* EditingTextView.swift */; };
 		5B5DFFFC23A1F0F4003D1A1C /* MakeUnderline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2A237A863300FA3196 /* MakeUnderline.swift */; };
 		5B5DFFFE23A1F0F4003D1A1C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC8E237A889A00FA3196 /* Storage.swift */; };
@@ -564,10 +562,6 @@
 		E2259CD82387E36600746280 /* ServerAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CD62387E36600746280 /* ServerAssetsService.swift */; };
 		E2259CDB2387E56F00746280 /* ServerAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CDA2387E56F00746280 /* ServerAPIError.swift */; };
 		E2259CDC2387E56F00746280 /* ServerAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CDA2387E56F00746280 /* ServerAPIError.swift */; };
-		E22BB3342384E7320044BC95 /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
-		E22BB3352384E7320044BC95 /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
-		E22BB3372384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
-		E22BB3382384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
 		E22BC2EB239E3FF000018BC4 /* ListHeadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */; };
 		E22BC2EC239E3FF000018BC4 /* ListHeadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */; };
 		E236B676238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236B675238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift */; };
@@ -1002,8 +996,6 @@
 		E2259CD32387E35300746280 /* ServerAssetsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAssetsAPI.swift; sourceTree = "<group>"; };
 		E2259CD62387E36600746280 /* ServerAssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAssetsService.swift; sourceTree = "<group>"; };
 		E2259CDA2387E56F00746280 /* ServerAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPIError.swift; sourceTree = "<group>"; };
-		E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYourDataViewController.swift; sourceTree = "<group>"; };
-		E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYourDataViewModel.swift; sourceTree = "<group>"; };
 		E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeadingViewCell.swift; sourceTree = "<group>"; };
 		E236B675238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FbmAccountDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		E236B678238EAAF200C1A280 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
@@ -1873,15 +1865,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E22BB3322384E7030044BC95 /* Get Your Data */ = {
-			isa = PBXGroup;
-			children = (
-				E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */,
-				E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */,
-			);
-			path = "Get Your Data";
-			sourceTree = "<group>";
-		};
 		E22BB3392385170C0044BC95 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1979,7 +1962,6 @@
 				E29F5A782383F8C900C1D9D8 /* How It Works */,
 				5B289DFC23A0D9BB00283C84 /* Trust Critical */,
 				5BB319AF23A0982E005F7C58 /* Notifications */,
-				E22BB3322384E7030044BC95 /* Get Your Data */,
 				E27959DA23868763000E9CB9 /* Request Data */,
 				E28B55EB238CE63200F1BCF2 /* Data Requested */,
 				58C009DC2398C69400302F49 /* Data Analyzing */,
@@ -2766,7 +2748,6 @@
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238323B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232423A39BFC00C3C408 /* Archive.swift in Sources */,
-				E22BB3372384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */,
 				5B4A23A123B212E800447366 /* TimeUnit.swift in Sources */,
 				E222907C2394F19D00412CBC /* Groups.swift in Sources */,
 				5B58AC4823BB47620041F216 /* SignInViewController.swift in Sources */,
@@ -2817,7 +2798,6 @@
 				E27959E22386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203A2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				5832FCB5237A9FD700FA3196 /* Navigator.swift in Sources */,
-				E22BB3342384E7320044BC95 /* GetYourDataViewController.swift in Sources */,
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -2982,7 +2962,6 @@
 				5B4A23A323B212E800447366 /* TimeUnit.swift in Sources */,
 				5B5DFFD323A1F0F4003D1A1C /* FbmAccountService.swift in Sources */,
 				5B58AC4A23BB47620041F216 /* SignInViewController.swift in Sources */,
-				5B5DFFD423A1F0F4003D1A1C /* GetYourDataViewModel.swift in Sources */,
 				5B590A7023B302D6006C194D /* MoodView.swift in Sources */,
 				5B5DFFD523A1F0F4003D1A1C /* ActivityIndicator.swift in Sources */,
 				5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */,
@@ -3029,7 +3008,6 @@
 				5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */,
 				5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */,
 				5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */,
-				5B5DFFF823A1F0F4003D1A1C /* GetYourDataViewController.swift in Sources */,
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -3184,7 +3162,6 @@
 				5B4A23A223B212E800447366 /* TimeUnit.swift in Sources */,
 				E28B560C238D162400F1BCF2 /* FbmAccountService.swift in Sources */,
 				5B58AC4923BB47620041F216 /* SignInViewController.swift in Sources */,
-				E22BB3382384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */,
 				5B590A6F23B302D6006C194D /* MoodView.swift in Sources */,
 				E2DB6685237D3B69005367C2 /* ActivityIndicator.swift in Sources */,
 				E2DB6686237D3B69005367C2 /* UITableView+ApplyChanges.swift in Sources */,
@@ -3231,7 +3208,6 @@
 				E27959E32386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203B2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				E2DB6693237D3B69005367C2 /* Navigator.swift in Sources */,
-				E22BB3352384E7320044BC95 /* GetYourDataViewController.swift in Sources */,
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,

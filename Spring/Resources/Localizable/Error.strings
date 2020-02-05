@@ -10,8 +10,6 @@
 "fb.requestData" = "There was an error while creating your Facebook data archive.";
 "fb.downloadData" = "There was an error while downloading your Facebook data archive.";
 
-"fb.credential.title" = "Error";
-"fb.credential.message" = "Incorrect authentication credentials.";
 "fb.credential.incorrect.title" = "Accounts don't match";
 "fb.credential.incorrect.description" = "You must use the Facebook account you originally linked to Spring.";
 

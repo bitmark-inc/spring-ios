@@ -32,7 +32,6 @@ class SignOutViewModel: ConfirmRecoveryKeyViewModel {
             }
 
             try KeychainStore.removeSeedCoreFromKeychain()
-            try KeychainStore.removeFBCredential()
 
             // clear user data
             try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)

@@ -53,8 +53,8 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
                     gotoDataAnalyzingScreen()
                 }
             } else {
-                let viewModel = GetYourDataViewModel(missions: [.getCategories])
-                navigator.show(segue: .getYourData(viewModel: viewModel), sender: self)
+                let viewModel = RequestDataViewModel(missions: [.getCategories])
+                navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
             }
         } else {
             gotoHowItWorksScreen()

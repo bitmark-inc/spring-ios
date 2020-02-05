@@ -39,7 +39,7 @@ class AskNotificationsViewController: ViewController {
                     switch notificationStatus {
                     case .authorized, .provisional:
                         UserDefaults.standard.enablePushNotification = true
-                        self.gotoGetYourDataScreen()
+                        self.gotoRequestDataScreen()
                     default:
                         break
                     }
@@ -52,7 +52,7 @@ class AskNotificationsViewController: ViewController {
         notNotifyMeButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             UserDefaults.standard.enablePushNotification = false
-            self.gotoGetYourDataScreen()
+            self.gotoRequestDataScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -105,9 +105,9 @@ class AskNotificationsViewController: ViewController {
 
 // MARK: - Navigator
 extension AskNotificationsViewController {
-    func gotoGetYourDataScreen() {
-        let viewModel = GetYourDataViewModel(missions: [.requestData, .getCategories])
-        navigator.show(segue: .getYourData(viewModel: viewModel), sender: self)
+    func gotoRequestDataScreen() {
+        let viewModel = RequestDataViewModel(missions: [.requestData, .getCategories])
+        navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
     }
 }
 

@@ -32,7 +32,6 @@ class Navigator {
         case howItWorks
         case trustIsCritical
         case askNotifications(viewModel: AskNotificationsViewModel)
-        case getYourData(viewModel: GetYourDataViewModel)
         case requestData(viewModel: RequestDataViewModel)
         case dataRequested(viewModel: DataRequestedViewModel)
         case dataAnalyzing(viewModel: DataAnalyzingViewModel)
@@ -83,7 +82,6 @@ class Navigator {
         case .howItWorks: return HowItWorksViewController()
         case .trustIsCritical: return TrustIsCriticalViewController()
         case .askNotifications(let viewModel): return AskNotificationsViewController(viewModel: viewModel)
-        case .getYourData(let viewModel): return GetYourDataViewController(viewModel: viewModel)
         case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
         case .dataRequested(let viewModel): return DataRequestedViewController(viewModel: viewModel)
         case .dataAnalyzing(let viewModel): return DataAnalyzingViewController(viewModel: viewModel)

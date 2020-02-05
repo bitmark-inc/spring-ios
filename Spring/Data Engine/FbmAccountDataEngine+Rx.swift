@@ -132,48 +132,10 @@ extension Reactive where Base: FbmAccountDataEngine {
         fetchLocalFbmAccount()
             .flatMap { (fbmAccount) in
                 guard let fbmAccount = fbmAccount else {
-                    return KeychainStore.getFBUsername()
-                        .map { (username) in
-                            return ["fb-identifier": username.sha3()]
-                        }
-                        .flatMap { FbmAccountService.create(metadata: $0) }
+                    return FbmAccountService.create(metadata: [:])
                 }
 
                 return Single.just(fbmAccount)
             }
-    }
-
-    static func updateMetadata(for fbmAccount: FbmAccount) -> Completable {
-        Completable.deferred {
-            var metadataValue: Metadata!
-            do {
-                metadataValue = try Converter<Metadata>(from: fbmAccount.metadata).value
-            } catch {
-                return Completable.error(error)
-            }
-
-            // skip when already set metadata for FB Identifier
-            guard metadataValue.fbIdentifier == nil
-                else {
-                    return Completable.empty()
-            }
-
-            return Completable.create { (event) -> Disposable in
-                _ = KeychainStore.getFBUsername()
-                    .map { (username) in
-                        return ["fb-identifier": username.sha3()]
-                    }
-                    .flatMap { FbmAccountService.updateMe(metadata: $0) }
-                    .flatMapCompletable { Storage.store($0) }
-                    .subscribe(onCompleted: {
-                        event(.completed)
-                    }, onError: { (error) in
-                        event(.error(error))
-                    })
-
-                return Disposables.create()
-            }
-
-        }
     }
 }
