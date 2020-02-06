@@ -14,6 +14,7 @@ import RxCocoa
 import RxSwiftExt
 
 enum GuideState {
+    case start
     case automate
     case loginRequired
     case helpRequired
@@ -33,9 +34,7 @@ class RequestDataViewController: ViewController {
     var fbScripts = [FBScript]()
     lazy var archivePageScript = fbScripts.find(.archive)
 
-    let guideStateRelay = BehaviorRelay<GuideState>(value: .automate)
-
-    var checkLoginFailedDisposable: Disposable?
+    let guideStateRelay = BehaviorRelay<GuideState>(value: .start)
 
     lazy var thisViewModel = {
         return self.viewModel as! RequestDataViewModel
@@ -143,6 +142,12 @@ class RequestDataViewController: ViewController {
             .subscribe(onNext: { [weak self] (guideState) in
                 guard let self = self else { return }
                 switch guideState {
+                case .start:
+                    self.guideView.backgroundColor = ColorTheme.cognac.color
+                    self.guideTextLabel.setText(nil)
+                    self.automatingCoverView.isHidden = true
+                    self.backgroundView.backgroundColor = ColorTheme.cognac.color
+
                 case .automate:
                     self.guideView.backgroundColor = ColorTheme.cognac.color
                     self.guideTextLabel.setText(nil)
@@ -230,30 +235,24 @@ extension RequestDataViewController: WKNavigationDelegate {
             }
 
             guard let facePage = FBPage(rawValue: pageScript.name) else { return }
-            self.guideStateRelay.accept(.automate)
 
             switch facePage {
-            case .login:
-                self.guideStateRelay.accept(.loginRequired)
-            case .saveDevice:
-                self.runJS(saveDeviceScript: pageScript)
-            case .newFeed:
-                self.checkLoginFailedDisposable?.dispose()
-                self.runJS(newFeedScript: pageScript)
-            case .settings:
-                self.runJS(settingsScript: pageScript)
-            case .reauth:
-                self.guideStateRelay.accept(.helpRequired)
-            case .archive:
+            case .login: self.guideStateRelay.accept(.loginRequired)
+            case .reauth: self.guideStateRelay.accept(.helpRequired)
+            case .archive: break
+            case .demographics, .behaviors: break
+            default:
+                self.guideStateRelay.accept(.automate)
+            }
+
+            switch facePage {
+            case .saveDevice:       self.runJS(saveDeviceScript: pageScript)
+            case .newFeed:          self.runJS(newFeedScript: pageScript)
+            case .settings:         self.runJS(settingsScript: pageScript)
+            case .adsPreferences:   self.runJS(adsPreferencesScript: pageScript)
+            case .accountPicking:   self.runJS(accountPickingScript: pageScript)
+            default:
                 break
-            case .adsPreferences:
-                self.runJS(adsPreferencesScript: pageScript)
-            case .demographics:
-                self.runJS(demographicsScript: pageScript)
-            case .behaviors:
-                self.runJS(behaviorsScript: pageScript)
-            case .accountPicking:
-                self.runJS(accountPickingScript: pageScript)
             }
         }
     }

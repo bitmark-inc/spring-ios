@@ -235,7 +235,7 @@ class Navigator {
 
                 // check if scene is on onboarding flow's refresh state
                 guard let currentVC = rootViewController.viewControllers.last,
-                    [DataRequestedViewController.self, DataAnalyzingViewController.self].contains(where: { $0 == type(of: currentVC) })
+                    [DataRequestedViewController.self, DataAnalyzingViewController.self, LaunchingViewController.self].contains(where: { $0 == type(of: currentVC) })
                     else {
                         return
                 }

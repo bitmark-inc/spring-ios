@@ -123,7 +123,7 @@ extension InsightViewController {
         return incomeView
     }
 
-    fileprivate func  makeAdsCategoryView() -> AdsCategoryView {
+    fileprivate func makeAdsCategoryView() -> AdsCategoryView {
         let adsCategoryView = AdsCategoryView()
         adsCategoryView.containerLayoutDelegate = self
         adsCategoryView.setProperties(container: self)
