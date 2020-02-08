@@ -29,7 +29,7 @@ class SignInWallViewController: ViewController {
         super.bindViewModel()
 
         getStartedButton.rx.tap.bind { [weak self] in
-            self?.gotoHowItWorksScreen()
+            self?.gotoTrustIsCritialScreen()
         }.disposed(by: disposeBag)
 
         signInButton.rx.tap.bind { [weak self] in
@@ -100,8 +100,8 @@ extension SignInWallViewController: UITextViewDelegate {
 
 // MARK: - Navigator
 extension SignInWallViewController {
-    fileprivate func gotoHowItWorksScreen() {
-        navigator.show(segue: .howItWorks, sender: self)
+    fileprivate func gotoTrustIsCritialScreen() {
+        navigator.show(segue: .trustIsCritical, sender: self)
     }
 
     func goToSignInScreen() {

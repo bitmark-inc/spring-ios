@@ -14,6 +14,7 @@ protocol AccountServiceDelegate {
     static func registerIntercom(for accountNumber: String?, metadata: [String: String])
 
     // Reactive
+    static func rxCreateAndSetupNewAccountIfNotExist() -> Completable
     static func rxCreateNewAccount() -> Single<Account>
     static func rxExistsCurrentAccount() -> Single<Account?>
     static func rxGetAccount(phrases: [String]) -> Single<Account>
@@ -22,6 +23,20 @@ protocol AccountServiceDelegate {
 extension AccountServiceDelegate {
     static func registerIntercom(for accountNumber: String?, metadata: [String: String] = [:]) {
         return registerIntercom(for: accountNumber, metadata: metadata)
+    }
+
+    static func rxCreateAndSetupNewAccountIfNotExist() -> Completable {
+        Completable.deferred {
+            guard Global.current.account == nil else {
+                return Completable.empty()
+            }
+            return rxCreateNewAccount()
+                .flatMapCompletable({
+                    Global.current.account = $0
+                    registerIntercom(for: $0.getAccountNumber())
+                    return Global.current.setupCoreData()
+                })
+        }
     }
 }
 

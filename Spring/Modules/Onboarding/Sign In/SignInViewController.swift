@@ -12,7 +12,7 @@ import RxCocoa
 import FlexLayout
 import BitmarkSDK
 
-class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
+class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator, LaunchingNavigatorDelegate {
 
     // MARK: - Properties
     lazy var screenTitle = makeScreenTitle()
@@ -29,9 +29,9 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
                 switch event {
                 case .error(let error):
                     self.errorWhenSignInAccount(error: error)
-                case .next(let archiveStatus):
+                case .completed:
                     Global.log.info("[done] signIn Account")
-                    self.navigateWithArchiveStatus(archiveStatus)
+                    self.navigate()
 
                 default:
                     break
@@ -43,39 +43,8 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
         }.disposed(by: disposeBag)
     }
 
-    fileprivate func navigateWithArchiveStatus(_ archiveStatus: ArchiveStatus?) {
-        if let archiveStatus = archiveStatus {
-            if InsightDataEngine.existsAdsCategories() {
-                switch archiveStatus {
-                case .processed:
-                    gotoMainScreen()
-                default:
-                    gotoDataAnalyzingScreen()
-                }
-            } else {
-                let viewModel = RequestDataViewModel(missions: [.getCategories])
-                navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
-            }
-        } else {
-            gotoHowItWorksScreen()
-        }
-    }
-
     // MARK: - Error Handlers
     func errorWhenSignInAccount(error: Error) {
-        guard !AppError.errorByNetworkConnection(error) else { return }
-        guard !showIfRequireUpdateVersion(with: error) else { return }
-
-        if let error = error as? ServerAPIError {
-            switch error.code {
-            case .AccountNotFound:
-                gotoHowItWorksScreen()
-                return
-            default:
-                break
-            }
-        }
-
         if type(of: error) == RecoverPhrase.RecoverPhraseError.self {
             errorRecoveryKeyView.isHidden = false
             return
@@ -115,22 +84,6 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator {
                         flex.addItem(submitButton).marginTop(Size.dh(24))
                     }
             }
-    }
-}
-
-// MARK: - Navigator
-extension SignInViewController {
-    fileprivate func gotoHowItWorksScreen() {
-        navigator.show(segue: .howItWorks, sender: self, transition: .replace(type: .auto))
-    }
-
-    func gotoMainScreen() {
-        navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .auto))
-    }
-
-    func gotoDataAnalyzingScreen() {
-        let viewModel = DataAnalyzingViewModel()
-        navigator.show(segue: .dataAnalyzing(viewModel: viewModel), sender: self, transition: .replace(type: .auto))
     }
 }
 

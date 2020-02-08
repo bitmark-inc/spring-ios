@@ -1,5 +1,5 @@
 //
-//  DataRequestedViewController.swift
+//  CheckDataRequestedViewController.swift
 //  Spring
 //
 //  Created by thuyentruong on 11/26/19.
@@ -13,14 +13,14 @@ import RxCocoa
 import UserNotifications
 import OneSignal
 
-class DataRequestedViewController: ViewController {
+class CheckDataRequestedViewController: ViewController {
 
     // MARK: - Properties
     lazy var dataRequestedTitleLabel = makeDataRequestedTitleLabel()
     lazy var dataRequestedDescLabel = makeDataRequestedDescLabel()
     lazy var dataRequestedTimeDescLabel = makeDataRequestedTimeDescLabel()
     lazy var checkNowButton = makeCheckNowButton()
-    let notificationCenter = UNUserNotificationCenter.current()
+    lazy var viewInsightsButton = makeViewInsightsButton()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -34,10 +34,6 @@ class DataRequestedViewController: ViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
-        guard let viewModel = viewModel as? DataRequestedViewModel else { return }
-        
-        scheduleReminderNotificationIfEnable()
-        
         guard let archiveCreatedAt = UserDefaults.standard.FBArchiveCreatedAt else {
             Global.log.error(AppError.emptyLocal)
             return
@@ -47,57 +43,16 @@ class DataRequestedViewController: ViewController {
             R.string.phrase.dataRequestedDescriptionTime(
                 archiveCreatedAt.string(withFormat: Constant.TimeFormat.archive)))
         
-        switch viewModel.mission {
-        case .requestData:
-            dataRequestedTitleLabel.setText(R.string.phrase.dataRequestedScreenTitle().localizedUppercase)
-            dataRequestedDescLabel.setText(R.string.phrase.dataRequestedDescription())
-
-        case .checkRequestedData:
-            dataRequestedTitleLabel.setText(R.string.phrase.dataRequestedScreenTitle().localizedUppercase)
-            dataRequestedDescLabel.setText(R.string.phrase.dataRequestedCheckDescription())
-
-        case .downloadData:
-            dataRequestedTitleLabel.setText(R.string.phrase.dataRequestedWaitingScreenTitle().localizedUppercase)
-            dataRequestedDescLabel.setText(R.string.phrase.dataRequestedWaitingDescription())
-
-        case .getCategories:
-            // TODO
-            break
-
-        case .none:
-            break
-        }
-        
-        checkNowButton.isHidden = viewModel.mission != .checkRequestedData
         checkNowButton.rx.tap.bind { [weak self] in
             _ = connectedToInternet()
                 .subscribe(onCompleted: { [weak self] in
                     self?.gotoDownloadFBArchiveScreen()
                 })
         }.disposed(by: disposeBag)
-    }
 
-    func scheduleReminderNotificationIfEnable() {
-        guard UserDefaults.standard.enablePushNotification else { return }
-
-        let content = UNMutableNotificationContent()
-        content.body = R.string.phrase.dataRequestedScheduleNotifyMessage()
-        content.sound = UNNotificationSound.default
-        content.badge = 1
-
-        #if targetEnvironment(simulator)
-        guard let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) else { return }
-        let triggerDate = Calendar.current.dateComponents([.second], from: date)
-        #else
-        guard let date = Calendar.current.date(byAdding: .minute, value: -1, to: Date()) else { return }
-        let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
-        #endif
-
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
-        let identifier = Constant.NotificationIdentifier.checkFBArchive
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-
-        notificationCenter.add(request)
+        viewInsightsButton.rx.tap.bind { [weak self] in
+            self?.gotoMainScreen()
+        }.disposed(by: disposeBag)
     }
 
     // MARK: - setup Views
@@ -124,7 +79,11 @@ class DataRequestedViewController: ViewController {
                 flex.addItem(dataRequestedDescLabel).marginTop(Size.dh(15))
                 flex.addItem(dataRequestedTimeDescLabel).marginTop(Size.dh(10))
                 
-                flex.addItem(checkNowButton)
+                flex.addItem()
+                    .define({ (flex) in
+                        flex.addItem(checkNowButton)
+                        flex.addItem(viewInsightsButton).marginTop(Size.dh(19))
+                    })
                     .width(100%)
                     .position(.absolute)
                     .left(OurTheme.paddingInset.left)
@@ -134,17 +93,24 @@ class DataRequestedViewController: ViewController {
 }
 
 // MARK: - Navigator
-extension DataRequestedViewController {
+extension CheckDataRequestedViewController {
     func gotoDownloadFBArchiveScreen() {
-        let viewModel = RequestDataViewModel(missions: [.downloadData])
+        let viewModel = RequestDataViewModel(missions: [.getCategories, .downloadData])
         navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
+    }
+
+    func gotoMainScreen() {
+        navigator.show(segue: .hometabs(isArchiveStatusBoxShowed: false),
+                       sender: self, transition: .replace(type: .auto))
     }
 }
 
-extension DataRequestedViewController {
+extension CheckDataRequestedViewController {
     fileprivate func makeDataRequestedTitleLabel() -> Label {
         let label = Label()
-        label.apply(font: R.font.domaineSansTextLight(size: Size.ds(36)), colorTheme: .black)
+        label.apply(
+            text: R.string.phrase.dataRequestedScreenTitle().localizedUppercase,
+            font: R.font.domaineSansTextLight(size: Size.ds(36)), colorTheme: .black)
         return label
     }
     
@@ -152,6 +118,7 @@ extension DataRequestedViewController {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
+            text: R.string.phrase.dataRequestedDescription(),
             font: R.font.atlasGroteskLight(size: Size.ds(18)),
             colorTheme: .black, lineHeight: 1.2)
         return label
@@ -163,10 +130,20 @@ extension DataRequestedViewController {
         return submitButton
     }
 
+    fileprivate func makeViewInsightsButton() -> Button {
+        let button = Button()
+        button.apply(
+            title: R.string.localizable.view_insights(),
+            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            colorTheme: .cognac)
+        return button
+    }
+
     fileprivate func makeDataRequestedTimeDescLabel() -> Label {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
+            text: R.string.phrase.dataRequestedCheckDescription(),
             font: R.font.atlasGroteskThinItalic(size: Size.ds(18)),
             colorTheme: .black, lineHeight: 1.2)
         return label

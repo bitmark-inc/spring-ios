@@ -24,7 +24,7 @@ class HowItWorksViewController: ViewController, BackNavigator {
         super.bindViewModel()
 
         continueButton.rx.tap.bind { [weak self] in
-            self?.gotoTrustIsCriticalScreen()
+            self?.gotoRequestDataScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -89,8 +89,9 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension HowItWorksViewController {
-    func gotoTrustIsCriticalScreen() {
-        navigator.show(segue: .trustIsCritical, sender: self)
+    func gotoRequestDataScreen() {
+        let viewModel = RequestDataViewModel(missions: [.requestData, .getCategories])
+        navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
     }
 }
 

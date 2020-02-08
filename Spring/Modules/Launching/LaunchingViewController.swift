@@ -27,7 +27,7 @@ class LaunchingViewController: ViewController, LaunchingNavigatorDelegate {
         } else {
             SettingsBundle.setVersion()
             loadingState.onNext(.loading)
-            navigate()
+            loadAndNavigate()
         }
     }
 

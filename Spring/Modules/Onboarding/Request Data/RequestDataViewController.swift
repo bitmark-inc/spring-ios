@@ -83,7 +83,7 @@ class RequestDataViewController: ViewController {
                     Global.log.info("[done] SignUpAndSubmitArchive")
                     UserDefaults.standard.FBArchiveCreatedAt = nil
                     self.clearAllNotifications()
-                    self.gotoDataAnalyzingScreen()
+                    self.finishMission()
                 default:
                     break
                 }
@@ -336,14 +336,7 @@ extension RequestDataViewController {
 
             Global.log.info("[done] createFBArchive")
             UserDefaults.standard.FBArchiveCreatedAt = Date()
-
-            self.undoneMissions.removeFirst()
-
-            if self.undoneMissions.isEmpty {
-                self.gotoDataRequested()
-            } else {
-                self.loadWebView()
-            }
+            self.finishMission()
         }
     }
 
@@ -361,7 +354,7 @@ extension RequestDataViewController {
             }
 
             isCreatingFile ?
-                self.gotoDataRequested() :
+                self.finishMission() :
                 self.runJSTodownloadFBArchive()
         }
     }
@@ -503,32 +496,17 @@ extension RequestDataViewController {
                         guard let self = self,
                             let adsCategories = adsCategories as? [String] else { return }
 
-                        if Global.current.account == nil {
-                            UserDefaults.standard.fbCategoriesInfo = adsCategories
-                            self.gotoDataRequested()
-                        } else {
-                            self.thisViewModel.storeAdsCategoriesInfo(adsCategories)
-                                .subscribe(onCompleted: { [weak self] in
-                                    self?.navigateWithArchiveStatus(
-                                        ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? ""))
-                                }, onError: { [weak self] (error) in
-                                    Global.log.error(error)
-                                    self?.showErrorAlertWithSupport(message: R.string.error.system())
-                                })
-                                .disposed(by: self.disposeBag)
-                        }
+                        self.thisViewModel.signUpAndStoreAdsCategoriesInfo(adsCategories)
+                            .subscribe(onCompleted: { [weak self] in
+                                self?.finishMission()
+                            }, onError: { [weak self] (error) in
+                                Global.log.error(error)
+                                self?.showErrorAlertWithSupport(message: R.string.error.system())
+                            })
+                            .disposed(by: self.disposeBag)
                     }
             })
             .disposed(by: disposeBag)
-    }
-
-    fileprivate func navigateWithArchiveStatus(_ archiveStatus: ArchiveStatus?) {
-        switch archiveStatus {
-        case .processed:
-            gotoMainScreen()
-        default:
-            gotoDataAnalyzingScreen()
-        }
     }
 
     // MARK: Account Picking Script
@@ -540,24 +518,23 @@ extension RequestDataViewController {
 
         webView.evaluateJavaScript(pickAnotherAction)
     }
+
+    fileprivate func finishMission() {
+        undoneMissions.removeFirst()
+
+        if !undoneMissions.isEmpty {
+            loadWebView()
+        } else {
+            gotoMainScreen(isArchiveStatusBoxShowed: !thisViewModel.missions.contains(.requestData))
+        }
+    }
 }
 
 // MARK: - Navigator
 extension RequestDataViewController {
-   func gotoDataRequested() {
-        guard let viewModel = viewModel as? RequestDataViewModel,
-            let mainMission = viewModel.missions.first else { return }
-        let dataRquestedViewModel = DataRequestedViewModel(mainMission)
-        navigator.show(segue: .dataRequested(viewModel: dataRquestedViewModel), sender: self)
-    }
-
-    func gotoDataAnalyzingScreen() {
-        let viewModel = DataAnalyzingViewModel()
-        navigator.show(segue: .dataAnalyzing(viewModel: viewModel), sender: self)
-    }
-
-    func gotoMainScreen() {
-        navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
+    func gotoMainScreen(isArchiveStatusBoxShowed: Bool) {
+        navigator.show(segue: .hometabs(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed),
+                       sender: self, transition: .replace(type: .none))
     }
 }
 

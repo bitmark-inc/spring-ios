@@ -14,7 +14,7 @@ import SwiftDate
 class Post: Object, Decodable {
 
     // MARK: - Properties
-    @objc dynamic var id: Int = 0
+    @objc dynamic var id: Int64 = 0
     @objc dynamic var type: String = ""
     @objc dynamic var post: String?
     @objc dynamic var title: String?
@@ -40,7 +40,7 @@ class Post: Object, Decodable {
     required public init(from decoder: Decoder) throws {
         super.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
+        id = try values.decode(Int64.self, forKey: .id)
         type = try values.decode(String.self, forKey: .type)
         title = try values.decode(String?.self, forKey: .title)
         post = try values.decodeIfPresent(String.self, forKey: .post)

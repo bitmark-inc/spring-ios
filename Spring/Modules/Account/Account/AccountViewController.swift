@@ -222,7 +222,10 @@ extension AccountViewController {
 
     fileprivate func makeOptionButton(title: String) -> Button {
         let button = Button()
-        button.applyBlack(title: title, font: R.font.atlasGroteskThin(size: Size.ds(18)))
+        button.apply(
+            title: title,
+            font: R.font.atlasGroteskThin(size: Size.ds(18)),
+            colorTheme: .black)
         button.contentHorizontalAlignment = .leading
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         return button

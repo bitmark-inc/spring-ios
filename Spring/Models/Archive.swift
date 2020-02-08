@@ -27,6 +27,32 @@ class Archive: Object, Decodable {
     override static func primaryKey() -> String? {
         return "id"
     }
+
+    required public init(from decoder: Decoder) throws {
+        super.init()
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int64.self, forKey: .id)
+        status = try values.decode(String.self, forKey: .status)
+        contentHash = try values.decodeIfPresent(String.self, forKey: .contentHash) ?? ""
+    }
+
+    // MARK: - Realm Required Init
+    required init() {
+        super.init()
+    }
+
+    override init(value: Any) {
+        super.init(value: value)
+    }
+
+    required init(value: Any, schema: RLMSchema) {
+        super.init(value: value, schema: schema)
+    }
+
+    required init(realm: RLMRealm, schema: RLMObjectSchema) {
+        super.init(realm: realm, schema: schema)
+    }
+
 }
 
 enum ArchiveStatus: String {

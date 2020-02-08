@@ -28,7 +28,7 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
         super.bindViewModel()
 
         continueButton.rx.tap.bind { [weak self] in
-            self?.gotoAskNotificationsScreen()
+            self?.gotoHowItWorksScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -87,9 +87,8 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension TrustIsCriticalViewController {
-    func gotoAskNotificationsScreen() {
-        let viewModel = AskNotificationsViewModel()
-        navigator.show(segue: .askNotifications(viewModel: viewModel), sender: self)
+    func gotoHowItWorksScreen() {
+        navigator.show(segue: .howItWorks, sender: self)
     }
 }
 

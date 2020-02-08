@@ -20,9 +20,6 @@ extension UIViewController {
 
                 let notifyStatus = settings.authorizationStatus
                 switch notifyStatus {
-                case .denied:
-                    self.askEnableNotificationAlert()
-
                 case .notDetermined:
                     let options: UNAuthorizationOptions = [.alert, .sound, .badge]
                     notificationCenter.requestAuthorization(options: options) { (didAllow, error) in
@@ -32,6 +29,9 @@ extension UIViewController {
                             didAllow ? event(.success(.authorized)) : event(.success(.denied))
                         }
                     }
+
+                case .denied:
+                    event(.success(.denied))
 
                 case .authorized, .provisional:
                     event(.success(notifyStatus))

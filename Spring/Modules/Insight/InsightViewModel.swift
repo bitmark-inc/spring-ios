@@ -18,9 +18,11 @@ class InsightViewModel: ViewModel {
     let realmInsightsInfoRelay = BehaviorRelay<UserInfo?>(value: nil)
     let realmAdsCategoriesRelay = BehaviorRelay<UserInfo?>(value: nil)
 
-    func fetchInsight() {
+    func fetchQuickInsight() {
         realmAdsCategoriesRelay.accept(InsightDataEngine.fetchAdsCategoriesInfo())
+    }
 
+    func fetchInsight() {
         InsightDataEngine.rx.fetchAndSyncInsight()
             .catchError({ [weak self] (error) -> Single<UserInfo?> in
                 self?.fetchDataResultSubject.onNext(Event.error(error))
