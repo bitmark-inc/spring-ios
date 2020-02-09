@@ -81,7 +81,7 @@ extension LaunchingNavigatorDelegate {
         // *** user logged in
         // - no connect Spring; no data requesting: goto HowItWork Screen
         // - connected Spring: .checkArchivesStatusToNavigate()
-        FbmAccountDataEngine.rx.fetchCurrentFbmAccount()
+        FbmAccountDataEngine.fetchCurrentFbmAccount()
             .subscribe(onSuccess: {  [weak self] (_) in
                 self?.checkArchivesStatusToNavigate()
 
@@ -131,7 +131,7 @@ extension LaunchingNavigatorDelegate {
 
         // sync latestArchiveStatus from remoting
         // ---- if there are noInternetConnection, make offline version by using localLatestArchiveStatus
-        FbmAccountService.fetchOverallArchiveStatus()
+        FbmAccountDataEngine.fetchOverallArchiveStatus()
             .subscribe(onSuccess: { (archiveStatus) in
                 loadingState.onNext(.hide)
                 Global.current.userDefault?.latestArchiveStatus = archiveStatus?.rawValue

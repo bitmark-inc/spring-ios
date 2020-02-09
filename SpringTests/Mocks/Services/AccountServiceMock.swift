@@ -14,8 +14,6 @@ import BitmarkSDK
 
 @testable import Spring
 
-var accountServiceMockInstance: AccountServiceMock?
-
 class AccountServiceMock: AccountServiceDelegate, Mock {
     var callHandler: CallHandler
 
@@ -23,16 +21,16 @@ class AccountServiceMock: AccountServiceDelegate, Mock {
         return self
     }
 
-    init(testCase: XCTestCase) {
-      callHandler = CallHandlerImpl(withTestCase: testCase)
+    init(callHandler: CallHandler) {
+        self.callHandler = callHandler
     }
 
     static func registerIntercom(for accountNumber: String?, metadata: [String: String] = [:]) {
-        accountServiceMockInstance?.registerIntercom(for: accountNumber, metadata: metadata)
+        testcaseCallHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: accountNumber, metadata)
     }
 
     static func rxCreateNewAccount() -> Single<Account> {
-        return accountServiceMockInstance!.rxCreateNewAccount()
+        return testcaseCallHandler.accept(Single<Account>.never(), ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil) as! Single<Account>
     }
 
     static func rxExistsCurrentAccount() -> Single<Account?> {
@@ -42,13 +40,4 @@ class AccountServiceMock: AccountServiceDelegate, Mock {
     static func rxGetAccount(phrases: [String]) -> Single<Account> {
         return Single.just(TestGlobal.account)
     }
-
-    func registerIntercom(for accountNumber: String?, metadata: [String: String] = [:]) {
-        callHandler.accept(nil, ofFunction: #function, atFile: #file, inLine: #line, withArgs: accountNumber, metadata)
-    }
-
-    func rxCreateNewAccount() -> Single<Account> {
-        return callHandler.accept(Single<Account>.never(), ofFunction: #function, atFile: #file, inLine: #line, withArgs: nil) as! Single<Account>
-    }
-
 }

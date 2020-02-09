@@ -13,8 +13,6 @@ import RxSwift
 
 @testable import Spring
 
-var fbArchiveServiceMockInstance: FBArchiveServiceMock?
-
 class FBArchiveServiceMock: FBArchiveServiceDelegate, Mock {
     var callHandler: CallHandler
 
@@ -22,15 +20,11 @@ class FBArchiveServiceMock: FBArchiveServiceDelegate, Mock {
         return self
     }
 
-    init(testCase: XCTestCase) {
-      callHandler = CallHandlerImpl(withTestCase: testCase)
+    init(callHandler: CallHandler) {
+        self.callHandler = callHandler
     }
 
     static func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable {
-        return fbArchiveServiceMockInstance!.submit(headers: headers, fileURL: fileURL, rawCookie: rawCookie, startedAt: startedAt, endedAt: endedAt)
-    }
-
-    func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable {
-        return callHandler.accept(Completable.empty(), ofFunction: #function, atFile: #file, inLine: #line, withArgs: headers, fileURL, rawCookie, startedAt, endedAt) as! Completable
+        return testcaseCallHandler.accept(Completable.empty(), ofFunction: #function, atFile: #file, inLine: #line, withArgs: headers, fileURL, rawCookie, startedAt, endedAt) as! Completable
     }
 }

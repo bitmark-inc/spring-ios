@@ -9,10 +9,12 @@
 import Foundation
 import Fakery
 import BitmarkSDK
+import Mockit
 
 @testable import Spring
 
 let faker = Faker(locale: "nb-NO")
+var testcaseCallHandler: CallHandler!
 
 struct TestGlobal {
     static let fbmAccount: FbmAccount = {

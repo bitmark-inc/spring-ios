@@ -23,6 +23,7 @@ class RequestDataViewModel: ViewModel {
     var missions = [Mission]()
     static var AccountServiceBase: AccountServiceDelegate.Type = AccountService.self
     static var FBArchiveServiceBase: FBArchiveServiceDelegate.Type = FBArchiveService.self
+    static var FbmAccountDataEngineBase: FbmAccountDataEngineDelegate.Type = FbmAccountDataEngine.self
 
     // MARK: - Output
     let fbScriptsRelay = BehaviorRelay<[FBScript]>(value: [])
@@ -59,7 +60,7 @@ class RequestDataViewModel: ViewModel {
         }
 
         Self.AccountServiceBase.rxCreateAndSetupNewAccountIfNotExist()
-            .andThen(FbmAccountDataEngine.rx.create().asCompletable())
+            .andThen(FbmAccountDataEngine.create().asCompletable())
             .catchError { (error) -> Completable in
                 if let error = error as? ServerAPIError, error.code == .AccountHasTaken {
                     return Completable.empty()
@@ -74,7 +75,7 @@ class RequestDataViewModel: ViewModel {
                     rawCookie: rawCookie,
                     startedAt: nil,
                     endedAt: fbArchiveCreatedAtTime))
-            .andThen(FbmAccountService.fetchOverallArchiveStatus())
+            .andThen(Self.FbmAccountDataEngineBase.fetchOverallArchiveStatus())
             .flatMapCompletable { (archiveStatus) -> Completable in
                 Global.current.userDefault?.latestArchiveStatus = archiveStatus?.rawValue
                 return Completable.empty()
