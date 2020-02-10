@@ -50,7 +50,7 @@ class HomeTabbarController: ESTabBarController {
     lazy var appArchiveStatus = AppArchiveStatus.currentState
     var isArchiveStatusBoxShowed: Bool = true {
         didSet {
-            if isArchiveStatusBoxShowed && appArchiveStatus != .done {
+            if isArchiveStatusBoxShowed && appArchiveStatus == .stillWaiting {
                 view.insertSubview(archiveStatusBox, belowSubview: tabBar)
 
                 archiveStatusBox.snp.makeConstraints { (make) in

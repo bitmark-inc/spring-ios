@@ -14,8 +14,8 @@ import SnapKit
 
 enum AppArchiveStatus {
     case stillWaiting
-    case processingData
     case done
+    case none
 
     static var currentState: Self {
         if UserDefaults.standard.FBArchiveCreatedAt != nil {
@@ -24,8 +24,8 @@ enum AppArchiveStatus {
 
         let archiveStatus = ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? "")
         switch archiveStatus {
-        case .processed, nil: return .done
-        default: return .processingData
+        case .processed: return .done
+        default: return .none
         }
     }
 }
@@ -40,17 +40,11 @@ class ArchiveStatusBox: UIView {
     let disposeBag = DisposeBag()
     var heightConstraint: Constraint!
 
-    var appArchiveStatus: AppArchiveStatus = .done {
+    var appArchiveStatus: AppArchiveStatus = .none {
         didSet {
-            switch appArchiveStatus {
-            case .stillWaiting:
+            if appArchiveStatus == .stillWaiting {
                 statusLabel.setText(R.string.phrase.dataRequestedWaitingTitle())
                 descriptionLabel.setText(R.string.phrase.dataRequestedWaitingDescription())
-            case .processingData:
-                statusLabel.setText(R.string.phrase.dataProcessingTitle())
-                descriptionLabel.setText(R.string.phrase.dataProcessingDescription())
-            default:
-                break
             }
         }
     }

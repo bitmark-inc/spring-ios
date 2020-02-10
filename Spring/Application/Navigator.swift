@@ -236,7 +236,7 @@ class Navigator {
                 // check if scene is on onboarding flow's refresh state
                 guard let currentVC = rootViewController.viewControllers.last else { return }
 
-                guard (type(of: currentVC) == HomeTabbarController.self && AppArchiveStatus.currentState != .done)
+                guard (type(of: currentVC) == HomeTabbarController.self && (currentVC as! HomeTabbarController).selectedIndex != 2 && AppArchiveStatus.currentState != .done)
                     else {
                         return
                 }

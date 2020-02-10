@@ -56,7 +56,7 @@ class SignInWallViewController: ViewController {
         descriptionLabel.apply(
             text: R.string.phrase.launchDescription(),
             font: R.font.atlasGroteskLight(size: Size.ds(22)),
-            colorTheme: .white, lineHeight: 1.125)
+            colorTheme: .white, lineHeight: 1.1)
 
         let buttonsGroup = UIView()
         buttonsGroup.flex.direction(.column).define { (flex) in

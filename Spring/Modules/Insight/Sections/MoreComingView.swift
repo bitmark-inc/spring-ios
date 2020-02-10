@@ -60,13 +60,19 @@ class MoreComingView: UIView {
                 .subscribe()
                 .disposed(by: self.disposeBag)
         }.disposed(by: disposeBag)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadState), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
-    func reloadState() {
+    @objc func reloadState() {
         let notificationCenter = UNUserNotificationCenter.current()
         notificationCenter.getNotificationSettings { [weak self] (settings) in
             guard let self = self else { return }

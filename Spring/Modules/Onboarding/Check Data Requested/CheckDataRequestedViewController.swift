@@ -17,7 +17,6 @@ class CheckDataRequestedViewController: ViewController {
 
     // MARK: - Properties
     lazy var dataRequestedTitleLabel = makeDataRequestedTitleLabel()
-    lazy var dataRequestedDescLabel = makeDataRequestedDescLabel()
     lazy var dataRequestedTimeDescLabel = makeDataRequestedTimeDescLabel()
     lazy var checkNowButton = makeCheckNowButton()
     lazy var viewInsightsButton = makeViewInsightsButton()
@@ -76,7 +75,8 @@ class CheckDataRequestedViewController: ViewController {
                 flex.addItem().height(45%)
 
                 flex.addItem(dataRequestedTitleLabel).marginTop(Size.dh(45))
-                flex.addItem(dataRequestedDescLabel).marginTop(Size.dh(15))
+                flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(Size.dh(15))
+                flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(Size.dh(10))
                 flex.addItem(dataRequestedTimeDescLabel).marginTop(Size.dh(10))
                 
                 flex.addItem()
@@ -114,13 +114,18 @@ extension CheckDataRequestedViewController {
         return label
     }
     
-    fileprivate func makeDataRequestedDescLabel() -> Label {
+    fileprivate func makeDataRequestedDescLabel(index: Int) -> Label {
         let label = Label()
         label.numberOfLines = 0
-        label.apply(
-            text: R.string.phrase.dataRequestedDescription(),
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
-            colorTheme: .black, lineHeight: 1.2)
+
+        var text = ""
+        switch index {
+        case 1: text = R.string.phrase.dataRequestedCheckDescription1()
+        case 2: text = R.string.phrase.dataRequestedCheckDescription2()
+        default: break
+        }
+
+        label.apply(text: text, font: R.font.atlasGroteskLight(size: Size.ds(18)), colorTheme: .black, lineHeight: 1.2)
         return label
     }
     
@@ -143,7 +148,6 @@ extension CheckDataRequestedViewController {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            text: R.string.phrase.dataRequestedCheckDescription(),
             font: R.font.atlasGroteskThinItalic(size: Size.ds(18)),
             colorTheme: .black, lineHeight: 1.2)
         return label
