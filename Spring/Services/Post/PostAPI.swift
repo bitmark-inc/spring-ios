@@ -11,15 +11,19 @@ import Moya
 
 enum PostAPI {
     case get(startDate: Date, endDate: Date)
+    case springStats(startDate: Date, endDate: Date)
 }
 
 extension PostAPI: AuthorizedTargetType, VersionTargetType {
     var baseURL: URL {
-        return URL(string: Constant.default.fBMServerURL + "/api/posts")!
+        return URL(string: Constant.default.fBMServerURL + "/api")!
     }
 
     var path: String {
-        return ""
+        switch self {
+        case .get: return "posts"
+        case .springStats: return "stats/posts"
+        }
     }
 
     var method: Moya.Method {
@@ -34,7 +38,8 @@ extension PostAPI: AuthorizedTargetType, VersionTargetType {
         var params: [String: Any] = [:]
 
         switch self {
-        case .get(let startDate, let endDate):
+        case .get(let startDate, let endDate),
+             .springStats(let startDate, let endDate):
             params["started_at"] = startDate.appTimeFormat
             params["ended_at"] = endDate.appTimeFormat
         }

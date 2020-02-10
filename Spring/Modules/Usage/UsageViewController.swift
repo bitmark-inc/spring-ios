@@ -127,6 +127,8 @@ class UsageViewController: ViewController {
             })
             .disposed(by: self.disposeBag)
 
+        viewModel.fetchSpringStats()
+
         if appArchiveStatus == .done {
             viewModel.fetchDataResultSubject
                 .subscribe(onNext: { [weak self] (event) in

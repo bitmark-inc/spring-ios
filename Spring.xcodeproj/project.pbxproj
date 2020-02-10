@@ -234,6 +234,12 @@
 		5B54FAE023C731C00029B5D5 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B54FADF23C731C00029B5D5 /* Insight.swift */; };
 		5B54FAE123C731C00029B5D5 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B54FADF23C731C00029B5D5 /* Insight.swift */; };
 		5B54FAE223C731C00029B5D5 /* Insight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B54FADF23C731C00029B5D5 /* Insight.swift */; };
+		5B561C5923F25850008F9745 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5823F25850008F9745 /* Stats.swift */; };
+		5B561C5A23F25850008F9745 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5823F25850008F9745 /* Stats.swift */; };
+		5B561C5B23F25850008F9745 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5823F25850008F9745 /* Stats.swift */; };
+		5B561C5D23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5C23F26016008F9745 /* StatsDataEngine+Rx.swift */; };
+		5B561C5E23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5C23F26016008F9745 /* StatsDataEngine+Rx.swift */; };
+		5B561C5F23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B561C5C23F26016008F9745 /* StatsDataEngine+Rx.swift */; };
 		5B58AC3723BADC890041F216 /* QueryTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B58AC3623BADC890041F216 /* QueryTrack.swift */; };
 		5B58AC3823BADC890041F216 /* QueryTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B58AC3623BADC890041F216 /* QueryTrack.swift */; };
 		5B58AC3923BADC890041F216 /* QueryTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B58AC3623BADC890041F216 /* QueryTrack.swift */; };
@@ -918,6 +924,8 @@
 		5B4A23A423B21CD400447366 /* SectionSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSeparator.swift; sourceTree = "<group>"; };
 		5B54FADA23C6DACA0029B5D5 /* AdsCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsCategoryView.swift; sourceTree = "<group>"; };
 		5B54FADF23C731C00029B5D5 /* Insight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Insight.swift; sourceTree = "<group>"; };
+		5B561C5823F25850008F9745 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		5B561C5C23F26016008F9745 /* StatsDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatsDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		5B58AC3623BADC890041F216 /* QueryTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryTrack.swift; sourceTree = "<group>"; };
 		5B58AC3A23BADF920041F216 /* DatePeriod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePeriod.swift; sourceTree = "<group>"; };
 		5B58AC4223BB43E70041F216 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
@@ -1912,6 +1920,7 @@
 				5B58AC3623BADC890041F216 /* QueryTrack.swift */,
 				5B80A69D23C5D89E002E591E /* UserInfo.swift */,
 				5B54FADF23C731C00029B5D5 /* Insight.swift */,
+				5B561C5823F25850008F9745 /* Stats.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1925,6 +1934,7 @@
 				5B2097A823B464A40079B421 /* ReactionDataEngine+Rx.swift */,
 				5BA9FF6A23B22A9400E57A20 /* InsightDataEngine+Rx.swift */,
 				5B5B948E23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift */,
+				5B561C5C23F26016008F9745 /* StatsDataEngine+Rx.swift */,
 			);
 			path = "Data Engine";
 			sourceTree = "<group>";
@@ -2820,6 +2830,7 @@
 				E23807D223963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
 				E27959DC23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5B3C54FC23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
+				5B561C5923F25850008F9745 /* Stats.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
@@ -2867,6 +2878,7 @@
 				5832FC4A237A863300FA3196 /* Label.swift in Sources */,
 				5B2097C423B481D40079B421 /* ReactionTableViewCell.swift in Sources */,
 				E28B55FB238D0A6800F1BCF2 /* MoyaAuthPlugin.swift in Sources */,
+				5B561C5D23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */,
 				E28B560B238D162400F1BCF2 /* FbmAccountService.swift in Sources */,
 				E29F5A242383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */,
 				E23807C62396023F0079A3C4 /* LinkAttributedString.swift in Sources */,
@@ -3030,6 +3042,7 @@
 				5B5DFFCE23A1F0F4003D1A1C /* Array+Sentence.swift in Sources */,
 				5B3C54FE23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B561C5B23F25850008F9745 /* Stats.swift in Sources */,
 				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238523B1156F00447366 /* FilterTypeView.swift in Sources */,
@@ -3077,6 +3090,7 @@
 				5B2097C623B481D40079B421 /* ReactionTableViewCell.swift in Sources */,
 				5B5DFFED23A1F0F4003D1A1C /* TrustIsCriticalViewController.swift in Sources */,
 				5B5DFFEE23A1F0F4003D1A1C /* SignInWallViewModel.swift in Sources */,
+				5B561C5F23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */,
 				5B5DFFEF23A1F0F4003D1A1C /* AuthService.swift in Sources */,
 				5B5DFFF023A1F0F4003D1A1C /* LinkAttributedString.swift in Sources */,
 				5B5DFFF223A1F0F4003D1A1C /* ImageView.swift in Sources */,
@@ -3237,6 +3251,7 @@
 				E23807D323963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
 				5B3C54FD23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5B561C5A23F25850008F9745 /* Stats.swift in Sources */,
 				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238423B1156F00447366 /* FilterTypeView.swift in Sources */,
@@ -3284,6 +3299,7 @@
 				5B2097C523B481D40079B421 /* ReactionTableViewCell.swift in Sources */,
 				5B289E0123A0D9EB00283C84 /* TrustIsCriticalViewController.swift in Sources */,
 				E29F5A252383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */,
+				5B561C5E23F26016008F9745 /* StatsDataEngine+Rx.swift in Sources */,
 				E28B55FF238D0AFC00F1BCF2 /* AuthService.swift in Sources */,
 				E23807C72396023F0079A3C4 /* LinkAttributedString.swift in Sources */,
 				E2DB6692237D3B69005367C2 /* ImageView.swift in Sources */,

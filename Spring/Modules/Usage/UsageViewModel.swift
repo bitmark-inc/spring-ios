@@ -23,6 +23,8 @@ class UsageViewModel: ViewModel {
     let realmPostUsageRelay = BehaviorRelay<Usage?>(value: nil)
     let realmReactionUsageRelay = BehaviorRelay<Usage?>(value: nil)
     let realmMoodRelay = BehaviorRelay<Usage?>(value: nil)
+    let realmPostStatsRelay = BehaviorRelay<Stats?>(value: nil)
+    let realmReactionStatsRelay = BehaviorRelay<Stats?>(value: nil)
 
     func fetchActivity() -> Completable {
         return FbmAccountDataEngine.fetchLatestFbmAccount()
@@ -79,6 +81,34 @@ class UsageViewModel: ViewModel {
                         self.realmPostUsageRelay.accept(usages[.post] ?? nil)
                         self.realmReactionUsageRelay.accept(usages[.reaction] ?? nil)
                         self.realmMoodRelay.accept(usages[.mood] ?? nil)
+                    })
+            })
+            .disposed(by: disposeBag)
+    }
+
+    func fetchSpringStats() {
+        dateRelay // ignore timeUnit change, cause when timeUnit change, it trigger date change also
+            .subscribe(onNext: { [weak self] (date) in
+                guard let self = self else { return }
+                let timeUnit = self.timeUnitRelay.value
+
+                let datePeriod = date.extractDatePeriod(timeUnit: timeUnit)
+                _ = StatsDataEngine.fetchAndSyncPostStats(startDate: datePeriod.startDate, endDate: datePeriod.endDate)
+                    .catchError({ [weak self] (error) -> Single<Stats?> in
+                        self?.fetchDataResultSubject.onNext(Event.error(error))
+                        return Single.just(nil)
+                    })
+                    .subscribe(onSuccess: { [weak self] (stats) in
+                        self?.realmPostStatsRelay.accept(stats)
+                    })
+
+                _ = StatsDataEngine.fetchAndSyncReactionStats(startDate: datePeriod.startDate, endDate: datePeriod.endDate)
+                    .catchError({ [weak self] (error) -> Single<Stats?> in
+                        self?.fetchDataResultSubject.onNext(Event.error(error))
+                        return Single.just(nil)
+                    })
+                    .subscribe(onSuccess: { [weak self] (stats) in
+                        self?.realmReactionStatsRelay.accept(stats)
                     })
             })
             .disposed(by: disposeBag)

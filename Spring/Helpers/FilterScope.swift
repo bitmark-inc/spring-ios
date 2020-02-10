@@ -27,3 +27,14 @@ struct SectionScope {
         return "\(sectionName)_\(timeUnit.rawValue)_\(dateTimestamp)"
     }
 }
+
+struct SectionTimeScope {
+    let startDate: Date
+    let endDate: Date
+    let section: Section
+
+    func makeID() -> String {
+        let sectionName = section.rawValue
+        return "\(sectionName)_\(startDate.appTimeFormat)_\(endDate.appTimeFormat)"
+    }
+}
