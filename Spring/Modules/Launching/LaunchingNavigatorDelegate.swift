@@ -97,7 +97,7 @@ extension LaunchingNavigatorDelegate {
                 if let error = error as? ServerAPIError {
                     switch error.code {
                     case .AccountNotFound:
-                         self.gotoTrustIsCritialScreen()
+                        self.gotoTrustIsCritialScreen()
                         return
                     default:
                         break
@@ -163,7 +163,7 @@ extension LaunchingNavigatorDelegate {
     }
 
     fileprivate func gotoTrustIsCritialScreen() {
-        navigator.show(segue: .trustIsCritical, sender: self, transition: .replace(type: .none))
+        navigator.show(segue: .trustIsCritical(buttonItemType: .none), sender: self, transition: .replace(type: .none))
     }
 
     fileprivate func gotoDownloadFBArchiveScreen() {

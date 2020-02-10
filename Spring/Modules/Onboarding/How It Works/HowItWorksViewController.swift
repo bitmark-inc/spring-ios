@@ -49,12 +49,7 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
         super.setupViews()
 
-        var lightBackItem: Button?
-
-        if let navigationController = self.navigationController,
-            navigationController.viewControllers.count > 1 {
-            lightBackItem = makeLightBackItem()
-        }
+        let lightBackItem = makeLightBackItem()
 
         let howItWorksTitle = Label()
         howItWorksTitle.apply(
@@ -65,12 +60,8 @@ class HowItWorksViewController: ViewController, BackNavigator {
         contentView.flex
             .padding(OurTheme.paddingInset)
             .direction(.column).define { (flex) in
-                if let lightBackItem = lightBackItem {
-                    flex.addItem(lightBackItem)
-                    flex.addItem().height(45%)
-                } else {
-                    flex.addItem().height(50%)
-                }
+                flex.addItem(lightBackItem)
+                flex.addItem().height(45%)
 
                 flex.addItem(howItWorksTitle).marginTop(Size.dh(15))
 

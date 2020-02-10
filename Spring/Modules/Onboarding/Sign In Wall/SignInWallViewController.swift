@@ -101,7 +101,7 @@ extension SignInWallViewController: UITextViewDelegate {
 // MARK: - Navigator
 extension SignInWallViewController {
     fileprivate func gotoTrustIsCritialScreen() {
-        navigator.show(segue: .trustIsCritical, sender: self)
+        navigator.show(segue: .trustIsCritical(buttonItemType: .back), sender: self)
     }
 
     func goToSignInScreen() {

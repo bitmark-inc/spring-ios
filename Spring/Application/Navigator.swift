@@ -29,8 +29,8 @@ class Navigator {
         case launchingDeeplinkNavigation
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
+        case trustIsCritical(buttonItemType: ButtonItemType)
         case howItWorks
-        case trustIsCritical
         case requestData(viewModel: RequestDataViewModel)
         case checkDataRequested
         case safari(URL)
@@ -77,8 +77,12 @@ class Navigator {
 
         case .signInWall(let viewModel): return SignInWallViewController(viewModel: viewModel)
         case .signIn(let viewModel): return SignInViewController(viewModel: viewModel)
+        case .trustIsCritical(let buttonItemType):
+            let trustIsCriticalViewController = TrustIsCriticalViewController()
+            trustIsCriticalViewController.buttonItemType = buttonItemType
+            return trustIsCriticalViewController
+
         case .howItWorks: return HowItWorksViewController()
-        case .trustIsCritical: return TrustIsCriticalViewController()
         case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
         case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
@@ -352,4 +356,5 @@ extension Navigator {
 enum ButtonItemType {
     case `continue`
     case back
+    case none
 }
