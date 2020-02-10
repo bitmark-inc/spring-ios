@@ -21,7 +21,7 @@ class IncomeView: UIView {
     weak var containerLayoutDelegate: ContainerLayoutDelegate?
     let disposeBag = DisposeBag()
 
-    // MARK: - Properties
+    // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
 

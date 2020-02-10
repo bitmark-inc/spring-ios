@@ -65,9 +65,6 @@ class HomeTabbarController: ESTabBarController {
     }
     let disposeBag = DisposeBag()
 
-    // Notifications
-    let notificationCenter = UNUserNotificationCenter.current()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,7 +78,7 @@ class HomeTabbarController: ESTabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        askForNotificationPermission()
+        NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (authorizationStatus) in
                 guard let self = self, authorizationStatus == .authorized else { return }

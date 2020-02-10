@@ -26,6 +26,7 @@ class InsightViewController: ViewController {
     lazy var headingView = makeHeadingView()
     lazy var fbIncomeView = makeFBIncomeView()
     lazy var adsCategoryView = makeAdsCategoryView()
+    lazy var moreInsightsComingView = makeMoreInsightsComingView()
 
     // SECTION: FB Income
     lazy var realmInsightObservable: Observable<Insight> = {
@@ -86,12 +87,13 @@ class InsightViewController: ViewController {
 
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
+            flex.addItem(adsCategoryView)
 
             if appArchiveStatus == .done {
                 flex.addItem(fbIncomeView)
+            } else {
+                flex.addItem(moreInsightsComingView)
             }
-
-            flex.addItem(adsCategoryView)
         }
 
         scroll.addSubview(insightView)
@@ -139,6 +141,13 @@ extension InsightViewController {
         adsCategoryView.containerLayoutDelegate = self
         adsCategoryView.setProperties(container: self)
         return adsCategoryView
+    }
+
+    fileprivate func makeMoreInsightsComingView() -> MoreComingView {
+        let moreComingView = MoreComingView()
+        moreComingView.containerLayoutDelegate = self
+        moreComingView.section = .moreInsightsComing
+        return moreComingView
     }
 }
 

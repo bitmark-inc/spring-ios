@@ -63,6 +63,14 @@
 "adsCategory.header" = "CATEGORIES FOR ADS";
 "adsCategory.description" = "These categories are based on your activity. They are used by advertisers to personalize your information.";
 
+"moreInsightsComing.title" = "More insights coming!";
+"moreInsightsComing.description" = "Your Facebook data archive is being processed. This might take 1-2 days. We will notify you when it’s done.";
+"moreInsightsComing.description.withNotify" = "Your Facebook data archive is being processed. This might take 1-2 days. We can notify you when it’s done. Or you can check back on your own.";
+
+"morePersonalAnalyticsComing.title" = "Personal Analytics are coming!";
+"morePersonalAnalyticsComing.description" = "Your Facebook data archive is being processed. This might take 1-2 days. We will notify you when it’s done.";
+"morePersonalAnalyticsComing.description.withNotify" = "Your Facebook data archive is being processed. This might take 1-2 days. We can notify you when it’s done. Or you can check back on your own.";
+
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
 "post.postInfo.locationTag" = " @%@";

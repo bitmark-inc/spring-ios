@@ -125,6 +125,9 @@
 		5B2097C623B481D40079B421 /* ReactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2097C323B481D40079B421 /* ReactionTableViewCell.swift */; };
 		5B289E0023A0D9EB00283C84 /* TrustIsCriticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */; };
 		5B289E0123A0D9EB00283C84 /* TrustIsCriticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */; };
+		5B2DEE2F23F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
+		5B2DEE3023F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
+		5B2DEE3123F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
 		5B32F5B723CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B823CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B923CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
@@ -365,7 +368,7 @@
 		5B5DFFDD23A1F0F4003D1A1C /* R.generated+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24829C8238BC30F00995FBB /* R.generated+Font.swift */; };
 		5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC8C237A889A00FA3196 /* BitmarkSDKService.swift */; };
 		5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
-		5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
+		5B5DFFE223A1F0F4003D1A1C /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
 		5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC10237A85B000FA3196 /* SceneDelegate.swift */; };
 		5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC21237A863300FA3196 /* NavigationController.swift */; };
 		5B5DFFE523A1F0F4003D1A1C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC31237A863300FA3196 /* Switch.swift */; };
@@ -610,8 +613,8 @@
 		E28B560F238D16E800F1BCF2 /* FbmAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B560D238D16E800F1BCF2 /* FbmAccount.swift */; };
 		E28B5611238D180B00F1BCF2 /* FbmAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */; };
 		E28B5612238D180B00F1BCF2 /* FbmAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */; };
-		E28B561B238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
-		E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
+		E28B561B238D21A700F1BCF2 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
+		E28B561C238D21A700F1BCF2 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
 		E29F5A242383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */; };
 		E29F5A252383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */; };
 		E29F5A262383E2E700C1D9D8 /* SignInWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1C2383E2E600C1D9D8 /* SignInWallViewController.swift */; };
@@ -883,6 +886,7 @@
 		5B2097BF23B477FB0079B421 /* MediaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaService.swift; sourceTree = "<group>"; };
 		5B2097C323B481D40079B421 /* ReactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTableViewCell.swift; sourceTree = "<group>"; };
 		5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustIsCriticalViewController.swift; sourceTree = "<group>"; };
+		5B2DEE2E23F1074800D3300A /* MoreComingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreComingView.swift; sourceTree = "<group>"; };
 		5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingNavigatorDelegate.swift; sourceTree = "<group>"; };
 		5B32F5BA23CD830100959DFF /* AppLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLink.swift; sourceTree = "<group>"; };
 		5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyListViewController.swift; sourceTree = "<group>"; };
@@ -1036,7 +1040,7 @@
 		E28B560A238D162400F1BCF2 /* FbmAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountService.swift; sourceTree = "<group>"; };
 		E28B560D238D16E800F1BCF2 /* FbmAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccount.swift; sourceTree = "<group>"; };
 		E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountAPI.swift; sourceTree = "<group>"; };
-		E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Permission.swift"; sourceTree = "<group>"; };
+		E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWallViewModel.swift; sourceTree = "<group>"; };
 		E29F5A1C2383E2E600C1D9D8 /* SignInWallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWallViewController.swift; sourceTree = "<group>"; };
 		E29F5A2D2383E59700C1D9D8 /* AtlasGrotesk-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AtlasGrotesk-Black.otf"; sourceTree = "<group>"; };
@@ -1274,6 +1278,7 @@
 				5832FC18237A863300FA3196 /* Currency.swift */,
 				5832FC19237A863300FA3196 /* ViewModel.swift */,
 				5832FC1A237A863300FA3196 /* ThemeManager.swift */,
+				E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */,
 				5832FC1B237A863300FA3196 /* Confirm Recovery Key */,
 				5832FC1E237A863300FA3196 /* Controllers */,
 				5832FC22237A863300FA3196 /* Views */,
@@ -1381,7 +1386,6 @@
 				5832FC99237A8A9200FA3196 /* UITableView+ApplyChanges.swift */,
 				E24829C8238BC30F00995FBB /* R.generated+Font.swift */,
 				5832FC9A237A8A9200FA3196 /* RxSwift */,
-				E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */,
 				5832FC9E237A8A9200FA3196 /* UIViewController+Error.swift */,
 				5832FC9F237A8A9200FA3196 /* String+SupportBitmark.swift */,
 				5832FCA0237A8A9200FA3196 /* UIFont+Theme.swift */,
@@ -1540,6 +1544,7 @@
 				5B54FADA23C6DACA0029B5D5 /* AdsCategoryView.swift */,
 				5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */,
 				5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */,
+				5B2DEE2E23F1074800D3300A /* MoreComingView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -2822,6 +2827,7 @@
 				5832D6FD238BC23D0074AEDC /* AccountViewModel.swift in Sources */,
 				5832FC40237A863300FA3196 /* Global.swift in Sources */,
 				E24829C9238BC31000995FBB /* R.generated+Font.swift in Sources */,
+				5B2DEE2F23F1074800D3300A /* MoreComingView.swift in Sources */,
 				5832FC93237A889A00FA3196 /* BitmarkSDKService.swift in Sources */,
 				5B75A14823BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */,
@@ -2938,7 +2944,7 @@
 				5832FC49237A863300FA3196 /* UnderlinedTextField.swift in Sources */,
 				5832D6E4238BBE390074AEDC /* UsageViewModel.swift in Sources */,
 				5B93230023A3635E00C3C408 /* SignOutViewController.swift in Sources */,
-				E28B561B238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
+				E28B561B238D21A700F1BCF2 /* NotificationPermission.swift in Sources */,
 				58682EDB238F7079009BDDDF /* FilterSegment.swift in Sources */,
 				E22290742394B2A300412CBC /* UsageDataEngine+Rx.swift in Sources */,
 				5832FC41237A863300FA3196 /* Currency.swift in Sources */,
@@ -3028,10 +3034,11 @@
 				5B5DFFDC23A1F0F4003D1A1C /* Global.swift in Sources */,
 				5B5DFFDD23A1F0F4003D1A1C /* R.generated+Font.swift in Sources */,
 				5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */,
+				5B2DEE3123F1074800D3300A /* MoreComingView.swift in Sources */,
 				5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */,
-				5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */,
+				5B5DFFE223A1F0F4003D1A1C /* NotificationPermission.swift in Sources */,
 				5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */,
 				5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */,
 				5BC91CC723CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */,
@@ -3231,10 +3238,11 @@
 				E2DB6688237D3B69005367C2 /* Global.swift in Sources */,
 				E24829CA238BC31000995FBB /* R.generated+Font.swift in Sources */,
 				E2DB6689237D3B69005367C2 /* BitmarkSDKService.swift in Sources */,
+				5B2DEE3023F1074800D3300A /* MoreComingView.swift in Sources */,
 				5B75A14923BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */,
 				58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
-				E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
+				E28B561C238D21A700F1BCF2 /* NotificationPermission.swift in Sources */,
 				E2DB668A237D3B69005367C2 /* SceneDelegate.swift in Sources */,
 				E2DB668B237D3B69005367C2 /* NavigationController.swift in Sources */,
 				5BC91CC623CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */,

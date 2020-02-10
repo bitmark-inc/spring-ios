@@ -12,27 +12,35 @@ import UserNotifications
 import OneSignal
 
 extension HomeTabbarController {
+
+    // Notification Actions
     func scheduleReminderNotificationIfNeeded() {
         guard AppArchiveStatus.currentState == .stillWaiting else { return }
 
-        let content = UNMutableNotificationContent()
-        content.body = R.string.phrase.dataRequestedScheduleNotifyMessage()
-        content.sound = UNNotificationSound.default
-        content.badge = 1
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.getPendingNotificationRequests { (notificationRequests) in
+            guard notificationRequests.isEmpty else { return }
 
-        #if targetEnvironment(simulator)
-        guard let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) else { return }
-        let triggerDate = Calendar.current.dateComponents([.second], from: date)
-        #else
-        guard let date = Calendar.current.date(byAdding: .minute, value: -1, to: Date()) else { return }
-        let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
-        #endif
+            // *** reset all notifications
+            let content = UNMutableNotificationContent()
+            content.body = R.string.phrase.dataRequestedScheduleNotifyMessage()
+            content.sound = UNNotificationSound.default
+            content.badge = 1
 
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
-        let identifier = Constant.NotificationIdentifier.checkFBArchive
-        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+            #if targetEnvironment(simulator)
+            guard let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) else { return }
+            let triggerDate = Calendar.current.dateComponents([.second], from: date)
+            #else
+            guard let date = Calendar.current.date(byAdding: .minute, value: -1, to: Date()) else { return }
+            let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
+            #endif
 
-        notificationCenter.add(request)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
+            let identifier = Constant.NotificationIdentifier.checkFBArchive
+            let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+
+            notificationCenter.add(request)
+        }
     }
 
     func registerOneSignal() {
