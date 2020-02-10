@@ -138,7 +138,7 @@ extension SignOutWarningViewController {
     }
 
     fileprivate func makeContinueButton() -> Button {
-        let submitButton = SubmitButton(title: R.string.localizable.continue().localizedUppercase)
+        let submitButton = SubmitButton(title: R.string.localizable.continueArrow())
         submitButton.applyTheme(colorTheme: .mercury)
         return submitButton
     }

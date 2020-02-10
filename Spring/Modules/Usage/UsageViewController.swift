@@ -105,6 +105,12 @@ class UsageViewController: ViewController {
         
         guard let viewModel = viewModel as? UsageViewModel else { return }
 
+        viewModel.segmentDistances
+            .subscribe(onNext: { [weak self] in
+                self?.segmentDistances = $0
+            })
+            .disposed(by: disposeBag)
+
         viewModel.dateRelay
             .subscribe(onNext: { [weak self] (startDate) in
                 guard let self = self else { return }
@@ -136,11 +142,8 @@ class UsageViewController: ViewController {
 
             loadingState.onNext(.loading)
             viewModel.fetchActivity()
-                .subscribe(onCompleted: { [weak self] in
+                .subscribe(onCompleted: {
                     loadingState.onNext(.hide)
-                    guard let self = self else { return }
-                    self.segmentDistances = viewModel.segmentDistances.value
-
                     viewModel.fetchUsage()
                 }, onError: { (error) in
                     loadingState.onNext(.hide)

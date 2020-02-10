@@ -92,7 +92,7 @@ extension ViewRecoveryKeyWarningViewController {
     }
 
     fileprivate func makeContinueButton() -> Button {
-        let submitButton = SubmitButton(title: R.string.phrase.accountRecoveryKeyWarningWriteDownAction().localizedUppercase)
+        let submitButton = SubmitButton(title: R.string.phrase.accountRecoveryKeyWarningWriteDownAction())
         submitButton.applyTheme(colorTheme: .mercury)
         return submitButton
     }

@@ -20,8 +20,6 @@ class SignInViewModel: ConfirmRecoveryKeyViewModel {
     func signInAccount() {
         Global.log.info("[start] signIn")
 
-        loadingState.onNext(.loading)
-
         let setupAccountCompletable = Completable.deferred {
             guard let account = Global.current.account else {
                 return Completable.never()
@@ -32,6 +30,7 @@ class SignInViewModel: ConfirmRecoveryKeyViewModel {
             return Global.current.setupCoreData()
         }
 
+        loadingState.onNext(.loading)
         AccountService.rxGetAccount(phrases: recoveryKeyRelay.value)
             .flatMapCompletable { (account) -> Completable in
                 Global.current.account = account
@@ -39,7 +38,6 @@ class SignInViewModel: ConfirmRecoveryKeyViewModel {
             }
             .asObservable()
             .materialize().bind { [weak self] in
-                loadingState.onNext(.hide)
                 self?.signInResultSubject.onNext($0)
             }
             .disposed(by: disposeBag)

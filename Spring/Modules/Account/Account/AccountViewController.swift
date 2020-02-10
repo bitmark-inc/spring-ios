@@ -19,12 +19,19 @@ class AccountViewController: ViewController, BackNavigator {
     lazy var settingsView = UIView()
 
     lazy var screenTitle = makeScreenTitle()
+
+    // *** Section - Security
     lazy var signOutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecuritySignOut())
     lazy var biometricAuthOptionButton = makeBiometricAuthOptionButton()
     lazy var recoveryKeyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecurityRecoveryKey())
 
+    // *** Section - Account
+    lazy var deleteAccountButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountDeleteAccount())
+
+    // *** Section - Facebook
     lazy var increasePrivacyButton = makeOptionButton(title: R.string.phrase.accountSettingsFacebookIncreasePrivacy())
 
+    // *** Section - Support
     lazy var aboutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportAbout())
     lazy var faqOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportFaq())
     lazy var whatsNewButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportWhatsNew())
@@ -130,13 +137,14 @@ class AccountViewController: ViewController, BackNavigator {
                     options: [whatsNewButton, contactOptionButton, surveyOptionButton]))
                 .marginTop(12)
 
+            flex.addItem(bitmarkCertView)
+                .paddingBottom(22).paddingTop(22)
         }
 
         scroll.addSubview(settingsView)
         contentView.flex
             .direction(.column).define { (flex) in
                 flex.addItem(scroll).height(0).grow(1)
-                flex.addItem(bitmarkCertView).paddingBottom(22).paddingTop(22)
             }
     }
 }

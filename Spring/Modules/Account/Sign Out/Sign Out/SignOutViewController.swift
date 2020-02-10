@@ -68,7 +68,7 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
         var paddingScreenTitleInset = OurTheme.accountPaddingScreenTitleInset
         paddingScreenTitleInset.bottom = 15
 
-        submitButton.setTitle(R.string.phrase.accountSignOutSubmitTitle().localizedUppercase, for: .normal)
+        submitButton.setTitle(R.string.phrase.accountSignOutSubmitTitle(), for: .normal)
 
         contentView.flex
             .padding(OurTheme.paddingInset)
