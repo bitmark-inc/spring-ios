@@ -51,9 +51,10 @@ extension HomeTabbarController {
 
         Global.log.info("[process] registerOneSignal: \(accountNumber)")
         OneSignal.promptForPushNotifications(userResponse: { _ in
-          OneSignal.sendTags([
-            Constant.OneSignalTag.key: accountNumber
-          ])
+            OneSignal.sendTags([
+                Constant.OneSignalTag.key: accountNumber
+            ])
+            OneSignal.setSubscription(true)
         })
     }
 }

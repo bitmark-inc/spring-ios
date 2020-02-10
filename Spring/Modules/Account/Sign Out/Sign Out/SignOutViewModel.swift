@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 import Intercom
 import WebKit
+import OneSignal
 
 class SignOutViewModel: ConfirmRecoveryKeyViewModel {
 
@@ -53,6 +54,7 @@ class SignOutViewModel: ConfirmRecoveryKeyViewModel {
             Global.current = Global() // reset local variable
             AuthService.shared = AuthService()
             Intercom.logout()
+            OneSignal.setSubscription(false)
             ErrorReporting.setUser(bitmarkAccountNumber: nil)
 
             signOutAccountResultSubject.onNext(Event.completed)
