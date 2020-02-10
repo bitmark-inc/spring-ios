@@ -10,6 +10,9 @@ import Foundation
 import RxSwift
 import BitmarkSDK
 import Moya
+import Intercom
+import WebKit
+import OneSignal
 
 class Global {
     static var current = Global()
@@ -60,6 +63,40 @@ class Global {
             }
             return Disposables.create()
         }
+    }
+
+    func removeCurrentAccount() throws {
+        guard let account = Global.current.account else {
+            throw AppError.emptyCurrentAccount
+        }
+
+        try KeychainStore.removeSeedCoreFromKeychain()
+
+        // clear user data
+        try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
+        try RealmConfig.removeRealm(of: account.getAccountNumber())
+        UserDefaults.standard.clickedIncreasePrivacyURLs = nil
+        UserDefaults.standard.FBArchiveCreatedAt = nil
+        Global.current.userDefault?.latestArchiveStatus = nil
+
+        // clear user cookie in webview
+        HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
+
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { (records) in
+            records.forEach { (record) in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
+
+        // clear settings bundle
+        SettingsBundle.setAccountNumber(accountNumber: nil)
+
+        Global.current = Global() // reset local variable
+        AuthService.shared = AuthService()
+        Intercom.logout()
+        OneSignal.setSubscription(false)
+        OneSignal.deleteTag(Constant.OneSignalTag.key)
+        ErrorReporting.setUser(bitmarkAccountNumber: nil)
     }
 
     let networkLoggerPlugin: [PluginType] = [
@@ -141,11 +178,6 @@ extension UserDefaults {
     var accountNumber: String? {
         get { return string(forKey: "accountNumber_preference") }
         set { set(newValue, forKey: "accountNumber_preference") }
-    }
-
-    var enablePushNotification: Bool {
-        get { return bool(forKey: #function) }
-        set { set(newValue, forKey: #function) }
     }
 
     // Per Account

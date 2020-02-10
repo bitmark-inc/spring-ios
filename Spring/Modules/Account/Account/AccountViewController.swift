@@ -57,6 +57,10 @@ class AccountViewController: ViewController, BackNavigator {
             self?.gotoViewRecoveryKeyFlow()
         }.disposed(by: disposeBag)
 
+        deleteAccountButton.rx.tap.bind { [weak self] in
+            self?.gotoDeleteAccountScreen()
+        }.disposed(by: disposeBag)
+
         increasePrivacyButton.rx.tap.bind { [weak self] in
             self?.gotoIncreasePrivacyListScreen()
         }.disposed(by: disposeBag)
@@ -110,6 +114,12 @@ class AccountViewController: ViewController, BackNavigator {
 
             flex.addItem(
                 makeOptionsSection(
+                   name: R.string.phrase.accountSettingsAccount(),
+                   options: [deleteAccountButton]))
+                .marginTop(12)
+
+            flex.addItem(
+                makeOptionsSection(
                    name: R.string.phrase.accountSettingFacebook(),
                    options: [increasePrivacyButton]))
                 .marginTop(12)
@@ -143,6 +153,11 @@ extension AccountViewController {
 
     fileprivate func gotoViewRecoveryKeyFlow() {
         navigator.show(segue: .viewRecoveryKeyWarning, sender: self)
+    }
+
+    fileprivate func gotoDeleteAccountScreen() {
+        let viewModel = DeleteAccountViewModel()
+        navigator.show(segue: .deleteAccount(viewModel: viewModel), sender: self)
     }
 
     fileprivate func gotoIncreasePrivacyListScreen() {

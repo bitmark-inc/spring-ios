@@ -45,6 +45,7 @@ class Navigator {
         case biometricAuth
         case viewRecoveryKeyWarning
         case viewRecoverykey(viewModel: ViewRecoveryKeyViewModel)
+        case deleteAccount(viewModel: DeleteAccountViewModel)
         case increasePrivacyList
         case increasePrivacy(viewModel: IncreasePrivacyViewModel)
         case about
@@ -106,6 +107,7 @@ class Navigator {
         case .signOutWarning, .signOut,
              .biometricAuth,
              .viewRecoveryKeyWarning, .viewRecoverykey,
+             .deleteAccount,
              .increasePrivacyList, .increasePrivacy,
              .about, .faq, .releaseNote:
 
@@ -116,6 +118,7 @@ class Navigator {
             case .biometricAuth:                    viewController = BiometricAuthViewController()
             case .viewRecoveryKeyWarning:           viewController = ViewRecoveryKeyWarningViewController()
             case .viewRecoverykey(let viewModel):   viewController = ViewRecoveryKeyViewController(viewModel: viewModel)
+            case .deleteAccount(let viewModel):     viewController = DeleteAccountViewController(viewModel: viewModel)
             case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
             case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
             case .about:                            viewController = AboutViewController()

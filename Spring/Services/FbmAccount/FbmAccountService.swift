@@ -48,4 +48,13 @@ class FbmAccountService {
             .filterSuccess()
             .map(FbmAccount.self, atKeyPath: "result", using: Global.default.decoder )
     }
+
+    static func deleteMe() -> Completable {
+        Global.log.info("[start] FbmAccountService.deleteMe")
+
+        return provider.rx
+            .requestWithRefreshJwt(.deleteMe)
+            .filterSuccess()
+            .asCompletable()
+    }
 }

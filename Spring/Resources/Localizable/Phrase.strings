@@ -80,6 +80,8 @@
 "account.settings.security.signOut" = "Unlink from device »";
 "account.settings.security.biometricAuth" = "%@ »";
 "account.settings.security.recoveryKey" = "Recovery key »";
+"account.settings.account" = "Account";
+"account.settings.account.deleteAccount" = "Delete account »";
 "account.setting.facebook" = "Facebook";
 "account.settings.facebook.increasePrivacy" = "Increase privacy »";
 "account.settings.support" = "Support";
@@ -108,6 +110,13 @@
 "account.recoveryKey.title" = "Recovery Key";
 "account.recoveryKey.output.guide" = "Write down the following words in order:";
 "account.recoveryKey.index" = "Word %@ of 12";
+
+"account.deleteAccount.title" = "Delete Account";
+"account.deleteAccount.description" = "When you delete your account, you will be completely logged out on this device and all data will be permanently deleted.\n\nYou can %@ first, if you haven’t do so already.";
+"account.deleteAccount.exportData" = "export your data";
+"account.deleteAccount.action" = "Delete »";
+"deleteAccount.confirmation.title" = "Delete Account";
+"deleteAccount.confirmation.description" = "All of your data will be permanently deleted from this device.";
 
 "fb.increasePrivacy.title" = "Increase Privacy";
 "fb.increasePrivacy.description" = "Here are %d simple steps you can take to increase your privacy while using Facebook:";

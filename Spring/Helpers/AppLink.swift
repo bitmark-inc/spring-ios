@@ -14,6 +14,7 @@ enum AppLink: String {
     case incomeQuestion = "income-question"
     case support
     case viewRecoveryKey = "view-recovery-key"
+    case exportData = "export-data"
 
     var path: String {
         return Constant.appName + "://\(rawValue)"
