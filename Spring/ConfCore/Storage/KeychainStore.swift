@@ -17,8 +17,6 @@ class KeychainStore {
     fileprivate static func makeEncryptedDBKey(number: String) -> String {
         "synergy_encrypted_db_key_\(number)"
     }
-    fileprivate static let fbCredentialUsernameKey = "fb_credential_username_key"
-    fileprivate static let fbCredentialPasswordKey = "fb_credential_password_key"
 
     fileprivate static let keychain: Keychain = {
         return Keychain(service: Bundle.main.bundleIdentifier!)
@@ -93,72 +91,5 @@ class KeychainStore {
         
         let encryptedDBKey = makeEncryptedDBKey(number: accountNumber)
         try keychain.remove(encryptedDBKey)
-    }
-
-    // *** FB Credential ***
-    static func saveFBCredentialToKeychain(_ username: String, password: String) throws {
-        Global.log.info("[start] saveFBCredentialToKeychain")
-
-        try keychain.remove(fbCredentialUsernameKey)
-        try keychain.remove(fbCredentialPasswordKey)
-
-        try keychain
-            .accessibility(.whenUnlocked)
-            .set(username, key: fbCredentialUsernameKey)
-        try keychain
-            .accessibility(.whenUnlocked)
-            .set(password, key: fbCredentialPasswordKey)
-    }
-
-    static func getFBCredentialToKeychain() -> Single<(username: String, password: String)> {
-        Global.log.info("[start] getFBCredentialToKeychain")
-
-        return Single.create(subscribe: { (single) -> Disposable in
-            DispatchQueue.global().async {
-                do {
-                    guard let username = try keychain.get(fbCredentialUsernameKey),
-                        let password = try keychain.get(fbCredentialPasswordKey) else {
-                            Global.log.error(AppError.emptyCredentialKeychain)
-                            return
-                    }
-
-                    Global.log.info("[done] getFBCredentialToKeychain")
-                    single(.success((username: username, password: password)))
-                } catch {
-                    single(.error(error))
-                }
-            }
-            return Disposables.create()
-        })
-    }
-
-    static func getFBUsername() -> Single<String> {
-        Global.log.info("[start] getFBUsername")
-
-        return Single.create(subscribe: { (single) -> Disposable in
-            DispatchQueue.global().async {
-                do {
-                    guard let username = try keychain.get(fbCredentialUsernameKey)
-                        else {
-                            Global.log.error(AppError.emptyCredentialKeychain)
-                            return
-                    }
-
-                    Global.log.info("[done] getFBUsername")
-                    single(.success(username))
-                } catch {
-                    single(.error(error))
-                }
-            }
-            return Disposables.create()
-        })
-    }
-
-    static func removeFBCredential() throws {
-        Global.log.info("[start] removeFBCredential")
-        defer { Global.log.info("[done] removeFBCredential") }
-
-        try keychain.remove(fbCredentialUsernameKey)
-        try keychain.remove(fbCredentialPasswordKey)
     }
 }

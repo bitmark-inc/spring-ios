@@ -33,7 +33,9 @@ class AdsCategoryView: UIView {
                 .define { (flex) in
                     flex.addItem(headerLabel)
                     flex.addItem(descriptionLabel).marginTop(7)
-                    flex.addItem(adsCategoryInfoView).marginTop(10).marginLeft(18).width(100%)
+                    flex.addItem(adsCategoryInfoView)
+                        .padding(10, 18, 0, 40)
+                        .maxWidth(100%)
                 }
         })
     }

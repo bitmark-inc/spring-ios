@@ -47,6 +47,16 @@ target 'Spring' do
 
   # Pods for Spring
   sharedPods
+end
+
+
+target 'Spring Dev' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Spring Dev
+  sharedPods
+  pod 'SwiftLint'
 
   target 'SpringTests' do
     inherit! :search_paths
@@ -58,17 +68,6 @@ target 'Spring' do
     pod 'Mockit'
     pod 'Fakery'
   end
-
-end
-
-
-target 'Spring Dev' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for Spring Dev
-  sharedPods
-  pod 'SwiftLint'
 end
 
 target 'Spring Inhouse' do
@@ -77,7 +76,6 @@ target 'Spring Inhouse' do
 
   # Pods for Spring Inhouse
   sharedPods
-  pod 'SwiftLint'
 end
 
 target 'OneSignalNotificationServiceExtension' do

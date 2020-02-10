@@ -32,7 +32,6 @@ class Navigator {
         case howItWorks
         case trustIsCritical
         case askNotifications(viewModel: AskNotificationsViewModel)
-        case getYourData(viewModel: GetYourDataViewModel)
         case requestData(viewModel: RequestDataViewModel)
         case dataRequested(viewModel: DataRequestedViewModel)
         case dataAnalyzing(viewModel: DataAnalyzingViewModel)
@@ -83,7 +82,6 @@ class Navigator {
         case .howItWorks: return HowItWorksViewController()
         case .trustIsCritical: return TrustIsCriticalViewController()
         case .askNotifications(let viewModel): return AskNotificationsViewController(viewModel: viewModel)
-        case .getYourData(let viewModel): return GetYourDataViewController(viewModel: viewModel)
         case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
         case .dataRequested(let viewModel): return DataRequestedViewController(viewModel: viewModel)
         case .dataAnalyzing(let viewModel): return DataAnalyzingViewController(viewModel: viewModel)
@@ -105,19 +103,33 @@ class Navigator {
             accountViewController.hidesBottomBarWhenPushed = true
             return accountViewController
 
-        case .signOutWarning: return SignOutWarningViewController()
-        case .signOut(let viewModel): return SignOutViewController(viewModel: viewModel)
-        case .biometricAuth: return BiometricAuthViewController()
-        case .viewRecoveryKeyWarning: return ViewRecoveryKeyWarningViewController()
-        case .viewRecoverykey(let viewModel): return ViewRecoveryKeyViewController(viewModel: viewModel)
-        case .increasePrivacyList: return IncreasePrivacyListViewController()
-        case .increasePrivacy(let viewModel): return IncreasePrivacyViewController(viewModel: viewModel)
-        case .about: return AboutViewController()
-        case .faq: return FAQViewController()
-        case .releaseNote(let buttonItemType):
-            let releaseNoteViewController = ReleaseNoteViewController()
-            releaseNoteViewController.buttonItemType = buttonItemType
-            return releaseNoteViewController
+        case .signOutWarning, .signOut,
+             .biometricAuth,
+             .viewRecoveryKeyWarning, .viewRecoverykey,
+             .increasePrivacyList, .increasePrivacy,
+             .about, .faq, .releaseNote:
+
+            let viewController: UIViewController!
+            switch segue {
+            case .signOutWarning:                   viewController = SignOutWarningViewController()
+            case .signOut(let viewModel):           viewController = SignOutViewController(viewModel: viewModel)
+            case .biometricAuth:                    viewController = BiometricAuthViewController()
+            case .viewRecoveryKeyWarning:           viewController = ViewRecoveryKeyWarningViewController()
+            case .viewRecoverykey(let viewModel):   viewController = ViewRecoveryKeyViewController(viewModel: viewModel)
+            case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
+            case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
+            case .about:                            viewController = AboutViewController()
+            case .faq:                              viewController = FAQViewController()
+            case .releaseNote(let buttonItemType):
+                let releaseNoteViewController = ReleaseNoteViewController()
+                releaseNoteViewController.buttonItemType = buttonItemType
+                viewController = releaseNoteViewController
+            default:
+                viewController = UIViewController()
+            }
+
+            viewController.hidesBottomBarWhenPushed = true
+            return viewController
         }
     }
 
@@ -223,7 +235,7 @@ class Navigator {
 
                 // check if scene is on onboarding flow's refresh state
                 guard let currentVC = rootViewController.viewControllers.last,
-                    [DataRequestedViewController.self, DataAnalyzingViewController.self].contains(where: { $0 == type(of: currentVC) })
+                    [DataRequestedViewController.self, DataAnalyzingViewController.self, LaunchingViewController.self].contains(where: { $0 == type(of: currentVC) })
                     else {
                         return
                 }

@@ -21,8 +21,6 @@ enum Mission {
 class RequestDataViewModel: ViewModel {
 
     // MARK: - Properties
-    var login: String?
-    var password: String?
     var missions = [Mission]()
     static var AccountServiceBase: AccountServiceDelegate.Type = AccountService.self
     static var FBArchiveServiceBase: FBArchiveServiceDelegate.Type = FBArchiveService.self
@@ -32,10 +30,8 @@ class RequestDataViewModel: ViewModel {
     let fbScriptResultSubject = PublishSubject<Event<Void>>()
     let signUpAndSubmitArchiveResultSubject = PublishSubject<Event<Never>>()
 
-    init(login: String? = nil, password: String? = nil, missions: [Mission]) {
+    init(missions: [Mission]) {
         super.init()
-        self.login = login
-        self.password = password
         self.missions = missions
 
         self.setup()
@@ -67,19 +63,6 @@ class RequestDataViewModel: ViewModel {
                     })
             })
             .disposed(by: disposeBag)
-    }
-
-    func getFBCredential() -> Single<(username: String, password: String)> {
-        return Single.just((username: login, password: password))
-            .flatMap { (credential) -> Single<(username: String, password: String)> in
-                guard credential.username != nil, credential.password != nil else {
-                    return KeychainStore.getFBCredentialToKeychain()
-                }
-                return Single.just((username: credential.username!, password: credential.password!))
-            }
-            .do(onSuccess: { [weak self] in
-                self?.login = $0.username; self?.password = $0.password
-            })
     }
 
     func signUpAndSubmitFBArchive(headers: [String: String], archiveURL: URL, rawCookie: String) {
@@ -119,17 +102,13 @@ class RequestDataViewModel: ViewModel {
         }
 
         createdAccounCompletable
-            .andThen(FbmAccountDataEngine.rx.create())
-            .catchError { (error) -> Single<FbmAccount> in
+            .andThen(FbmAccountDataEngine.rx.create().asCompletable())
+            .catchError { (error) -> Completable in
                 if let error = error as? ServerAPIError, error.code == .AccountHasTaken {
-                    return Single.just(FbmAccount())
+                    return Completable.empty()
                 }
 
-                return Single.error(error)
-            }
-            .flatMapCompletable { (fbmAccount) -> Completable in
-                guard fbmAccount.accountNumber.isNotEmpty else { return Completable.empty() }
-                return FbmAccountDataEngine.rx.updateMetadata(for: fbmAccount)
+                return Completable.error(error)
             }
             .andThen(registerOneSignalNotificationCompletable)
             .andThen(

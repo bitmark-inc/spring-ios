@@ -20,14 +20,56 @@
                ReferencedContainer = "container:Spring.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5832FBFE237A6DB900FA3196"
+               BuildableName = "SpringTests.xctest"
+               BlueprintName = "SpringTests"
+               ReferencedContainer = "container:Spring.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "E2DB667B237D3B69005367C2"
+            BuildableName = "Spring.app"
+            BlueprintName = "Spring Dev"
+            ReferencedContainer = "container:Spring.xcodeproj">
+         </BuildableReference>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "5B75C8BD23EA98F100ABA5E0"
+            BuildableName = "OneSignalNotificationServiceDevExtension.appex"
+            BlueprintName = "OneSignalNotificationServiceDevExtension"
+            ReferencedContainer = "container:Spring.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5832FBFE237A6DB900FA3196"
+               BuildableName = "SpringTests.xctest"
+               BlueprintName = "SpringTests"
+               ReferencedContainer = "container:Spring.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

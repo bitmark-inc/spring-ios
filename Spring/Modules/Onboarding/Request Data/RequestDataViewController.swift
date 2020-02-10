@@ -13,6 +13,13 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
+enum GuideState {
+    case start
+    case automate
+    case loginRequired
+    case helpRequired
+}
+
 class RequestDataViewController: ViewController {
 
     // MARK: - Properties
@@ -27,9 +34,7 @@ class RequestDataViewController: ViewController {
     var fbScripts = [FBScript]()
     lazy var archivePageScript = fbScripts.find(.archive)
 
-    let automatingStatusRelay = BehaviorRelay<Bool>(value: true)
-
-    var checkLoginFailedDisposable: Disposable?
+    let guideStateRelay = BehaviorRelay<GuideState>(value: .start)
 
     lazy var thisViewModel = {
         return self.viewModel as! RequestDataViewModel
@@ -62,7 +67,7 @@ class RequestDataViewController: ViewController {
             .filterEmpty()
             .subscribe(onNext: { [weak self] (fbScripts) in
                 guard let self = self else { return }
-                self.observeAutomatingStatus()
+                self.observeGuideState()
                 self.fbScripts = fbScripts
                 self.loadWebView()
             })
@@ -132,16 +137,32 @@ class RequestDataViewController: ViewController {
         }
     }
 
-    fileprivate func observeAutomatingStatus() {
-        automatingStatusRelay
-            .subscribe(onNext: { [weak self] (isAutomating) in
+    fileprivate func observeGuideState() {
+        guideStateRelay
+            .subscribe(onNext: { [weak self] (guideState) in
                 guard let self = self else { return }
-                if isAutomating {
+                switch guideState {
+                case .start:
+                    self.guideView.backgroundColor = ColorTheme.cognac.color
+                    self.guideTextLabel.setText(nil)
+                    self.automatingCoverView.isHidden = true
+                    self.backgroundView.backgroundColor = ColorTheme.cognac.color
+
+                case .automate:
                     self.guideView.backgroundColor = ColorTheme.cognac.color
                     self.guideTextLabel.setText(nil)
                     self.automatingCoverView.isHidden = false
                     self.backgroundView.backgroundColor = ColorTheme.cognac.color
-                } else {
+
+                case .loginRequired:
+                    self.guideView.backgroundColor = ColorTheme.cognac.color
+                    self.guideTextLabel.setText(R.string.phrase.guideRequiredLogin().localizedUppercase)
+                    self.automatingCoverView.isHidden = true
+                    self.guideTextLabel.flex.markDirty()
+                    self.guideView.flex.layout()
+                    self.backgroundView.backgroundColor = ColorTheme.cognac.color
+
+                case .helpRequired:
                     self.guideView.backgroundColor = ColorTheme.internationalKleinBlue.color
                     self.guideTextLabel.setText(R.string.phrase.guideRequiredHelp().localizedUppercase)
                     self.automatingCoverView.isHidden = true
@@ -207,37 +228,31 @@ extension RequestDataViewController: WKNavigationDelegate {
                     self.evaluateJS(index: nextIndex)
                 } else {
                     // is not the page in all detection pages, show required help
-                    self.automatingStatusRelay.accept(false)
+                    self.guideStateRelay.accept(.helpRequired)
                 }
 
                 return
             }
 
             guard let facePage = FBPage(rawValue: pageScript.name) else { return }
-            self.automatingStatusRelay.accept(true)
 
             switch facePage {
-            case .login:
-                self.runJS(loginScript: pageScript)
-            case .saveDevice:
-                self.runJS(saveDeviceScript: pageScript)
-            case .newFeed:
-                self.checkLoginFailedDisposable?.dispose()
-                self.runJS(newFeedScript: pageScript)
-            case .settings:
-                self.runJS(settingsScript: pageScript)
-            case .reauth:
-                self.runJS(reAuthScript: pageScript)
-            case .archive:
+            case .login: self.guideStateRelay.accept(.loginRequired)
+            case .reauth: self.guideStateRelay.accept(.helpRequired)
+            case .archive: break
+            case .demographics, .behaviors: break
+            default:
+                self.guideStateRelay.accept(.automate)
+            }
+
+            switch facePage {
+            case .saveDevice:       self.runJS(saveDeviceScript: pageScript)
+            case .newFeed:          self.runJS(newFeedScript: pageScript)
+            case .settings:         self.runJS(settingsScript: pageScript)
+            case .adsPreferences:   self.runJS(adsPreferencesScript: pageScript)
+            case .accountPicking:   self.runJS(accountPickingScript: pageScript)
+            default:
                 break
-            case .adsPreferences:
-                self.runJS(adsPreferencesScript: pageScript)
-            case .demographics:
-                self.runJS(demographicsScript: pageScript)
-            case .behaviors:
-                self.runJS(behaviorsScript: pageScript)
-            case .accountPicking:
-                self.runJS(accountPickingScript: pageScript)
             }
         }
     }
@@ -267,7 +282,7 @@ extension RequestDataViewController {
             .retry(.delayed(maxCount: 1000, time: 0.5))
             .subscribe(onError: { [weak self] (error) in
                 Global.log.error(error)
-                self?.automatingStatusRelay.accept(false)
+                self?.guideStateRelay.accept(.helpRequired)
             }, onCompleted: { [weak self] in
                 guard let self = self else { return }
                 Global.log.info("[start] evaluateJS for archive")
@@ -289,7 +304,7 @@ extension RequestDataViewController {
             .retry(.delayed(maxCount: 1000, time: 0.5))
             .subscribe(onError: { [weak self] (error) in
                 Global.log.error(error)
-                self?.automatingStatusRelay.accept(false)
+                self?.guideStateRelay.accept(.helpRequired)
             }, onCompleted: { [weak self] in
                 guard let self = self else { return }
                 Global.log.info("[start] evaluateJS for adsPreferences")
@@ -371,75 +386,6 @@ extension RequestDataViewController {
         }
     }
 
-    // MARK: - Login Script
-    fileprivate func runJS(loginScript: FBScript) {
-        guard let viewModel = viewModel as? RequestDataViewModel,
-            let loginAction = loginScript.script(for: .login),
-            let checkLoginFailedDetection = loginScript.script(for: .isLogInFailed)
-            else {
-                return
-        }
-
-        checkLoginFailedDisposable = checkIsLoginFailed(detection: checkLoginFailedDetection)
-            .retry(.delayed(maxCount: 1000, time: 0.5))
-            .subscribe(onNext: { [weak self] (_) in
-                Global.log.info("[start] loginFailed detection")
-                self?.showIncorrectCredentialAlert()
-            }, onError: { (error) in
-                Global.log.error(error)
-            })
-
-        Single.just((username: viewModel.login, password: viewModel.password))
-            .flatMap { (credential) -> Single<(username: String, password: String)> in
-                guard credential.username != nil, credential.password != nil else {
-                    return KeychainStore.getFBCredentialToKeychain()
-                }
-                return Single.just((username: credential.username!, password: credential.password!))
-            }
-            .do(onSuccess: { viewModel.login = $0.username; viewModel.password = $0.password })
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (credential) in
-                self?.webView.evaluateJavaScript(loginAction
-                    .replacingOccurrences(of: "%username%", with: credential.username)
-                    .replacingOccurrences(of: "%password%", with: credential.password)
-                )
-            }, onError: { [weak self] (error) in
-                Global.log.error(error)
-                self?.automatingStatusRelay.accept(false)
-            })
-            .disposed(by: self.disposeBag)
-    }
-
-    fileprivate func checkIsLoginFailed(detection: String) -> Observable<Void> {
-        return Observable<Void>.create { (event) -> Disposable in
-            self.webView.evaluateJavaScript(detection) { (result, error) in
-                guard error == nil, let isLoginFailed = result as? Bool, isLoginFailed else {
-                    event.onError(AppError.loginFailedIsNotDetected)
-                    return
-                }
-                event.onNext(())
-                event.onCompleted()
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    fileprivate func showIncorrectCredentialAlert() {
-        let alertController = UIAlertController(
-            title: R.string.error.fbCredentialTitle(),
-            message: R.string.error.fbCredentialMessage(),
-            preferredStyle: .alert)
-
-        alertController.addAction(title: R.string.localizable.ok(), style: .default) { (_) in
-            let cookieJar = HTTPCookieStorage.shared
-            cookieJar.cookies?.forEach { cookieJar.deleteCookie($0) }
-            Navigator.default.pop(sender: self)
-        }
-
-        alertController.show()
-    }
-
     // MARK: saveDevice Script
     fileprivate func runJS(saveDeviceScript: FBScript) {
         guard let notNowAction = saveDeviceScript.script(for: .notNow) else { return }
@@ -508,7 +454,7 @@ extension RequestDataViewController {
             .retry(.delayed(maxCount: 1000, time: 0.5))
             .subscribe(onError: { [weak self] (error) in
                 Global.log.error(error)
-                self?.automatingStatusRelay.accept(false)
+                self?.guideStateRelay.accept(.helpRequired)
                 }, onCompleted: { [weak self] in
                     guard let self = self else { return }
                     Global.log.info("[start] evaluateJS for demographics")
@@ -538,7 +484,7 @@ extension RequestDataViewController {
             .retry(.delayed(maxCount: 1000, time: 0.5))
             .subscribe(onError: { [weak self] (error) in
                 Global.log.error(error)
-                self?.automatingStatusRelay.accept(false)
+                self?.guideStateRelay.accept(.helpRequired)
                 }, onCompleted: { [weak self] in
                     guard let self = self else { return }
                     Global.log.info("[start] evaluateJS for behavior")
@@ -561,17 +507,6 @@ extension RequestDataViewController {
                             UserDefaults.standard.fbCategoriesInfo = adsCategories
                             self.gotoDataRequested()
                         } else {
-                            _ = FbmAccountDataEngine.rx.fetchCurrentFbmAccount()
-                                .flatMapCompletable { FbmAccountDataEngine.rx.updateMetadata(for: $0) }
-                                .subscribe(onCompleted: {
-                                    Global.log.info("[done] updateMetadata")
-                                }, onError: { [weak self] (error) in
-                                    guard !AppError.errorByNetworkConnection(error) else { return }
-                                    guard let self = self, !self.showIfRequireUpdateVersion(with: error) else { return }
-
-                                    Global.log.error(error)
-                                })
-
                             self.thisViewModel.storeAdsCategoriesInfo(adsCategories)
                                 .subscribe(onCompleted: { [weak self] in
                                     self?.navigateWithArchiveStatus(
@@ -594,28 +529,6 @@ extension RequestDataViewController {
         default:
             gotoDataAnalyzingScreen()
         }
-    }
-
-
-    // MARK: ReAuth Script
-    fileprivate func runJS(reAuthScript: FBScript) {
-        guard let viewModel = viewModel as? RequestDataViewModel,
-            let reauthAction = reAuthScript.script(for: .reauth)
-            else {
-                return
-        }
-
-        viewModel.getFBCredential()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (credential) in
-                self?.webView.evaluateJavaScript(reauthAction
-                    .replacingOccurrences(of: "%password%", with: credential.password)
-                )
-                }, onError: { [weak self] (error) in
-                    Global.log.error(error)
-                    self?.automatingStatusRelay.accept(false)
-                })
-            .disposed(by: self.disposeBag)
     }
 
     // MARK: Account Picking Script

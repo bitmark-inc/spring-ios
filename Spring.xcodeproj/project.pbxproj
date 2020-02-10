@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		287882C4482D548B5E3554F2 /* Pods_SpringTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5322E5E3882C69A09093AD96 /* Pods_SpringTests.framework */; };
 		54C129F7CA9ED8016F41855B /* Pods_Spring_Inhouse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF2C0B22097DE577EAC8395E /* Pods_Spring_Inhouse.framework */; };
-		58097057239E28C30081715C /* HeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58097056239E28C30081715C /* HeadingTableViewCell.swift */; };
-		58097058239E28C30081715C /* HeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58097056239E28C30081715C /* HeadingTableViewCell.swift */; };
 		582CC4C92390DBC400E4530B /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582CC4C82390DBC400E4530B /* CollectionView.swift */; };
 		582CC4CA2390DBC400E4530B /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582CC4C82390DBC400E4530B /* CollectionView.swift */; };
 		5832D6E0238BB9B40074AEDC /* HomeTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832D6DF238BB9B40074AEDC /* HomeTabbarController.swift */; };
@@ -93,8 +91,6 @@
 		58C009E02398C69400302F49 /* DataAnalyzingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */; };
 		58C009E12398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */; };
 		58C009E22398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */; };
-		58C009E62398C6CF00302F49 /* LensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009E42398C6CF00302F49 /* LensViewController.swift */; };
-		58C009E72398C6CF00302F49 /* LensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009E42398C6CF00302F49 /* LensViewController.swift */; };
 		58FF431023B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431123B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431223B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
@@ -315,7 +311,6 @@
 		5B5D003C23A1F0F4003D1A1C /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC19237A863300FA3196 /* ViewModel.swift */; };
 		5B5D003D23A1F0F4003D1A1C /* Observable+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC9C237A8A9200FA3196 /* Observable+Operators.swift */; };
 		5B5D003E23A1F0F4003D1A1C /* Global+Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC16237A863300FA3196 /* Global+Log.swift */; };
-		5B5D003F23A1F0F4003D1A1C /* HeadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58097056239E28C30081715C /* HeadingTableViewCell.swift */; };
 		5B5D004023A1F0F4003D1A1C /* ServerAssetsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CD32387E35300746280 /* ServerAssetsAPI.swift */; };
 		5B5D004123A1F0F4003D1A1C /* SVProgressHUD+rxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2F237A863300FA3196 /* SVProgressHUD+rxState.swift */; };
 		5B5D004223A1F0F4003D1A1C /* ServerAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CD62387E36600746280 /* ServerAssetsService.swift */; };
@@ -367,7 +362,6 @@
 		5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1C237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift */; };
 		5B5DFFD223A1F0F4003D1A1C /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222907B2394F19D00412CBC /* Groups.swift */; };
 		5B5DFFD323A1F0F4003D1A1C /* FbmAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B560A238D162400F1BCF2 /* FbmAccountService.swift */; };
-		5B5DFFD423A1F0F4003D1A1C /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
 		5B5DFFD523A1F0F4003D1A1C /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2C237A863300FA3196 /* ActivityIndicator.swift */; };
 		5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC99237A8A9200FA3196 /* UITableView+ApplyChanges.swift */; };
 		5B5DFFD723A1F0F4003D1A1C /* PostDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23807C8239618000079A3C4 /* PostDataTableViewCell.swift */; };
@@ -379,7 +373,6 @@
 		5B5DFFDE23A1F0F4003D1A1C /* AskNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */; };
 		5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC8C237A889A00FA3196 /* BitmarkSDKService.swift */; };
 		5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
-		5B5DFFE123A1F0F4003D1A1C /* LensViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009E42398C6CF00302F49 /* LensViewController.swift */; };
 		5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
 		5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC10237A85B000FA3196 /* SceneDelegate.swift */; };
 		5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC21237A863300FA3196 /* NavigationController.swift */; };
@@ -400,7 +393,6 @@
 		5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
 		5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24420392399067600520FE9 /* MediaPostTableViewCell.swift */; };
 		5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB4237A9FD700FA3196 /* Navigator.swift */; };
-		5B5DFFF823A1F0F4003D1A1C /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
 		5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2D237A863300FA3196 /* EditingTextView.swift */; };
 		5B5DFFFC23A1F0F4003D1A1C /* MakeUnderline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2A237A863300FA3196 /* MakeUnderline.swift */; };
 		5B5DFFFE23A1F0F4003D1A1C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC8E237A889A00FA3196 /* Storage.swift */; };
@@ -418,6 +410,10 @@
 		5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */; };
 		5B75A14D23BD9EA400FFF910 /* DatePeriodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */; };
 		5B75A15223BDD66000FFF910 /* QueryTrackSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A15123BDD66000FFF910 /* QueryTrackSpec.swift */; };
+		5B75C8C023EA98F100ABA5E0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DB66CD237D40A8005367C2 /* NotificationService.swift */; };
+		5B75C8C223EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
+		5B75C8C323EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
+		5B75C8CA23EA991F00ABA5E0 /* OneSignalNotificationServiceDevExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5B80A69E23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A69F23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A6A023C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
@@ -564,10 +560,6 @@
 		E2259CD82387E36600746280 /* ServerAssetsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CD62387E36600746280 /* ServerAssetsService.swift */; };
 		E2259CDB2387E56F00746280 /* ServerAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CDA2387E56F00746280 /* ServerAPIError.swift */; };
 		E2259CDC2387E56F00746280 /* ServerAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CDA2387E56F00746280 /* ServerAPIError.swift */; };
-		E22BB3342384E7320044BC95 /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
-		E22BB3352384E7320044BC95 /* GetYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */; };
-		E22BB3372384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
-		E22BB3382384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */; };
 		E22BC2EB239E3FF000018BC4 /* ListHeadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */; };
 		E22BC2EC239E3FF000018BC4 /* ListHeadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */; };
 		E236B676238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236B675238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift */; };
@@ -737,12 +729,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5832FC00237A6DB900FA3196 /* PBXContainerItemProxy */ = {
+		5B75C8CB23EA991F00ABA5E0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5832FBE1237A6DB700FA3196 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 5832FBE8237A6DB700FA3196;
-			remoteInfo = Synergy;
+			remoteGlobalIDString = 5B75C8BD23EA98F100ABA5E0;
+			remoteInfo = OneSignalNotificationServiceDevExtension;
+		};
+		5B75C8CE23EA9A9600ABA5E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5832FBE1237A6DB700FA3196 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E2DB667B237D3B69005367C2;
+			remoteInfo = "Spring Dev";
 		};
 		5B997E0423D7101B006F2185 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -761,6 +760,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5B75C8CD23EA991F00ABA5E0 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5B75C8CA23EA991F00ABA5E0 /* OneSignalNotificationServiceDevExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5B997E0623D7101B006F2185 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -794,7 +804,6 @@
 		318C790A3C05D19526AC4A0C /* Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceInhouseExtension/Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5322E5E3882C69A09093AD96 /* Pods_SpringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		559F3FAE962CA063186C1288 /* Pods-Spring Inhouse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring Inhouse.debug.xcconfig"; path = "Target Support Files/Pods-Spring Inhouse/Pods-Spring Inhouse.debug.xcconfig"; sourceTree = "<group>"; };
-		58097056239E28C30081715C /* HeadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingTableViewCell.swift; sourceTree = "<group>"; };
 		582CC4C82390DBC400E4530B /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		5832D6DF238BB9B40074AEDC /* HomeTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarController.swift; sourceTree = "<group>"; };
 		5832D6E3238BBE390074AEDC /* UsageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageViewModel.swift; sourceTree = "<group>"; };
@@ -868,7 +877,6 @@
 		58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPostTableViewCell.swift; sourceTree = "<group>"; };
 		58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAnalyzingViewController.swift; sourceTree = "<group>"; };
 		58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAnalyzingViewModel.swift; sourceTree = "<group>"; };
-		58C009E42398C6CF00302F49 /* LensViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LensViewController.swift; sourceTree = "<group>"; };
 		58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbbreviatedValueFormatter.swift; sourceTree = "<group>"; };
 		5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewController.swift; sourceTree = "<group>"; };
 		5B13D3A623CF000100F82350 /* IncreasePrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -920,6 +928,7 @@
 		5B75A14723BD95EE00FFF910 /* DataBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBadgeView.swift; sourceTree = "<group>"; };
 		5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePeriodSpec.swift; sourceTree = "<group>"; };
 		5B75A15123BDD66000FFF910 /* QueryTrackSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryTrackSpec.swift; sourceTree = "<group>"; };
+		5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceDevExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B80A68E23C5D00A002E591E /* IBMPlexMono-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-BoldItalic.ttf"; sourceTree = "<group>"; };
 		5B80A68F23C5D00A002E591E /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		5B80A69023C5D00A002E591E /* IBMPlexMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Italic.ttf"; sourceTree = "<group>"; };
@@ -1002,8 +1011,6 @@
 		E2259CD32387E35300746280 /* ServerAssetsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAssetsAPI.swift; sourceTree = "<group>"; };
 		E2259CD62387E36600746280 /* ServerAssetsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAssetsService.swift; sourceTree = "<group>"; };
 		E2259CDA2387E56F00746280 /* ServerAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPIError.swift; sourceTree = "<group>"; };
-		E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYourDataViewController.swift; sourceTree = "<group>"; };
-		E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetYourDataViewModel.swift; sourceTree = "<group>"; };
 		E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListHeadingViewCell.swift; sourceTree = "<group>"; };
 		E236B675238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FbmAccountDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		E236B678238EAAF200C1A280 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
@@ -1090,6 +1097,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				54C129F7CA9ED8016F41855B /* Pods_Spring_Inhouse.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B75C8C123EA98F100ABA5E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B75C8C223EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
+				5B75C8C323EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,6 +1214,7 @@
 				E2DB66CB237D40A8005367C2 /* OneSignalNotificationServiceExtension.appex */,
 				5B5D007423A1F0F4003D1A1C /* Spring.app */,
 				5B997CF123D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension.appex */,
+				5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1316,7 +1333,6 @@
 				58682EDA238F7079009BDDDF /* FilterSegment.swift */,
 				582CC4C82390DBC400E4530B /* CollectionView.swift */,
 				E23807C52396023F0079A3C4 /* LinkAttributedString.swift */,
-				58097056239E28C30081715C /* HeadingTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1399,7 +1415,6 @@
 				E29F5A162383E2E600C1D9D8 /* Onboarding */,
 				5832D6E2238BBE240074AEDC /* Usage */,
 				5832D6FA238BC23D0074AEDC /* Insight */,
-				58C009E32398C6CF00302F49 /* Lens */,
 				E222908A239509CB00412CBC /* Post List */,
 				5B2097B023B467340079B421 /* Reaction List */,
 				5832D6F7238BC23D0074AEDC /* Account */,
@@ -1449,14 +1464,6 @@
 				58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */,
 			);
 			path = "Data Analyzing";
-			sourceTree = "<group>";
-		};
-		58C009E32398C6CF00302F49 /* Lens */ = {
-			isa = PBXGroup;
-			children = (
-				58C009E42398C6CF00302F49 /* LensViewController.swift */,
-			);
-			path = Lens;
 			sourceTree = "<group>";
 		};
 		5B20979F23B4641C0079B421 /* Reaction */ = {
@@ -1873,15 +1880,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		E22BB3322384E7030044BC95 /* Get Your Data */ = {
-			isa = PBXGroup;
-			children = (
-				E22BB3362384E73F0044BC95 /* GetYourDataViewModel.swift */,
-				E22BB3332384E7320044BC95 /* GetYourDataViewController.swift */,
-			);
-			path = "Get Your Data";
-			sourceTree = "<group>";
-		};
 		E22BB3392385170C0044BC95 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -1979,7 +1977,6 @@
 				E29F5A782383F8C900C1D9D8 /* How It Works */,
 				5B289DFC23A0D9BB00283C84 /* Trust Critical */,
 				5BB319AF23A0982E005F7C58 /* Notifications */,
-				E22BB3322384E7030044BC95 /* Get Your Data */,
 				E27959DA23868763000E9CB9 /* Request Data */,
 				E28B55EB238CE63200F1BCF2 /* Data Requested */,
 				58C009DC2398C69400302F49 /* Data Analyzing */,
@@ -2110,7 +2107,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				5832FC01237A6DB900FA3196 /* PBXTargetDependency */,
+				5B75C8CF23EA9A9600ABA5E0 /* PBXTargetDependency */,
 			);
 			name = SpringTests;
 			productName = SynergyTests;
@@ -2139,6 +2136,24 @@
 			productName = Synergy;
 			productReference = 5B5D007423A1F0F4003D1A1C /* Spring.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5B75C8BD23EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5B75C8C523EA98F100ABA5E0 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceDevExtension" */;
+			buildPhases = (
+				5B75C8BE23EA98F100ABA5E0 /* [CP] Check Pods Manifest.lock */,
+				5B75C8BF23EA98F100ABA5E0 /* Sources */,
+				5B75C8C123EA98F100ABA5E0 /* Frameworks */,
+				5B75C8C423EA98F100ABA5E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotificationServiceDevExtension;
+			productName = OneSignalNotificationServiceExtension;
+			productReference = 5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		5B997CE723D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension */ = {
 			isa = PBXNativeTarget;
@@ -2169,10 +2184,12 @@
 				E2DB66B9237D3B69005367C2 /* Resources */,
 				E2DB66BD237D3B69005367C2 /* [CP] Embed Pods Frameworks */,
 				E2DB66BE237D3B69005367C2 /* [CP] Copy Pods Resources */,
+				5B75C8CD23EA991F00ABA5E0 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5B75C8CC23EA991F00ABA5E0 /* PBXTargetDependency */,
 			);
 			name = "Spring Dev";
 			productName = Synergy;
@@ -2212,7 +2229,7 @@
 					};
 					5832FBFE237A6DB900FA3196 = {
 						CreatedOnToolsVersion = 11.2;
-						TestTargetID = 5832FBE8237A6DB700FA3196;
+						TestTargetID = E2DB667B237D3B69005367C2;
 					};
 					E2DB66CA237D40A8005367C2 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -2237,6 +2254,7 @@
 				5B5DFFC423A1F0F4003D1A1C /* Spring Inhouse */,
 				5832FBFE237A6DB900FA3196 /* SpringTests */,
 				E2DB66CA237D40A8005367C2 /* OneSignalNotificationServiceExtension */,
+				5B75C8BD23EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension */,
 				5B997CE723D7070A006F2185 /* OneSignalNotificationServiceInhouseExtension */,
 			);
 		};
@@ -2357,6 +2375,13 @@
 				5B5D006C23A1F0F4003D1A1C /* AtlasGrotesk-Regular.otf in Resources */,
 				5B5D006D23A1F0F4003D1A1C /* DomaineSansText-Light.otf in Resources */,
 				5B5D006E23A1F0F4003D1A1C /* DomaineSansText-Black.otf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B75C8C423EA98F100ABA5E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2565,6 +2590,28 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
+		5B75C8BE23EA98F100ABA5E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		816E6A6EC516DCAC525207CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2766,7 +2813,6 @@
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238323B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232423A39BFC00C3C408 /* Archive.swift in Sources */,
-				E22BB3372384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */,
 				5B4A23A123B212E800447366 /* TimeUnit.swift in Sources */,
 				E222907C2394F19D00412CBC /* Groups.swift in Sources */,
 				5B58AC4823BB47620041F216 /* SignInViewController.swift in Sources */,
@@ -2789,7 +2835,6 @@
 				5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5832FC12237A85B000FA3196 /* SceneDelegate.swift in Sources */,
 				58C009D82398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
-				58C009E62398C6CF00302F49 /* LensViewController.swift in Sources */,
 				5832FC48237A863300FA3196 /* NavigationController.swift in Sources */,
 				5832FC57237A863300FA3196 /* Switch.swift in Sources */,
 				5BC91CC523CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */,
@@ -2817,7 +2862,6 @@
 				E27959E22386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203A2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				5832FCB5237A9FD700FA3196 /* Navigator.swift in Sources */,
-				E22BB3342384E7320044BC95 /* GetYourDataViewController.swift in Sources */,
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -2916,7 +2960,6 @@
 				5832FCA8237A8A9200FA3196 /* Observable+Operators.swift in Sources */,
 				E28B5607238D103300F1BCF2 /* Auth.swift in Sources */,
 				5832FC3F237A863300FA3196 /* Global+Log.swift in Sources */,
-				58097057239E28C30081715C /* HeadingTableViewCell.swift in Sources */,
 				E28B5601238D0B4200F1BCF2 /* AuthAPI.swift in Sources */,
 				E2259CD42387E35300746280 /* ServerAssetsAPI.swift in Sources */,
 				5832FC55237A863300FA3196 /* SVProgressHUD+rxState.swift in Sources */,
@@ -2982,7 +3025,6 @@
 				5B4A23A323B212E800447366 /* TimeUnit.swift in Sources */,
 				5B5DFFD323A1F0F4003D1A1C /* FbmAccountService.swift in Sources */,
 				5B58AC4A23BB47620041F216 /* SignInViewController.swift in Sources */,
-				5B5DFFD423A1F0F4003D1A1C /* GetYourDataViewModel.swift in Sources */,
 				5B590A7023B302D6006C194D /* MoodView.swift in Sources */,
 				5B5DFFD523A1F0F4003D1A1C /* ActivityIndicator.swift in Sources */,
 				5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */,
@@ -3000,7 +3042,6 @@
 				5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */,
-				5B5DFFE123A1F0F4003D1A1C /* LensViewController.swift in Sources */,
 				5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */,
 				5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */,
 				5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */,
@@ -3029,7 +3070,6 @@
 				5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */,
 				5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */,
 				5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */,
-				5B5DFFF823A1F0F4003D1A1C /* GetYourDataViewController.swift in Sources */,
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -3128,7 +3168,6 @@
 				5B5D003C23A1F0F4003D1A1C /* ViewModel.swift in Sources */,
 				5B5D003D23A1F0F4003D1A1C /* Observable+Operators.swift in Sources */,
 				5B5D003E23A1F0F4003D1A1C /* Global+Log.swift in Sources */,
-				5B5D003F23A1F0F4003D1A1C /* HeadingTableViewCell.swift in Sources */,
 				5B5D004023A1F0F4003D1A1C /* ServerAssetsAPI.swift in Sources */,
 				5B5D004123A1F0F4003D1A1C /* SVProgressHUD+rxState.swift in Sources */,
 				5B5D004223A1F0F4003D1A1C /* ServerAssetsService.swift in Sources */,
@@ -3146,6 +3185,14 @@
 				5B2097B423B4674B0079B421 /* ReactionListViewController.swift in Sources */,
 				5B2097A323B464360079B421 /* ReactionService.swift in Sources */,
 				5B5D004923A1F0F4003D1A1C /* FileManager+Directory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5B75C8BF23EA98F100ABA5E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5B75C8C023EA98F100ABA5E0 /* NotificationService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3184,7 +3231,6 @@
 				5B4A23A223B212E800447366 /* TimeUnit.swift in Sources */,
 				E28B560C238D162400F1BCF2 /* FbmAccountService.swift in Sources */,
 				5B58AC4923BB47620041F216 /* SignInViewController.swift in Sources */,
-				E22BB3382384E73F0044BC95 /* GetYourDataViewModel.swift in Sources */,
 				5B590A6F23B302D6006C194D /* MoodView.swift in Sources */,
 				E2DB6685237D3B69005367C2 /* ActivityIndicator.swift in Sources */,
 				E2DB6686237D3B69005367C2 /* UITableView+ApplyChanges.swift in Sources */,
@@ -3202,7 +3248,6 @@
 				5B75A14923BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */,
 				58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
-				58C009E72398C6CF00302F49 /* LensViewController.swift in Sources */,
 				E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
 				E2DB668A237D3B69005367C2 /* SceneDelegate.swift in Sources */,
 				E2DB668B237D3B69005367C2 /* NavigationController.swift in Sources */,
@@ -3231,7 +3276,6 @@
 				E27959E32386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203B2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				E2DB6693237D3B69005367C2 /* Navigator.swift in Sources */,
-				E22BB3352384E7320044BC95 /* GetYourDataViewController.swift in Sources */,
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -3330,7 +3374,6 @@
 				E2DB66AF237D3B69005367C2 /* ViewModel.swift in Sources */,
 				E2DB66B0237D3B69005367C2 /* Observable+Operators.swift in Sources */,
 				E2DB66B1237D3B69005367C2 /* Global+Log.swift in Sources */,
-				58097058239E28C30081715C /* HeadingTableViewCell.swift in Sources */,
 				E2259CD52387E35300746280 /* ServerAssetsAPI.swift in Sources */,
 				E2DB66B2237D3B69005367C2 /* SVProgressHUD+rxState.swift in Sources */,
 				E2259CD82387E36600746280 /* ServerAssetsService.swift in Sources */,
@@ -3362,10 +3405,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5832FC01237A6DB900FA3196 /* PBXTargetDependency */ = {
+		5B75C8CC23EA991F00ABA5E0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 5832FBE8237A6DB700FA3196 /* Spring */;
-			targetProxy = 5832FC00237A6DB900FA3196 /* PBXContainerItemProxy */;
+			target = 5B75C8BD23EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension */;
+			targetProxy = 5B75C8CB23EA991F00ABA5E0 /* PBXContainerItemProxy */;
+		};
+		5B75C8CF23EA9A9600ABA5E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E2DB667B237D3B69005367C2 /* Spring Dev */;
+			targetProxy = 5B75C8CE23EA9A9600ABA5E0 /* PBXContainerItemProxy */;
 		};
 		5B997E0523D7101B006F2185 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3661,11 +3709,59 @@
 			};
 			name = Release;
 		};
+		5B75C8C623EA98F100ABA5E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = Z5CE7A3A7N;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.test.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		5B75C8C723EA98F100ABA5E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 5;
+				DEVELOPMENT_TEAM = Z5CE7A3A7N;
+				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.test.OneSignalNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Dev OneSignal Adhoc";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		5B997CEF23D7070A006F2185 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 16448561B63E83FDDA2B1A1A /* Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = A52M7AQ8B2;
@@ -3677,7 +3773,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.synergy.inhouse.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Inhouse OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Inhouse OneSignal";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3700,7 +3796,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.synergy.inhouse.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Synergy Inhouse OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring Inhouse OneSignal Distribution";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3715,7 +3811,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3740,7 +3836,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3761,7 +3857,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
@@ -3798,7 +3894,7 @@
 				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bitmark.spring.OneSignalNotificationServiceExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "Spring OneSignal";
+				PROVISIONING_PROFILE_SPECIFIER = "Spring OneSignal AppStore";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3840,6 +3936,15 @@
 			buildConfigurations = (
 				5B5D007223A1F0F4003D1A1C /* Debug */,
 				5B5D007323A1F0F4003D1A1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5B75C8C523EA98F100ABA5E0 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceDevExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5B75C8C623EA98F100ABA5E0 /* Debug */,
+				5B75C8C723EA98F100ABA5E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

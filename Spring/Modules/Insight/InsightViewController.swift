@@ -107,9 +107,6 @@ extension InsightViewController {
             title: R.string.localizable.insights().localizedUppercase,
             color:  ColorTheme.internationalKleinBlue.color)
         headingView.subTitle = R.string.localizable.howfacebookusesyoU()
-        headingView.accountButton.rx.tap.bind { [weak self] in
-            self?.gotoAccountScreen()
-        }.disposed(by: disposeBag)
         return headingView
     }
 
@@ -126,9 +123,7 @@ extension InsightViewController {
         return incomeView
     }
 
-
-
-    fileprivate func  makeAdsCategoryView() -> AdsCategoryView {
+    fileprivate func makeAdsCategoryView() -> AdsCategoryView {
         let adsCategoryView = AdsCategoryView()
         adsCategoryView.containerLayoutDelegate = self
         adsCategoryView.setProperties(container: self)
@@ -141,11 +136,6 @@ extension InsightViewController {
     fileprivate func goToPostListScreen(filterScope: FilterScope) {
         let viewModel = PostListViewModel(filterScope: filterScope)
         navigator.show(segue: .postList(viewModel: viewModel), sender: self)
-    }
-
-    fileprivate func gotoAccountScreen() {
-        let viewModel = AccountViewModel()
-        navigator.show(segue: .account(viewModel: viewModel), sender: self)
     }
 
     func gotoIncomeQuestionURL() {

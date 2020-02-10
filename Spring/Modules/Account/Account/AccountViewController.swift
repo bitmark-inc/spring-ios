@@ -89,9 +89,6 @@ class AccountViewController: ViewController, BackNavigator {
 
     override func setupViews() {
         super.setupViews()
-
-        let blackBackItem = makeBlackBackItem()
-
         let securityButtonGroup: [Button]!
 
         if let biometricAuthOptionButton = biometricAuthOptionButton {
@@ -101,12 +98,9 @@ class AccountViewController: ViewController, BackNavigator {
         }
 
         settingsView.flex.define { (flex) in
-            flex.addItem()
-                .marginLeft(OurTheme.paddingInset.left)
-                .define { (flex) in
-                    flex.addItem(blackBackItem)
-                    flex.addItem(screenTitle).padding(OurTheme.paddingInset)
-                }
+            flex.addItem(screenTitle)
+                .marginLeft(Size.dw(18))
+                .padding(Size.dw(18), Size.dh(18), 0, Size.dw(18))
 
             flex.addItem(
                 makeOptionsSection(
@@ -132,7 +126,7 @@ class AccountViewController: ViewController, BackNavigator {
         contentView.flex
             .direction(.column).define { (flex) in
                 flex.addItem(scroll).height(0).grow(1)
-                flex.addItem(bitmarkCertView).paddingBottom(22)
+                flex.addItem(bitmarkCertView).paddingBottom(22).paddingTop(22)
             }
     }
 }
@@ -197,9 +191,10 @@ extension AccountViewController: UITextViewDelegate {
 extension AccountViewController {
     fileprivate func makeScreenTitle() -> Label {
         let label = Label()
-        label.applyTitleTheme(
+        label.apply(
             text: R.string.phrase.accountSettingsTitle().localizedUppercase,
-            colorTheme: OurTheme.accountColorTheme)
+            font: R.font.domaineSansTextLight(size: 36),
+            colorTheme: .yukonGold)
         return label
     }
 

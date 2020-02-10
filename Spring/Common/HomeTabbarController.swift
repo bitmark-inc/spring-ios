@@ -13,35 +13,34 @@ import RxCocoa
 
 class HomeTabbarController: ESTabBarController {
     class func tabbarController() -> HomeTabbarController {
-        let usageVC = UsageViewController(viewModel: UsageViewModel())
-        let usageNavVC = NavigationController(rootViewController: usageVC)
-
-        usageNavVC.tabBarItem = ESTabBarItem(
-            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#932C19")!),
-            title: R.string.localizable.usage().localizedUppercase,
-            image: R.image.usage_tab_icon(),
-            tag: 0)
-
         let insightsVC = InsightViewController(viewModel: InsightViewModel())
         let insightsNavVC = NavigationController(rootViewController: insightsVC)
         insightsNavVC.tabBarItem = ESTabBarItem(
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
             title: R.string.localizable.insights().localizedUppercase,
             image: R.image.insights_tab_icon(),
-            tag: 1
+            tag: 0
         )
 
-        let lensVC = LensViewController()
-        let lensNavVC = NavigationController(rootViewController: lensVC)
-        lensNavVC.tabBarItem = ESTabBarItem(
+        let usageVC = UsageViewController(viewModel: UsageViewModel())
+        let usageNavVC = NavigationController(rootViewController: usageVC)
+        usageNavVC.tabBarItem = ESTabBarItem(
+            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#932C19")!),
+            title: R.string.localizable.usage().localizedUppercase,
+            image: R.image.usage_tab_icon(),
+            tag: 1)
+
+        let settingsVC = AccountViewController(viewModel: AccountViewModel())
+        let settingsNavVC = NavigationController(rootViewController: settingsVC)
+        settingsNavVC.tabBarItem = ESTabBarItem(
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#5F6D07")!),
-            title: R.string.localizable.lens().localizedUppercase,
-            image: R.image.stream(),
+            title: R.string.localizable.settings().localizedUppercase,
+            image: R.image.account_icon(),
             tag: 2
         )
 
         let tabbarController = HomeTabbarController()
-        tabbarController.viewControllers = [usageNavVC, insightsNavVC, lensNavVC]
+        tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
 
         return tabbarController
     }
