@@ -43,20 +43,20 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
         let titleScreen = Label()
         titleScreen.apply(
             text: R.string.phrase.trustIsCriticalTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(34)),
+            font: R.font.domaineSansTextLight(size: 34),
             colorTheme: .black)
         
         let contentLabel = Label()
         contentLabel.numberOfLines = 0
         contentLabel.apply(
             text: R.string.phrase.trustIsCriticalDescription(),
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black, lineHeight: 1.32)
 
         let sincerelyLabel = Label()
         sincerelyLabel.apply(
             text: R.string.phrase.trustIsCriticalSincerely(),
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black)
         
         let seanSignature = ImageView(image: R.image.sean_sig())
@@ -65,7 +65,7 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
         seanTitleLabel.numberOfLines = 0
         seanTitleLabel.apply(
             text: R.string.phrase.trustIsCriticalTitleSignature(),
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black, lineHeight: 1.32)
 
         contentView.flex
@@ -75,9 +75,9 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
                     flex.addItem(blackBackItem)
                 }
 
-                flex.addItem(titleScreen).marginTop(Size.dh(100))
-                flex.addItem(contentLabel).marginTop(Size.dh(30))
-                flex.addItem(sincerelyLabel).marginTop(Size.dh(50))
+                flex.addItem(titleScreen).marginTop(100)
+                flex.addItem(contentLabel).marginTop(30)
+                flex.addItem(sincerelyLabel).marginTop(50)
                 flex.addItem(seanSignature)
                 flex.addItem(seanTitleLabel)
                 

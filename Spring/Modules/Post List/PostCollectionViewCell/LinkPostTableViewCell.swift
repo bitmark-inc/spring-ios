@@ -94,7 +94,7 @@ extension LinkPostTableViewCell {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.domaineSansTextLight(size: Size.ds(14)),
+            font: R.font.domaineSansTextLight(size: 14),
             colorTheme: .black, lineHeight: 1.3)
         return label
     }
@@ -120,7 +120,7 @@ extension LinkPostTableViewCell {
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.dataDetectorTypes = .link
-        textView.font = R.font.atlasGroteskLight(size: Size.ds(17))
+        textView.font = R.font.atlasGroteskLight(size: 17)
         return textView
     }
 }

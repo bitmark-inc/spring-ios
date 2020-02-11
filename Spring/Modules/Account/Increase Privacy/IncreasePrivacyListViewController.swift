@@ -40,7 +40,7 @@ class IncreasePrivacyListViewController: ViewController, BackNavigator {
         let blackBackItem = makeBlackBackItem()
 
         var paddingScreenTitleInset = OurTheme.accountPaddingScreenTitleInset
-        paddingScreenTitleInset.bottom = Size.dh(13)
+        paddingScreenTitleInset.bottom = 13
 
         privacyListView.flex
             .padding(OurTheme.paddingInset)
@@ -51,7 +51,7 @@ class IncreasePrivacyListViewController: ViewController, BackNavigator {
 
                 for (index, privacyOption) in IncreasePrivacyOption.allCases.enumerated() {
                     flex.addItem(makePrivacyOptionView(increasePrivacyOption: privacyOption, index: index))
-                        .marginTop(Size.ds(27))
+                        .marginTop(27)
                 }
             }
 
@@ -109,7 +109,7 @@ extension IncreasePrivacyListViewController {
         label.numberOfLines = 0
         label.apply(
             text: R.string.phrase.fbIncreasePrivacyDescription(6),
-            font: R.font.atlasGroteskLight(size: Size.ds(12)),
+            font: R.font.atlasGroteskLight(size: 12),
             colorTheme: .black, lineHeight: 1.27)
         return label
     }
@@ -118,7 +118,7 @@ extension IncreasePrivacyListViewController {
         let indexLabel = Label()
         indexLabel.apply(
             text:  String(index + 1),
-            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            font: R.font.atlasGroteskLight(size: 14),
             colorTheme: .black, lineHeight: 1.2)
 
         let titleTextView = ReadingTextView()
@@ -133,7 +133,7 @@ extension IncreasePrivacyListViewController {
         let actionGuideLabel = Label()
         actionGuideLabel.numberOfLines = 0
         actionGuideLabel.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(16)),
+            font: R.font.atlasGroteskLight(size: 16),
             colorTheme: .black, lineHeight: 1.2)
         actionGuideLabel.attributedText = increasePrivacyOption.actionGuide
 
@@ -142,7 +142,7 @@ extension IncreasePrivacyListViewController {
         view.flex
             .direction(.row)
             .define { (flex) in
-                flex.addItem(indexLabel).marginRight(Size.dw(14)).alignSelf(.start)
+                flex.addItem(indexLabel).marginRight(14).alignSelf(.start)
                 flex.addItem().grow(1).alignItems(.stretch).define { (flex) in
                     flex.addItem(titleTextView)
                     flex.addItem(actionGuideLabel).marginTop(5)
@@ -164,7 +164,7 @@ enum IncreasePrivacyOption: String, CaseIterable {
 
     var title: NSAttributedString {
         let normal = Style {
-            $0.font = self.hasClicked ? R.font.atlasGroteskRegularItalic(size: Size.ds(16)) : R.font.atlasGroteskLightItalic(size: Size.ds(16))
+            $0.font = self.hasClicked ? R.font.atlasGroteskRegularItalic(size: 16) : R.font.atlasGroteskLightItalic(size: 16)
             $0.color = self.clickedStatusColor
         }
 
@@ -178,12 +178,12 @@ enum IncreasePrivacyOption: String, CaseIterable {
 
     var actionGuide: NSAttributedString {
         let normal = Style {
-            $0.font = R.font.atlasGroteskLight(size: Size.ds(12))
+            $0.font = R.font.atlasGroteskLight(size: 12)
             $0.color = themeService.attrs.blackTextColor
         }
 
         let bold = Style {
-            $0.font = R.font.atlasGroteskRegular(size: Size.ds(12))
+            $0.font = R.font.atlasGroteskRegular(size: 12)
         }
 
         return actionGuideText.set(style: StyleXML(base: normal, ["b": bold]))

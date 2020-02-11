@@ -81,7 +81,7 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator, Lau
                     .bottom(OurTheme.paddingBottom)
                     .define { (flex) in
                         flex.addItem(errorRecoveryKeyView)
-                        flex.addItem(submitButton).marginTop(Size.dh(24))
+                        flex.addItem(submitButton).marginTop(24)
                     }
             }
     }

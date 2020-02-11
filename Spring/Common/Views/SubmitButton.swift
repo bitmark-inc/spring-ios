@@ -15,8 +15,8 @@ class SubmitButton: Button {
     override func setupViews() {
         super.setupViews()
 
-        titleLabel?.font = R.font.atlasGroteskRegular(size: Size.ds(18))
-        flex.height(Size.dh(50))
+        titleLabel?.font = R.font.atlasGroteskRegular(size: 18)
+        flex.height(50)
     }
 }
 

@@ -34,7 +34,7 @@ class ListHeadingViewCell: TableViewCell {
                         flex.addItem(timelineLabel).marginTop(7)
                 }
 
-                flex.addItem(SectionSeparator()).marginTop(Size.dh(27))
+                flex.addItem(SectionSeparator()).marginTop(27)
         }
     }
 
@@ -56,14 +56,14 @@ class ListHeadingViewCell: TableViewCell {
 extension ListHeadingViewCell {
     func makeSectionTitleLabel() -> Label {
         let label = Label()
-        label.applyTitleTheme(text: "", colorTheme: .cognac)
+        label.applyTitleTheme(colorTheme: .cognac)
         return label
     }
 
     func makeSectionTagLabel() -> Label {
         let label = Label()
         label.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(10)),
+            font: R.font.atlasGroteskLight(size: 10),
             colorTheme: .black, lineHeight: 1.06)
         return label
     }
@@ -71,7 +71,7 @@ extension ListHeadingViewCell {
     func makeTimelineLabel() -> Label {
         let label = Label()
         label.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            font: R.font.atlasGroteskLight(size: 14),
             colorTheme: .black, lineHeight: 1.06)
         return label
     }

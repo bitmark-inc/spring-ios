@@ -74,15 +74,15 @@ class CheckDataRequestedViewController: ViewController {
             .direction(.column).define { (flex) in
                 flex.addItem().height(45%)
 
-                flex.addItem(dataRequestedTitleLabel).marginTop(Size.dh(45))
-                flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(Size.dh(15))
-                flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(Size.dh(10))
-                flex.addItem(dataRequestedTimeDescLabel).marginTop(Size.dh(10))
+                flex.addItem(dataRequestedTitleLabel).marginTop(45)
+                flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(15)
+                flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(10)
+                flex.addItem(dataRequestedTimeDescLabel).marginTop(10)
                 
                 flex.addItem()
                     .define({ (flex) in
                         flex.addItem(checkNowButton)
-                        flex.addItem(viewInsightsButton).marginTop(Size.dh(19))
+                        flex.addItem(viewInsightsButton).marginTop(19)
                     })
                     .width(100%)
                     .position(.absolute)
@@ -110,7 +110,7 @@ extension CheckDataRequestedViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.dataRequestedScreenTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(36)), colorTheme: .black)
+            font: R.font.domaineSansTextLight(size: 36), colorTheme: .black)
         return label
     }
     
@@ -125,7 +125,7 @@ extension CheckDataRequestedViewController {
         default: break
         }
 
-        label.apply(text: text, font: R.font.atlasGroteskLight(size: Size.ds(18)), colorTheme: .black, lineHeight: 1.2)
+        label.apply(text: text, font: R.font.atlasGroteskLight(size: 18), colorTheme: .black, lineHeight: 1.2)
         return label
     }
     
@@ -139,7 +139,7 @@ extension CheckDataRequestedViewController {
         let button = Button()
         button.apply(
             title: R.string.localizable.view_insights(),
-            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            font: R.font.atlasGroteskLight(size: 14),
             colorTheme: .cognac)
         return button
     }
@@ -148,7 +148,7 @@ extension CheckDataRequestedViewController {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskThinItalic(size: Size.ds(18)),
+            font: R.font.atlasGroteskThinItalic(size: 18),
             colorTheme: .black, lineHeight: 1.2)
         return label
     }

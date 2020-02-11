@@ -101,7 +101,7 @@ extension IncreasePrivacyViewController {
         label.textAlignment = .center
         label.apply(
             text: R.string.phrase.fbIncreasePrivacyTitle().localizedUppercase,
-            font: R.font.atlasGroteskRegular(size: Size.ds(18)),
+            font: R.font.atlasGroteskRegular(size: 18),
             colorTheme: .white)
         return label
     }

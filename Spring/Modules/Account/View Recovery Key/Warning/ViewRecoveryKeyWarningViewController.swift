@@ -55,7 +55,7 @@ class ViewRecoveryKeyWarningViewController: ViewController, BackNavigator {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.apply(
             text: R.string.phrase.accountRecoveryKeyWarningDescription(),
-            font: R.font.atlasGroteskThin(size: Size.ds(22)),
+            font: R.font.atlasGroteskThin(size: 22),
             colorTheme: .tundora, lineHeight: 1.32)
 
         contentView.flex

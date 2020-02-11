@@ -43,8 +43,8 @@ class IconButtonView: UIView {
 
         iconImageView.snp.makeConstraints { (make) in
             make.top.leading.bottom.equalToSuperview()
-            make.width.equalTo(Size.dw(23))
-            make.height.equalTo(Size.dh(32))
+            make.width.equalTo(23)
+            make.height.equalTo(32)
         }
 
         button.snp.makeConstraints { (make) in

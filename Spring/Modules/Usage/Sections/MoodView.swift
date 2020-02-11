@@ -41,7 +41,7 @@ class MoodView: UIView {
                         flex.addItem(makeMoodTextView(moodText: R.string.localizable.happy(), moodValue: 10, valueAlignSelf: .end))
                     }
                 flex.addItem(noActivityView).alignSelf(.center)
-                flex.addItem().height(Size.dh(30))
+                flex.addItem().height(30)
             }
     }
 
@@ -108,7 +108,7 @@ extension MoodView {
         let label = Label()
         label.apply(
             text: R.string.phrase.moodAverage().localizedUppercase,
-            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            font: R.font.atlasGroteskLight(size: 14),
             colorTheme: ColorTheme.black)
         return label
     }
@@ -139,7 +139,7 @@ extension MoodView {
     fileprivate func makeNoActivityView() -> Label {
         let label = Label()
         label.apply(text: R.string.localizable.graphMoodNoActivity(),
-                    font: R.font.atlasGroteskLight(size: Size.ds(14)),
+                    font: R.font.atlasGroteskLight(size: 14),
                     colorTheme: .black,
                     lineHeight: 1.056)
         label.isHidden = true

@@ -63,7 +63,7 @@ class ArchiveStatusBox: UIView {
 
         statusLabel.snp.makeConstraints { (make) in
             make.leading.top.equalToSuperview()
-                .inset(UIEdgeInsets(top: Size.dh(18), left: 18, bottom: 0, right: 0))
+                .inset(UIEdgeInsets(top: 18, left: 18, bottom: 0, right: 0))
         }
 
         controlButton.snp.makeConstraints { (make) in
@@ -72,13 +72,13 @@ class ArchiveStatusBox: UIView {
         }
 
         descriptionLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(statusLabel.snp.bottom).offset(Size.dh(9))
+            make.top.equalTo(statusLabel.snp.bottom).offset(9)
             make.leading.trailing.equalToSuperview()
                 .inset(UIEdgeInsets(top: 0, left: 18, bottom: 0, right: 18))
         }
 
         snp.makeConstraints { (make) in
-            heightConstraint = make.height.equalTo(descriptionLabel).offset(Size.dh(82)).constraint
+            heightConstraint = make.height.equalTo(descriptionLabel).offset(82).constraint
         }
 
         controlButton.rx.tap.bind { [weak self] in
@@ -105,7 +105,7 @@ extension ArchiveStatusBox {
     fileprivate func makeStatusLabel() -> Label {
         let label = Label()
         label.apply(
-            font: R.font.atlasGroteskRegular(size: Size.ds(24)),
+            font: R.font.atlasGroteskRegular(size: 24),
             colorTheme: .black,
             lineHeight: 1.2)
         return label
@@ -115,7 +115,7 @@ extension ArchiveStatusBox {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black,
             lineHeight: 1.2)
         return label
@@ -124,7 +124,7 @@ extension ArchiveStatusBox {
     fileprivate func makeControlButton() -> Button {
         let button = Button()
         button.setImage(R.image.arrowDown(), for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: Size.dh(36), right: 15)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 36, right: 15)
         return button
     }
 }

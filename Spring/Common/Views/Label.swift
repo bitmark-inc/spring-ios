@@ -52,8 +52,8 @@ extension Label {
     }
 
     func applyTitleTheme(
-        text: String, colorTheme: ColorTheme,
-        font: UIFont = R.font.domaineSansTextRegular(size: Size.ds(36))!,
+        text: String? = nil, colorTheme: ColorTheme,
+        font: UIFont = R.font.domaineSansTextLight(size: Size.ds(36))!,
         lineHeight: CGFloat = 1.1) {
 
         self.text = text

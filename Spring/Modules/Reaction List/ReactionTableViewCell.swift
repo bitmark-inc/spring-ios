@@ -62,7 +62,7 @@ extension ReactionTableViewCell {
     fileprivate func makeTimeLabel() -> Label {
         let label = Label()
         label.apply(text: "",
-                    font: R.font.atlasGroteskRegular(size: Size.ds(14)),
+                    font: R.font.atlasGroteskRegular(size: 14),
                     colorTheme: .black)
         return label
     }
@@ -70,7 +70,7 @@ extension ReactionTableViewCell {
     fileprivate func makeDescriptionLabel() -> Label {
         let label = Label()
         label.apply(text: "",
-                    font: R.font.atlasGroteskLight(size: Size.ds(16)),
+                    font: R.font.atlasGroteskLight(size: 16),
                     colorTheme: .black, lineHeight: 1.2)
         return label
     }

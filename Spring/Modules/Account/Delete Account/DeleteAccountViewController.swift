@@ -133,7 +133,7 @@ extension DeleteAccountViewController {
             string: description,
             lineHeight: 1.32,
             attributes: [
-                .font: R.font.atlasGroteskThin(size: Size.ds(22))!,
+                .font: R.font.atlasGroteskThin(size: 22)!,
                 .foregroundColor: themeService.attrs.tundoraTextColor
             ],
             links: [
@@ -143,10 +143,11 @@ extension DeleteAccountViewController {
               .underlineColor: themeService.attrs.tundoraTextColor,
               .underlineStyle: NSUnderlineStyle.single.rawValue,
               .foregroundColor: themeService.attrs.tundoraTextColor
-            ])
+            ],
+            customLineSpacing: true)
 
         let textView = ReadingTextView()
-        textView.apply(colorTheme: .black)
+        textView.apply(colorTheme: .tundora)
         textView.delegate = self
         textView.linkTextAttributes = [
           .foregroundColor: themeService.attrs.tundoraTextColor

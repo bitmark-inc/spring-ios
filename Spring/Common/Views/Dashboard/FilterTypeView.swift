@@ -206,10 +206,10 @@ extension FilterTypeView: ChartViewDelegate {
 extension FilterTypeView {
     fileprivate func makeNoActivityView() -> Label {
         let label = Label()
-        label.apply(text: R.string.localizable.graphNoActivity(),
-                    font: R.font.atlasGroteskLight(size: Size.ds(14)),
-                    colorTheme: .black,
-                    lineHeight: 1.056)
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 14),
+            colorTheme: .black, lineHeight: 1.056)
         label.isHidden = true
         return label
     }

@@ -57,7 +57,7 @@ extension ConfirmRecoveryKeyViewController {
         let view = UIView()
         view.flex.direction(.column).define { (flex) in
             flex.addItem(recoveryKeyBox)
-            flex.addItem(guideLabel).marginTop(Size.dh(27))
+            flex.addItem(guideLabel).marginTop(27)
         }
         return view
     }
@@ -66,7 +66,7 @@ extension ConfirmRecoveryKeyViewController {
         let view = UIView()
 
         view.flex
-            .height(Size.dh(145))
+            .height(145)
             .define { (flex) in
                 let boxImage = ImageView(image: R.image.recoveryInputBox())
                 boxImage.contentMode = .scaleToFill
@@ -75,7 +75,7 @@ extension ConfirmRecoveryKeyViewController {
                     .top(0)
 
                 flex.addItem()
-                    .padding(UIEdgeInsets(top: Size.dh(10), left: Size.dw(10), bottom: Size.dh(10), right: Size.dw(10)))
+                    .padding(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
                     .define { (flex) in
                          flex.addItem(recoveryKeyTextView).width(100%).height(100%)
                 }
@@ -90,7 +90,7 @@ extension ConfirmRecoveryKeyViewController {
 
     fileprivate func makeRecoveryKeyTextView() -> UITextView {
         let textView = UITextView()
-        textView.font = R.font.atlasGroteskLight(size: Size.ds(22))
+        textView.font = R.font.atlasGroteskLight(size: 22)
         textView.autocapitalizationType = .none
         textView.returnKeyType = .done
         textView.delegate = self
@@ -109,7 +109,7 @@ extension ConfirmRecoveryKeyViewController {
         label.isDescription = true
         label.apply(
             text: R.string.phrase.accountRecoveryKeyInputGuide(),
-            font: R.font.atlasGroteskLight(size: Size.ds(22)),
+            font: R.font.atlasGroteskLight(size: 22),
             colorTheme: .tundora,
             lineHeight: 1.32)
         return label
@@ -128,14 +128,14 @@ extension ConfirmRecoveryKeyViewController {
         titleLabel.isDescription = true
         titleLabel.apply(
             text: R.string.error.signInIncorrectRecoveryKeyTitle(),
-            font: R.font.atlasGroteskRegular(size: Size.ds(18)),
+            font: R.font.atlasGroteskRegular(size: 18),
             colorTheme: .black)
 
         let descriptionLabel = Label()
         descriptionLabel.isDescription = true
         descriptionLabel.apply(
             text: R.string.error.signInIncorrectRecoveryKeyDescription(),
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black, lineHeight: 1.2)
 
         view.flex.alignSelf(.center).define { (flex) in

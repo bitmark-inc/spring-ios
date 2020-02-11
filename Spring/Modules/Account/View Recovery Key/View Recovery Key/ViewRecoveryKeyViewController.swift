@@ -61,7 +61,7 @@ class ViewRecoveryKeyViewController: ViewController, BackNavigator {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.apply(
             text: R.string.phrase.accountRecoveryKeyOutputGuide(),
-            font: R.font.atlasGroteskThin(size: Size.ds(22)),
+            font: R.font.atlasGroteskThin(size: 22),
             colorTheme: .tundora, lineHeight: 1.32)
 
         contentView.flex
@@ -126,7 +126,7 @@ extension ViewRecoveryKeyViewController {
     fileprivate func makeIndexWordLabel() -> Label {
         let label = Label()
         label.textAlignment = .center
-        label.apply(font: R.font.atlasGroteskLight(size: Size.ds(22)), colorTheme: .tundora, lineHeight: 1.32)
+        label.apply(font: R.font.atlasGroteskLight(size: 22), colorTheme: .tundora, lineHeight: 1.32)
         return label
     }
 }

@@ -18,7 +18,7 @@ extension BackNavigator where Self: ViewController {
         let backButton = Button()
         backButton.apply(
             title: R.string.localizable.backNavigator().localizedUppercase,
-            font: R.font.avenir(size: Size.ds(14)),
+            font: R.font.avenir(size: 14),
             colorTheme: .black)
         backButton.contentHorizontalAlignment = .left
 
@@ -33,7 +33,7 @@ extension BackNavigator where Self: ViewController {
         let backButton = Button()
         backButton.apply(
             title: R.string.localizable.backNavigator().localizedUppercase,
-            font: R.font.avenir(size: Size.ds(14)),
+            font: R.font.avenir(size: 14),
             colorTheme: .white)
         backButton.contentHorizontalAlignment = .left
 

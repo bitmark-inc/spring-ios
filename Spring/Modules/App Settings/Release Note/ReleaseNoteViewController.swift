@@ -107,7 +107,7 @@ extension ReleaseNoteViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.releaseNoteTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(36)),
+            font: R.font.domaineSansTextLight(size: 36),
             colorTheme: .black, lineHeight: 1.056)
         return label
     }
