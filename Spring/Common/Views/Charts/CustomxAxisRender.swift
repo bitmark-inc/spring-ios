@@ -9,6 +9,9 @@
 import Charts
 
 final class CustomxAxisRender: XAxisRendererHorizontalBarChart {
+    var xShift: CGFloat = 3.0
+    var yShift: CGFloat = 12.0
+    
     @objc override func computeSize()
     {
         guard let
@@ -77,8 +80,8 @@ final class CustomxAxisRender: XAxisRendererHorizontalBarChart {
                     drawLabel(
                         context: context,
                         formattedLabel: label,
-                        x: pos - CGFloat(3.0),
-                        y: position.y - CGFloat(12.0),
+                        x: pos - xShift,
+                        y: position.y - yShift,
                         attributes: [NSAttributedString.Key.font: labelFont, NSAttributedString.Key.foregroundColor: labelTextColor],
                         anchor: anchor,
                         angleRadians: labelRotationAngleRadians)

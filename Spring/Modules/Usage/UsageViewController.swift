@@ -54,6 +54,7 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterDayView = makeFilterDayView(section: .reaction)
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
+    lazy var statView = makeStatGeneralView(section: .post)
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -177,6 +178,7 @@ class UsageViewController: ViewController {
             flex.addItem(reactionsFilterTypeView)
             flex.addItem(reactionsFilterDayView)
             flex.addItem(reactionsFilterFriendView)
+            flex.addItem(statView)
         }
 
         scroll.addSubview(usageView)
@@ -237,6 +239,20 @@ extension UsageViewController {
         filterGeneralView.containerLayoutDelegate = self
         filterGeneralView.navigatorDelegate = self
         return filterGeneralView
+    }
+    
+    fileprivate func makeStatGeneralView(section: Section) -> StatsChartView {
+        let statChartView = StatsChartView()
+        statChartView.fillData(with: [
+            (name: "Updates", data: (avg: 10, total: 22)),
+            (name: "Photos", data: (avg: 23, total: 10)),
+            (name: "Stories", data: (avg: 34, total: 20)),
+            (name: "Videos", data: (avg: 30, total: 60)),
+            (name: "Links", data: (avg: 8, total: 30))]
+        )
+        statChartView.containerLayoutDelegate = self
+        statChartView.navigatorDelegate = self
+        return statChartView
     }
 }
 
