@@ -63,7 +63,6 @@ class AccountService: AccountServiceDelegate {
         Global.log.info("[done] registerIntercom")
     }
 
-
     static func rxCreateNewAccount() -> Single<Account> {
         Global.log.info("[start] createNewAccount")
 

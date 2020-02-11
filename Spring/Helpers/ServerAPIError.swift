@@ -12,14 +12,14 @@ import Moya
 
 let errorKeyPath = "error"
 
-enum APIErrorCode: Int, Decodable {
+enum APIErrorCode: Int, Codable {
     case AccountHasTaken            = 1003
     case AccountNotFound            = 1006
     case RequireUpdateVersion       = 1007
     case UnexpectedResponseFormat   = 500
 }
 
-struct ServerAPIError: Decodable, Error {
+struct ServerAPIError: Codable, Error {
     let code: APIErrorCode
     let message: String
 }
