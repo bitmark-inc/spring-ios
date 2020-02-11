@@ -57,6 +57,13 @@ extension LaunchingNavigatorDelegate {
     }
 
     func navigate() {
+        // *** When user doesn't log in (and no requesting data)
+        if Global.current.account == nil {
+            loadingState.onNext(.hide)
+            gotoSignInWallScreen()
+            return
+        }
+
         // **** When Data is Requesting
         // - user click notification: make animation to download Archive
         // - user enter the app:      go to check now screen
@@ -68,13 +75,6 @@ extension LaunchingNavigatorDelegate {
             } else {
                 gotoDataRequestedWithCheckButtonScreen()
             }
-            return
-        }
-
-        // *** When user doesn't log in (and no requesting data)
-        if Global.current.account == nil {
-            loadingState.onNext(.hide)
-            gotoSignInWallScreen()
             return
         }
 

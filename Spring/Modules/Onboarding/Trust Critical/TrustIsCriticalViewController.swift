@@ -75,9 +75,9 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
                     flex.addItem(blackBackItem)
                 }
 
-                flex.addItem(titleScreen).marginTop(100)
-                flex.addItem(contentLabel).marginTop(30)
-                flex.addItem(sincerelyLabel).marginTop(50)
+                flex.addItem(titleScreen).marginTop(OurTheme.trustIsCriticalTop)
+                flex.addItem(contentLabel).marginTop(27)
+                flex.addItem(sincerelyLabel).marginTop(Size.dh(50))
                 flex.addItem(seanSignature)
                 flex.addItem(seanTitleLabel)
                 

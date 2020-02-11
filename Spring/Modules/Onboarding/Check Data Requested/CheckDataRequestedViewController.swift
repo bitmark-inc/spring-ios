@@ -64,7 +64,7 @@ class CheckDataRequestedViewController: ViewController {
         view.addSubview(thumbImage)
         thumbImage.snp.makeConstraints { (make) in
             make.top.leading.trailing.equalToSuperview()
-            make.height.equalToSuperview().multipliedBy(0.5)
+            make.height.equalToSuperview().multipliedBy(OurTheme.halfImagePercent)
         }
 
         super.setupViews()
@@ -72,7 +72,8 @@ class CheckDataRequestedViewController: ViewController {
         contentView.flex
             .padding(OurTheme.paddingInset)
             .direction(.column).define { (flex) in
-                flex.addItem().height(45%)
+                let imageSpace = (OurTheme.halfImagePercent - 0.05) * 100
+                flex.addItem().height(imageSpace%)
 
                 flex.addItem(dataRequestedTitleLabel).marginTop(45)
                 flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(15)

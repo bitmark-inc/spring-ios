@@ -28,19 +28,52 @@ struct OurTheme {
     }()
     static let onboardingPaddingScreenTitle: CGFloat = 28
     static let dashboardPaddingScreenTitle: CGFloat = 8
-    static var accountPaddingScreenTitleInset: UIEdgeInsets {
+    static var accountPaddingScreenTitleInset: UIEdgeInsets = {
         switch UIScreen.main.bounds.size.height {
         case let x where x <= 667:
             return UIEdgeInsets(top: 21, left: 0, bottom: 19, right: 0)
         default:
             return UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
         }
-    }
+    }()
     static let accountColorTheme = ColorTheme.black
     static let postCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)
     static let reactionCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)
-    static let titlePaddingWithoutBack  = UIEdgeInsets(top: 43, left: 0, bottom: 43, right: 18)
-    static let titlePaddingInset = UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
+    static let titlePaddingIgnoreBack: UIEdgeInsets = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return UIEdgeInsets(top: 43, left: 0, bottom: 21, right: 0)
+        default:
+            return UIEdgeInsets(top: 43, left: 0, bottom: 43, right: 18)
+        }
+    }()
+
+    static let titlePaddingInset: UIEdgeInsets = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 19, right: 0)
+        default:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
+        }
+    }()
+
+    static let trustIsCriticalTop: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return 43
+        default:
+            return 100
+        }
+    }()
+
+    static let halfImagePercent: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return 0.35
+        default:
+            return 0.5
+        }
+    }()
 }
 
 protocol Theme {

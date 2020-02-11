@@ -153,6 +153,7 @@ extension DeleteAccountViewController {
           .foregroundColor: themeService.attrs.tundoraTextColor
         ]
         textView.attributedText = attributedDescription
+        textView.isScrollEnabled = false
         return textView
     }
 
