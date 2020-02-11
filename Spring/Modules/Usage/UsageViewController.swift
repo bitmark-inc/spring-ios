@@ -55,8 +55,8 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
     lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
-
     lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
+    lazy var statView = makeStatGeneralView(section: .post)
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -187,6 +187,7 @@ class UsageViewController: ViewController {
             } else {
                 flex.addItem(morePersonalAnalyticsComingView)
             }
+            flex.addItem(statView)
         }
 
         scroll.addSubview(usageView)
@@ -254,6 +255,20 @@ extension UsageViewController {
         moreComingView.containerLayoutDelegate = self
         moreComingView.section = .morePersonalAnalyticsComing
         return moreComingView
+    }
+
+    fileprivate func makeStatGeneralView(section: Section) -> StatsChartView {
+        let statChartView = StatsChartView()
+        statChartView.fillData(with: [
+            (name: "Updates", data: (avg: 10, total: 22)),
+            (name: "Photos", data: (avg: 23, total: 10)),
+            (name: "Stories", data: (avg: 34, total: 20)),
+            (name: "Videos", data: (avg: 30, total: 60)),
+            (name: "Links", data: (avg: 8, total: 30))]
+        )
+        statChartView.containerLayoutDelegate = self
+        statChartView.navigatorDelegate = self
+        return statChartView
     }
 }
 

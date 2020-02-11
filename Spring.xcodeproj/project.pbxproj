@@ -87,6 +87,12 @@
 		58C009D22398A43100302F49 /* CustomxAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D02398A43100302F49 /* CustomxAxisRender.swift */; };
 		58C009D82398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
 		58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
+		58E8B24923F269B90006D45B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24823F269B90006D45B /* StatsView.swift */; };
+		58E8B24A23F269B90006D45B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24823F269B90006D45B /* StatsView.swift */; };
+		58E8B24B23F269B90006D45B /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24823F269B90006D45B /* StatsView.swift */; };
+		58E8B24D23F2A9420006D45B /* CustomyAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */; };
+		58E8B24E23F2A9420006D45B /* CustomyAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */; };
+		58E8B24F23F2A9420006D45B /* CustomyAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */; };
 		58FF431023B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431123B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431223B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
@@ -876,6 +882,8 @@
 		58682EDA238F7079009BDDDF /* FilterSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSegment.swift; sourceTree = "<group>"; };
 		58C009D02398A43100302F49 /* CustomxAxisRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomxAxisRender.swift; sourceTree = "<group>"; };
 		58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPostTableViewCell.swift; sourceTree = "<group>"; };
+		58E8B24823F269B90006D45B /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomyAxisRender.swift; sourceTree = "<group>"; };
 		58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbbreviatedValueFormatter.swift; sourceTree = "<group>"; };
 		5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewController.swift; sourceTree = "<group>"; };
 		5B13D3A623CF000100F82350 /* IncreasePrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -1460,6 +1468,7 @@
 				58C009D02398A43100302F49 /* CustomxAxisRender.swift */,
 				5B590A7123B31D6D006C194D /* StackedBarValueFormatter.swift */,
 				58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */,
+				58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -1546,6 +1555,7 @@
 				5B4A238623B115D100447366 /* FilterDayView.swift */,
 				5B4A238A23B1166300447366 /* FilterGeneralView.swift */,
 				5B4A23A423B21CD400447366 /* SectionSeparator.swift */,
+				58E8B24823F269B90006D45B /* StatsView.swift */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -2824,6 +2834,7 @@
 				5832FCA6237A8A9200FA3196 /* UITableView+ApplyChanges.swift in Sources */,
 				5832FC97237A889A00FA3196 /* Credential.swift in Sources */,
 				E23807C9239618000079A3C4 /* PostDataTableViewCell.swift in Sources */,
+				58E8B24D23F2A9420006D45B /* CustomyAxisRender.swift in Sources */,
 				5B32F5BB23CD830100959DFF /* AppLink.swift in Sources */,
 				5BA9FF6323B2293F00E57A20 /* InsightAPI.swift in Sources */,
 				E29F5A7D2383F8FD00C1D9D8 /* HowItWorksViewController.swift in Sources */,
@@ -2848,6 +2859,7 @@
 				E28B55F0238CE66400F1BCF2 /* CheckDataRequestedViewController.swift in Sources */,
 				5B9322FC23A3635200C3C408 /* SignOutViewModel.swift in Sources */,
 				5B2097B623B467560079B421 /* ReactionListViewModel.swift in Sources */,
+				58E8B24923F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF6F23B23CAA00E57A20 /* IncomeView.swift in Sources */,
 				5832FCB0237A8A9300FA3196 /* String+Helper.swift in Sources */,
 				E22290A223953B0600412CBC /* PostTableView.swift in Sources */,
@@ -3031,6 +3043,7 @@
 				5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */,
 				5B5DFFD723A1F0F4003D1A1C /* PostDataTableViewCell.swift in Sources */,
 				5B5DFFD823A1F0F4003D1A1C /* Credential.swift in Sources */,
+				58E8B24F23F2A9420006D45B /* CustomyAxisRender.swift in Sources */,
 				5B32F5BD23CD830100959DFF /* AppLink.swift in Sources */,
 				5BA9FF6523B2293F00E57A20 /* InsightAPI.swift in Sources */,
 				5B5DFFD923A1F0F4003D1A1C /* HowItWorksViewController.swift in Sources */,
@@ -3055,6 +3068,7 @@
 				5B5DFFE823A1F0F4003D1A1C /* SeparateLine.swift in Sources */,
 				5B9322FE23A3635200C3C408 /* SignOutViewModel.swift in Sources */,
 				5B2097B823B467560079B421 /* ReactionListViewModel.swift in Sources */,
+				58E8B24B23F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF7123B23CAA00E57A20 /* IncomeView.swift in Sources */,
 				5B5DFFE923A1F0F4003D1A1C /* PostTableView.swift in Sources */,
 				5B5DFFEA23A1F0F4003D1A1C /* String+Helper.swift in Sources */,
@@ -3236,6 +3250,7 @@
 				E2DB6686237D3B69005367C2 /* UITableView+ApplyChanges.swift in Sources */,
 				E23807CA239618000079A3C4 /* PostDataTableViewCell.swift in Sources */,
 				E2DB6687237D3B69005367C2 /* Credential.swift in Sources */,
+				58E8B24E23F2A9420006D45B /* CustomyAxisRender.swift in Sources */,
 				5B32F5BC23CD830100959DFF /* AppLink.swift in Sources */,
 				5BA9FF6423B2293F00E57A20 /* InsightAPI.swift in Sources */,
 				E29F5A7E2383F8FD00C1D9D8 /* HowItWorksViewController.swift in Sources */,
@@ -3260,6 +3275,7 @@
 				E2DB668D237D3B69005367C2 /* SeparateLine.swift in Sources */,
 				5B9322FD23A3635200C3C408 /* SignOutViewModel.swift in Sources */,
 				5B2097B723B467560079B421 /* ReactionListViewModel.swift in Sources */,
+				58E8B24A23F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF7023B23CAA00E57A20 /* IncomeView.swift in Sources */,
 				E22290A323953B0600412CBC /* PostTableView.swift in Sources */,
 				E2DB668E237D3B69005367C2 /* String+Helper.swift in Sources */,
