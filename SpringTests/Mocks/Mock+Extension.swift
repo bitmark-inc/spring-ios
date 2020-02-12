@@ -16,4 +16,8 @@ extension Mock {
         callHandler.accept(nil, ofFunction: functionName, atFile: #file, inLine: #line, withArgs: [])
         completionHandler(callHandler.argumentsOfSpecificCall)
     }
+
+    func receive(_ functionName: String, callOrder order: Int = 1) {
+        callHandler.accept(nil, ofFunction: functionName, atFile: #file, inLine: #line, withArgs: [])
+    }
 }

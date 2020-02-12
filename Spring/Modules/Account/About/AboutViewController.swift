@@ -51,7 +51,7 @@ extension AboutViewController {
     fileprivate func makeDescriptionTextView() -> UITextView {
         let textView = UITextView()
         textView.text = R.string.phrase.accountAboutDescription()
-        textView.font = R.font.atlasGroteskThin(size: Size.ds(22))
+        textView.font = R.font.atlasGroteskThin(size: 22)
         textView.backgroundColor = .clear
         textView.isEditable = false
         textView.textContainerInset = OurTheme.scrollingPaddingInset

@@ -19,12 +19,19 @@ class AccountViewController: ViewController, BackNavigator {
     lazy var settingsView = UIView()
 
     lazy var screenTitle = makeScreenTitle()
+
+    // *** Section - Security
     lazy var signOutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecuritySignOut())
     lazy var biometricAuthOptionButton = makeBiometricAuthOptionButton()
     lazy var recoveryKeyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecurityRecoveryKey())
 
+    // *** Section - Account
+    lazy var deleteAccountButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountDeleteAccount())
+
+    // *** Section - Facebook
     lazy var increasePrivacyButton = makeOptionButton(title: R.string.phrase.accountSettingsFacebookIncreasePrivacy())
 
+    // *** Section - Support
     lazy var aboutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportAbout())
     lazy var faqOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportFaq())
     lazy var whatsNewButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportWhatsNew())
@@ -55,6 +62,10 @@ class AccountViewController: ViewController, BackNavigator {
 
         recoveryKeyOptionButton.rx.tap.bind { [weak self] in
             self?.gotoViewRecoveryKeyFlow()
+        }.disposed(by: disposeBag)
+
+        deleteAccountButton.rx.tap.bind { [weak self] in
+            self?.gotoDeleteAccountScreen()
         }.disposed(by: disposeBag)
 
         increasePrivacyButton.rx.tap.bind { [weak self] in
@@ -99,13 +110,19 @@ class AccountViewController: ViewController, BackNavigator {
 
         settingsView.flex.define { (flex) in
             flex.addItem(screenTitle)
-                .marginLeft(Size.dw(18))
-                .padding(Size.dw(18), Size.dh(18), 0, Size.dw(18))
+                .marginLeft(18)
+                .margin(30, 18, 0, 18)
 
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsSecurity(),
                     options: securityButtonGroup))
+                .marginTop(12)
+
+            flex.addItem(
+                makeOptionsSection(
+                   name: R.string.phrase.accountSettingsAccount(),
+                   options: [deleteAccountButton]))
                 .marginTop(12)
 
             flex.addItem(
@@ -117,16 +134,17 @@ class AccountViewController: ViewController, BackNavigator {
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsSupport(),
-                    options: [whatsNewButton, contactOptionButton, surveyOptionButton]))
+                    options: [faqOptionButton, whatsNewButton, contactOptionButton, surveyOptionButton]))
                 .marginTop(12)
 
+            flex.addItem(bitmarkCertView)
+                .paddingBottom(22).paddingTop(22)
         }
 
         scroll.addSubview(settingsView)
         contentView.flex
             .direction(.column).define { (flex) in
                 flex.addItem(scroll).height(0).grow(1)
-                flex.addItem(bitmarkCertView).paddingBottom(22).paddingTop(22)
             }
     }
 }
@@ -145,6 +163,11 @@ extension AccountViewController {
         navigator.show(segue: .viewRecoveryKeyWarning, sender: self)
     }
 
+    fileprivate func gotoDeleteAccountScreen() {
+        let viewModel = DeleteAccountViewModel()
+        navigator.show(segue: .deleteAccount(viewModel: viewModel), sender: self)
+    }
+
     fileprivate func gotoIncreasePrivacyListScreen() {
         navigator.show(segue: .increasePrivacyList, sender: self)
     }
@@ -154,7 +177,8 @@ extension AccountViewController {
     }
 
     fileprivate func gotoFAQScreen() {
-        navigator.show(segue: .faq, sender: self)
+        guard let url = AppLink.faq.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self)
     }
 
     fileprivate func gotoReleaseNoteScreen() {
@@ -202,7 +226,7 @@ extension AccountViewController {
         let nameSectionLabel = Label()
         nameSectionLabel.apply(
             text: name.localizedUppercase,
-            font: R.font.atlasGroteskLight(size: Size.ds(24)),
+            font: R.font.atlasGroteskLight(size: 24),
             colorTheme: .black)
 
         let sectionView = UIView()
@@ -211,7 +235,7 @@ extension AccountViewController {
             .disposed(by: disposeBag)
 
         sectionView.flex
-            .padding(UIEdgeInsets(top: Size.dh(18), left: OurTheme.paddingInset.left, bottom: Size.dh(18), right: OurTheme.paddingInset.right))
+            .padding(UIEdgeInsets(top: 18, left: OurTheme.paddingInset.left, bottom: 18, right: OurTheme.paddingInset.right))
             .direction(.column).define { (flex) in
                 flex.addItem(nameSectionLabel).marginBottom(5)
                 options.forEach { flex.addItem($0).marginTop(15) }
@@ -224,7 +248,7 @@ extension AccountViewController {
         let button = Button()
         button.apply(
             title: title,
-            font: R.font.atlasGroteskThin(size: Size.ds(18)),
+            font: R.font.atlasGroteskThin(size: 18),
             colorTheme: .black)
         button.contentHorizontalAlignment = .leading
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
@@ -254,7 +278,7 @@ extension AccountViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.releaseNoteAppVersion(UserDefaults.standard.appVersion ?? "--"),
-            font: R.font.atlasGroteskLight(size: Size.ds(14)), colorTheme: .black)
+            font: R.font.atlasGroteskLight(size: 14), colorTheme: .black)
         return label
     }
 
@@ -272,13 +296,13 @@ extension AccountViewController {
                 AppLink.termsOfService.generalText,
                 AppLink.privacyOfPolicy.generalText),
             attributes: [
-                .font: R.font.atlasGroteskLight(size: Size.ds(12))!,
+                .font: R.font.atlasGroteskLight(size: 12)!,
                 .foregroundColor: themeService.attrs.blackTextColor
             ], links: [
                 (text: AppLink.termsOfService.generalText, url: AppLink.termsOfService.path),
                 (text: AppLink.privacyOfPolicy.generalText, url: AppLink.privacyOfPolicy.path)
             ], linkAttributes: [
-                .font: R.font.atlasGroteskLightItalic(size: Size.ds(12))!,
+                .font: R.font.atlasGroteskLightItalic(size: 12)!,
                 .underlineColor: themeService.attrs.blackTextColor,
                 .underlineStyle: NSUnderlineStyle.single.rawValue
             ])

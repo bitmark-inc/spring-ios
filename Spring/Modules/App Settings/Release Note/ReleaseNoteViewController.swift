@@ -49,7 +49,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
         var marginBottomForContent: CGFloat = 0
 
         if buttonItemType == .continue {
-            marginBottomForContent += 50.0
+            marginBottomForContent += 80
         }
 
         contentView.flex
@@ -58,9 +58,9 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
                 flex.addItem()
                     .grow(1).marginBottom(marginBottomForContent)
                     .define { (flex) in
-                        flex.addItem(screenTitle).margin(OurTheme.titlePaddingWithoutBack)
+                        flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
                         flex.addItem(versionLabel)
-                        flex.addItem(feedbackTextView).marginTop(10).height(0).grow(1)
+                        flex.addItem(feedbackTextView).marginTop(15).height(0).grow(1)
                             .marginRight(-OurTheme.paddingInset.right)
                     }
 
@@ -107,7 +107,7 @@ extension ReleaseNoteViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.releaseNoteTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(36)),
+            font: R.font.domaineSansTextLight(size: 36),
             colorTheme: .black, lineHeight: 1.056)
         return label
     }
@@ -144,14 +144,15 @@ extension ReleaseNoteViewController {
         }
 
         let textView = ReadingTextView()
-        textView.apply(colorTheme: .black)
+        textView.apply(colorTheme: .tundora)
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: OurTheme.paddingInset.right)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.releaseNoteContent(content, R.string.phrase.releaseNoteLetUsKnow()),
             lineHeight: 1.315,
             attributes: [.font: R.font.atlasGroteskLight(size: 22)!, .foregroundColor: ColorTheme.tundora.color],
-            links: [(text: R.string.phrase.releaseNoteLetUsKnow(), url: AppLink.support.path)])
+            links: [(text: R.string.phrase.releaseNoteLetUsKnow(), url: AppLink.support.path)],
+            customLineSpacing: true)
         textView.linkTextAttributes = [
           .foregroundColor: ColorTheme.internationalKleinBlue.color
         ]

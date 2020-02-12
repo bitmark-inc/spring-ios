@@ -570,7 +570,7 @@ extension RequestDataViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.guideAutomating().localizedUppercase,
-            font: R.font.domaineSansTextRegular(size: Size.ds(40)),
+            font: R.font.domaineSansTextRegular(size: 40),
             colorTheme: .black)
         label.numberOfLines = 0
 

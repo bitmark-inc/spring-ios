@@ -66,9 +66,9 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
         let blackBackItem = makeBlackBackItem()
 
         var paddingScreenTitleInset = OurTheme.accountPaddingScreenTitleInset
-        paddingScreenTitleInset.bottom = 15
+        paddingScreenTitleInset.bottom = 10
 
-        submitButton.setTitle(R.string.phrase.accountSignOutSubmitTitle().localizedUppercase, for: .normal)
+        submitButton.setTitle(R.string.phrase.accountSignOutSubmitTitle(), for: .normal)
 
         contentView.flex
             .padding(OurTheme.paddingInset)
@@ -87,7 +87,7 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
                     .bottom(OurTheme.paddingBottom)
                     .define { (flex) in
                         flex.addItem(errorRecoveryKeyView)
-                        flex.addItem(submitButton).marginTop(Size.dh(24))
+                        flex.addItem(submitButton).marginTop(24)
                     }
             }
     }

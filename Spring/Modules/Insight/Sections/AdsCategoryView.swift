@@ -127,7 +127,7 @@ extension AdsCategoryView {
     fileprivate func makeNoDataView() -> Label {
         let label = Label()
         label.apply(text: R.string.localizable.noDataAvailable(),
-                    font: R.font.atlasGroteskLight(size: Size.ds(14)),
+                    font: R.font.atlasGroteskLight(size: 14),
                     colorTheme: .black,
                     lineHeight: 1.056)
         return label

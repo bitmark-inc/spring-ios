@@ -87,7 +87,7 @@ class PostListViewController: ViewController, BackNavigator {
         label.isDescription = true
         label.apply(
             text: R.string.phrase.postsEmpty(),
-            font: R.font.atlasGroteskLight(size: Size.ds(32)),
+            font: R.font.atlasGroteskLight(size: 32),
             colorTheme: .black)
         label.isHidden = true
         return label

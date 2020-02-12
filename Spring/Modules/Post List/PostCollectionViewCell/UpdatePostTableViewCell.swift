@@ -83,7 +83,7 @@ extension UpdatePostTableViewCell {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.domaineSansTextLight(size: Size.ds(14)),
+            font: R.font.domaineSansTextLight(size: 14),
             colorTheme: .black, lineHeight: 1.3)
         return label
     }

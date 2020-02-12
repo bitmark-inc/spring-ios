@@ -61,15 +61,15 @@ class SignInWallViewController: ViewController {
         let buttonsGroup = UIView()
         buttonsGroup.flex.direction(.column).define { (flex) in
             flex.addItem(termsAndPolicyView).alignSelf(.center)
-            flex.addItem(getStartedButton).width(100%).marginTop(Size.dh(17))
-            flex.addItem(signInButton).width(100%).marginTop(Size.dh(20))
+            flex.addItem(getStartedButton).width(100%).marginTop(17)
+            flex.addItem(signInButton).width(100%).marginTop(20)
         }
 
         contentView.flex
             .padding(OurTheme.paddingInset)
             .alignItems(.center)
             .direction(.column).define { (flex) in
-                flex.addItem(titleScreen).marginTop(Size.dh(123))
+                flex.addItem(titleScreen).marginTop(Size.dh(125))
                 flex.addItem(descriptionLabel)
 
                 flex.addItem(buttonsGroup)
@@ -125,7 +125,7 @@ extension SignInWallViewController {
         let prefixLabel = Label()
         prefixLabel.apply(
             text: R.string.phrase.termAndPolicyPhrasePrefixInSignInWall(),
-            font: R.font.atlasGroteskLight(size: Size.ds(12)),
+            font: R.font.atlasGroteskLight(size: 12),
             colorTheme: .white,
             lineHeight: 1.2)
 
@@ -142,13 +142,13 @@ extension SignInWallViewController {
                 AppLink.privacyOfPolicy.generalText),
             lineHeight: 1.3,
             attributes: [
-                .font: R.font.atlasGroteskLight(size: Size.ds(12))!,
+                .font: R.font.atlasGroteskLight(size: 12)!,
                 .foregroundColor: themeService.attrs.lightTextColor
             ], links: [
                 (text: AppLink.termsOfService.generalText, url: AppLink.termsOfService.path),
                 (text: AppLink.privacyOfPolicy.generalText, url: AppLink.privacyOfPolicy.path)
             ], linkAttributes: [
-                .font: R.font.atlasGroteskLightItalic(size: Size.ds(12))!,
+                .font: R.font.atlasGroteskLightItalic(size: 12)!,
                 .underlineColor: themeService.attrs.lightTextColor,
                 .underlineStyle: NSUnderlineStyle.single.rawValue
             ])

@@ -90,6 +90,14 @@ class RequestDataViewModel: ViewModel {
 
     func signUpAndStoreAdsCategoriesInfo(_ adsCategories: [String]) -> Completable {
         Self.AccountServiceBase.rxCreateAndSetupNewAccountIfNotExist()
+            .andThen(FbmAccountDataEngine.create().asCompletable())
+            .catchError { (error) -> Completable in
+                if let error = error as? ServerAPIError, error.code == .AccountHasTaken {
+                    return Completable.empty()
+                }
+
+                return Completable.error(error)
+            }
             .andThen(Completable.deferred{
                 do {
                     let userInfo = try UserInfo(key: .adsCategory, value: adsCategories)

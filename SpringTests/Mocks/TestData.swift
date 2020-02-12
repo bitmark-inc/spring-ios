@@ -10,6 +10,7 @@ import Foundation
 import Fakery
 import BitmarkSDK
 import Mockit
+import Moya
 
 @testable import Spring
 
@@ -30,4 +31,20 @@ struct TestGlobal {
         let seedString = "9J87BSeH4cpWiWyUodcCZddPCaWW7uxTq"
         return try! Account(fromSeed: seedString)
     }()
+
+    static let accountHasTakenErrorClosure = { (target: FbmAccountAPI) -> Endpoint in
+        return Endpoint(url: URL(target: target).absoluteString,
+                        sampleResponseClosure: {
+                            .networkResponse(
+                                1003,
+                                try! JSONEncoder().encode([errorKeyPath: ServerAPIError(code: .AccountHasTaken, message: "")])) },
+                        method: target.method, task: target.task, httpHeaderFields: target.headers)
+
+    }
+
+    static let serverErrorClosure = { (target: FbmAccountAPI) -> Endpoint in
+        return Endpoint(url: URL(target: target).absoluteString,
+                        sampleResponseClosure: { .networkResponse(500, Data()) },
+                        method: target.method, task: target.task, httpHeaderFields: target.headers)
+    }
 }

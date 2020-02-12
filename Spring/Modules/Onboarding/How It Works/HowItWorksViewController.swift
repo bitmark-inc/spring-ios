@@ -54,7 +54,7 @@ class HowItWorksViewController: ViewController, BackNavigator {
         let howItWorksTitle = Label()
         howItWorksTitle.apply(
             text: R.string.phrase.howitworksTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(36)),
+            font: R.font.domaineSansTextLight(size: 36),
             colorTheme: .black)
 
         contentView.flex
@@ -63,12 +63,12 @@ class HowItWorksViewController: ViewController, BackNavigator {
                 flex.addItem(lightBackItem)
                 flex.addItem().height(45%)
 
-                flex.addItem(howItWorksTitle).marginTop(Size.dh(15))
+                flex.addItem(howItWorksTitle).marginTop(15)
 
-                flex.addItem().marginRight(Size.dw(20)).define { (flex) in
-                    flex.addItem(howItWorkContent(part: 1, text: R.string.phrase.howitworksContent1())).marginTop(Size.dh(15))
-                    flex.addItem(howItWorkContent(part: 2, text: R.string.phrase.howitworksContent2())).marginTop(Size.dh(10))
-                    flex.addItem(howItWorkContent(part: 3, text: R.string.phrase.howitworksContent3())).marginTop(Size.dh(10))
+                flex.addItem().marginRight(20).define { (flex) in
+                    flex.addItem(howItWorkContent(part: 1, text: R.string.phrase.howitworksContent1())).marginTop(15)
+                    flex.addItem(howItWorkContent(part: 2, text: R.string.phrase.howitworksContent2())).marginTop(10)
+                    flex.addItem(howItWorkContent(part: 3, text: R.string.phrase.howitworksContent3())).marginTop(10)
                 }
 
                 flex.addItem(continueButton)
@@ -99,19 +99,19 @@ extension HowItWorksViewController {
         let partIndexLabel = Label()
         partIndexLabel.apply(
             text: String(part),
-            font: R.font.atlasGroteskLight(size: Size.ds(14)),
+            font: R.font.atlasGroteskLight(size: 14),
             colorTheme: .black)
 
         let textLabel = Label()
         textLabel.numberOfLines = 0
         textLabel.apply(
             text: text,
-            font: R.font.atlasGroteskLight(size: Size.ds(18)),
+            font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black, lineHeight: 1.2)
 
         let view = UIView()
         view.flex.direction(.row).define { (flex) in
-            flex.addItem(partIndexLabel).width(Size.dw(18)).height(Size.dh(26))
+            flex.addItem(partIndexLabel).width(18).height(26)
             flex.addItem(textLabel)
         }
         return view

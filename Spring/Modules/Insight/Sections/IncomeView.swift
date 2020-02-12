@@ -95,7 +95,7 @@ extension IncomeView {
     fileprivate func makeDescriptionLabel() -> Label {
         let label = Label()
         label.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(12)),
+            font: R.font.atlasGroteskLight(size: 12),
             colorTheme: ColorTheme.black)
         return label
     }

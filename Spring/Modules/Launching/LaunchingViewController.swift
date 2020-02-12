@@ -55,7 +55,7 @@ class LaunchingViewController: ViewController, LaunchingNavigatorDelegate {
             .padding(OurTheme.paddingInset)
             .alignItems(.center)
             .direction(.column).define { (flex) in
-                flex.addItem(titleScreen).marginTop(Size.dh(123))
+                flex.addItem(titleScreen).marginTop(Size.dh(125))
                 flex.addItem(descriptionLabel)
             }
     }

@@ -35,7 +35,7 @@ class HeadingView: UIView {
         super.init(frame: frame)
 
         flex
-            .padding(10, 18, 23, 18)
+            .padding(30, 18, 30, 18)
             .direction(.column).define { (flex) in
                 flex.alignItems(.stretch)
 

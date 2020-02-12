@@ -84,7 +84,7 @@ class BiometricAuthViewController: ViewController, BackNavigator {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.apply(
             text: R.string.phrase.accountBiometricAuthDescription(policyType.text),
-            font: R.font.atlasGroteskThin(size: Size.ds(22)),
+            font: R.font.atlasGroteskThin(size: 22),
             colorTheme: .tundora, lineHeight: 1.32)
 
         contentView.flex
@@ -114,7 +114,7 @@ extension BiometricAuthViewController {
         let titleSwitchLabel = Label()
         titleSwitchLabel.apply(
             text: R.string.phrase.accountBiometricAuthEnableButton(policyType.text),
-            font: R.font.atlasGroteskThin(size: Size.ds(22)),
+            font: R.font.atlasGroteskThin(size: 22),
             colorTheme: .tundora, lineHeight: 1.32)
 
         view.flex.direction(.row)

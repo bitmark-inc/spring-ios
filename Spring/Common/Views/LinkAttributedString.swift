@@ -14,7 +14,8 @@ class LinkAttributedString {
         lineHeight: CGFloat? = nil,
         attributes: [NSAttributedString.Key: Any] = [:],
         links: [(text: String, url: String)] = [],
-        linkAttributes: [NSAttributedString.Key: Any] = [:]) -> NSMutableAttributedString {
+        linkAttributes: [NSAttributedString.Key: Any] = [:],
+        customLineSpacing: Bool = false) -> NSMutableAttributedString {
 
         let attributedText = NSMutableAttributedString(
             string: string,
@@ -28,15 +29,19 @@ class LinkAttributedString {
             attributedText.addAttributes(linkAttributes, range: NSRange(range, in: string))
         }
 
-        if let lineHeight = lineHeight {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineHeightMultiple = lineHeight
 
-            attributedText.addAttribute(
-                .paragraphStyle,
-                value: paragraphStyle,
-                range: NSRange(location: 0, length: attributedText.length))
+        let paragraphStyle = NSMutableParagraphStyle()
+
+        if customLineSpacing {
+            paragraphStyle.lineSpacing = 6
+        } else if let lineHeight = lineHeight {
+            paragraphStyle.lineHeightMultiple = lineHeight
         }
+
+        attributedText.addAttribute(
+            .paragraphStyle,
+            value: paragraphStyle,
+            range: NSRange(location: 0, length: attributedText.length))
 
         return attributedText
     }

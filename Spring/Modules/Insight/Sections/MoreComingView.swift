@@ -44,11 +44,11 @@ class MoreComingView: UIView {
                 flex.addItem(SectionSeparator())
 
                 flex.addItem()
-                    .padding(Size.dh(30), Size.dw(18), Size.dh(30), Size.dw(18))
+                    .padding(30, 18, 30, 18)
                     .define { (flex) in
                         flex.addItem(titleLabel)
-                        flex.addItem(descriptionLabel).marginTop(Size.dh(7))
-                        flex.addItem(notifyMeButton).marginTop(Size.dh(23)).height(notifyMeButtonHeight)
+                        flex.addItem(descriptionLabel).marginTop(7)
+                        flex.addItem(notifyMeButton).marginTop(23).height(notifyMeButtonHeight)
                     }
             }
 
@@ -101,7 +101,7 @@ extension MoreComingView {
     fileprivate func makeTitleLabel() -> Label {
         let label = Label()
         label.apply(
-            font: R.font.domaineSansTextLight(size: Size.ds(22)),
+            font: R.font.domaineSansTextLight(size: 22),
             colorTheme: .black, lineHeight: 1.056)
         return label
     }
@@ -110,7 +110,7 @@ extension MoreComingView {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskLight(size: Size.ds(12)),
+            font: R.font.atlasGroteskLight(size: 12),
             colorTheme: .black, lineHeight: 1.27)
         return label
     }
@@ -121,7 +121,7 @@ extension MoreComingView {
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         button.apply(
             title: R.string.localizable.notify_me(),
-            font: R.font.atlasGroteskRegular(size: Size.ds(16)),
+            font: R.font.atlasGroteskRegular(size: 16),
             colorTheme: .cognac)
         return button
     }

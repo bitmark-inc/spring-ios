@@ -60,7 +60,7 @@ extension IncomeQuestionViewController {
         let label = Label()
         label.apply(
             text: R.string.phrase.incomeQuestionTitle().localizedUppercase,
-            font: R.font.domaineSansTextLight(size: Size.ds(28)),
+            font: R.font.domaineSansTextLight(size: 28),
             colorTheme: OurTheme.accountColorTheme, lineHeight: 1.056)
         label.numberOfLines = 0
         return label
@@ -68,7 +68,7 @@ extension IncomeQuestionViewController {
 
     fileprivate func makeAttributedDescriptionTextView() -> UITextView {
         let normal = Style {
-            $0.font = R.font.atlasGroteskLight(size: Size.ds(22))
+            $0.font = R.font.atlasGroteskLight(size: 22)
             $0.color = themeService.attrs.tundoraTextColor
         }
 

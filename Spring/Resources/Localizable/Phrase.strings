@@ -39,7 +39,7 @@
 
 "dataRequested.screenTitle" = "Data Requested";
 "dataRequested.check.description1" = "Facebook is now preparing your data archive. This may take up to a few days, depending on how much data you have.";
-"dataRequested.check.description2" = "When you receive an email from Facebook that your archive is ready, come back here.";
+"dataRequested.check.description2" = "When you receive an email from Facebook that your archive is ready, come back here. We'll handle the rest.";
 "dataRequested.descriptionTime" = "Facebook data requested: %@.";
 
 "dataRequested.waiting.screenTitle" = "Still Waiting";
@@ -80,6 +80,8 @@
 "account.settings.security.signOut" = "Unlink from device »";
 "account.settings.security.biometricAuth" = "%@ »";
 "account.settings.security.recoveryKey" = "Recovery key »";
+"account.settings.account" = "Account";
+"account.settings.account.deleteAccount" = "Delete account »";
 "account.setting.facebook" = "Facebook";
 "account.settings.facebook.increasePrivacy" = "Increase privacy »";
 "account.settings.support" = "Support";
@@ -92,7 +94,7 @@
 "account.signOut.warning.title" = "Unlink Account";
 "account.signOut.warning.description" = "If you unlink your account, you will be completely logged out on this device and will need to enter your 12-word recovery key to regain access and relink your account to this device.\n\nTo make ensure that you will not completely lose access to your account, you will next be asked to enter your 12-word recovery key before unlinking your account. If you haven’t already written down your recovery key, %@.";
 "account.signOut.warning.description.linkToViewRecoveryKey" = "please do so now";
-"account.signOut.submitTitle" = "Unlink Account";
+"account.signOut.submitTitle" = "Unlink Account »";
 
 "account.signOut.title" = "Unlink Account";
 "account.recoveryKey.input.guide" = "Enter your 12-word recovery key above.";
@@ -103,11 +105,18 @@
 
 "account.recoveryKey.warning.title" = "Recovery Key";
 "account.recoveryKey.warning.description" = "Your recovery key allows you to fully recover your Spring account even if your device is lost or damaged. It is the only way to recover your account (Spring does not have access to your recovery key or store it anywhere for you).\n\nPlease make sure you are in a safe location then write down your recovery key on a piece of paper and keep it safe.";
-"account.recoveryKey.warning.writeDownAction" = "Write down recovery key";
+"account.recoveryKey.warning.writeDownAction" = "Write down recovery key »";
 
 "account.recoveryKey.title" = "Recovery Key";
 "account.recoveryKey.output.guide" = "Write down the following words in order:";
 "account.recoveryKey.index" = "Word %@ of 12";
+
+"account.deleteAccount.title" = "Delete Account";
+"account.deleteAccount.description" = "When you delete your account, you will be completely logged out on this device and all data will be permanently deleted.\n\nYou can %@ first, if you haven’t do so already.";
+"account.deleteAccount.exportData" = "export your data";
+"account.deleteAccount.action" = "Delete »";
+"deleteAccount.confirmation.title" = "Delete Account";
+"deleteAccount.confirmation.description" = "All of your data will be permanently deleted from this device.";
 
 "fb.increasePrivacy.title" = "Increase Privacy";
 "fb.increasePrivacy.description" = "Here are %d simple steps you can take to increase your privacy while using Facebook:";

@@ -14,6 +14,7 @@ enum FbmAccountAPI {
     case create(encryptedPublicKey: String, metadata: [String: Any])
     case getMe
     case updateMe(metadata: [String: Any])
+    case deleteMe
 }
 
 extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
@@ -26,7 +27,7 @@ extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
         switch self {
         case .create:
             return ""
-        case .getMe, .updateMe:
+        case .getMe, .updateMe, .deleteMe:
             return "me"
         }
     }
@@ -36,6 +37,7 @@ extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
         case .create:   return .post
         case .getMe:    return .get
         case .updateMe: return .patch
+        case .deleteMe: return .delete
         }
     }
 
@@ -59,7 +61,7 @@ extension FbmAccountAPI: AuthorizedTargetType, VersionTargetType {
         case .create(let encryptedPublicKey, let metadata):
             params["enc_pub_key"] = encryptedPublicKey
             params["metadata"] = metadata
-        case .getMe:
+        case .getMe, .deleteMe:
             return nil
         case .updateMe(let metadata):
             params["metadata"] = metadata

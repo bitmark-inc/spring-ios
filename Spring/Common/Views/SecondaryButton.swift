@@ -14,7 +14,7 @@ class SecondaryButton: Button {
     override func setupViews() {
         super.setupViews()
 
-        titleLabel?.font = R.font.atlasGroteskLight(size: Size.ds(14))
+        titleLabel?.font = R.font.atlasGroteskLight(size: 14)
         backgroundColor = .clear
 
         themeService.rx
@@ -22,7 +22,7 @@ class SecondaryButton: Button {
             .bind({ $0.lightButtonTextColor.withAlphaComponent(0.5) }, to: rx.titleColor(for: .disabled))
             .disposed(by: disposeBag)
 
-        flex.height(Size.dh(27))
+        flex.height(27)
             .right(0).left(0) // full width
     }
 }

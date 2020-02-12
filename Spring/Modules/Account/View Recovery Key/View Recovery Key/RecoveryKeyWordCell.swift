@@ -40,7 +40,7 @@ extension RecoveryKeyWordCell {
         let label = Label()
         label.textAlignment = .center
         label.lineBreakMode = .byWordWrapping
-        label.apply(text: "", font: R.font.atlasGroteskLight(size: Size.ds(48)), colorTheme: .tundora, lineHeight: 1.32)
+        label.apply(text: "", font: R.font.atlasGroteskLight(size: 48), colorTheme: .tundora, lineHeight: 1.32)
         return label
     }
 }

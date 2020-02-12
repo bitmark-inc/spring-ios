@@ -29,7 +29,7 @@ class EditingTextView: UITextView {
     }
 
     func setupView() {
-        font = R.font.atlasGroteskThin(size: Size.ds(22))
+        font = R.font.atlasGroteskThin(size: 22)
 
         themeService.rx
             .bind({ $0.textViewBackgroundColor }, to: rx.backgroundColor)

@@ -15,17 +15,74 @@ let globalStatusBarStyle = BehaviorRelay<UIStatusBarStyle>(value: .default)
 var themeService = ThemeType.currentThemeService(for: .unspecified)
 
 struct OurTheme {
-    static let paddingInset = UIEdgeInsets(top: 4, left: Size.dw(18), bottom: 0, right: Size.dw(18))
-    static let scrollingPaddingInset = UIEdgeInsets(top: 0, left: Size.dw(18), bottom: Size.dh(150), right: Size.dw(18))
-    static let paddingBottom: CGFloat = Size.dh(45)
-    static let onboardingPaddingScreenTitle: CGFloat = Size.dh(28)
-    static let dashboardPaddingScreenTitle: CGFloat = Size.dh(8)
-    static let accountPaddingScreenTitleInset = UIEdgeInsets(top: Size.dh(21), left: 0, bottom: Size.dh(43), right: 0)
+    static let paddingInset = UIEdgeInsets(top: 4, left: 18, bottom: 0, right: 18)
+    static let scrollingPaddingInset = UIEdgeInsets(top: 0, left: 18, bottom: 150, right: 18)
+    static var paddingBottom: CGFloat = {
+
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return 25
+        default:
+            return 45
+        }
+    }()
+    static var paddingBottomWithSecondaryButton: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 736:
+            return 18
+        default:
+            return 45
+        }
+    }()
+
+    static let onboardingPaddingScreenTitle: CGFloat = 28
+    static let dashboardPaddingScreenTitle: CGFloat = 8
+    static var accountPaddingScreenTitleInset: UIEdgeInsets = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 19, right: 0)
+        default:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
+        }
+    }()
     static let accountColorTheme = ColorTheme.black
-    static let postCellPadding  = UIEdgeInsets(top: Size.dh(27), left: 18, bottom: Size.dh(32), right: 18)
-    static let reactionCellPadding  = UIEdgeInsets(top: Size.dh(27), left: 18, bottom: Size.dh(32), right: 18)
-    static let titlePaddingWithoutBack  = UIEdgeInsets(top: Size.dh(43), left: 0, bottom: Size.dh(43), right: 18)
-    static let titlePaddingInset = UIEdgeInsets(top: Size.dh(21), left: 0, bottom: Size.dh(43), right: 0)
+    static let postCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)
+    static let reactionCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)
+    static let titlePaddingIgnoreBack: UIEdgeInsets = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return UIEdgeInsets(top: 43, left: 0, bottom: 21, right: 0)
+        default:
+            return UIEdgeInsets(top: 43, left: 0, bottom: 43, right: 18)
+        }
+    }()
+
+    static let titlePaddingInset: UIEdgeInsets = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 19, right: 0)
+        default:
+            return UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
+        }
+    }()
+
+    static let trustIsCriticalTop: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return 43
+        default:
+            return 100
+        }
+    }()
+
+    static let halfImagePercent: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 667:
+            return 0.45
+        default:
+            return 0.5
+        }
+    }()
 }
 
 protocol Theme {
@@ -327,12 +384,12 @@ class Size {
 
 class Avenir {
     static func size(_ size: CGFloat) -> UIFont {
-        return UIFont(name: "Avenir", size: Size.ds(size))!
+        return UIFont(name: "Avenir", size: size)!
     }
 
     class Heavy {
         static func size(_ size: CGFloat) -> UIFont {
-            return UIFont(name: "Avenir-Heavy", size: Size.ds(size))!
+            return UIFont(name: "Avenir-Heavy", size: size)!
         }
     }
 }
