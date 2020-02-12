@@ -140,10 +140,8 @@ class UsageViewController: ViewController {
                 })
                 .disposed(by: disposeBag)
 
-            loadingState.onNext(.loading)
             viewModel.fetchActivity()
                 .subscribe(onCompleted: {
-                    loadingState.onNext(.hide)
                     viewModel.fetchUsage()
                 }, onError: { (error) in
                     loadingState.onNext(.hide)
