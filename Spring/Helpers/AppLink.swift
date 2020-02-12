@@ -12,6 +12,7 @@ enum AppLink: String {
     case termsOfService = "legal-terms"
     case privacyOfPolicy = "legal-privacy"
     case incomeQuestion = "income-question"
+    case faq
     case support
     case viewRecoveryKey = "view-recovery-key"
     case exportData = "export-data"
@@ -39,6 +40,8 @@ enum AppLink: String {
             return URL(string: serverURL + "/terms-and-service.md")
         case .privacyOfPolicy:
             return URL(string: serverURL + "/privacy-policy.md")
+        case .faq:
+            return URL(string: serverURL + "/faq.md")
         default:
             return nil
         }

@@ -442,9 +442,6 @@
 		5B93231823A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
 		5B93231923A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
 		5B93231A23A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
-		5B93232023A363E200C3C408 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231F23A363E200C3C408 /* FAQViewController.swift */; };
-		5B93232123A363E200C3C408 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231F23A363E200C3C408 /* FAQViewController.swift */; };
-		5B93232223A363E200C3C408 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231F23A363E200C3C408 /* FAQViewController.swift */; };
 		5B93232423A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232523A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232623A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
@@ -961,7 +958,6 @@
 		5B93230B23A363A100C3C408 /* ViewRecoveryKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecoveryKeyViewModel.swift; sourceTree = "<group>"; };
 		5B93230F23A363AE00C3C408 /* ViewRecoveryKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecoveryKeyViewController.swift; sourceTree = "<group>"; };
 		5B93231723A363C800C3C408 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		5B93231F23A363E200C3C408 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		5B93232323A39BFC00C3C408 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		5B93B2A323D5618E004CCD51 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationAPI.swift; sourceTree = "<group>"; };
@@ -1187,7 +1183,6 @@
 				5B2DEE3223F1488C00D3300A /* Delete Account */,
 				5B32F5BE23CDBCA800959DFF /* Increase Privacy */,
 				5B9322F023A3625300C3C408 /* About */,
-				5B9322F123A3626800C3C408 /* FAQ */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1716,14 +1711,6 @@
 				5B93231723A363C800C3C408 /* AboutViewController.swift */,
 			);
 			path = About;
-			sourceTree = "<group>";
-		};
-		5B9322F123A3626800C3C408 /* FAQ */ = {
-			isa = PBXGroup;
-			children = (
-				5B93231F23A363E200C3C408 /* FAQViewController.swift */,
-			);
-			path = FAQ;
 			sourceTree = "<group>";
 		};
 		5B93B2A723D567AE004CCD51 /* Documentation */ = {
@@ -2817,7 +2804,6 @@
 				5832FC5D237A863300FA3196 /* Button.swift in Sources */,
 				5B4A23A523B21CD400447366 /* SectionSeparator.swift in Sources */,
 				5832FC11237A85B000FA3196 /* AppDelegate.swift in Sources */,
-				5B93232023A363E200C3C408 /* FAQViewController.swift in Sources */,
 				5832FC4C237A863300FA3196 /* SubmitButton.swift in Sources */,
 				5832FC58237A863300FA3196 /* TextField.swift in Sources */,
 				5BC91CC023CC29CB000058A7 /* Converter.swift in Sources */,
@@ -3026,7 +3012,6 @@
 				5B5DFFCA23A1F0F4003D1A1C /* AppDelegate.swift in Sources */,
 				5B4A23A723B21CD400447366 /* SectionSeparator.swift in Sources */,
 				5B5DFFCB23A1F0F4003D1A1C /* SubmitButton.swift in Sources */,
-				5B93232223A363E200C3C408 /* FAQViewController.swift in Sources */,
 				5B5DFFCC23A1F0F4003D1A1C /* TextField.swift in Sources */,
 				5B5DFFCD23A1F0F4003D1A1C /* RequestDataViewModel.swift in Sources */,
 				5BC91CC223CC29CB000058A7 /* Converter.swift in Sources */,
@@ -3232,7 +3217,6 @@
 				E2DB6681237D3B69005367C2 /* AppDelegate.swift in Sources */,
 				5B4A23A623B21CD400447366 /* SectionSeparator.swift in Sources */,
 				E2DB6682237D3B69005367C2 /* SubmitButton.swift in Sources */,
-				5B93232123A363E200C3C408 /* FAQViewController.swift in Sources */,
 				E2DB6683237D3B69005367C2 /* TextField.swift in Sources */,
 				E27959DD23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5BC91CC123CC29CB000058A7 /* Converter.swift in Sources */,

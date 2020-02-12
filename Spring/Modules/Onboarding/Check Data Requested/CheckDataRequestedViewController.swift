@@ -75,11 +75,11 @@ class CheckDataRequestedViewController: ViewController {
                 let imageSpace = (OurTheme.halfImagePercent - 0.05) * 100
                 flex.addItem().height(imageSpace%)
 
-                flex.addItem(dataRequestedTitleLabel).marginTop(45)
-                flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(15)
-                flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(10)
+                flex.addItem(dataRequestedTitleLabel).marginTop(Size.dh(45))
+                flex.addItem(makeDataRequestedDescLabel(index: 1)).marginTop(Size.dh(15))
+                flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(Size.dh(10))
                 flex.addItem(dataRequestedTimeDescLabel).marginTop(10)
-                
+
                 flex.addItem()
                     .define({ (flex) in
                         flex.addItem(checkNowButton)
@@ -88,7 +88,7 @@ class CheckDataRequestedViewController: ViewController {
                     .width(100%)
                     .position(.absolute)
                     .left(OurTheme.paddingInset.left)
-                    .bottom(OurTheme.paddingBottom)
+                    .bottom(OurTheme.paddingBottomWithSecondaryButton)
             }
     }
 }
@@ -149,7 +149,7 @@ extension CheckDataRequestedViewController {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskThinItalic(size: 18),
+            font: R.font.atlasGroteskThinItalic(size: 15),
             colorTheme: .black, lineHeight: 1.2)
         return label
     }

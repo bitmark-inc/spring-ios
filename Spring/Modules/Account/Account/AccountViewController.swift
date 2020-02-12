@@ -134,7 +134,7 @@ class AccountViewController: ViewController, BackNavigator {
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsSupport(),
-                    options: [whatsNewButton, contactOptionButton, surveyOptionButton]))
+                    options: [faqOptionButton, whatsNewButton, contactOptionButton, surveyOptionButton]))
                 .marginTop(12)
 
             flex.addItem(bitmarkCertView)
@@ -177,7 +177,8 @@ extension AccountViewController {
     }
 
     fileprivate func gotoFAQScreen() {
-        navigator.show(segue: .faq, sender: self)
+        guard let url = AppLink.faq.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self)
     }
 
     fileprivate func gotoReleaseNoteScreen() {

@@ -39,7 +39,7 @@
 
 "dataRequested.screenTitle" = "Data Requested";
 "dataRequested.check.description1" = "Facebook is now preparing your data archive. This may take up to a few days, depending on how much data you have.";
-"dataRequested.check.description2" = "When you receive an email from Facebook that your archive is ready, come back here.";
+"dataRequested.check.description2" = "When you receive an email from Facebook that your archive is ready, come back here. We'll handle the rest.";
 "dataRequested.descriptionTime" = "Facebook data requested: %@.";
 
 "dataRequested.waiting.screenTitle" = "Still Waiting";

@@ -26,6 +26,15 @@ struct OurTheme {
             return 45
         }
     }()
+    static var paddingBottomWithSecondaryButton: CGFloat = {
+        switch UIScreen.main.bounds.size.height {
+        case let x where x <= 736:
+            return 18
+        default:
+            return 45
+        }
+    }()
+
     static let onboardingPaddingScreenTitle: CGFloat = 28
     static let dashboardPaddingScreenTitle: CGFloat = 8
     static var accountPaddingScreenTitleInset: UIEdgeInsets = {
@@ -69,7 +78,7 @@ struct OurTheme {
     static let halfImagePercent: CGFloat = {
         switch UIScreen.main.bounds.size.height {
         case let x where x <= 667:
-            return 0.35
+            return 0.45
         default:
             return 0.5
         }

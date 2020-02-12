@@ -49,7 +49,6 @@ class Navigator {
         case increasePrivacyList
         case increasePrivacy(viewModel: IncreasePrivacyViewModel)
         case about
-        case faq
         case releaseNote(buttonItemType: ButtonItemType)
     }
 
@@ -92,6 +91,7 @@ class Navigator {
 
         case .safariController(let url):
             let vc = SFSafariViewController(url: url)
+            vc.hidesBottomBarWhenPushed = true
             return vc
 
         case .hometabs(let isArchiveStatusBoxShowed):
@@ -109,7 +109,7 @@ class Navigator {
              .viewRecoveryKeyWarning, .viewRecoverykey,
              .deleteAccount,
              .increasePrivacyList, .increasePrivacy,
-             .about, .faq, .releaseNote:
+             .about, .releaseNote:
 
             let viewController: UIViewController!
             switch segue {
@@ -122,7 +122,6 @@ class Navigator {
             case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
             case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
             case .about:                            viewController = AboutViewController()
-            case .faq:                              viewController = FAQViewController()
             case .releaseNote(let buttonItemType):
                 let releaseNoteViewController = ReleaseNoteViewController()
                 releaseNoteViewController.buttonItemType = buttonItemType
