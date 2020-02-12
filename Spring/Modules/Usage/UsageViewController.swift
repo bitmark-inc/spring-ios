@@ -54,6 +54,9 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterDayView = makeFilterDayView(section: .reaction)
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
+    lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
+
+    lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -102,48 +105,49 @@ class UsageViewController: ViewController {
         
         guard let viewModel = viewModel as? UsageViewModel else { return }
 
-        viewModel.fetchDataResultSubject
-            .subscribe(onNext: { [weak self] (event) in
+        viewModel.dateRelay
+            .subscribe(onNext: { [weak self] (startDate) in
                 guard let self = self else { return }
-                switch event {
-                case .error(let error):
-                    self.errorWhenFetchingData(error: error)
-                default:
-                    break
-                }
+
+                let timeUnit = self.thisViewModel.timeUnitRelay.value
+                let datePeriod = startDate.extractDatePeriod(timeUnit: timeUnit)
+
+                let distance = self.segmentDistances[timeUnit]!
+                let limitedDistance = viewModel.segmentDistances.value[timeUnit]!
+                self.timelineView.bindData(
+                    periodName: timeUnit.meaningTimeText(with: distance),
+                    periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
+                    distance: distance, limitedDistance: limitedDistance)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: self.disposeBag)
 
-        loadingState.onNext(.loading)
-        viewModel.fetchActivity()
-            .subscribe(onCompleted: { [weak self] in
-                loadingState.onNext(.hide)
-                guard let self = self else { return }
-                self.segmentDistances = viewModel.segmentDistances.value
+        if appArchiveStatus == .done {
+            viewModel.fetchDataResultSubject
+                .subscribe(onNext: { [weak self] (event) in
+                    guard let self = self else { return }
+                    switch event {
+                    case .error(let error):
+                        self.errorWhenFetchingData(error: error)
+                    default:
+                        break
+                    }
+                })
+                .disposed(by: disposeBag)
 
-                viewModel.fetchUsage()
+            loadingState.onNext(.loading)
+            viewModel.fetchActivity()
+                .subscribe(onCompleted: { [weak self] in
+                    loadingState.onNext(.hide)
+                    guard let self = self else { return }
+                    self.segmentDistances = viewModel.segmentDistances.value
 
-                viewModel.dateRelay
-                    .subscribe(onNext: { [weak self] (startDate) in
-                        guard let self = self else { return }
-
-                        let timeUnit = self.thisViewModel.timeUnitRelay.value
-                        let datePeriod = startDate.extractDatePeriod(timeUnit: timeUnit)
-
-                        let distance = self.segmentDistances[timeUnit]!
-                        let limitedDistance = viewModel.segmentDistances.value[timeUnit]!
-                        self.timelineView.bindData(
-                            periodName: timeUnit.meaningTimeText(with: distance),
-                            periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
-                            distance: distance, limitedDistance: limitedDistance)
-                    })
-                    .disposed(by: self.disposeBag)
-
-            }, onError: { (error) in
-                loadingState.onNext(.hide)
-                Global.log.error(error)
-            })
-            .disposed(by: disposeBag)
+                    viewModel.fetchUsage()
+                }, onError: { (error) in
+                    loadingState.onNext(.hide)
+                    Global.log.error(error)
+                })
+                .disposed(by: disposeBag)
+        }
     }
 
     func errorWhenFetchingData(error: Error) {
@@ -166,17 +170,22 @@ class UsageViewController: ViewController {
         usageView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(timelineView)
-            flex.addItem(moodHeadingView)
-            flex.addItem(moodView)
-            flex.addItem(postsHeadingView)
-            flex.addItem(postsFilterTypeView)
-            flex.addItem(postsFilterDayView)
-            flex.addItem(postsFilterFriendView)
-            flex.addItem(postsFilterPlaceView)
-            flex.addItem(reationsHeadingView)
-            flex.addItem(reactionsFilterTypeView)
-            flex.addItem(reactionsFilterDayView)
-            flex.addItem(reactionsFilterFriendView)
+
+            if appArchiveStatus == .done {
+                flex.addItem(moodHeadingView)
+                flex.addItem(moodView)
+                flex.addItem(postsHeadingView)
+                flex.addItem(postsFilterTypeView)
+                flex.addItem(postsFilterDayView)
+                flex.addItem(postsFilterFriendView)
+                flex.addItem(postsFilterPlaceView)
+                flex.addItem(reationsHeadingView)
+                flex.addItem(reactionsFilterTypeView)
+                flex.addItem(reactionsFilterDayView)
+                flex.addItem(reactionsFilterFriendView)
+            } else {
+                flex.addItem(morePersonalAnalyticsComingView)
+            }
         }
 
         scroll.addSubview(usageView)
@@ -237,6 +246,13 @@ extension UsageViewController {
         filterGeneralView.containerLayoutDelegate = self
         filterGeneralView.navigatorDelegate = self
         return filterGeneralView
+    }
+
+    fileprivate func makeMorePersonalAnalyticsComingView() -> MoreComingView {
+        let moreComingView = MoreComingView()
+        moreComingView.containerLayoutDelegate = self
+        moreComingView.section = .morePersonalAnalyticsComing
+        return moreComingView
     }
 }
 

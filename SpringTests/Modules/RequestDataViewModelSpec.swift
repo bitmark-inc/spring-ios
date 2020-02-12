@@ -22,6 +22,10 @@ class RequestDataViewModelSpec: QuickSpec {
         var viewModel: RequestDataViewModel!
         var accountServiceMock: AccountServiceMock!
         var fbArchiveServiceMock: FBArchiveServiceMock!
+        var signUpAndSubmitArchiveResultObserver: TestableObserver<Event<Swift.Never>>!
+
+        var scheduler: TestScheduler!
+        var disposeBag: DisposeBag!
 
         AuthService.shared.provider = MoyaProvider<AuthAPI>(
             stubClosure: MoyaProvider.immediatelyStub,
@@ -37,24 +41,33 @@ class RequestDataViewModelSpec: QuickSpec {
             let rawCookie = faker.lorem.sentence(wordsAmount: 10)
 
             let testFunction = {
+                signUpAndSubmitArchiveResultObserver = scheduler.createObserver(Event<Swift.Never>.self)
+
+                viewModel.signUpAndSubmitArchiveResultSubject
+                    .bind(to: signUpAndSubmitArchiveResultObserver)
+                    .disposed(by: disposeBag)
+
                 viewModel.signUpAndSubmitFBArchive(headers: headers, archiveURL: archiveURL, rawCookie: rawCookie)
             }
 
             beforeEach {
+                testcaseCallHandler = CallHandlerImpl(withTestCase: self)
                 RequestDataViewModel.AccountServiceBase = AccountServiceMock.self
                 RequestDataViewModel.FBArchiveServiceBase = FBArchiveServiceMock.self
+                RequestDataViewModel.FbmAccountDataEngineBase = FbmAccountDataEngineMock.self
                 viewModel = RequestDataViewModel(missions: [])
 
-                accountServiceMock = AccountServiceMock(testCase: self)
-                fbArchiveServiceMock = FBArchiveServiceMock(testCase: self)
-                accountServiceMockInstance = accountServiceMock
-                fbArchiveServiceMockInstance = fbArchiveServiceMock
+                accountServiceMock = AccountServiceMock(callHandler: testcaseCallHandler)
+                fbArchiveServiceMock = FBArchiveServiceMock(callHandler: testcaseCallHandler)
+
+                scheduler = TestScheduler(initialClock: 0)
+                disposeBag = DisposeBag()
             }
 
             context("currentAccount is nil") {
                 beforeEach {
                     _ = accountServiceMock.when()
-                        .call(withReturnValue: accountServiceMock.rxCreateNewAccount())
+                        .call(withReturnValue: AccountServiceMock.rxCreateNewAccount())
                         .thenReturn(Single.just(TestGlobal.account))
 
                     testFunction()
@@ -91,7 +104,7 @@ class RequestDataViewModelSpec: QuickSpec {
                             }
                     }
 
-//                    expect(try? viewModel.signUpAndSubmitArchiveResultSubject.toBlocking().first()).to(equal(Event.completed))
+                    expect(signUpAndSubmitArchiveResultObserver.events).to(equal([.next(0, .completed)]))
                 }
             }
 

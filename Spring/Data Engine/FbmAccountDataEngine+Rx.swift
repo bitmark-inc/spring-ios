@@ -10,12 +10,15 @@ import Foundation
 import RealmSwift
 import RxSwift
 
-class FbmAccountDataEngine {}
+protocol FbmAccountDataEngineDelegate {
+    static func fetchCurrentFbmAccount() -> Single<FbmAccount>
+    static func fetchLocalFbmAccount() -> Single<FbmAccount?>
+    static func fetchLatestFbmAccount() -> Single<FbmAccount>
+    static func create() -> Single<FbmAccount>
+    static func fetchOverallArchiveStatus() -> Single<ArchiveStatus?>
+}
 
-extension FbmAccountDataEngine: ReactiveCompatible {}
-
-extension Reactive where Base: FbmAccountDataEngine {
-
+class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
     static func fetchCurrentFbmAccount() -> Single<FbmAccount> {
         Global.log.info("[start] FbmAccountDataEngine.rx.fetchCurrentFbmAccount")
 
@@ -137,5 +140,37 @@ extension Reactive where Base: FbmAccountDataEngine {
 
                 return Single.just(fbmAccount)
             }
+    }
+
+    static func fetchOverallArchiveStatus() -> Single<ArchiveStatus?> {
+        return Single.create { (event) -> Disposable in
+            _ = FBArchiveService.getAll()
+                .do(onSuccess: { (archives) in
+                    _ = ArchiveDataEngine.rx.store(archives)
+                        .andThen(ArchiveDataEngine.rx.issueBitmarkIfNeeded())
+                        .subscribe(onCompleted: {
+                            Global.log.info("[done] storeAndIssueBitmarkIfNeeded")
+                        }, onError: { (error) in
+                            Global.log.error(error)
+                        })
+                })
+                .subscribe(onSuccess: { (archives) in
+                    guard archives.count > 0 else {
+                        event(.success(nil))
+                        return
+                    }
+
+                    if archives.firstIndex(where: { $0.status == ArchiveStatus.processed.rawValue }) != nil {
+                        event(.success(.processed))
+                    } else {
+                        let notInvalidArchives = archives.filter { $0.status != ArchiveStatus.invalid.rawValue }
+                        event(.success( notInvalidArchives.isEmpty ? .invalid : .submitted ))
+                    }
+                }, onError: { (error) in
+                    event(.error(error))
+                })
+
+            return Disposables.create()
+        }
     }
 }

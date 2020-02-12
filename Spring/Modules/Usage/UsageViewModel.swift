@@ -25,7 +25,7 @@ class UsageViewModel: ViewModel {
     let realmMoodRelay = BehaviorRelay<Usage?>(value: nil)
 
     func fetchActivity() -> Completable {
-        return FbmAccountDataEngine.rx.fetchLatestFbmAccount()
+        return FbmAccountDataEngine.fetchLatestFbmAccount()
             .map { try Converter<Metadata>(from: $0.metadata).value }
             .map { $0.lastActivityDate }
             .map { (lastActivityDate) -> Date in

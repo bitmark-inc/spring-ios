@@ -17,6 +17,7 @@ import Realm
 import SwiftDate
 
 class InsightViewController: ViewController {
+
     lazy var thisViewModel = viewModel as! InsightViewModel
 
     // MARK: - Properties
@@ -25,6 +26,7 @@ class InsightViewController: ViewController {
     lazy var headingView = makeHeadingView()
     lazy var fbIncomeView = makeFBIncomeView()
     lazy var adsCategoryView = makeAdsCategoryView()
+    lazy var moreInsightsComingView = makeMoreInsightsComingView()
 
     // SECTION: FB Income
     lazy var realmInsightObservable: Observable<Insight> = {
@@ -32,6 +34,8 @@ class InsightViewController: ViewController {
             .flatMap { Observable.from(object: $0) }
             .map { $0.valueObject() }.filterNil()
     }()
+
+    lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -57,7 +61,11 @@ class InsightViewController: ViewController {
             })
             .disposed(by: disposeBag)
 
-        viewModel.fetchInsight()
+        viewModel.fetchQuickInsight()
+
+        if appArchiveStatus == .done {
+            viewModel.fetchInsight()
+        }
     }
 
     func errorWhenFetchingData(error: Error) {
@@ -79,8 +87,13 @@ class InsightViewController: ViewController {
 
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
-            flex.addItem(fbIncomeView)
             flex.addItem(adsCategoryView)
+
+            if appArchiveStatus == .done {
+                flex.addItem(fbIncomeView)
+            } else {
+                flex.addItem(moreInsightsComingView)
+            }
         }
 
         scroll.addSubview(insightView)
@@ -128,6 +141,13 @@ extension InsightViewController {
         adsCategoryView.containerLayoutDelegate = self
         adsCategoryView.setProperties(container: self)
         return adsCategoryView
+    }
+
+    fileprivate func makeMoreInsightsComingView() -> MoreComingView {
+        let moreComingView = MoreComingView()
+        moreComingView.containerLayoutDelegate = self
+        moreComingView.section = .moreInsightsComing
+        return moreComingView
     }
 }
 

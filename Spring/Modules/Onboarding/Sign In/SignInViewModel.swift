@@ -15,7 +15,7 @@ import Intercom
 class SignInViewModel: ConfirmRecoveryKeyViewModel {
 
     // MARK: - Outputs
-    var signInResultSubject = PublishSubject<Event<ArchiveStatus?>>()
+    var signInResultSubject = PublishSubject<Event<Never>>()
 
     func signInAccount() {
         Global.log.info("[start] signIn")
@@ -33,22 +33,10 @@ class SignInViewModel: ConfirmRecoveryKeyViewModel {
         }
 
         AccountService.rxGetAccount(phrases: recoveryKeyRelay.value)
-            .flatMap { (account) -> Single<FbmAccount> in
+            .flatMapCompletable { (account) -> Completable in
                 Global.current.account = account
                 return setupAccountCompletable
-                    .andThen(FbmAccountDataEngine.rx.fetchCurrentFbmAccount())
             }
-            .flatMap { _ in FbmAccountService.fetchOverallArchiveStatus() }
-            .do(onSuccess: { (archiveStatus) in
-                Global.current.userDefault?.latestArchiveStatus = archiveStatus?.rawValue
-            })
-            .catchError({ (error) -> Single<ArchiveStatus?> in
-                if AppError.errorByNetworkConnection(error) {
-                    return Single.just(ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? ""))
-                } else {
-                    return Single.error(error)
-                }
-            })
             .asObservable()
             .materialize().bind { [weak self] in
                 loadingState.onNext(.hide)

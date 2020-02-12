@@ -57,7 +57,7 @@ extension Reactive where Base: ArchiveDataEngine {
             return RealmConfig.rxCurrentRealm()
                 .flatMapCompletable { (realm) -> Completable in
                     return Completable.create { (event) -> Disposable in
-                        let archives = realm.objects(Archive.self).filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue })
+                        let archives = realm.objects(Archive.self).filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue && $0.contentHash != "" })
                         for archive in archives {
                                 guard let assetID = RegistrationParams.computeAssetId(fingerprint: archive.contentHash)
                                     else {

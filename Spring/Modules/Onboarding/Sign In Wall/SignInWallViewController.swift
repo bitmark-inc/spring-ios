@@ -29,7 +29,7 @@ class SignInWallViewController: ViewController {
         super.bindViewModel()
 
         getStartedButton.rx.tap.bind { [weak self] in
-            self?.gotoHowItWorksScreen()
+            self?.gotoTrustIsCritialScreen()
         }.disposed(by: disposeBag)
 
         signInButton.rx.tap.bind { [weak self] in
@@ -56,7 +56,7 @@ class SignInWallViewController: ViewController {
         descriptionLabel.apply(
             text: R.string.phrase.launchDescription(),
             font: R.font.atlasGroteskLight(size: Size.ds(22)),
-            colorTheme: .white, lineHeight: 1.125)
+            colorTheme: .white, lineHeight: 1.1)
 
         let buttonsGroup = UIView()
         buttonsGroup.flex.direction(.column).define { (flex) in
@@ -100,8 +100,8 @@ extension SignInWallViewController: UITextViewDelegate {
 
 // MARK: - Navigator
 extension SignInWallViewController {
-    fileprivate func gotoHowItWorksScreen() {
-        navigator.show(segue: .howItWorks, sender: self)
+    fileprivate func gotoTrustIsCritialScreen() {
+        navigator.show(segue: .trustIsCritical(buttonItemType: .back), sender: self)
     }
 
     func goToSignInScreen() {

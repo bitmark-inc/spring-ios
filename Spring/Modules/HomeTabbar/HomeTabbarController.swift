@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class HomeTabbarController: ESTabBarController {
-    class func tabbarController() -> HomeTabbarController {
+    class func tabbarController(isArchiveStatusBoxShowed: Bool) -> HomeTabbarController {
         let insightsVC = InsightViewController(viewModel: InsightViewModel())
         let insightsNavVC = NavigationController(rootViewController: insightsVC)
         insightsNavVC.tabBarItem = ESTabBarItem(
@@ -40,11 +40,29 @@ class HomeTabbarController: ESTabBarController {
         )
 
         let tabbarController = HomeTabbarController()
+        tabbarController.isArchiveStatusBoxShowed = isArchiveStatusBoxShowed
         tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
 
         return tabbarController
     }
 
+    lazy var archiveStatusBox = makeArchiveStatusBox()
+    lazy var appArchiveStatus = AppArchiveStatus.currentState
+    var isArchiveStatusBoxShowed: Bool = true {
+        didSet {
+            if isArchiveStatusBoxShowed && appArchiveStatus == .stillWaiting {
+                view.insertSubview(archiveStatusBox, belowSubview: tabBar)
+
+                archiveStatusBox.snp.makeConstraints { (make) in
+                    make.width.equalToSuperview()
+                    make.leading.trailing.equalToSuperview()
+                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-tabBar.height)
+                }
+            } else {
+                archiveStatusBox.removeFromSuperview()
+            }
+        }
+    }
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -55,6 +73,26 @@ class HomeTabbarController: ESTabBarController {
         themeService.rx
             .bind({ $0.background }, to: view.rx.backgroundColor)
             .disposed(by: disposeBag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onSuccess: { [weak self] (authorizationStatus) in
+                guard let self = self, authorizationStatus == .authorized else { return }
+
+                self.scheduleReminderNotificationIfNeeded()
+                self.registerOneSignal()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func makeArchiveStatusBox() -> ArchiveStatusBox {
+        let box = ArchiveStatusBox()
+        box.appArchiveStatus = AppArchiveStatus.currentState
+        return box
     }
 }
 

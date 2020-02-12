@@ -29,15 +29,13 @@ class Navigator {
         case launchingDeeplinkNavigation
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
+        case trustIsCritical(buttonItemType: ButtonItemType)
         case howItWorks
-        case trustIsCritical
-        case askNotifications(viewModel: AskNotificationsViewModel)
         case requestData(viewModel: RequestDataViewModel)
-        case dataRequested(viewModel: DataRequestedViewModel)
-        case dataAnalyzing(viewModel: DataAnalyzingViewModel)
+        case checkDataRequested
         case safari(URL)
         case safariController(URL)
-        case hometabs
+        case hometabs(isArchiveStatusBoxShowed: Bool)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -79,12 +77,14 @@ class Navigator {
 
         case .signInWall(let viewModel): return SignInWallViewController(viewModel: viewModel)
         case .signIn(let viewModel): return SignInViewController(viewModel: viewModel)
+        case .trustIsCritical(let buttonItemType):
+            let trustIsCriticalViewController = TrustIsCriticalViewController()
+            trustIsCriticalViewController.buttonItemType = buttonItemType
+            return trustIsCriticalViewController
+
         case .howItWorks: return HowItWorksViewController()
-        case .trustIsCritical: return TrustIsCriticalViewController()
-        case .askNotifications(let viewModel): return AskNotificationsViewController(viewModel: viewModel)
         case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
-        case .dataRequested(let viewModel): return DataRequestedViewController(viewModel: viewModel)
-        case .dataAnalyzing(let viewModel): return DataAnalyzingViewController(viewModel: viewModel)
+        case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil
@@ -93,8 +93,8 @@ class Navigator {
             let vc = SFSafariViewController(url: url)
             return vc
 
-        case .hometabs:
-            return HomeTabbarController.tabbarController()
+        case .hometabs(let isArchiveStatusBoxShowed):
+            return HomeTabbarController.tabbarController(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed)
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
         case .incomeQuestion: return IncomeQuestionViewController()
@@ -234,8 +234,9 @@ class Navigator {
                 }
 
                 // check if scene is on onboarding flow's refresh state
-                guard let currentVC = rootViewController.viewControllers.last,
-                    [DataRequestedViewController.self, DataAnalyzingViewController.self, LaunchingViewController.self].contains(where: { $0 == type(of: currentVC) })
+                guard let currentVC = rootViewController.viewControllers.last else { return }
+
+                guard (type(of: currentVC) == HomeTabbarController.self && (currentVC as! HomeTabbarController).selectedIndex != 2 && AppArchiveStatus.currentState != .done)
                     else {
                         return
                 }
@@ -260,13 +261,15 @@ class Navigator {
 
     static let requireAuthorizationTime = 30 // minutes
     static var retryAuthenticationAlert: UIAlertController?
-    static func evaluatePolicyWhenUserSetEnable() {
-        guard Global.current.account != nil,
-            let enteredBackgroundTime = UserDefaults.standard.enteredBackgroundTime else {
-                return
+    static func evaluatePolicyWhenUserSetEnable(force: Bool = false) {
+        if !force {
+            guard Global.current.account != nil,
+                let enteredBackgroundTime = UserDefaults.standard.enteredBackgroundTime else {
+                    return
+            }
+            guard Global.current.userDefault?.isAccountSecured ?? false else { return }
+            guard Date() >= enteredBackgroundTime.adding(.minute, value: requireAuthorizationTime) else { return }
         }
-        guard Global.current.userDefault?.isAccountSecured ?? false else { return }
-        guard Date() >= enteredBackgroundTime.adding(.minute, value: requireAuthorizationTime) else { return }
 
         retryAuthenticationAlert?.dismiss(animated: false, completion: nil)
 
@@ -274,7 +277,7 @@ class Navigator {
             .observeOn(MainScheduler.instance)
             .subscribe(onError: { (_) in
                 Navigator.retryAuthenticationAlert = ErrorAlert.showAuthenticationRequiredAlert {
-                    Navigator.evaluatePolicyWhenUserSetEnable()
+                    Navigator.evaluatePolicyWhenUserSetEnable(force: true)
                 }
             })
     }
@@ -353,4 +356,5 @@ extension Navigator {
 enum ButtonItemType {
     case `continue`
     case back
+    case none
 }

@@ -1,5 +1,5 @@
 //
-//  UIViewController+Permission.swift
+//  NotificationPermission.swift
 //  Spring
 //
 //  Created by thuyentruong on 11/26/19.
@@ -10,9 +10,8 @@ import UIKit
 import RxSwift
 import UserNotifications
 
-extension UIViewController {
-
-    func askForNotificationPermission() -> Single<UNAuthorizationStatus> {
+class NotificationPermission {
+    static func askForNotificationPermission(handleWhenDenied: Bool) -> Single<UNAuthorizationStatus> {
         return Single<UNAuthorizationStatus>.create { (event) -> Disposable in
             let notificationCenter = UNUserNotificationCenter.current()
 
@@ -20,9 +19,6 @@ extension UIViewController {
 
                 let notifyStatus = settings.authorizationStatus
                 switch notifyStatus {
-                case .denied:
-                    self.askEnableNotificationAlert()
-
                 case .notDetermined:
                     let options: UNAuthorizationOptions = [.alert, .sound, .badge]
                     notificationCenter.requestAuthorization(options: options) { (didAllow, error) in
@@ -32,6 +28,9 @@ extension UIViewController {
                             didAllow ? event(.success(.authorized)) : event(.success(.denied))
                         }
                     }
+
+                case .denied:
+                    handleWhenDenied ? askEnableNotificationAlert() : event(.success(.denied))
 
                 case .authorized, .provisional:
                     event(.success(notifyStatus))
@@ -44,23 +43,30 @@ extension UIViewController {
         }
     }
 
-    func askEnableNotificationAlert() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+    fileprivate static func askEnableNotificationAlert() {
+        DispatchQueue.main.async {
             let alertController = UIAlertController(
                 title: R.string.error.notificationTitle(),
                 message: R.string.error.notificationMessage(),
                 preferredStyle: .alert)
 
-            alertController.addAction(
+            let cancelAction = UIAlertAction(
+                title: R.string.localizable.cancel(),
+                style: .cancel, handler: nil)
+
+            let enableAction = UIAlertAction(
                 title: R.string.localizable.enable(),
                 style: .default, handler: self.openAppSettings)
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(enableAction)
+            alertController.preferredAction = enableAction
 
             alertController.show()
         }
     }
 
-    @objc func openAppSettings(_ sender: UIAlertAction) {
+    @objc static func openAppSettings(_ sender: UIAlertAction) {
         guard let url = URL(string: UIApplication.openSettingsURLString) else {
             return
         }

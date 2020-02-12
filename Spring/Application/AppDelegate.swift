@@ -85,12 +85,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.enteredBackgroundTime = Date()
     }
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        Navigator.refreshOnboardingStateIfNeeded()
-    }
-
     func applicationWillEnterForeground(_ application: UIApplication) {
         Navigator.evaluatePolicyWhenUserSetEnable()
+        Navigator.refreshOnboardingStateIfNeeded()
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

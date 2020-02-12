@@ -87,10 +87,6 @@
 		58C009D22398A43100302F49 /* CustomxAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D02398A43100302F49 /* CustomxAxisRender.swift */; };
 		58C009D82398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
 		58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
-		58C009DF2398C69400302F49 /* DataAnalyzingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */; };
-		58C009E02398C69400302F49 /* DataAnalyzingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */; };
-		58C009E12398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */; };
-		58C009E22398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */; };
 		58FF431023B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431123B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431223B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
@@ -129,6 +125,9 @@
 		5B2097C623B481D40079B421 /* ReactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2097C323B481D40079B421 /* ReactionTableViewCell.swift */; };
 		5B289E0023A0D9EB00283C84 /* TrustIsCriticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */; };
 		5B289E0123A0D9EB00283C84 /* TrustIsCriticalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */; };
+		5B2DEE2F23F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
+		5B2DEE3023F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
+		5B2DEE3123F1074800D3300A /* MoreComingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE2E23F1074800D3300A /* MoreComingView.swift */; };
 		5B32F5B723CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B823CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B923CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
@@ -280,7 +279,7 @@
 		5B5D001623A1F0F4003D1A1C /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC30237A863300FA3196 /* TableView.swift */; };
 		5B5D001723A1F0F4003D1A1C /* CustomxAxisRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D02398A43100302F49 /* CustomxAxisRender.swift */; };
 		5B5D001B23A1F0F4003D1A1C /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236B678238EAAF200C1A280 /* NavigationView.swift */; };
-		5B5D001C23A1F0F4003D1A1C /* DataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* DataRequestedViewController.swift */; };
+		5B5D001C23A1F0F4003D1A1C /* CheckDataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */; };
 		5B5D001D23A1F0F4003D1A1C /* UIFont+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCA0237A8A9200FA3196 /* UIFont+Theme.swift */; };
 		5B5D001E23A1F0F4003D1A1C /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC29237A863300FA3196 /* TableViewCell.swift */; };
 		5B5D001F23A1F0F4003D1A1C /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B5606238D103300F1BCF2 /* Auth.swift */; };
@@ -289,7 +288,6 @@
 		5B5D002323A1F0F4003D1A1C /* UIViewController+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC9E237A8A9200FA3196 /* UIViewController+Error.swift */; };
 		5B5D002423A1F0F4003D1A1C /* UpdatePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E244203F239910E100520FE9 /* UpdatePostTableViewCell.swift */; };
 		5B5D002523A1F0F4003D1A1C /* InsightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832D6FC238BC23D0074AEDC /* InsightViewModel.swift */; };
-		5B5D002623A1F0F4003D1A1C /* DataAnalyzingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */; };
 		5B5D002723A1F0F4003D1A1C /* FBScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2259CCF238783AE00746280 /* FBScript.swift */; };
 		5B5D002823A1F0F4003D1A1C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1F237A863300FA3196 /* ViewController.swift */; };
 		5B5D002923A1F0F4003D1A1C /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC90237A889A00FA3196 /* KeychainStore.swift */; };
@@ -357,8 +355,6 @@
 		5B5DFFCC23A1F0F4003D1A1C /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC32237A863300FA3196 /* TextField.swift */; };
 		5B5DFFCD23A1F0F4003D1A1C /* RequestDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959DB23868795000E9CB9 /* RequestDataViewModel.swift */; };
 		5B5DFFCE23A1F0F4003D1A1C /* Array+Sentence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23807D123963E3E0079A3C4 /* Array+Sentence.swift */; };
-		5B5DFFCF23A1F0F4003D1A1C /* DataRequestedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EC238CE65B00F1BCF2 /* DataRequestedViewModel.swift */; };
-		5B5DFFD023A1F0F4003D1A1C /* AskNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B023A09876005F7C58 /* AskNotificationsViewModel.swift */; };
 		5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1C237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift */; };
 		5B5DFFD223A1F0F4003D1A1C /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E222907B2394F19D00412CBC /* Groups.swift */; };
 		5B5DFFD323A1F0F4003D1A1C /* FbmAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B560A238D162400F1BCF2 /* FbmAccountService.swift */; };
@@ -370,10 +366,9 @@
 		5B5DFFDA23A1F0F4003D1A1C /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832D6F8238BC23D0074AEDC /* AccountViewModel.swift */; };
 		5B5DFFDC23A1F0F4003D1A1C /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC17237A863300FA3196 /* Global.swift */; };
 		5B5DFFDD23A1F0F4003D1A1C /* R.generated+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24829C8238BC30F00995FBB /* R.generated+Font.swift */; };
-		5B5DFFDE23A1F0F4003D1A1C /* AskNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */; };
 		5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC8C237A889A00FA3196 /* BitmarkSDKService.swift */; };
 		5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */; };
-		5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
+		5B5DFFE223A1F0F4003D1A1C /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
 		5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC10237A85B000FA3196 /* SceneDelegate.swift */; };
 		5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC21237A863300FA3196 /* NavigationController.swift */; };
 		5B5DFFE523A1F0F4003D1A1C /* Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC31237A863300FA3196 /* Switch.swift */; };
@@ -387,7 +382,6 @@
 		5B5DFFEE23A1F0F4003D1A1C /* SignInWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */; };
 		5B5DFFEF23A1F0F4003D1A1C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55FD238D0AFC00F1BCF2 /* AuthService.swift */; };
 		5B5DFFF023A1F0F4003D1A1C /* LinkAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23807C52396023F0079A3C4 /* LinkAttributedString.swift */; };
-		5B5DFFF123A1F0F4003D1A1C /* DataAnalyzingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */; };
 		5B5DFFF223A1F0F4003D1A1C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC35237A863300FA3196 /* ImageView.swift */; };
 		5B5DFFF323A1F0F4003D1A1C /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21EF9F6239111E3004D4513 /* UsageService.swift */; };
 		5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
@@ -411,9 +405,10 @@
 		5B75A14D23BD9EA400FFF910 /* DatePeriodSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */; };
 		5B75A15223BDD66000FFF910 /* QueryTrackSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75A15123BDD66000FFF910 /* QueryTrackSpec.swift */; };
 		5B75C8C023EA98F100ABA5E0 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DB66CD237D40A8005367C2 /* NotificationService.swift */; };
-		5B75C8C223EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
-		5B75C8C323EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
 		5B75C8CA23EA991F00ABA5E0 /* OneSignalNotificationServiceDevExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5B75C8D123EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */; };
+		5B75C8D223EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */; };
+		5B75C8D323EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */; };
 		5B80A69E23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A69F23C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
 		5B80A6A023C5D89E002E591E /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B80A69D23C5D89E002E591E /* UserInfo.swift */; };
@@ -486,16 +481,15 @@
 		5BA9FF6F23B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
 		5BA9FF7023B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
 		5BA9FF7123B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
+		5BB067D023ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
+		5BB067D123ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
+		5BB067D223ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
 		5BB2852A23A33796000C04CA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5BB2852923A33796000C04CA /* Settings.bundle */; };
 		5BB2852B23A33796000C04CA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5BB2852923A33796000C04CA /* Settings.bundle */; };
 		5BB2852C23A33796000C04CA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5BB2852923A33796000C04CA /* Settings.bundle */; };
 		5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
 		5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
 		5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
-		5BB319B123A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B023A09876005F7C58 /* AskNotificationsViewModel.swift */; };
-		5BB319B223A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B023A09876005F7C58 /* AskNotificationsViewModel.swift */; };
-		5BB319B423A09882005F7C58 /* AskNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */; };
-		5BB319B523A09882005F7C58 /* AskNotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */; };
 		5BBB663823A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
 		5BBB663923A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
 		5BBB663A23A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
@@ -530,6 +524,11 @@
 		8C115147CF5C29DFF9C36184 /* Pods_Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DFDE2269C4999B2EC0A546 /* Pods_Spring.framework */; };
 		97CE242080AB51423CB4F1B8 /* Pods_Spring_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8898C24D1E8EC21CE74A1202 /* Pods_Spring_Dev.framework */; };
 		A924FE161A5889C795A30F96 /* Pods_OneSignalNotificationServiceInhouseExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBE932587CD28C97AD528E37 /* Pods_OneSignalNotificationServiceInhouseExtension.framework */; };
+		AC1FFDECD6B9D381B1A67936 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
+		E21DAF4F23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21DAF4E23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift */; };
+		E21DAF5123F03066004D99B3 /* archives.json in Resources */ = {isa = PBXBuildFile; fileRef = E21DAF5023F03066004D99B3 /* archives.json */; };
+		E21DAF5223F03066004D99B3 /* archives.json in Resources */ = {isa = PBXBuildFile; fileRef = E21DAF5023F03066004D99B3 /* archives.json */; };
+		E21DAF5323F03066004D99B3 /* archives.json in Resources */ = {isa = PBXBuildFile; fileRef = E21DAF5023F03066004D99B3 /* archives.json */; };
 		E21EF9E7239100A6004D4513 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21EF9E6239100A6004D4513 /* Usage.swift */; };
 		E21EF9E8239100A6004D4513 /* Usage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21EF9E6239100A6004D4513 /* Usage.swift */; };
 		E21EF9F7239111E3004D4513 /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21EF9F6239111E3004D4513 /* UsageService.swift */; };
@@ -594,10 +593,8 @@
 		E27959E0238687A2000E9CB9 /* RequestDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959DE238687A2000E9CB9 /* RequestDataViewController.swift */; };
 		E27959E22386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
 		E27959E32386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
-		E28B55ED238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EC238CE65B00F1BCF2 /* DataRequestedViewModel.swift */; };
-		E28B55EE238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EC238CE65B00F1BCF2 /* DataRequestedViewModel.swift */; };
-		E28B55F0238CE66400F1BCF2 /* DataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* DataRequestedViewController.swift */; };
-		E28B55F1238CE66500F1BCF2 /* DataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* DataRequestedViewController.swift */; };
+		E28B55F0238CE66400F1BCF2 /* CheckDataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */; };
+		E28B55F1238CE66500F1BCF2 /* CheckDataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */; };
 		E28B55F4238D03C600F1BCF2 /* FBArchiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */; };
 		E28B55F5238D03C600F1BCF2 /* FBArchiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */; };
 		E28B55F7238D03D100F1BCF2 /* FBArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55F6238D03D100F1BCF2 /* FBArchiveService.swift */; };
@@ -616,8 +613,8 @@
 		E28B560F238D16E800F1BCF2 /* FbmAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B560D238D16E800F1BCF2 /* FbmAccount.swift */; };
 		E28B5611238D180B00F1BCF2 /* FbmAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */; };
 		E28B5612238D180B00F1BCF2 /* FbmAccountAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */; };
-		E28B561B238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
-		E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */; };
+		E28B561B238D21A700F1BCF2 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
+		E28B561C238D21A700F1BCF2 /* NotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */; };
 		E29F5A242383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */; };
 		E29F5A252383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */; };
 		E29F5A262383E2E700C1D9D8 /* SignInWallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29F5A1C2383E2E600C1D9D8 /* SignInWallViewController.swift */; };
@@ -725,6 +722,7 @@
 		E2DB66BC237D3B69005367C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5832FCBE237AB8AB00FA3196 /* Assets.xcassets */; };
 		E2DB66CE237D40A8005367C2 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DB66CD237D40A8005367C2 /* NotificationService.swift */; };
 		E2DB66D2237D40A8005367C2 /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E2DB66CB237D40A8005367C2 /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E76477A5717841CFD119C5F9 /* Pods_OneSignalNotificationServiceDevExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E11FE756F9F5F0B8EA76D1E /* Pods_OneSignalNotificationServiceDevExtension.framework */; };
 		F32F003C4CD49CC6269E4EE7 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
 
@@ -797,10 +795,10 @@
 
 /* Begin PBXFileReference section */
 		06E65E5D168A892C8167C8E5 /* Pods-SpringTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringTests.debug.xcconfig"; path = "Target Support Files/Pods-SpringTests/Pods-SpringTests.debug.xcconfig"; sourceTree = "<group>"; };
-		0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		16448561B63E83FDDA2B1A1A /* Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceInhouseExtension/Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		1EE94116B8F20AA88D72C1D5 /* Pods-Spring.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring.debug.xcconfig"; path = "Target Support Files/Pods-Spring/Pods-Spring.debug.xcconfig"; sourceTree = "<group>"; };
 		2A6794BBC6A25ACCE1184DBF /* Pods-Spring Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring Dev.debug.xcconfig"; path = "Target Support Files/Pods-Spring Dev/Pods-Spring Dev.debug.xcconfig"; sourceTree = "<group>"; };
+		2D089DA54198AFB3C158A1BB /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		318C790A3C05D19526AC4A0C /* Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceInhouseExtension/Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5322E5E3882C69A09093AD96 /* Pods_SpringTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpringTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		559F3FAE962CA063186C1288 /* Pods-Spring Inhouse.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring Inhouse.debug.xcconfig"; path = "Target Support Files/Pods-Spring Inhouse/Pods-Spring Inhouse.debug.xcconfig"; sourceTree = "<group>"; };
@@ -875,8 +873,6 @@
 		58682EDA238F7079009BDDDF /* FilterSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSegment.swift; sourceTree = "<group>"; };
 		58C009D02398A43100302F49 /* CustomxAxisRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomxAxisRender.swift; sourceTree = "<group>"; };
 		58C009D62398C60D00302F49 /* LinkPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkPostTableViewCell.swift; sourceTree = "<group>"; };
-		58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAnalyzingViewController.swift; sourceTree = "<group>"; };
-		58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataAnalyzingViewModel.swift; sourceTree = "<group>"; };
 		58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbbreviatedValueFormatter.swift; sourceTree = "<group>"; };
 		5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewController.swift; sourceTree = "<group>"; };
 		5B13D3A623CF000100F82350 /* IncreasePrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewModel.swift; sourceTree = "<group>"; };
@@ -890,6 +886,7 @@
 		5B2097BF23B477FB0079B421 /* MediaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaService.swift; sourceTree = "<group>"; };
 		5B2097C323B481D40079B421 /* ReactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionTableViewCell.swift; sourceTree = "<group>"; };
 		5B289DFF23A0D9EB00283C84 /* TrustIsCriticalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustIsCriticalViewController.swift; sourceTree = "<group>"; };
+		5B2DEE2E23F1074800D3300A /* MoreComingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreComingView.swift; sourceTree = "<group>"; };
 		5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingNavigatorDelegate.swift; sourceTree = "<group>"; };
 		5B32F5BA23CD830100959DFF /* AppLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLink.swift; sourceTree = "<group>"; };
 		5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyListViewController.swift; sourceTree = "<group>"; };
@@ -929,6 +926,7 @@
 		5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePeriodSpec.swift; sourceTree = "<group>"; };
 		5B75A15123BDD66000FFF910 /* QueryTrackSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryTrackSpec.swift; sourceTree = "<group>"; };
 		5B75C8C823EA98F100ABA5E0 /* OneSignalNotificationServiceDevExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceDevExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveStatusBox.swift; sourceTree = "<group>"; };
 		5B80A68E23C5D00A002E591E /* IBMPlexMono-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-BoldItalic.ttf"; sourceTree = "<group>"; };
 		5B80A68F23C5D00A002E591E /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		5B80A69023C5D00A002E591E /* IBMPlexMono-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Italic.ttf"; sourceTree = "<group>"; };
@@ -972,10 +970,9 @@
 		5BA9FF6623B2294900E57A20 /* InsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightService.swift; sourceTree = "<group>"; };
 		5BA9FF6A23B22A9400E57A20 /* InsightDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InsightDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
+		5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTabbarController+Notification.swift"; sourceTree = "<group>"; };
 		5BB2852923A33796000C04CA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5BB2852E23A34235000C04CA /* SettingsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundle.swift; sourceTree = "<group>"; };
-		5BB319B023A09876005F7C58 /* AskNotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskNotificationsViewModel.swift; sourceTree = "<group>"; };
-		5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskNotificationsViewController.swift; sourceTree = "<group>"; };
 		5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryKeyWordCell.swift; sourceTree = "<group>"; };
 		5BC5C69023A0A4B000EA211E /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		5BC91CBF23CC29CB000058A7 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
@@ -988,14 +985,18 @@
 		5BEB478B23AC7EB100750AC6 /* UsageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAPI.swift; sourceTree = "<group>"; };
 		5BEF584323AB2EA500901D52 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		5BEF584723AB6BE200901D52 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		5E11FE756F9F5F0B8EA76D1E /* Pods_OneSignalNotificationServiceDevExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneSignalNotificationServiceDevExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8898C24D1E8EC21CE74A1202 /* Pods_Spring_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spring_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDE2269C4999B2EC0A546 /* Pods_Spring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2C34A7CE4987537D0E6CA24 /* Pods-OneSignalNotificationServiceDevExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceDevExtension.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceDevExtension/Pods-OneSignalNotificationServiceDevExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		AAB4CB59F3FAED2A30DB97A5 /* Pods-SpringTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpringTests.release.xcconfig"; path = "Target Support Files/Pods-SpringTests/Pods-SpringTests.release.xcconfig"; sourceTree = "<group>"; };
 		C5FE36583E5650163E4D6A25 /* Pods-Spring Inhouse.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring Inhouse.release.xcconfig"; path = "Target Support Files/Pods-Spring Inhouse/Pods-Spring Inhouse.release.xcconfig"; sourceTree = "<group>"; };
 		CBE932587CD28C97AD528E37 /* Pods_OneSignalNotificationServiceInhouseExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneSignalNotificationServiceInhouseExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneSignalNotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		CF2C0B22097DE577EAC8395E /* Pods_Spring_Inhouse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spring_Inhouse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D359B1435CA0AC17BF298539 /* Pods-OneSignalNotificationServiceDevExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceDevExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceDevExtension/Pods-OneSignalNotificationServiceDevExtension.release.xcconfig"; sourceTree = "<group>"; };
+		E21DAF4E23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountDataEngineMock.swift; sourceTree = "<group>"; };
+		E21DAF5023F03066004D99B3 /* archives.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = archives.json; sourceTree = "<group>"; };
 		E21EF9E6239100A6004D4513 /* Usage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Usage.swift; sourceTree = "<group>"; };
 		E21EF9F6239111E3004D4513 /* UsageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageService.swift; sourceTree = "<group>"; };
 		E22290732394B2A300412CBC /* UsageDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UsageDataEngine+Rx.swift"; sourceTree = "<group>"; };
@@ -1029,8 +1030,7 @@
 		E27959DE238687A2000E9CB9 /* RequestDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDataViewController.swift; sourceTree = "<group>"; };
 		E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithRightIcon.swift; sourceTree = "<group>"; };
 		E28B55EA238CCB9200F1BCF2 /* Spring Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spring Dev.entitlements"; sourceTree = "<group>"; };
-		E28B55EC238CE65B00F1BCF2 /* DataRequestedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestedViewModel.swift; sourceTree = "<group>"; };
-		E28B55EF238CE66400F1BCF2 /* DataRequestedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestedViewController.swift; sourceTree = "<group>"; };
+		E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDataRequestedViewController.swift; sourceTree = "<group>"; };
 		E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArchiveAPI.swift; sourceTree = "<group>"; };
 		E28B55F6238D03D100F1BCF2 /* FBArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArchiveService.swift; sourceTree = "<group>"; };
 		E28B55FA238D0A6800F1BCF2 /* MoyaAuthPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaAuthPlugin.swift; sourceTree = "<group>"; };
@@ -1040,7 +1040,7 @@
 		E28B560A238D162400F1BCF2 /* FbmAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountService.swift; sourceTree = "<group>"; };
 		E28B560D238D16E800F1BCF2 /* FbmAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccount.swift; sourceTree = "<group>"; };
 		E28B5610238D180B00F1BCF2 /* FbmAccountAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountAPI.swift; sourceTree = "<group>"; };
-		E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Permission.swift"; sourceTree = "<group>"; };
+		E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermission.swift; sourceTree = "<group>"; };
 		E29F5A1B2383E2E600C1D9D8 /* SignInWallViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWallViewModel.swift; sourceTree = "<group>"; };
 		E29F5A1C2383E2E600C1D9D8 /* SignInWallViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInWallViewController.swift; sourceTree = "<group>"; };
 		E29F5A2D2383E59700C1D9D8 /* AtlasGrotesk-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AtlasGrotesk-Black.otf"; sourceTree = "<group>"; };
@@ -1071,6 +1071,7 @@
 		E2DB66CB237D40A8005367C2 /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2DB66CD237D40A8005367C2 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		E2DB66CF237D40A8005367C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0F88C770EED89ABBD3978EA /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotificationServiceExtension/Pods-OneSignalNotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F567D30741626FF2F983522B /* Pods-Spring.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring.release.xcconfig"; path = "Target Support Files/Pods-Spring/Pods-Spring.release.xcconfig"; sourceTree = "<group>"; };
 		F6011461D9679117D25B3758 /* Pods-Spring Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spring Dev.release.xcconfig"; path = "Target Support Files/Pods-Spring Dev/Pods-Spring Dev.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1104,8 +1105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5B75C8C223EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
-				5B75C8C323EA98F100ABA5E0 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
+				E76477A5717841CFD119C5F9 /* Pods_OneSignalNotificationServiceDevExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1131,6 +1131,7 @@
 			files = (
 				7A5CBBA81EA5D84069611561 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
 				F32F003C4CD49CC6269E4EE7 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
+				AC1FFDECD6B9D381B1A67936 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1148,10 +1149,12 @@
 				C5FE36583E5650163E4D6A25 /* Pods-Spring Inhouse.release.xcconfig */,
 				06E65E5D168A892C8167C8E5 /* Pods-SpringTests.debug.xcconfig */,
 				AAB4CB59F3FAED2A30DB97A5 /* Pods-SpringTests.release.xcconfig */,
-				0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
-				CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
 				16448561B63E83FDDA2B1A1A /* Pods-OneSignalNotificationServiceInhouseExtension.debug.xcconfig */,
 				318C790A3C05D19526AC4A0C /* Pods-OneSignalNotificationServiceInhouseExtension.release.xcconfig */,
+				2D089DA54198AFB3C158A1BB /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */,
+				F0F88C770EED89ABBD3978EA /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */,
+				A2C34A7CE4987537D0E6CA24 /* Pods-OneSignalNotificationServiceDevExtension.debug.xcconfig */,
+				D359B1435CA0AC17BF298539 /* Pods-OneSignalNotificationServiceDevExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1275,7 +1278,7 @@
 				5832FC18237A863300FA3196 /* Currency.swift */,
 				5832FC19237A863300FA3196 /* ViewModel.swift */,
 				5832FC1A237A863300FA3196 /* ThemeManager.swift */,
-				5832D6DF238BB9B40074AEDC /* HomeTabbarController.swift */,
+				E28B561A238D21A700F1BCF2 /* NotificationPermission.swift */,
 				5832FC1B237A863300FA3196 /* Confirm Recovery Key */,
 				5832FC1E237A863300FA3196 /* Controllers */,
 				5832FC22237A863300FA3196 /* Views */,
@@ -1383,7 +1386,6 @@
 				5832FC99237A8A9200FA3196 /* UITableView+ApplyChanges.swift */,
 				E24829C8238BC30F00995FBB /* R.generated+Font.swift */,
 				5832FC9A237A8A9200FA3196 /* RxSwift */,
-				E28B561A238D21A700F1BCF2 /* UIViewController+Permission.swift */,
 				5832FC9E237A8A9200FA3196 /* UIViewController+Error.swift */,
 				5832FC9F237A8A9200FA3196 /* String+SupportBitmark.swift */,
 				5832FCA0237A8A9200FA3196 /* UIFont+Theme.swift */,
@@ -1413,6 +1415,7 @@
 			children = (
 				5832FCB7237AA12500FA3196 /* Launching */,
 				E29F5A162383E2E600C1D9D8 /* Onboarding */,
+				5BB067CE23ED0F540059C642 /* HomeTabbar */,
 				5832D6E2238BBE240074AEDC /* Usage */,
 				5832D6FA238BC23D0074AEDC /* Insight */,
 				E222908A239509CB00412CBC /* Post List */,
@@ -1455,15 +1458,6 @@
 				58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */,
 			);
 			path = Charts;
-			sourceTree = "<group>";
-		};
-		58C009DC2398C69400302F49 /* Data Analyzing */ = {
-			isa = PBXGroup;
-			children = (
-				58C009DD2398C69400302F49 /* DataAnalyzingViewController.swift */,
-				58C009DE2398C69400302F49 /* DataAnalyzingViewModel.swift */,
-			);
-			path = "Data Analyzing";
 			sourceTree = "<group>";
 		};
 		5B20979F23B4641C0079B421 /* Reaction */ = {
@@ -1549,6 +1543,8 @@
 				5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */,
 				5B54FADA23C6DACA0029B5D5 /* AdsCategoryView.swift */,
 				5B3C54FB23D6B49E00708B1B /* IncomeQuestionViewController.swift */,
+				5B75C8D023EAD06800ABA5E0 /* ArchiveStatusBox.swift */,
+				5B2DEE2E23F1074800D3300A /* MoreComingView.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -1629,6 +1625,7 @@
 			children = (
 				5B8C414923E7CA8200A00438 /* AccountServiceMock.swift */,
 				5B8C414B23E7D87E00A00438 /* FBArchiveServiceMock.swift */,
+				E21DAF4E23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1741,6 +1738,7 @@
 			children = (
 				5B94F64823E2BB6500AD7578 /* auth.json */,
 				5BE39E8423E425BE0098811C /* springAccount.json */,
+				E21DAF5023F03066004D99B3 /* archives.json */,
 			);
 			path = "Stubbed Responses";
 			sourceTree = "<group>";
@@ -1754,6 +1752,15 @@
 			path = Insights;
 			sourceTree = "<group>";
 		};
+		5BB067CE23ED0F540059C642 /* HomeTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				5832D6DF238BB9B40074AEDC /* HomeTabbarController.swift */,
+				5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */,
+			);
+			path = HomeTabbar;
+			sourceTree = "<group>";
+		};
 		5BB2852D23A341F4000C04CA /* App Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -1761,15 +1768,6 @@
 				5BB2852E23A34235000C04CA /* SettingsBundle.swift */,
 			);
 			path = "App Settings";
-			sourceTree = "<group>";
-		};
-		5BB319AF23A0982E005F7C58 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				5BB319B023A09876005F7C58 /* AskNotificationsViewModel.swift */,
-				5BB319B323A09882005F7C58 /* AskNotificationsViewController.swift */,
-			);
-			path = Notifications;
 			sourceTree = "<group>";
 		};
 		5BC91CC323CC3DB6000058A7 /* Release Note */ = {
@@ -1809,6 +1807,7 @@
 				CF2C0B22097DE577EAC8395E /* Pods_Spring_Inhouse.framework */,
 				5322E5E3882C69A09093AD96 /* Pods_SpringTests.framework */,
 				CBE932587CD28C97AD528E37 /* Pods_OneSignalNotificationServiceInhouseExtension.framework */,
+				5E11FE756F9F5F0B8EA76D1E /* Pods_OneSignalNotificationServiceDevExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1942,13 +1941,12 @@
 			path = "Request Data";
 			sourceTree = "<group>";
 		};
-		E28B55EB238CE63200F1BCF2 /* Data Requested */ = {
+		E28B55EB238CE63200F1BCF2 /* Check Data Requested */ = {
 			isa = PBXGroup;
 			children = (
-				E28B55EC238CE65B00F1BCF2 /* DataRequestedViewModel.swift */,
-				E28B55EF238CE66400F1BCF2 /* DataRequestedViewController.swift */,
+				E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */,
 			);
-			path = "Data Requested";
+			path = "Check Data Requested";
 			sourceTree = "<group>";
 		};
 		E28B55F2238D03A400F1BCF2 /* FB Archive */ = {
@@ -1974,12 +1972,10 @@
 			children = (
 				E29F5A1A2383E2E600C1D9D8 /* Sign In Wall */,
 				5B58AC4623BB474B0041F216 /* Sign In */,
-				E29F5A782383F8C900C1D9D8 /* How It Works */,
 				5B289DFC23A0D9BB00283C84 /* Trust Critical */,
-				5BB319AF23A0982E005F7C58 /* Notifications */,
+				E29F5A782383F8C900C1D9D8 /* How It Works */,
 				E27959DA23868763000E9CB9 /* Request Data */,
-				E28B55EB238CE63200F1BCF2 /* Data Requested */,
-				58C009DC2398C69400302F49 /* Data Analyzing */,
+				E28B55EB238CE63200F1BCF2 /* Check Data Requested */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -2141,7 +2137,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B75C8C523EA98F100ABA5E0 /* Build configuration list for PBXNativeTarget "OneSignalNotificationServiceDevExtension" */;
 			buildPhases = (
-				5B75C8BE23EA98F100ABA5E0 /* [CP] Check Pods Manifest.lock */,
+				91144BF1ACE7043D68E386E0 /* [CP] Check Pods Manifest.lock */,
 				5B75C8BF23EA98F100ABA5E0 /* Sources */,
 				5B75C8C123EA98F100ABA5E0 /* Frameworks */,
 				5B75C8C423EA98F100ABA5E0 /* Resources */,
@@ -2269,6 +2265,7 @@
 				E29F5A632383E70000C1D9D8 /* DomaineSansText-Regular.otf in Resources */,
 				E29F5A4F2383E59700C1D9D8 /* AtlasGrotesk-BlackItalic.otf in Resources */,
 				5B54FAB623C6D4470029B5D5 /* IBMPlexMono-ThinItalic.ttf in Resources */,
+				E21DAF5123F03066004D99B3 /* archives.json in Resources */,
 				E29F5A612383E70000C1D9D8 /* DomaineSansText-Medium.otf in Resources */,
 				E26268BF23964638000D7F51 /* Phrase.strings in Resources */,
 				5BC5C69123A0A4B000EA211E /* InfoPlist.strings in Resources */,
@@ -2331,6 +2328,7 @@
 				5B5D004E23A1F0F4003D1A1C /* DomaineSansText-Regular.otf in Resources */,
 				5B5D004F23A1F0F4003D1A1C /* AtlasGrotesk-BlackItalic.otf in Resources */,
 				5B54FAD223C6D4480029B5D5 /* IBMPlexMono-ThinItalic.ttf in Resources */,
+				E21DAF5323F03066004D99B3 /* archives.json in Resources */,
 				5B5D005023A1F0F4003D1A1C /* DomaineSansText-Medium.otf in Resources */,
 				5B5D005123A1F0F4003D1A1C /* Phrase.strings in Resources */,
 				5B5D005223A1F0F4003D1A1C /* InfoPlist.strings in Resources */,
@@ -2400,6 +2398,7 @@
 				E29F5A642383E70000C1D9D8 /* DomaineSansText-Regular.otf in Resources */,
 				E29F5A502383E59700C1D9D8 /* AtlasGrotesk-BlackItalic.otf in Resources */,
 				5B54FAC423C6D4470029B5D5 /* IBMPlexMono-ThinItalic.ttf in Resources */,
+				E21DAF5223F03066004D99B3 /* archives.json in Resources */,
 				E29F5A622383E70000C1D9D8 /* DomaineSansText-Medium.otf in Resources */,
 				E26268C023964638000D7F51 /* Phrase.strings in Resources */,
 				5BC5C69223A0A4B100EA211E /* InfoPlist.strings in Resources */,
@@ -2590,28 +2589,6 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/Spring/Resources/R.generated.swift\"\n";
 		};
-		5B75C8BE23EA98F100ABA5E0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		816E6A6EC516DCAC525207CF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2628,6 +2605,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Spring-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		91144BF1ACE7043D68E386E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotificationServiceDevExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2806,7 +2805,6 @@
 				5BC91CC023CC29CB000058A7 /* Converter.swift in Sources */,
 				E23807D223963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
 				E27959DC23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
-				5BB319B123A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				5B3C54FC23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
@@ -2829,8 +2827,8 @@
 				5832D6FD238BC23D0074AEDC /* AccountViewModel.swift in Sources */,
 				5832FC40237A863300FA3196 /* Global.swift in Sources */,
 				E24829C9238BC31000995FBB /* R.generated+Font.swift in Sources */,
+				5B2DEE2F23F1074800D3300A /* MoreComingView.swift in Sources */,
 				5832FC93237A889A00FA3196 /* BitmarkSDKService.swift in Sources */,
-				5BB319B423A09882005F7C58 /* AskNotificationsViewController.swift in Sources */,
 				5B75A14823BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A423D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5832FC12237A85B000FA3196 /* SceneDelegate.swift in Sources */,
@@ -2842,7 +2840,7 @@
 				5832FC5A237A863300FA3196 /* SeparateLine.swift in Sources */,
 				5B58AC3B23BADF920041F216 /* DatePeriod.swift in Sources */,
 				5BBB663823A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */,
-				E28B55F0238CE66400F1BCF2 /* DataRequestedViewController.swift in Sources */,
+				E28B55F0238CE66400F1BCF2 /* CheckDataRequestedViewController.swift in Sources */,
 				5B9322FC23A3635200C3C408 /* SignOutViewModel.swift in Sources */,
 				5B2097B623B467560079B421 /* ReactionListViewModel.swift in Sources */,
 				5BA9FF6F23B23CAA00E57A20 /* IncomeView.swift in Sources */,
@@ -2855,7 +2853,6 @@
 				E28B560B238D162400F1BCF2 /* FbmAccountService.swift in Sources */,
 				E29F5A242383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */,
 				E23807C62396023F0079A3C4 /* LinkAttributedString.swift in Sources */,
-				58C009DF2398C69400302F49 /* DataAnalyzingViewController.swift in Sources */,
 				5B93230823A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				5832FC5B237A863300FA3196 /* ImageView.swift in Sources */,
 				E21EF9F7239111E3004D4513 /* UsageService.swift in Sources */,
@@ -2866,6 +2863,7 @@
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */,
 				5B5B948B23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
+				5B75C8D123EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */,
 				5B9322F823A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5832FC50237A863300FA3196 /* MakeUnderline.swift in Sources */,
 				E236B676238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
@@ -2923,8 +2921,6 @@
 				5B2097BA23B4676D0079B421 /* ReactionTableView.swift in Sources */,
 				E222909F2395116900412CBC /* PostDataEngine+Rx.swift in Sources */,
 				E2442040239910E100520FE9 /* UpdatePostTableViewCell.swift in Sources */,
-				E28B55ED238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */,
-				58C009E12398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */,
 				E28B55F7238D03D100F1BCF2 /* FBArchiveService.swift in Sources */,
 				5B590A7623B37CD0006C194D /* BiometricAuth.swift in Sources */,
 				5832FCAA237A8A9200FA3196 /* UIViewController+Error.swift in Sources */,
@@ -2948,12 +2944,13 @@
 				5832FC49237A863300FA3196 /* UnderlinedTextField.swift in Sources */,
 				5832D6E4238BBE390074AEDC /* UsageViewModel.swift in Sources */,
 				5B93230023A3635E00C3C408 /* SignOutViewController.swift in Sources */,
-				E28B561B238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
+				E28B561B238D21A700F1BCF2 /* NotificationPermission.swift in Sources */,
 				58682EDB238F7079009BDDDF /* FilterSegment.swift in Sources */,
 				E22290742394B2A300412CBC /* UsageDataEngine+Rx.swift in Sources */,
 				5832FC41237A863300FA3196 /* Currency.swift in Sources */,
 				5B4A237B23B1136E00447366 /* HeadingView.swift in Sources */,
 				5832FC42237A863300FA3196 /* ViewModel.swift in Sources */,
+				5BB067D023ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */,
 				E22290822394FBC500412CBC /* Average.swift in Sources */,
 				E22290992395108F00412CBC /* PostService.swift in Sources */,
 				5B4A238723B115D100447366 /* FilterDayView.swift in Sources */,
@@ -2991,6 +2988,7 @@
 				5B466DBC23C334EA0027D4CB /* ArrayStringSpec.swift in Sources */,
 				5B8C414723E7C18600A00438 /* RequestDataViewModelSpec.swift in Sources */,
 				5B75A14D23BD9EA400FFF910 /* DatePeriodSpec.swift in Sources */,
+				E21DAF4F23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift in Sources */,
 				5B75A15223BDD66000FFF910 /* QueryTrackSpec.swift in Sources */,
 				5B755DF623E981C6008DA3AE /* Mock+Extension.swift in Sources */,
 				5B8C414A23E7CA8200A00438 /* AccountServiceMock.swift in Sources */,
@@ -3013,8 +3011,6 @@
 				5B5DFFCD23A1F0F4003D1A1C /* RequestDataViewModel.swift in Sources */,
 				5BC91CC223CC29CB000058A7 /* Converter.swift in Sources */,
 				5B5DFFCE23A1F0F4003D1A1C /* Array+Sentence.swift in Sources */,
-				5B5DFFCF23A1F0F4003D1A1C /* DataRequestedViewModel.swift in Sources */,
-				5B5DFFD023A1F0F4003D1A1C /* AskNotificationsViewModel.swift in Sources */,
 				5B3C54FE23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
@@ -3037,12 +3033,12 @@
 				5B93231223A363AE00C3C408 /* ViewRecoveryKeyViewController.swift in Sources */,
 				5B5DFFDC23A1F0F4003D1A1C /* Global.swift in Sources */,
 				5B5DFFDD23A1F0F4003D1A1C /* R.generated+Font.swift in Sources */,
-				5B5DFFDE23A1F0F4003D1A1C /* AskNotificationsViewController.swift in Sources */,
 				5B5DFFDF23A1F0F4003D1A1C /* BitmarkSDKService.swift in Sources */,
+				5B2DEE3123F1074800D3300A /* MoreComingView.swift in Sources */,
 				5B75A14A23BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A623D5618E004CCD51 /* AppInfo.swift in Sources */,
 				5B5DFFE023A1F0F4003D1A1C /* LinkPostTableViewCell.swift in Sources */,
-				5B5DFFE223A1F0F4003D1A1C /* UIViewController+Permission.swift in Sources */,
+				5B5DFFE223A1F0F4003D1A1C /* NotificationPermission.swift in Sources */,
 				5B5DFFE323A1F0F4003D1A1C /* SceneDelegate.swift in Sources */,
 				5B5DFFE423A1F0F4003D1A1C /* NavigationController.swift in Sources */,
 				5BC91CC723CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */,
@@ -3063,7 +3059,6 @@
 				5B5DFFEE23A1F0F4003D1A1C /* SignInWallViewModel.swift in Sources */,
 				5B5DFFEF23A1F0F4003D1A1C /* AuthService.swift in Sources */,
 				5B5DFFF023A1F0F4003D1A1C /* LinkAttributedString.swift in Sources */,
-				5B5DFFF123A1F0F4003D1A1C /* DataAnalyzingViewController.swift in Sources */,
 				5B5DFFF223A1F0F4003D1A1C /* ImageView.swift in Sources */,
 				5B93230A23A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				5B5DFFF323A1F0F4003D1A1C /* UsageService.swift in Sources */,
@@ -3074,6 +3069,7 @@
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
 				5B5B948D23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
+				5B75C8D323EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */,
 				5B5DFFFC23A1F0F4003D1A1C /* MakeUnderline.swift in Sources */,
 				5B9322FA23A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				5B5DFFFE23A1F0F4003D1A1C /* Storage.swift in Sources */,
@@ -3119,7 +3115,7 @@
 				5B67AA6623C829AC00136B68 /* Metadata.swift in Sources */,
 				5B5D001B23A1F0F4003D1A1C /* NavigationView.swift in Sources */,
 				5BEF584623AB2EA500901D52 /* Date+Extension.swift in Sources */,
-				5B5D001C23A1F0F4003D1A1C /* DataRequestedViewController.swift in Sources */,
+				5B5D001C23A1F0F4003D1A1C /* CheckDataRequestedViewController.swift in Sources */,
 				5BA9FF6D23B22A9400E57A20 /* InsightDataEngine+Rx.swift in Sources */,
 				5B590A7423B31D6D006C194D /* StackedBarValueFormatter.swift in Sources */,
 				5B5D001D23A1F0F4003D1A1C /* UIFont+Theme.swift in Sources */,
@@ -3133,7 +3129,6 @@
 				5B5D002323A1F0F4003D1A1C /* UIViewController+Error.swift in Sources */,
 				5B5D002423A1F0F4003D1A1C /* UpdatePostTableViewCell.swift in Sources */,
 				5B5D002523A1F0F4003D1A1C /* InsightViewModel.swift in Sources */,
-				5B5D002623A1F0F4003D1A1C /* DataAnalyzingViewModel.swift in Sources */,
 				5B590A7823B37CD0006C194D /* BiometricAuth.swift in Sources */,
 				5B5D002723A1F0F4003D1A1C /* FBScript.swift in Sources */,
 				5B5D002823A1F0F4003D1A1C /* ViewController.swift in Sources */,
@@ -3162,6 +3157,7 @@
 				5B5D003723A1F0F4003D1A1C /* Currency.swift in Sources */,
 				5B4A237D23B1136E00447366 /* HeadingView.swift in Sources */,
 				5B5D003823A1F0F4003D1A1C /* FBArchiveAPI.swift in Sources */,
+				5BB067D223ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */,
 				5B5D003A23A1F0F4003D1A1C /* Average.swift in Sources */,
 				5B5D003B23A1F0F4003D1A1C /* PostService.swift in Sources */,
 				5B4A238923B115D100447366 /* FilterDayView.swift in Sources */,
@@ -3219,8 +3215,6 @@
 				E27959DD23868795000E9CB9 /* RequestDataViewModel.swift in Sources */,
 				5BC91CC123CC29CB000058A7 /* Converter.swift in Sources */,
 				E23807D323963E3E0079A3C4 /* Array+Sentence.swift in Sources */,
-				E28B55EE238CE65B00F1BCF2 /* DataRequestedViewModel.swift in Sources */,
-				5BB319B223A09876005F7C58 /* AskNotificationsViewModel.swift in Sources */,
 				5B3C54FD23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
@@ -3243,12 +3237,12 @@
 				5B93231123A363AE00C3C408 /* ViewRecoveryKeyViewController.swift in Sources */,
 				E2DB6688237D3B69005367C2 /* Global.swift in Sources */,
 				E24829CA238BC31000995FBB /* R.generated+Font.swift in Sources */,
-				5BB319B523A09882005F7C58 /* AskNotificationsViewController.swift in Sources */,
 				E2DB6689237D3B69005367C2 /* BitmarkSDKService.swift in Sources */,
+				5B2DEE3023F1074800D3300A /* MoreComingView.swift in Sources */,
 				5B75A14923BD95EE00FFF910 /* DataBadgeView.swift in Sources */,
 				5B93B2A523D5618E004CCD51 /* AppInfo.swift in Sources */,
 				58C009D92398C60D00302F49 /* LinkPostTableViewCell.swift in Sources */,
-				E28B561C238D21A700F1BCF2 /* UIViewController+Permission.swift in Sources */,
+				E28B561C238D21A700F1BCF2 /* NotificationPermission.swift in Sources */,
 				E2DB668A237D3B69005367C2 /* SceneDelegate.swift in Sources */,
 				E2DB668B237D3B69005367C2 /* NavigationController.swift in Sources */,
 				5BC91CC623CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */,
@@ -3269,7 +3263,6 @@
 				E29F5A252383E2E700C1D9D8 /* SignInWallViewModel.swift in Sources */,
 				E28B55FF238D0AFC00F1BCF2 /* AuthService.swift in Sources */,
 				E23807C72396023F0079A3C4 /* LinkAttributedString.swift in Sources */,
-				58C009E02398C69400302F49 /* DataAnalyzingViewController.swift in Sources */,
 				E2DB6692237D3B69005367C2 /* ImageView.swift in Sources */,
 				5B93230923A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				E21EF9F8239111E3004D4513 /* UsageService.swift in Sources */,
@@ -3280,6 +3273,7 @@
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,
 				5B5B948C23D071A200D1ED97 /* AssetService+Rx.swift in Sources */,
+				5B75C8D223EAD06800ABA5E0 /* ArchiveStatusBox.swift in Sources */,
 				E2DB6696237D3B69005367C2 /* MakeUnderline.swift in Sources */,
 				5B9322F923A362B800C3C408 /* SignOutWarningViewController.swift in Sources */,
 				E2DB6697237D3B69005367C2 /* Storage.swift in Sources */,
@@ -3325,7 +3319,7 @@
 				5B67AA6523C829AC00136B68 /* Metadata.swift in Sources */,
 				E236B67A238EAAF200C1A280 /* NavigationView.swift in Sources */,
 				5BEF584523AB2EA500901D52 /* Date+Extension.swift in Sources */,
-				E28B55F1238CE66500F1BCF2 /* DataRequestedViewController.swift in Sources */,
+				E28B55F1238CE66500F1BCF2 /* CheckDataRequestedViewController.swift in Sources */,
 				5BA9FF6C23B22A9400E57A20 /* InsightDataEngine+Rx.swift in Sources */,
 				5B590A7323B31D6D006C194D /* StackedBarValueFormatter.swift in Sources */,
 				E2DB66A3237D3B69005367C2 /* UIFont+Theme.swift in Sources */,
@@ -3339,7 +3333,6 @@
 				E2DB66A6237D3B69005367C2 /* UIViewController+Error.swift in Sources */,
 				E2442041239910E100520FE9 /* UpdatePostTableViewCell.swift in Sources */,
 				5832D704238BC23D0074AEDC /* InsightViewModel.swift in Sources */,
-				58C009E22398C69400302F49 /* DataAnalyzingViewModel.swift in Sources */,
 				5B590A7723B37CD0006C194D /* BiometricAuth.swift in Sources */,
 				E2259CD1238783AE00746280 /* FBScript.swift in Sources */,
 				E2DB66A7237D3B69005367C2 /* ViewController.swift in Sources */,
@@ -3368,6 +3361,7 @@
 				E2DB66AD237D3B69005367C2 /* Currency.swift in Sources */,
 				5B4A237C23B1136E00447366 /* HeadingView.swift in Sources */,
 				E28B55F5238D03C600F1BCF2 /* FBArchiveAPI.swift in Sources */,
+				5BB067D123ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */,
 				E22290832394FBC500412CBC /* Average.swift in Sources */,
 				E222909A2395108F00412CBC /* PostService.swift in Sources */,
 				5B4A238823B115D100447366 /* FilterDayView.swift in Sources */,
@@ -3711,7 +3705,7 @@
 		};
 		5B75C8C623EA98F100ABA5E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = A2C34A7CE4987537D0E6CA24 /* Pods-OneSignalNotificationServiceDevExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3735,7 +3729,7 @@
 		};
 		5B75C8C723EA98F100ABA5E0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = D359B1435CA0AC17BF298539 /* Pods-OneSignalNotificationServiceDevExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -3855,7 +3849,7 @@
 		};
 		E2DB66D4237D40A8005367C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A06B6ACE23A8DAE9CE6CC15 /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = 2D089DA54198AFB3C158A1BB /* Pods-OneSignalNotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3879,7 +3873,7 @@
 		};
 		E2DB66D5237D40A8005367C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CE47EF6BECAF87EACA44DFA0 /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = F0F88C770EED89ABBD3978EA /* Pods-OneSignalNotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;

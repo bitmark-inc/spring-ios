@@ -28,14 +28,17 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
         super.bindViewModel()
 
         continueButton.rx.tap.bind { [weak self] in
-            self?.gotoAskNotificationsScreen()
+            self?.gotoHowItWorksScreen()
         }.disposed(by: disposeBag)
     }
 
     override func setupViews() {
         super.setupViews()
 
-        let blackBackItem = makeBlackBackItem()
+        var blackBackItem: Button?
+        if buttonItemType == .back {
+            blackBackItem = makeBlackBackItem()
+        }
 
         let titleScreen = Label()
         titleScreen.apply(
@@ -68,7 +71,9 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
         contentView.flex
             .padding(OurTheme.paddingInset)
             .direction(.column).define { (flex) in
-                flex.addItem(blackBackItem)
+                if let blackBackItem = blackBackItem {
+                    flex.addItem(blackBackItem)
+                }
 
                 flex.addItem(titleScreen).marginTop(Size.dh(100))
                 flex.addItem(contentLabel).marginTop(Size.dh(30))
@@ -87,9 +92,8 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension TrustIsCriticalViewController {
-    func gotoAskNotificationsScreen() {
-        let viewModel = AskNotificationsViewModel()
-        navigator.show(segue: .askNotifications(viewModel: viewModel), sender: self)
+    func gotoHowItWorksScreen() {
+        navigator.show(segue: .howItWorks, sender: self)
     }
 }
 

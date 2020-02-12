@@ -24,7 +24,7 @@ class HowItWorksViewController: ViewController, BackNavigator {
         super.bindViewModel()
 
         continueButton.rx.tap.bind { [weak self] in
-            self?.gotoTrustIsCriticalScreen()
+            self?.gotoRequestDataScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -49,12 +49,7 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
         super.setupViews()
 
-        var lightBackItem: Button?
-
-        if let navigationController = self.navigationController,
-            navigationController.viewControllers.count > 1 {
-            lightBackItem = makeLightBackItem()
-        }
+        let lightBackItem = makeLightBackItem()
 
         let howItWorksTitle = Label()
         howItWorksTitle.apply(
@@ -65,18 +60,16 @@ class HowItWorksViewController: ViewController, BackNavigator {
         contentView.flex
             .padding(OurTheme.paddingInset)
             .direction(.column).define { (flex) in
-                if let lightBackItem = lightBackItem {
-                    flex.addItem(lightBackItem)
-                    flex.addItem().height(45%)
-                } else {
-                    flex.addItem().height(50%)
-                }
+                flex.addItem(lightBackItem)
+                flex.addItem().height(45%)
 
                 flex.addItem(howItWorksTitle).marginTop(Size.dh(15))
 
-                flex.addItem(howItWorkContent(part: 1, text: R.string.phrase.howitworksContent1())).marginTop(Size.dh(15))
-                flex.addItem(howItWorkContent(part: 2, text: R.string.phrase.howitworksContent2())).marginTop(Size.dh(10))
-                flex.addItem(howItWorkContent(part: 3, text: R.string.phrase.howitworksContent3())).marginTop(Size.dh(10))
+                flex.addItem().marginRight(Size.dw(20)).define { (flex) in
+                    flex.addItem(howItWorkContent(part: 1, text: R.string.phrase.howitworksContent1())).marginTop(Size.dh(15))
+                    flex.addItem(howItWorkContent(part: 2, text: R.string.phrase.howitworksContent2())).marginTop(Size.dh(10))
+                    flex.addItem(howItWorkContent(part: 3, text: R.string.phrase.howitworksContent3())).marginTop(Size.dh(10))
+                }
 
                 flex.addItem(continueButton)
                     .width(100%)
@@ -89,8 +82,9 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension HowItWorksViewController {
-    func gotoTrustIsCriticalScreen() {
-        navigator.show(segue: .trustIsCritical, sender: self)
+    func gotoRequestDataScreen() {
+        let viewModel = RequestDataViewModel(missions: [.requestData, .getCategories])
+        navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
     }
 }
 
@@ -117,7 +111,7 @@ extension HowItWorksViewController {
 
         let view = UIView()
         view.flex.direction(.row).define { (flex) in
-            flex.addItem(partIndexLabel).width(Size.dw(18)).height(Size.dh(24))
+            flex.addItem(partIndexLabel).width(Size.dw(18)).height(Size.dh(26))
             flex.addItem(textLabel)
         }
         return view
