@@ -95,3 +95,7 @@
 "Cancel" = "Cancel";
 "TryAgain" = "Try Again";
 "friends.withOther" = "%@ and %@ others";
+
+"Your_posts" = "Your posts";
+"PostsByType" = "Posts By Type";
+"ReactionsByType" = "Reactions By Type";

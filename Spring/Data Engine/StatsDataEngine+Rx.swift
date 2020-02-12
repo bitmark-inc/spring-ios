@@ -68,13 +68,11 @@ class StatsDataEngine: StatsDataEngineDelegate {
                     }
 
                     let realm = try RealmConfig.currentRealm()
-                    let postStatsID = SectionTimeScope(startDate: startDate, endDate: endDate, section: .post).makeID()
                     let reactionStatsID = SectionTimeScope(startDate: startDate, endDate: endDate, section: .reaction).makeID()
 
-                    let postStats = realm.object(ofType: Stats.self, forPrimaryKey: postStatsID)
                     let reactionStats = realm.object(ofType: Stats.self, forPrimaryKey: reactionStatsID)
 
-                    if postStats != nil || reactionStats != nil {
+                    if reactionStats != nil {
                         event(.success(reactionStats))
 
                         _ = ReactionService.getSpringStats(startDate: startDate, endDate: endDate)

@@ -27,6 +27,6 @@ class ReactionService {
         return provider.rx.requestWithRefreshJwt(.springStats(startDate: startDate, endDate: endDate))
             .filterSuccess()
             .map(StatsGroups.self, atKeyPath: "result")
-            .map { try Stats(startDate: startDate, endDate: endDate, section: .post, statsGroups: $0) }
+            .map { try Stats(startDate: startDate, endDate: endDate, section: .reaction, statsGroups: $0) }
     }
 }

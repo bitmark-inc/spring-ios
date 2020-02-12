@@ -1,0 +1,20 @@
+{
+    "result": {
+        "link": {
+            "sys_avg": 1938.4383561643835,
+            "count": 4
+        },
+        "media": {
+            "sys_avg": 3.958904109589041,
+            "count": 2
+        },
+        "undefined": {
+            "sys_avg": 0,
+            "count": 0
+        },
+        "update": {
+            "sys_avg": 17.986301369863014,
+            "count": 0
+        }
+    }
+}

@@ -40,7 +40,6 @@ class UsageViewController: ViewController {
     lazy var usageView = UIView()
     lazy var headingView = makeHeadingView()
     lazy var timelineView = makeTimelineView()
-    lazy var moodHeadingView = makeSectionHeadingView(section: .mood)
     lazy var moodView = makeMoodView()
     lazy var postsHeadingView = makeSectionHeadingView(section: .post)
     lazy var postsFilterTypeView = makeFilterTypeView(section: .post)
@@ -55,8 +54,8 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
     lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
+    lazy var aggregateAnalysisView = makeAggregateAnalysisView()
     lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
-    lazy var statView = makeStatGeneralView(section: .post)
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -86,6 +85,19 @@ class UsageViewController: ViewController {
         reactionUsageObservable
             .map { $0.groups }
             .map { try Converter<Groups>(from: $0).value }
+    }()
+
+    // SECTION: Aggregate Analysis
+    lazy var postStatsObservable: Observable<StatsGroups> = {
+        return thisViewModel.realmPostStatsRelay.filterNil()
+            .flatMap { Observable.from(object: $0) }
+            .map { try Converter<StatsGroups>(from: $0.groups).value }
+    }()
+
+    lazy var reactionStatsObservable: Observable<StatsGroups> = {
+        return thisViewModel.realmReactionStatsRelay.filterNil()
+            .flatMap { Observable.from(object: $0) }
+            .map { try Converter<StatsGroups>(from: $0.groups).value }
     }()
 
     var segmentDistances: [TimeUnit: Int] = [
@@ -175,13 +187,15 @@ class UsageViewController: ViewController {
             flex.addItem(timelineView)
 
             if appArchiveStatus == .done {
-                flex.addItem(moodHeadingView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(moodView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(postsHeadingView)
                 flex.addItem(postsFilterTypeView)
                 flex.addItem(postsFilterDayView)
                 flex.addItem(postsFilterFriendView)
                 flex.addItem(postsFilterPlaceView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(reationsHeadingView)
                 flex.addItem(reactionsFilterTypeView)
                 flex.addItem(reactionsFilterDayView)
@@ -189,7 +203,9 @@ class UsageViewController: ViewController {
             } else {
                 flex.addItem(morePersonalAnalyticsComingView)
             }
-            flex.addItem(statView)
+            flex.addItem(SectionSeparator())
+            flex.addItem(aggregateAnalysisView)
+            flex.addItem(SectionSeparator())
         }
 
         scroll.addSubview(usageView)
@@ -217,6 +233,7 @@ extension UsageViewController {
     fileprivate func makeSectionHeadingView(section: Section) -> SectionHeadingView {
         let sectionHeadingView = SectionHeadingView()
         sectionHeadingView.setProperties(section: section, container: self)
+        sectionHeadingView.flex.padding(0, 18, 26, 18)
         return sectionHeadingView
     }
 
@@ -259,18 +276,10 @@ extension UsageViewController {
         return moreComingView
     }
 
-    fileprivate func makeStatGeneralView(section: Section) -> StatsChartView {
-        let statChartView = StatsChartView()
-        statChartView.fillData(with: [
-            (name: "Updates", data: (avg: 10, total: 22)),
-            (name: "Photos", data: (avg: 23, total: 10)),
-            (name: "Stories", data: (avg: 34, total: 20)),
-            (name: "Videos", data: (avg: 30, total: 60)),
-            (name: "Links", data: (avg: 8, total: 30))]
-        )
-        statChartView.containerLayoutDelegate = self
-        statChartView.navigatorDelegate = self
-        return statChartView
+    fileprivate func makeAggregateAnalysisView() -> AggregateAnalysisView {
+        let aggregateAnalysisView = AggregateAnalysisView()
+        aggregateAnalysisView.setProperties(container: self)
+        return aggregateAnalysisView
     }
 }
 

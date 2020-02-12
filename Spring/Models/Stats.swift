@@ -36,8 +36,8 @@ class Stats: Object {
 typealias StatsGroups = [String: StatsData]
 
 struct StatsData: Codable {
-    let sysAvg: Float
-    let count: Int
+    let sysAvg: Double
+    let count: Double
 
     enum CodingKeys: String, CodingKey {
         case sysAvg = "sys_avg"

@@ -77,6 +77,12 @@ class GraphDataConverter {
         return showingNameGraphDatas
     }
 
+    static func getStats(with statsGroup: StatsGroups, in section: Section) -> [(name: String, data: StatsData)] {
+        return getOrderedKeys(in: section).compactMap { (key) in
+            return (name: key, data: statsGroup[key] ?? StatsData(sysAvg: 0, count: 0))
+        }
+    }
+
     fileprivate static func getOrderedKeys(in section: Section) -> [String] {
         switch section {
         case .post:
@@ -100,7 +106,7 @@ class GraphDataConverter {
 enum PostType: String {
     case update, media, story, link
 
-    static var orderedList: [PostType] {
+    fileprivate static var orderedList: [PostType] {
         return [.update, .media, .story, .link]
     }
 
@@ -129,7 +135,7 @@ enum ReactionType: String {
     case sad = "SORRY"
     case angry = "ANGER"
 
-    static var orderedList: [ReactionType] {
+    fileprivate static var orderedList: [ReactionType] {
         return [.like, .love, .haha, .wow, .sad, .angry]
     }
 
