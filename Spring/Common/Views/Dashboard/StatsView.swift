@@ -34,7 +34,7 @@ class StatsChartView: UIView {
         super.init(frame: frame)
         flex.direction(.column).define { (flex) in
             flex.addItem(headingLabel)
-            flex.addItem(chartView).margin(10, 10, 0, 70)
+            flex.addItem(chartView).margin(10, 4, 0, 60)
         }
 
         chartView.drawBarShadowEnabled = false
@@ -72,6 +72,7 @@ class StatsChartView: UIView {
         l.enabled = false
         chartView.fitBars = true
         chartView.extraBottomOffset = 2
+        chartView.extraLeftOffset = 15
 
         let xAxisRender = chartView.xAxisRenderer
         let customXAxisRender = CustomxAxisRender(
@@ -119,7 +120,13 @@ class StatsChartView: UIView {
         chartView.xAxis.axisMinimum = 0
         chartView.xAxis.axisMaximum = barData.groupWidth(groupSpace: groupSpace, barSpace: barSpace) * Double(data.count)
 
-        let chartViewHeight = (fixedBarHeight / 0.15 + 14) * CGFloat(data.count)
+        var chartViewHeight: CGFloat!
+        if data.count <= 4 {
+            chartViewHeight = (fixedBarHeight / 0.13) * CGFloat(data.count) + 50
+        } else {
+            chartViewHeight = (fixedBarHeight / 0.14 + 12) * CGFloat(data.count) + 10
+        }
+
         chartView.flex.height(chartViewHeight)
         flex.height(chartViewHeight + 30)
         flex.markDirty()

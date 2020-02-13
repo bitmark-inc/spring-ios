@@ -43,4 +43,15 @@ struct StatsData: Codable {
         case sysAvg = "sys_avg"
         case count
     }
+
+    public init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        sysAvg = try values.decodeIfPresent(Double.self, forKey: .sysAvg) ?? 0
+        count = try values.decodeIfPresent(Double.self, forKey: .count) ?? 0
+    }
+
+    public init(sysAvg: Double, count: Double) {
+        self.sysAvg = sysAvg
+        self.count = count
+    }
 }

@@ -44,11 +44,11 @@ class MoreComingView: UIView {
                 flex.addItem(SectionSeparator())
 
                 flex.addItem()
-                    .padding(30, 18, 30, 18)
+                    .padding(30, 18, 37, 18)
                     .define { (flex) in
                         flex.addItem(titleLabel)
                         flex.addItem(descriptionLabel).marginTop(7)
-                        flex.addItem(notifyMeButton).marginTop(23).height(notifyMeButtonHeight)
+                        flex.addItem(notifyMeButton).marginTop(20).height(notifyMeButtonHeight)
                     }
             }
 
@@ -80,12 +80,12 @@ class MoreComingView: UIView {
                 switch settings.authorizationStatus {
                 case .denied, .notDetermined:
                     self.notifyMeButton.isHidden = false
-                    self.notifyMeButton.flex.height(self.notifyMeButtonHeight)
+                    self.notifyMeButton.flex.height(self.notifyMeButtonHeight).marginTop(20)
                     self.descriptionLabel.setText(self.makeDescription(withNotify: true))
 
                 default:
                     self.notifyMeButton.isHidden = true
-                    self.notifyMeButton.flex.height(0)
+                    self.notifyMeButton.flex.height(0).marginTop(0)
                     self.descriptionLabel.setText(self.makeDescription(withNotify: false))
                 }
 

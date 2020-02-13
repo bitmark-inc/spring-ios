@@ -66,7 +66,7 @@
 
 "aggAnalysis.heading" = "All Of Spring";
 "aggAnalysis.subHeading" = "aggregate analysis";
-"aggAnalysis.springUserAvergatePosts" = "SPRING users average posts";
+"aggAnalysis.springUserAvergatePosts" = "SPRING users average";
 
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";

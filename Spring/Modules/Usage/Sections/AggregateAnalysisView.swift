@@ -20,6 +20,7 @@ class AggregateAnalysisView: UIView {
     fileprivate lazy var reactionStatsView = makeStatGeneralView(by: .reaction)
 
     let disposeBag = DisposeBag()
+    weak var containerLayoutDelegate: ContainerLayoutDelegate?
 
     // MARK: - Inits
     override init(frame: CGRect) {
@@ -31,7 +32,7 @@ class AggregateAnalysisView: UIView {
                 flex.addItem(sectionHeadingView)
                 flex.addItem(subHeadingView).marginTop(7)
                 flex.addItem(postStatsView).marginTop(35)
-                flex.addItem(reactionStatsView).marginTop(12)
+                flex.addItem(reactionStatsView).marginTop(14)
             }
     }
 
@@ -45,37 +46,66 @@ class AggregateAnalysisView: UIView {
         var postStatsdataObserver: Disposable? // stop observing old-data
         var reactionStatsdataObserver: Disposable?
 
-        container?.thisViewModel.realmPostStatsRelay.filterNil()
+        container?.thisViewModel.realmPostStatsRelay
             .subscribe(onNext: { [weak self] (stats) in
                 guard let self = self else { return }
-                postStatsdataObserver?.dispose()
 
-                postStatsdataObserver = Observable.from(object: stats)
-                    .map { try Converter<StatsGroups>(from: $0.groups).value }
-                    .map { GraphDataConverter.getStats(with: $0, in: .post) }
-                    .subscribe(onNext: { [weak self] (statsData) in
-                        self?.postStatsView.fillData(with: statsData)
-                    })
+                if let stats = stats {
+                    postStatsdataObserver?.dispose()
 
-                postStatsdataObserver?.disposed(by: self.disposeBag)
+                    postStatsdataObserver = Observable.from(object: stats)
+                        .map { try Converter<StatsGroups>(from: $0.groups).value }
+                        .map { GraphDataConverter.getStats(with: $0, in: .post) }
+                        .subscribe(onNext: { [weak self] (statsData) in
+                            self?.postStatsView.fillData(with: statsData)
+                            self?.layout(in: .post)
+                        })
+
+                    postStatsdataObserver?.disposed(by: self.disposeBag)
+                } else {
+                    self.postStatsView.fillData(with: GraphDataConverter.getStats(in: .post))
+                    self.layout(in: .post)
+                }
             })
             .disposed(by: disposeBag)
 
-        container?.thisViewModel.realmReactionStatsRelay.filterNil()
+        container?.thisViewModel.realmReactionStatsRelay
             .subscribe(onNext: { [weak self] (stats) in
                 guard let self = self else { return }
-                reactionStatsdataObserver?.dispose()
 
-                reactionStatsdataObserver = Observable.from(object: stats)
-                    .map { try Converter<StatsGroups>(from: $0.groups).value }
-                    .map { GraphDataConverter.getStats(with: $0, in: .reaction) }
-                    .subscribe(onNext: { [weak self] (statsData) in
-                        self?.reactionStatsView.fillData(with: statsData)
-                    })
+                if let stats = stats {
+                    reactionStatsdataObserver?.dispose()
 
-                reactionStatsdataObserver?.disposed(by: self.disposeBag)
+                    reactionStatsdataObserver = Observable.from(object: stats)
+                        .map { try Converter<StatsGroups>(from: $0.groups).value }
+                        .map { GraphDataConverter.getStats(with: $0, in: .reaction) }
+                        .subscribe(onNext: { [weak self] (statsData) in
+                            self?.reactionStatsView.fillData(with: statsData)
+                            self?.layout(in: .reaction)
+                        })
+
+                    reactionStatsdataObserver?.disposed(by: self.disposeBag)
+                } else {
+                    self.reactionStatsView.fillData(with: GraphDataConverter.getStats(in: .reaction))
+                    self.layout(in: .reaction)
+                }
+
             })
             .disposed(by: disposeBag)
+    }
+
+    fileprivate func layout(in section: Section) {
+        switch section {
+        case .post:
+            postStatsView.chartView.flex.markDirty()
+            postStatsView.flex.layout()
+        case .reaction:
+            reactionStatsView.chartView.flex.markDirty()
+            reactionStatsView.flex.layout()
+        default:
+            break
+        }
+        containerLayoutDelegate?.layout()
     }
 }
 
@@ -110,7 +140,7 @@ extension AggregateAnalysisView {
 
             if AppArchiveStatus.currentState == .done {
                 flex.addItem(makeCircle(ColorTheme.cognac.color)).marginLeft(18)
-                flex.addItem(makeLabel(text: R.string.localizable.your_posts()))
+                flex.addItem(makeLabel(text: R.string.localizable.your_posts_and_reactions()))
             }
         }
         return view

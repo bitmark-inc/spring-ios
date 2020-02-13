@@ -472,6 +472,12 @@
 		5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
 		5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */; };
+		5B93E5B823F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5B723F500CE00F38DF0 /* stats-posts-with-yourposts.json */; };
+		5B93E5B923F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5B723F500CE00F38DF0 /* stats-posts-with-yourposts.json */; };
+		5B93E5BA23F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5B723F500CE00F38DF0 /* stats-posts-with-yourposts.json */; };
+		5B93E5BC23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5BB23F500EE00F38DF0 /* stats-reactions-with-yourposts.json */; };
+		5B93E5BD23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5BB23F500EE00F38DF0 /* stats-reactions-with-yourposts.json */; };
+		5B93E5BE23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B93E5BB23F500EE00F38DF0 /* stats-reactions-with-yourposts.json */; };
 		5B94F64623E2932300AD7578 /* FbmAccountServiceSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B94F64523E2932300AD7578 /* FbmAccountServiceSpec.swift */; };
 		5B94F64923E2BB6500AD7578 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B94F64823E2BB6500AD7578 /* auth.json */; };
 		5B94F64C23E2E50900AD7578 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = 5B94F64823E2BB6500AD7578 /* auth.json */; };
@@ -989,6 +995,8 @@
 		5B93B2AC23D567CA004CCD51 /* DocumentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationService.swift; sourceTree = "<group>"; };
 		5B93B2B023D59D17004CCD51 /* Deeplink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deeplink.swift; sourceTree = "<group>"; };
 		5B93B2B423D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingDeeplinkViewController.swift; sourceTree = "<group>"; };
+		5B93E5B723F500CE00F38DF0 /* stats-posts-with-yourposts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-posts-with-yourposts.json"; sourceTree = "<group>"; };
+		5B93E5BB23F500EE00F38DF0 /* stats-reactions-with-yourposts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-reactions-with-yourposts.json"; sourceTree = "<group>"; };
 		5B94F64523E2932300AD7578 /* FbmAccountServiceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbmAccountServiceSpec.swift; sourceTree = "<group>"; };
 		5B94F64823E2BB6500AD7578 /* auth.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = auth.json; sourceTree = "<group>"; };
 		5B94F64A23E2C69E00AD7578 /* RxTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1777,6 +1785,8 @@
 				E21DAF5023F03066004D99B3 /* archives.json */,
 				5BDC63EB23F3EFAF004C7532 /* stats-posts.json */,
 				5BDC63EF23F3EFC1004C7532 /* stats-reactions.json */,
+				5B93E5B723F500CE00F38DF0 /* stats-posts-with-yourposts.json */,
+				5B93E5BB23F500EE00F38DF0 /* stats-reactions-with-yourposts.json */,
 			);
 			path = "Stubbed Responses";
 			sourceTree = "<group>";
@@ -2323,6 +2333,7 @@
 				E29F5A3F2383E59700C1D9D8 /* AtlasGrotesk-BoldItalic.otf in Resources */,
 				E29F5A4D2383E59700C1D9D8 /* AtlasGrotesk-Medium.otf in Resources */,
 				E29F5A672383E70000C1D9D8 /* DomaineSansText-RegularItalic.otf in Resources */,
+				5B93E5BC23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B54FAB923C6D4470029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
 				E26268C123964638000D7F51 /* Error.strings in Resources */,
 				E29F5A452383E59700C1D9D8 /* AtlasGrotesk-Thin.otf in Resources */,
@@ -2335,6 +2346,7 @@
 				E29F5A5F2383E70000C1D9D8 /* DomaineSansText-Bold.otf in Resources */,
 				E29F5A3D2383E59700C1D9D8 /* AtlasGrotesk-LightItalic.otf in Resources */,
 				E29F5A652383E70000C1D9D8 /* DomaineSansText-MediumItalic.otf in Resources */,
+				5B93E5B823F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */,
 				E29F5A5D2383E70000C1D9D8 /* DomaineSansText-BlackItalic.otf in Resources */,
 				5BE39E8523E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAB523C6D4470029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,
@@ -2388,6 +2400,7 @@
 				5B5D005B23A1F0F4003D1A1C /* AtlasGrotesk-Medium.otf in Resources */,
 				5B5D005C23A1F0F4003D1A1C /* DomaineSansText-RegularItalic.otf in Resources */,
 				5B54FAD523C6D4480029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
+				5B93E5BE23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B94F64D23E2E50900AD7578 /* auth.json in Resources */,
 				5B5D005D23A1F0F4003D1A1C /* Error.strings in Resources */,
 				5B5D005E23A1F0F4003D1A1C /* AtlasGrotesk-Thin.otf in Resources */,
@@ -2400,6 +2413,7 @@
 				5B5D006223A1F0F4003D1A1C /* DomaineSansText-Bold.otf in Resources */,
 				5B5D006323A1F0F4003D1A1C /* AtlasGrotesk-LightItalic.otf in Resources */,
 				5B5D006423A1F0F4003D1A1C /* DomaineSansText-MediumItalic.otf in Resources */,
+				5B93E5BA23F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */,
 				5B5D006523A1F0F4003D1A1C /* DomaineSansText-BlackItalic.otf in Resources */,
 				5BE39E8723E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAD123C6D4480029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,
@@ -2460,6 +2474,7 @@
 				E29F5A4E2383E59700C1D9D8 /* AtlasGrotesk-Medium.otf in Resources */,
 				E29F5A682383E70000C1D9D8 /* DomaineSansText-RegularItalic.otf in Resources */,
 				5B54FAC723C6D4470029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
+				5B93E5BD23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B94F64C23E2E50900AD7578 /* auth.json in Resources */,
 				E26268C223964638000D7F51 /* Error.strings in Resources */,
 				E29F5A462383E59700C1D9D8 /* AtlasGrotesk-Thin.otf in Resources */,
@@ -2472,6 +2487,7 @@
 				E29F5A602383E70000C1D9D8 /* DomaineSansText-Bold.otf in Resources */,
 				E29F5A3E2383E59700C1D9D8 /* AtlasGrotesk-LightItalic.otf in Resources */,
 				E29F5A662383E70000C1D9D8 /* DomaineSansText-MediumItalic.otf in Resources */,
+				5B93E5B923F500CE00F38DF0 /* stats-posts-with-yourposts.json in Resources */,
 				E29F5A5E2383E70000C1D9D8 /* DomaineSansText-BlackItalic.otf in Resources */,
 				5BE39E8623E425BE0098811C /* springAccount.json in Resources */,
 				5B54FAC323C6D4470029B5D5 /* IBMPlexMono-ExtraLightItalic.ttf in Resources */,

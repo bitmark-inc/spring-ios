@@ -33,7 +33,8 @@ extension PostAPI: AuthorizedTargetType, VersionTargetType {
     var sampleData: Data {
         var dataURL: URL?
         switch self {
-        case .springStats: dataURL = R.file.statsPostsJson()
+//        case .springStats: dataURL = R.file.statsPostsJson()
+        case .springStats: dataURL = R.file.statsPostsWithYourpostsJson()
         default:
             break
         }

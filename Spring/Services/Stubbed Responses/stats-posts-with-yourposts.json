@@ -1,0 +1,19 @@
+{
+    "result": {
+        "link": {
+            "sys_avg": 60.674
+        },
+        "media": {
+            "sys_avg": 245.3532,
+            "count": 83
+        },
+        "undefined": {
+            "sys_avg": 19.35353,
+            "count": 67
+        },
+        "update": {
+            "sys_avg": 70.7835,
+            "count": 36
+        }
+    }
+}

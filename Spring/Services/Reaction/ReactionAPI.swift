@@ -33,7 +33,8 @@ extension ReactionAPI: AuthorizedTargetType, VersionTargetType {
     var sampleData: Data {
         var dataURL: URL?
         switch self {
-        case .springStats: dataURL = R.file.statsReactionsJson()
+//        case .springStats: dataURL = R.file.statsReactionsJson()
+        case .springStats: dataURL = R.file.statsReactionsWithYourpostsJson()
         default:
             break
         }

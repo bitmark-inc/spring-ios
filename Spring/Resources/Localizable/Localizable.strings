@@ -96,6 +96,6 @@
 "TryAgain" = "Try Again";
 "friends.withOther" = "%@ and %@ others";
 
-"Your_posts" = "Your posts";
+"Your_posts_and_reactions" = "Your posts & reactions";
 "PostsByType" = "Posts By Type";
 "ReactionsByType" = "Reactions By Type";

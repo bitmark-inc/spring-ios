@@ -265,6 +265,7 @@ extension UsageViewController {
 
     fileprivate func makeAggregateAnalysisView() -> AggregateAnalysisView {
         let aggregateAnalysisView = AggregateAnalysisView()
+        aggregateAnalysisView.containerLayoutDelegate = self
         aggregateAnalysisView.setProperties(container: self)
         return aggregateAnalysisView
     }
