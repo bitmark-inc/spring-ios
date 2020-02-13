@@ -26,12 +26,12 @@ class AggregateAnalysisView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column)
-            .padding(0, 18, 43, 18)
+            .padding(0, 18, 41, 18)
             .define { (flex) in
                 flex.addItem(sectionHeadingView)
                 flex.addItem(subHeadingView).marginTop(7)
                 flex.addItem(postStatsView).marginTop(35)
-                flex.addItem(reactionStatsView).marginTop(14)
+                flex.addItem(reactionStatsView).marginTop(12)
             }
     }
 

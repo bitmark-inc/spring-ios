@@ -71,6 +71,7 @@ class StatsChartView: UIView {
         let l = chartView.legend
         l.enabled = false
         chartView.fitBars = true
+        chartView.extraBottomOffset = 2
 
         let xAxisRender = chartView.xAxisRenderer
         let customXAxisRender = CustomxAxisRender(
