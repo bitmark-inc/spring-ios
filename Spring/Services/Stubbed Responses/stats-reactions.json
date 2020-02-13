@@ -1,19 +1,19 @@
 {
     "result": {
         "LIKE": {
-            "sys_avg": 1938.4383561643835,
-            "count": 4
+            "sys_avg": 500.03535,
+            "count": 0
         },
         "HAHA": {
-            "sys_avg": 3.958904109589041,
-            "count": 2
+            "sys_avg": 295.958904109589041,
+            "count": 0
         },
         "LOVE": {
-            "sys_avg": 0,
+            "sys_avg": 399.0343534,
             "count": 0
         },
         "WOW": {
-            "sys_avg": 0,
+            "sys_avg": 83.23553,
             "count": 0
         },
         "SORRY": {
@@ -21,7 +21,7 @@
             "count": 0
         },
         "ANGER": {
-            "sys_avg": 60,
+            "sys_avg": 5.23553,
             "count": 0
         }
     }

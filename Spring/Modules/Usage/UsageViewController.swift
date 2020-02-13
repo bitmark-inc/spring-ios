@@ -87,19 +87,6 @@ class UsageViewController: ViewController {
             .map { try Converter<Groups>(from: $0).value }
     }()
 
-    // SECTION: Aggregate Analysis
-    lazy var postStatsObservable: Observable<StatsGroups> = {
-        return thisViewModel.realmPostStatsRelay.filterNil()
-            .flatMap { Observable.from(object: $0) }
-            .map { try Converter<StatsGroups>(from: $0.groups).value }
-    }()
-
-    lazy var reactionStatsObservable: Observable<StatsGroups> = {
-        return thisViewModel.realmReactionStatsRelay.filterNil()
-            .flatMap { Observable.from(object: $0) }
-            .map { try Converter<StatsGroups>(from: $0.groups).value }
-    }()
-
     var segmentDistances: [TimeUnit: Int] = [
         .week: 0, .year: 0, .decade: 0
     ]
@@ -116,6 +103,18 @@ class UsageViewController: ViewController {
         super.bindViewModel()
         
         guard let viewModel = viewModel as? UsageViewModel else { return }
+
+        viewModel.fetchDataResultSubject
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .error(let error):
+                    self.errorWhenFetchingData(error: error)
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
 
         viewModel.segmentDistances
             .subscribe(onNext: { [weak self] in
@@ -137,23 +136,11 @@ class UsageViewController: ViewController {
                     periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
                     distance: distance, limitedDistance: limitedDistance)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.fetchSpringStats()
 
         if appArchiveStatus == .done {
-            viewModel.fetchDataResultSubject
-                .subscribe(onNext: { [weak self] (event) in
-                    guard let self = self else { return }
-                    switch event {
-                    case .error(let error):
-                        self.errorWhenFetchingData(error: error)
-                    default:
-                        break
-                    }
-                })
-                .disposed(by: disposeBag)
-
             viewModel.fetchActivity()
                 .subscribe(onCompleted: {
                     viewModel.fetchUsage()

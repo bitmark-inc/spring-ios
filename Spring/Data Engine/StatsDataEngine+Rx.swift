@@ -34,14 +34,12 @@ class StatsDataEngine: StatsDataEngineDelegate {
 
                         _ = PostService.getSpringStats(startDate: startDate, endDate: endDate)
                             .flatMapCompletable { Storage.store($0) }
-                            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                             .subscribe(onError: { (error) in
                                 Global.backgroundErrorSubject.onNext(error)
                             })
                     } else {
                         _ = PostService.getSpringStats(startDate: startDate, endDate: endDate)
                             .flatMapCompletable { Storage.store($0) }
-                            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                             .observeOn(MainScheduler.instance)
                             .subscribe(onCompleted: {
                                 let postStats = realm.object(ofType: Stats.self, forPrimaryKey: postStatsID)
@@ -77,14 +75,12 @@ class StatsDataEngine: StatsDataEngineDelegate {
 
                         _ = ReactionService.getSpringStats(startDate: startDate, endDate: endDate)
                             .flatMapCompletable { Storage.store($0) }
-                            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                             .subscribe(onError: { (error) in
                                 Global.backgroundErrorSubject.onNext(error)
                             })
                     } else {
                         _ = ReactionService.getSpringStats(startDate: startDate, endDate: endDate)
                             .flatMapCompletable { Storage.store($0) }
-                            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                             .observeOn(MainScheduler.instance)
                             .subscribe(onCompleted: {
                                 let reactionStats = realm.object(ofType: Stats.self, forPrimaryKey: reactionStatsID)

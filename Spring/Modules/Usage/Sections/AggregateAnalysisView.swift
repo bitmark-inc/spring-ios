@@ -42,18 +42,38 @@ class AggregateAnalysisView: UIView {
     // MARK: - Handlers
     func setProperties(container: UsageViewController) {
         weak var container = container
+        var postStatsdataObserver: Disposable? // stop observing old-data
+        var reactionStatsdataObserver: Disposable?
 
-        container?.postStatsObservable
-            .map { GraphDataConverter.getStats(with: $0, in: .post) }
-            .subscribe(onNext: { [weak self] (statsData) in
-                self?.postStatsView.fillData(with: statsData)
+        container?.thisViewModel.realmPostStatsRelay.filterNil()
+            .subscribe(onNext: { [weak self] (stats) in
+                guard let self = self else { return }
+                postStatsdataObserver?.dispose()
+
+                postStatsdataObserver = Observable.from(object: stats)
+                    .map { try Converter<StatsGroups>(from: $0.groups).value }
+                    .map { GraphDataConverter.getStats(with: $0, in: .post) }
+                    .subscribe(onNext: { [weak self] (statsData) in
+                        self?.postStatsView.fillData(with: statsData)
+                    })
+
+                postStatsdataObserver?.disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
 
-        container?.reactionStatsObservable
-            .map { GraphDataConverter.getStats(with: $0, in: .reaction) }
-            .subscribe(onNext: { [weak self] (statsData) in
-                self?.reactionStatsView.fillData(with: statsData)
+        container?.thisViewModel.realmReactionStatsRelay.filterNil()
+            .subscribe(onNext: { [weak self] (stats) in
+                guard let self = self else { return }
+                reactionStatsdataObserver?.dispose()
+
+                reactionStatsdataObserver = Observable.from(object: stats)
+                    .map { try Converter<StatsGroups>(from: $0.groups).value }
+                    .map { GraphDataConverter.getStats(with: $0, in: .reaction) }
+                    .subscribe(onNext: { [weak self] (statsData) in
+                        self?.reactionStatsView.fillData(with: statsData)
+                    })
+
+                reactionStatsdataObserver?.disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
     }
