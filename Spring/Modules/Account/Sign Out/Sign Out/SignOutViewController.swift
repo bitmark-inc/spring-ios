@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import FlexLayout
+import SwiftEntryKit
 
 class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
 
@@ -28,7 +29,6 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
         super.bindViewModel()
 
         guard let viewModel = viewModel as? SignOutViewModel else { return }
-
         viewModel.signOutAccountResultSubject
             .subscribe(onNext: { [weak self] (event) in
                 guard let self = self else { return }
@@ -37,7 +37,7 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
                     self.errorWhenSignOutAccount(error: error)
                 case .completed:
                     Global.log.info("[done] signOut Account")
-                    self.gotoOnboardingScreen()
+                    self.showSignOutSuccessNotify(attributes: Global.infoEKAttributes)
                 default:
                     break
                 }
@@ -46,6 +46,27 @@ class SignOutViewController: ConfirmRecoveryKeyViewController, BackNavigator {
         submitButton.rx.tap.bind {
             viewModel.signOutAccount()
         }.disposed(by: disposeBag)
+    }
+
+    private func showSignOutSuccessNotify(attributes: EKAttributes) {
+        var attributes = attributes
+        attributes.lifecycleEvents.didDisappear = { [weak self] in
+            self?.gotoOnboardingScreen()
+        }
+
+        let title = EKProperty.LabelContent(
+            text: R.string.phrase.signOutSuccessTitle().localizedUppercase,
+            style: EKProperty.LabelStyle(font: R.font.atlasGroteskLight(size: 22)!, color: EKColor(.black)))
+
+        let description = EKProperty.LabelContent(
+            text: R.string.phrase.signOutSuccessDescription(),
+            style: EKProperty.LabelStyle(font: R.font.atlasGroteskLight(size: 18)!, color: EKColor(ColorTheme.tundora.color)))
+
+        let simpleMessage = EKSimpleMessage(title: title, description: description)
+        let notificationMessage = EKNotificationMessage(simpleMessage: simpleMessage)
+
+        let contentView = EKNotificationMessageView(with: notificationMessage)
+        SwiftEntryKit.display(entry: contentView, using: attributes)
     }
 
     // MARK: - Error Handlers

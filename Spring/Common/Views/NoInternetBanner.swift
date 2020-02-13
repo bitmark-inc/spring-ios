@@ -7,41 +7,36 @@
 //
 
 import Foundation
-import NotificationBannerSwift
+import SwiftEntryKit
 
 class NoInternetBanner {
+    static var noInternetConnectionAttributes: EKAttributes = {
+        var attributes = EKAttributes.topToast
+        attributes.entryBackground = .color(color: EKColor(UIColor(hexString: "#828180")))
+        attributes.popBehavior = .animated(animation: .init(translate: .init(duration: 0.3), scale: .init(from: 1, to: 0.7, duration: 0.7)))
+        attributes.shadow = .active(with: .init(color: .black, opacity: 0.5, radius: 10, offset: .zero))
+        attributes.displayDuration = 1.5
+        attributes.statusBar = .hidden
+        return attributes
+    }()
 
-    static let banner: StatusBarNotificationBanner = {
-        let banner = StatusBarNotificationBanner(
-            title: R.string.error.noInternetConnection(),
-            style: .danger,
-            colors: CustomBannerColors()
-        )
-        return banner
+    static let banner: EKNoteMessageView = {
+        let title = EKProperty.LabelContent(
+            text: R.string.error.noInternetConnection(),
+            style: EKProperty.LabelStyle(font: R.font.atlasGroteskLight(size: 12)!, color: EKColor(.white), alignment: .center))
+
+        return EKNoteMessageView(with: title)
     }()
 
     static func show() {
         DispatchQueue.main.async {
-            _ = Navigator.getWindow() // to make sure UIWindow that show banner is same as main Window
-            banner.show()
+            SwiftEntryKit.display(entry: banner, using: noInternetConnectionAttributes)
         }
     }
 
     static func hide() {
         DispatchQueue.main.async {
-            banner.dismiss()
-        }
-    }
-}
-
-class CustomBannerColors: BannerColorsProtocol {
-    func color(for style: BannerStyle) -> UIColor {
-        switch style {
-        case .danger:   return UIColor(hexString: "#828180")!
-        case .info:     return UIColor(red:0.23, green:0.60, blue:0.85, alpha:1.00)
-        case .customView:     return UIColor.clear
-        case .success:  return UIColor(red:0.22, green:0.80, blue:0.46, alpha:1.00)
-        case .warning:  return UIColor(red:1.00, green:0.66, blue:0.16, alpha:1.00)
+            SwiftEntryKit.dismiss()
         }
     }
 }
