@@ -178,7 +178,7 @@ extension AccountViewController {
 
     fileprivate func gotoFAQScreen() {
         guard let url = AppLink.faq.websiteURL else { return }
-        navigator.show(segue: .safariController(url), sender: self)
+        navigator.show(segue: .safariController(url), sender: self, transition: .alert)
     }
 
     fileprivate func gotoReleaseNoteScreen() {
@@ -190,7 +190,7 @@ extension AccountViewController {
     }
 
     fileprivate func showSurveyLink() {
-        navigator.show(segue: .safari(Constant.surveyURL), sender: self)
+        navigator.show(segue: .safariController(Constant.surveyURL), sender: self, transition: .alert)
     }
 }
 
@@ -268,7 +268,7 @@ extension AccountViewController {
         view.flex.alignItems(.center)
             .define { (flex) in
                 flex.addItem(versionLabel)
-                flex.addItem(makeTermsAndPolicyTextView()).marginTop(7)
+                flex.addItem(makeEulaAndPolicyTextView()).marginTop(7)
                 flex.addItem(ImageView(image: R.image.securedByBitmark())).marginTop(9)
             }
         return view
@@ -282,7 +282,7 @@ extension AccountViewController {
         return label
     }
 
-    fileprivate func makeTermsAndPolicyTextView() -> UITextView {
+    fileprivate func makeEulaAndPolicyTextView() -> UITextView {
         let textView = ReadingTextView()
         textView.apply(colorTheme: .black)
         textView.isScrollEnabled = false
@@ -293,13 +293,13 @@ extension AccountViewController {
 
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.termsAndPolicyPhrase(
-                AppLink.termsOfService.generalText,
+                AppLink.eula.generalText,
                 AppLink.privacyOfPolicy.generalText),
             attributes: [
                 .font: R.font.atlasGroteskLight(size: 12)!,
                 .foregroundColor: themeService.attrs.blackTextColor
             ], links: [
-                (text: AppLink.termsOfService.generalText, url: AppLink.termsOfService.path),
+                (text: AppLink.eula.generalText, url: AppLink.eula.path),
                 (text: AppLink.privacyOfPolicy.generalText, url: AppLink.privacyOfPolicy.path)
             ], linkAttributes: [
                 .font: R.font.atlasGroteskLightItalic(size: 12)!,

@@ -9,7 +9,7 @@
 import Foundation
 
 enum AppLink: String {
-    case termsOfService = "legal-terms"
+    case eula
     case privacyOfPolicy = "legal-privacy"
     case incomeQuestion = "income-question"
     case faq
@@ -23,8 +23,8 @@ enum AppLink: String {
 
     var generalText: String {
         switch self {
-        case .termsOfService:
-            return R.string.phrase.termsOfService()
+        case .eula:
+            return R.string.phrase.eula()
         case .privacyOfPolicy:
             return R.string.phrase.privacyPolicy()
         default:
@@ -36,8 +36,8 @@ enum AppLink: String {
         let serverURL = "https://raw.githubusercontent.com/bitmark-inc/spring/master"
 
         switch self {
-        case .termsOfService:
-            return URL(string: serverURL + "/terms-and-service.md")
+        case .eula:
+            return URL(string: serverURL + "/eula.md")
         case .privacyOfPolicy:
             return URL(string: serverURL + "/privacy-policy.md")
         case .faq:

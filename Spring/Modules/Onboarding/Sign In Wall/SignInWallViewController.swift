@@ -138,14 +138,14 @@ extension SignInWallViewController {
         ]
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.termsAndPolicyPhrase(
-                AppLink.termsOfService.generalText,
+                AppLink.eula.generalText,
                 AppLink.privacyOfPolicy.generalText),
             lineHeight: 1.3,
             attributes: [
                 .font: R.font.atlasGroteskLight(size: 12)!,
                 .foregroundColor: themeService.attrs.lightTextColor
             ], links: [
-                (text: AppLink.termsOfService.generalText, url: AppLink.termsOfService.path),
+                (text: AppLink.eula.generalText, url: AppLink.eula.path),
                 (text: AppLink.privacyOfPolicy.generalText, url: AppLink.privacyOfPolicy.path)
             ], linkAttributes: [
                 .font: R.font.atlasGroteskLightItalic(size: 12)!,

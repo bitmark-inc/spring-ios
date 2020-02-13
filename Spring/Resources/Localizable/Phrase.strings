@@ -145,7 +145,7 @@
 "releaseNote.letUsKnow" = "let us know";
 "releaseNote.content" = "%@\nWe value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";
 
-"termsOfService" = "EULA";
+"eula" = "EULA";
 "privacyPolicy" = "Privacy Policy";
 "termsAndPolicyPhrase" = "%@ and %@.";
 "termAndPolicyPhrase.prefix.inSignInWall" = "By continuing, you agree to the Bitmark";
