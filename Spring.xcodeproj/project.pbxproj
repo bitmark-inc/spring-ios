@@ -140,6 +140,7 @@
 		5B2DEE3823F14E4200D3300A /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE3723F14E4200D3300A /* DeleteAccountViewModel.swift */; };
 		5B2DEE3923F14E4200D3300A /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE3723F14E4200D3300A /* DeleteAccountViewModel.swift */; };
 		5B2DEE3A23F14E4200D3300A /* DeleteAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2DEE3723F14E4200D3300A /* DeleteAccountViewModel.swift */; };
+		5B30262923F684B90007EEF6 /* GraphDataConverterSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B30262823F684B80007EEF6 /* GraphDataConverterSpec.swift */; };
 		5B32F5B723CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B823CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
 		5B32F5B923CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */; };
@@ -921,6 +922,7 @@
 		5B2DEE2E23F1074800D3300A /* MoreComingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreComingView.swift; sourceTree = "<group>"; };
 		5B2DEE3323F148A500D3300A /* DeleteAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewController.swift; sourceTree = "<group>"; };
 		5B2DEE3723F14E4200D3300A /* DeleteAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewModel.swift; sourceTree = "<group>"; };
+		5B30262823F684B80007EEF6 /* GraphDataConverterSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphDataConverterSpec.swift; sourceTree = "<group>"; };
 		5B32F5B623CD70B200959DFF /* LaunchingNavigatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingNavigatorDelegate.swift; sourceTree = "<group>"; };
 		5B32F5BA23CD830100959DFF /* AppLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLink.swift; sourceTree = "<group>"; };
 		5B32F5BF23CDBCCA00959DFF /* IncreasePrivacyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyListViewController.swift; sourceTree = "<group>"; };
@@ -1631,6 +1633,7 @@
 			isa = PBXGroup;
 			children = (
 				5B75A14C23BD9EA400FFF910 /* DatePeriodSpec.swift */,
+				5B30262823F684B80007EEF6 /* GraphDataConverterSpec.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3055,6 +3058,7 @@
 				5832FC04237A6DB900FA3196 /* SpringTests.swift in Sources */,
 				5B466DBC23C334EA0027D4CB /* ArrayStringSpec.swift in Sources */,
 				5B8C414723E7C18600A00438 /* RequestDataViewModelSpec.swift in Sources */,
+				5B30262923F684B90007EEF6 /* GraphDataConverterSpec.swift in Sources */,
 				5B75A14D23BD9EA400FFF910 /* DatePeriodSpec.swift in Sources */,
 				E21DAF4F23F02FAD004D99B3 /* FbmAccountDataEngineMock.swift in Sources */,
 				5B75A15223BDD66000FFF910 /* QueryTrackSpec.swift in Sources */,

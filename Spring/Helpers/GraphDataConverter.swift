@@ -77,12 +77,17 @@ class GraphDataConverter {
         return showingNameGraphDatas
     }
 
-    static func getStats(with statsGroup: StatsGroups? = nil, in section: Section) -> [(name: String, data: StatsData)] {
-        return getOrderedKeys(in: section)
+    static func getStats(with statsGroup: StatsGroups, in section: Section) -> [(name: String, data: StatsData)]? {
+        var sumNumber: Double = 0
+        let stats = getOrderedKeys(in: section)
             .filter { $0 != PostType.story.keyInGroups }
-            .compactMap { (key) in
-                return (name: key, data: statsGroup?[key] ?? StatsData(sysAvg: 0, count: 0))
+            .compactMap { (key) -> (name: String, data: StatsData) in
+                let statsData: StatsData = statsGroup[key] ?? StatsData(sysAvg: 0, count: 0)
+                sumNumber += statsData.sysAvg + Double(statsData.count)
+                return (name: key, data: statsData)
             }
+
+        return sumNumber == 0 ? nil : stats
     }
 
     fileprivate static func getOrderedKeys(in section: Section) -> [String] {

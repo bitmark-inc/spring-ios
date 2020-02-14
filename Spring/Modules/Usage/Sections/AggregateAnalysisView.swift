@@ -27,7 +27,7 @@ class AggregateAnalysisView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column)
-            .padding(0, 18, 41, 18)
+            .padding(0, 18, 38, 18)
             .define { (flex) in
                 flex.addItem(sectionHeadingView)
                 flex.addItem(subHeadingView).marginTop(7)
@@ -63,7 +63,7 @@ class AggregateAnalysisView: UIView {
 
                     postStatsdataObserver?.disposed(by: self.disposeBag)
                 } else {
-                    self.postStatsView.fillData(with: GraphDataConverter.getStats(in: .post))
+                    self.postStatsView.fillData(with: nil)
                     self.layout(in: .post)
                 }
             })
@@ -86,7 +86,7 @@ class AggregateAnalysisView: UIView {
 
                     reactionStatsdataObserver?.disposed(by: self.disposeBag)
                 } else {
-                    self.reactionStatsView.fillData(with: GraphDataConverter.getStats(in: .reaction))
+                    self.reactionStatsView.fillData(with: nil)
                     self.layout(in: .reaction)
                 }
 

@@ -29,7 +29,7 @@ extension HomeTabbarController {
 
             #if targetEnvironment(simulator)
             guard let date = Calendar.current.date(byAdding: .minute, value: 1, to: Date()) else { return }
-            let triggerDate = Calendar.current.dateComponents([.second], from: date)
+            let triggerDate = Calendar.current.dateComponents([.minute, .second], from: date)
             #else
             guard let date = Calendar.current.date(byAdding: .minute, value: -1, to: Date()) else { return }
             let triggerDate = Calendar.current.dateComponents([.hour, .minute, .second], from: date)
