@@ -40,7 +40,6 @@ class UsageViewController: ViewController {
     lazy var usageView = UIView()
     lazy var headingView = makeHeadingView()
     lazy var timelineView = makeTimelineView()
-    lazy var moodHeadingView = makeSectionHeadingView(section: .mood)
     lazy var moodView = makeMoodView()
     lazy var postsHeadingView = makeSectionHeadingView(section: .post)
     lazy var postsFilterTypeView = makeFilterTypeView(section: .post)
@@ -55,7 +54,7 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
     lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
-
+    lazy var aggregateAnalysisView = makeAggregateAnalysisView()
     lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
 
     // SECTION: Mood
@@ -105,6 +104,18 @@ class UsageViewController: ViewController {
         
         guard let viewModel = viewModel as? UsageViewModel else { return }
 
+        viewModel.fetchDataResultSubject
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .error(let error):
+                    self.errorWhenFetchingData(error: error)
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
         viewModel.segmentDistances
             .subscribe(onNext: { [weak self] in
                 self?.segmentDistances = $0
@@ -125,21 +136,11 @@ class UsageViewController: ViewController {
                     periodDescription: datePeriod.makeTimelinePeriodText(in: timeUnit),
                     distance: distance, limitedDistance: limitedDistance)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: disposeBag)
+
+        viewModel.fetchSpringStats()
 
         if appArchiveStatus == .done {
-            viewModel.fetchDataResultSubject
-                .subscribe(onNext: { [weak self] (event) in
-                    guard let self = self else { return }
-                    switch event {
-                    case .error(let error):
-                        self.errorWhenFetchingData(error: error)
-                    default:
-                        break
-                    }
-                })
-                .disposed(by: disposeBag)
-
             viewModel.fetchActivity()
                 .subscribe(onCompleted: {
                     viewModel.fetchUsage()
@@ -173,13 +174,15 @@ class UsageViewController: ViewController {
             flex.addItem(timelineView)
 
             if appArchiveStatus == .done {
-                flex.addItem(moodHeadingView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(moodView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(postsHeadingView)
                 flex.addItem(postsFilterTypeView)
                 flex.addItem(postsFilterDayView)
                 flex.addItem(postsFilterFriendView)
                 flex.addItem(postsFilterPlaceView)
+                flex.addItem(SectionSeparator())
                 flex.addItem(reationsHeadingView)
                 flex.addItem(reactionsFilterTypeView)
                 flex.addItem(reactionsFilterDayView)
@@ -187,6 +190,9 @@ class UsageViewController: ViewController {
             } else {
                 flex.addItem(morePersonalAnalyticsComingView)
             }
+            flex.addItem(SectionSeparator())
+            flex.addItem(aggregateAnalysisView)
+            flex.addItem(SectionSeparator())
         }
 
         scroll.addSubview(usageView)
@@ -214,6 +220,7 @@ extension UsageViewController {
     fileprivate func makeSectionHeadingView(section: Section) -> SectionHeadingView {
         let sectionHeadingView = SectionHeadingView()
         sectionHeadingView.setProperties(section: section, container: self)
+        sectionHeadingView.flex.padding(0, 18, 26, 18)
         return sectionHeadingView
     }
 
@@ -254,6 +261,13 @@ extension UsageViewController {
         moreComingView.containerLayoutDelegate = self
         moreComingView.section = .morePersonalAnalyticsComing
         return moreComingView
+    }
+
+    fileprivate func makeAggregateAnalysisView() -> AggregateAnalysisView {
+        let aggregateAnalysisView = AggregateAnalysisView()
+        aggregateAnalysisView.containerLayoutDelegate = self
+        aggregateAnalysisView.setProperties(container: self)
+        return aggregateAnalysisView
     }
 }
 

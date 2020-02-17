@@ -25,10 +25,8 @@ class SectionHeadingView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column).define { (flex) in
-            flex.addItem(SectionSeparator())
             flex.addItem().direction(.row).define { (flex) in
-                flex.alignItems(.start)
-                flex.padding(38, 18, 28, 18)
+                flex.alignItems(.start).marginTop(30)
                 flex.addItem(countLabel)
                 flex.addItem(actionDescriptionLabel).marginLeft(7)
             }
@@ -93,10 +91,6 @@ class SectionHeadingView: UIView {
                 })
                 .disposed(by: disposeBag)
 
-        case .mood:
-            fillData(countText: R.string.localizable.yourMood().localizedUppercase,
-                     actionDescriptionText: R.string.localizable.sentimentAnalysisOfYourPosts())
-
         default:
             break
         }
@@ -109,6 +103,10 @@ class SectionHeadingView: UIView {
         case .mood:
             fillData(countText: R.string.localizable.yourMood().localizedUppercase,
                      actionDescriptionText: R.string.localizable.sentimentAnalysisOfYourPosts())
+
+        case .aggregateAnalysis:
+            fillData(countText: R.string.phrase.aggAnalysisHeading().localizedUppercase,
+                     actionDescriptionText: R.string.phrase.aggAnalysisSubHeading())
 
         default:
             break

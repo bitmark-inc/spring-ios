@@ -98,7 +98,11 @@ class Navigator {
             return HomeTabbarController.tabbarController(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed)
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
-        case .incomeQuestion: return IncomeQuestionViewController()
+        case .incomeQuestion:
+            let viewController = IncomeQuestionViewController()
+            viewController.hidesBottomBarWhenPushed = true
+            return viewController
+
         case .account(let viewModel):
             let accountViewController = AccountViewController(viewModel: viewModel)
             accountViewController.hidesBottomBarWhenPushed = true

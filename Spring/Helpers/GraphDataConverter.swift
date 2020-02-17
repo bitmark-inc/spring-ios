@@ -17,7 +17,6 @@ class GraphDataConverter {
 
     // MARK: - Handlers
     static func getDataGroupByType(with graphData: GraphData, in section: Section) -> [(String, Double)] {
-
         return getOrderedKeys(in: section)
             .map { (key) in
                 (key,
@@ -27,7 +26,6 @@ class GraphDataConverter {
 
     static func getDataGroupByDay(with graphDatas: [GraphData], timeUnit: TimeUnit, startDate: Date, in section: Section) -> [Date: (String, [Double])] {
         var dayGraphDatas: [Date: (String, [Double])] = [:]
-
         let orderedKeys = getOrderedKeys(in: section)
 
         for index in (0..<numberOfBars(for: timeUnit)) {
@@ -77,6 +75,19 @@ class GraphDataConverter {
         return showingNameGraphDatas
     }
 
+    static func getStats(with statsGroup: StatsGroups, in section: Section) -> [(name: String, data: StatsData)]? {
+        var sumNumber: Double = 0
+        let stats = getOrderedKeys(in: section)
+            .filter { $0 != PostType.story.keyInGroups }
+            .compactMap { (key) -> (name: String, data: StatsData) in
+                let statsData: StatsData = statsGroup[key] ?? StatsData(sysAvg: 0, count: 0)
+                sumNumber += statsData.sysAvg + Double(statsData.count)
+                return (name: key, data: statsData)
+            }
+
+        return sumNumber == 0 ? nil : stats
+    }
+
     fileprivate static func getOrderedKeys(in section: Section) -> [String] {
         switch section {
         case .post:
@@ -100,7 +111,7 @@ class GraphDataConverter {
 enum PostType: String {
     case update, media, story, link
 
-    static var orderedList: [PostType] {
+    fileprivate static var orderedList: [PostType] {
         return [.update, .media, .story, .link]
     }
 
@@ -129,7 +140,7 @@ enum ReactionType: String {
     case sad = "SORRY"
     case angry = "ANGER"
 
-    static var orderedList: [ReactionType] {
+    fileprivate static var orderedList: [ReactionType] {
         return [.like, .love, .haha, .wow, .sad, .angry]
     }
 

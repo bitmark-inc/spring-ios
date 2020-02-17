@@ -17,9 +17,17 @@ class PostService {
     static func getAll(startDate: Date, endDate: Date) -> Single<[Post]> {
         Global.log.info("[start] PostService.get(startDate, endDate)")
 
-
         return provider.rx.requestWithRefreshJwt(.get(startDate: startDate, endDate: endDate))
             .filterSuccess()
             .map([Post].self, atKeyPath: "result")
+    }
+
+    static func getSpringStats(startDate: Date, endDate: Date) -> Single<Stats> {
+        Global.log.info("[start] PostService.getSpringStats(startDate, endDate)")
+
+        return provider.rx.requestWithRefreshJwt(.springStats(startDate: startDate, endDate: endDate))
+            .filterSuccess()
+            .map(StatsGroups.self, atKeyPath: "result")
+            .map { try Stats(startDate: startDate, endDate: endDate, section: .post, statsGroups: $0) }
     }
 }

@@ -87,6 +87,7 @@ class InsightViewController: ViewController {
 
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
+            flex.addItem(SectionSeparator())
             flex.addItem(adsCategoryView)
 
             if appArchiveStatus == .done {
@@ -94,6 +95,7 @@ class InsightViewController: ViewController {
             } else {
                 flex.addItem(moreInsightsComingView)
             }
+            flex.addItem(SectionSeparator())
         }
 
         scroll.addSubview(insightView)

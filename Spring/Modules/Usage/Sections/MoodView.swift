@@ -14,6 +14,7 @@ import FlexLayout
 class MoodView: UIView {
 
     // MARK: - Properties
+    fileprivate lazy var headingView = makeHeadingView()
     fileprivate lazy var moodImage = makeMoodImage()
     fileprivate lazy var titleBarLabel = makeTitleBarLabel()
     fileprivate lazy var moodBarImage = makeMoodBarImage()
@@ -29,7 +30,8 @@ class MoodView: UIView {
         flex.direction(.column)
             .padding(0, 18, 0, 18)
             .define { (flex) in
-                flex.addItem(moodImage).marginTop(21)
+                flex.addItem(headingView)
+                flex.addItem(moodImage).marginTop(20)
                 flex.addItem(titleBarLabel).marginTop(24)
                 flex.addItem(moodBarImage).marginTop(18).width(100%)
 
@@ -98,6 +100,12 @@ class MoodView: UIView {
 }
 
 extension MoodView {
+    fileprivate func makeHeadingView() -> SectionHeadingView {
+        let sectionHeadingView = SectionHeadingView()
+        sectionHeadingView.setProperties(section: .mood)
+        return sectionHeadingView
+    }
+
     fileprivate func makeMoodImage() -> ImageView {
         let imageView = ImageView()
         imageView.flex.height(112)

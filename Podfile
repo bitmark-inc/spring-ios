@@ -23,7 +23,7 @@ def sharedPods
   pod 'Hero'
   pod 'PanModal'
   pod 'SVProgressHUD'
-  pod 'NotificationBannerSwift', git: "https://github.com/thuyenBitmark/NotificationBanner"
+  pod 'SwiftEntryKit'
   pod 'R.swift'
   pod 'SnapKit'
   pod 'ESTabBarController-swift'

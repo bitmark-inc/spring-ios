@@ -26,10 +26,7 @@ class AdsCategoryView: UIView {
         super.init(frame: frame)
 
         flex.define({ (flex) in
-            flex.addItem(SectionSeparator())
-
-            flex.addItem()
-                .padding(34, 18, 34, 16)
+            flex.padding(30, 18, 30, 18)
                 .define { (flex) in
                     flex.addItem(headerLabel)
                     flex.addItem(descriptionLabel).marginTop(7)

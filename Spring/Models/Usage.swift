@@ -83,4 +83,5 @@ enum Section: String {
     case location
     case moreInsightsComing
     case morePersonalAnalyticsComing
+    case aggregateAnalysis
 }
