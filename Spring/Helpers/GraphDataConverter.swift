@@ -17,7 +17,6 @@ class GraphDataConverter {
 
     // MARK: - Handlers
     static func getDataGroupByType(with graphData: GraphData, in section: Section) -> [(String, Double)] {
-
         return getOrderedKeys(in: section)
             .map { (key) in
                 (key,
@@ -27,7 +26,6 @@ class GraphDataConverter {
 
     static func getDataGroupByDay(with graphDatas: [GraphData], timeUnit: TimeUnit, startDate: Date, in section: Section) -> [Date: (String, [Double])] {
         var dayGraphDatas: [Date: (String, [Double])] = [:]
-
         let orderedKeys = getOrderedKeys(in: section)
 
         for index in (0..<numberOfBars(for: timeUnit)) {
