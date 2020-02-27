@@ -45,6 +45,7 @@ struct OurTheme {
             return UIEdgeInsets(top: 21, left: 0, bottom: 43, right: 0)
         }
     }()
+    static let usageColorTheme = ColorTheme.cognac
     static let accountColorTheme = ColorTheme.black
     static let postCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)
     static let reactionCellPadding  = UIEdgeInsets(top: 27, left: 18, bottom: 32, right: 18)

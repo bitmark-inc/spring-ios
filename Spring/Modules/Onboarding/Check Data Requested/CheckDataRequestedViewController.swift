@@ -19,7 +19,6 @@ class CheckDataRequestedViewController: ViewController {
     lazy var dataRequestedTitleLabel = makeDataRequestedTitleLabel()
     lazy var dataRequestedTimeDescLabel = makeDataRequestedTimeDescLabel()
     lazy var checkNowButton = makeCheckNowButton()
-    lazy var viewInsightsButton = makeViewInsightsButton()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -33,7 +32,7 @@ class CheckDataRequestedViewController: ViewController {
     override func bindViewModel() {
         super.bindViewModel()
         
-        guard let archiveCreatedAt = UserDefaults.standard.FBArchiveCreatedAt else {
+        guard let archiveCreatedAt = Global.default.userDefault?.FBArchiveCreatedAt else {
             Global.log.error(AppError.emptyLocal)
             return
         }
@@ -45,12 +44,8 @@ class CheckDataRequestedViewController: ViewController {
         checkNowButton.rx.tap.bind { [weak self] in
             _ = connectedToInternet()
                 .subscribe(onCompleted: { [weak self] in
-                    self?.gotoDownloadFBArchiveScreen()
+                    self?.gotoMainScreenWithDownloadMission()
                 })
-        }.disposed(by: disposeBag)
-
-        viewInsightsButton.rx.tap.bind { [weak self] in
-            self?.gotoMainScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -80,11 +75,7 @@ class CheckDataRequestedViewController: ViewController {
                 flex.addItem(makeDataRequestedDescLabel(index: 2)).marginTop(Size.dh(10))
                 flex.addItem(dataRequestedTimeDescLabel).marginTop(10)
 
-                flex.addItem()
-                    .define({ (flex) in
-                        flex.addItem(checkNowButton)
-                        flex.addItem(viewInsightsButton).marginTop(19)
-                    })
+                flex.addItem(checkNowButton)
                     .width(100%)
                     .position(.absolute)
                     .left(OurTheme.paddingInset.left)
@@ -95,13 +86,8 @@ class CheckDataRequestedViewController: ViewController {
 
 // MARK: - Navigator
 extension CheckDataRequestedViewController {
-    func gotoDownloadFBArchiveScreen() {
-        let viewModel = RequestDataViewModel(missions: [.getCategories, .downloadData])
-        navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
-    }
-
-    func gotoMainScreen() {
-        navigator.show(segue: .hometabs(isArchiveStatusBoxShowed: false),
+    func gotoMainScreenWithDownloadMission() {
+        navigator.show(segue: .hometabs(missions: [.downloadData]),
                        sender: self, transition: .replace(type: .auto))
     }
 }

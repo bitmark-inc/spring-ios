@@ -93,7 +93,8 @@ class TrustIsCriticalViewController: ViewController, BackNavigator {
 // MARK: - Navigator
 extension TrustIsCriticalViewController {
     func gotoHowItWorksScreen() {
-        navigator.show(segue: .howItWorks, sender: self)
+        let viewModel = HowItWorksViewModel()
+        navigator.show(segue: .howItWorks(viewModel: viewModel), sender: self)
     }
 }
 

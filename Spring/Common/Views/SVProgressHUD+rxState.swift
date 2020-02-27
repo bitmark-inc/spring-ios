@@ -12,6 +12,9 @@ import RxCocoa
 import SVProgressHUD
 
 let loadingState = PublishSubject<LoadState>()
+let getCategoriesState = BehaviorRelay<LoadState>(value: .hide)
+let requestFBArchiveState = BehaviorRelay<LoadState>(value: .hide)
+let downloadFBArchiveState = BehaviorRelay<LoadState>(value: .hide)
 
 extension Reactive where Base: SVProgressHUD {
     static var state: Binder<LoadState> {

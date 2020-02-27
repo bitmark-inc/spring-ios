@@ -10,9 +10,10 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 import RxCocoa
+import SnapKit
 
-class HomeTabbarController: ESTabBarController {
-    class func tabbarController(isArchiveStatusBoxShowed: Bool) -> HomeTabbarController {
+class HomeTabbarController: ESTabBarController, RequestDataDelegate {
+    class func tabbarController(missions: [Mission]) -> HomeTabbarController {
         let insightsVC = InsightViewController(viewModel: InsightViewModel())
         let insightsNavVC = NavigationController(rootViewController: insightsVC)
         insightsNavVC.tabBarItem = ESTabBarItem(
@@ -40,7 +41,8 @@ class HomeTabbarController: ESTabBarController {
         )
 
         let tabbarController = HomeTabbarController()
-        tabbarController.isArchiveStatusBoxShowed = isArchiveStatusBoxShowed
+        tabbarController.missions = missions
+        tabbarController.undoneMissions = missions
         tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
 
         return tabbarController
@@ -48,21 +50,48 @@ class HomeTabbarController: ESTabBarController {
 
     lazy var archiveStatusBox = makeArchiveStatusBox()
     lazy var appArchiveStatus = AppArchiveStatus.currentState
-    var isArchiveStatusBoxShowed: Bool = true {
-        didSet {
-            if isArchiveStatusBoxShowed && appArchiveStatus == .stillWaiting {
-                view.insertSubview(archiveStatusBox, belowSubview: tabBar)
 
-                archiveStatusBox.snp.makeConstraints { (make) in
-                    make.width.equalToSuperview()
+    // MARK: - Request Data Properties
+    lazy var requestDataView = makeRequestDataView()
+    lazy var guideTextLabel = makeGuideTextLabel()
+    lazy var webView = makeWebView()
+    let requestDataViewTop: CGFloat = 80
+    var bottomRequestDataViewConstraint: Constraint?
+
+    var missions = [Mission]() {
+        didSet {
+            if missions.count > 0 {
+                view.insertSubview(requestDataView, aboveSubview: tabBar)
+
+                requestDataView.snp.makeConstraints { (make) in
                     make.leading.trailing.equalToSuperview()
-                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-tabBar.height)
+                    make.width.equalToSuperview()
+                    make.height.equalToSuperview().offset(-requestDataViewTop)
+                    bottomRequestDataViewConstraint = make.top.equalToSuperview().offset(view.height + 200).constraint
                 }
-            } else {
-                archiveStatusBox.removeFromSuperview()
+
+                if missions.contains(.getCategories) {
+                    getCategoriesState.accept(.loading)
+                }
+
+                if missions.contains(.downloadData) {
+                    downloadFBArchiveState.accept(.hide)
+                    observeWhenStillWaitingToDownloadArchive()
+                }
+
+                observeAndAskNotificationIfNeeded()
+                observeEvents()
             }
         }
     }
+    var undoneMissions = [Mission]()
+    var fbScripts = [FBScript]()
+    var cachedRequestHeader: [String : String]?
+    lazy var archivePageScript = fbScripts.find(.archive)
+
+    let guideStateRelay = BehaviorRelay<GuideState>(value: .start)
+    let signUpAndSubmitArchiveResultSubject = PublishSubject<Event<Never>>()
+
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -75,9 +104,17 @@ class HomeTabbarController: ESTabBarController {
             .disposed(by: disposeBag)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    fileprivate func observeAndAskNotificationIfNeeded() {
+        BehaviorRelay
+            .merge(requestFBArchiveState.asObservable(), downloadFBArchiveState.asObservable())
+            .subscribe(onNext: { [weak self] (state) in
+                guard let self = self, state == .success else { return }
+                self.askNotification()
+            })
+            .disposed(by: disposeBag)
+    }
 
+    fileprivate func askNotification() {
         NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (authorizationStatus) in
@@ -89,10 +126,26 @@ class HomeTabbarController: ESTabBarController {
             .disposed(by: disposeBag)
     }
 
+    fileprivate func observeWhenStillWaitingToDownloadArchive() {
+        archiveStatusBox.removeFromSuperview()
+        view.insertSubview(archiveStatusBox, belowSubview: tabBar)
+
+        archiveStatusBox.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-tabBar.height)
+        }
+
+        downloadFBArchiveState
+            .subscribe(onNext: { [weak self] (state) in
+                guard let self = self, state == .failed else { return }
+                self.archiveStatusBox.up()
+            })
+            .disposed(by: disposeBag)
+    }
+
     fileprivate func makeArchiveStatusBox() -> ArchiveStatusBox {
-        let box = ArchiveStatusBox()
-        box.appArchiveStatus = AppArchiveStatus.currentState
-        return box
+        return ArchiveStatusBox()
     }
 }
 

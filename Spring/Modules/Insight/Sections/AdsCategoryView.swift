@@ -17,6 +17,8 @@ class AdsCategoryView: UIView {
     lazy var headerLabel = makeHeaderLabel()
     lazy var descriptionLabel = makeDescriptionLabel()
     lazy var adsCategoryInfoView = makeAdsCategoryInfoView()
+    lazy var loadingIndicator = makeLoadingIndicator()
+    lazy var space = UIView()
 
     weak var containerLayoutDelegate: ContainerLayoutDelegate?
     let disposeBag = DisposeBag()
@@ -26,10 +28,16 @@ class AdsCategoryView: UIView {
         super.init(frame: frame)
 
         flex.define({ (flex) in
-            flex.padding(30, 18, 30, 18)
+            flex.padding(30, 18, 30, 48)
                 .define { (flex) in
                     flex.addItem(headerLabel)
                     flex.addItem(descriptionLabel).marginTop(7)
+
+                    flex.addItem(loadingIndicator)
+                        .top(125).position(.absolute)
+                        .alignSelf(.center)
+                    flex.addItem(space).height(30)
+
                     flex.addItem(adsCategoryInfoView)
                         .padding(10, 18, 0, 40)
                         .maxWidth(100%)
@@ -43,6 +51,19 @@ class AdsCategoryView: UIView {
 
     func setProperties(container: InsightViewController) {
         weak var container = container
+
+        getCategoriesState
+            .subscribe(onNext: { [weak self] (state) in
+                guard let self = self else { return }
+                switch state {
+                case .loading:  self.loadingIndicator.startAnimating()
+                case .success:
+                    self.loadingIndicator.stopAnimating()
+                    container?.thisViewModel.fetchQuickInsight()
+                default:        self.loadingIndicator.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
 
         container?.thisViewModel.realmAdsCategoriesRelay.filterNil()
             .subscribe(onNext: { [weak self] (adsCategoryInfos) in
@@ -69,6 +90,8 @@ class AdsCategoryView: UIView {
                 flex.addItem(makeNoDataView())
             }
         }
+
+        space.flex.height(0)
 
         adsCategoryInfoView.flex.layout()
         containerLayoutDelegate?.layout()
@@ -128,5 +151,12 @@ extension AdsCategoryView {
                     colorTheme: .black,
                     lineHeight: 1.056)
         return label
+    }
+
+    fileprivate func makeLoadingIndicator() -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView()
+        indicator.style = .gray
+        indicator.color = UIColor(hexString: "#000", transparency: 0.4)!
+        return indicator
     }
 }

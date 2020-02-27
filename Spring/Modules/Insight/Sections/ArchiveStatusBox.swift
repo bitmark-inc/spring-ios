@@ -18,7 +18,7 @@ enum AppArchiveStatus {
     case none
 
     static var currentState: Self {
-        if UserDefaults.standard.FBArchiveCreatedAt != nil {
+        if Global.default.userDefault?.FBArchiveCreatedAt != nil {
             return .stillWaiting
         }
 
@@ -39,15 +39,6 @@ class ArchiveStatusBox: UIView {
 
     let disposeBag = DisposeBag()
     var heightConstraint: Constraint!
-
-    var appArchiveStatus: AppArchiveStatus = .none {
-        didSet {
-            if appArchiveStatus == .stillWaiting {
-                statusLabel.setText(R.string.phrase.dataRequestedWaitingTitle())
-                descriptionLabel.setText(R.string.phrase.dataRequestedWaitingDescription())
-            }
-        }
-    }
 
     // MARK: - Properties
     override init(frame: CGRect) {
@@ -78,9 +69,10 @@ class ArchiveStatusBox: UIView {
         }
 
         snp.makeConstraints { (make) in
-            heightConstraint = make.height.equalTo(descriptionLabel).offset(82).constraint
+            heightConstraint = make.height.equalTo(descriptionLabel).offset(-200).constraint
         }
 
+        isHidden = true
         controlButton.rx.tap.bind { [weak self] in
             self?.down()
         }.disposed(by: disposeBag)
@@ -90,8 +82,17 @@ class ArchiveStatusBox: UIView {
         super.init(coder: coder)
     }
 
+    func up() {
+        isHidden = false
+        UIView.animate(withDuration: 0.3, animations: {
+            self.heightConstraint.update(offset: 83)
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        })
+    }
+
     fileprivate func down() {
-        UIView.animate(withDuration: 0.35, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.heightConstraint.update(offset: -self.descriptionLabel.height)
             self.setNeedsLayout()
             self.layoutIfNeeded()
@@ -105,6 +106,7 @@ extension ArchiveStatusBox {
     fileprivate func makeStatusLabel() -> Label {
         let label = Label()
         label.apply(
+            text: R.string.phrase.dataRequestedWaitingTitle(),
             font: R.font.atlasGroteskRegular(size: 24),
             colorTheme: .black,
             lineHeight: 1.2)
@@ -115,6 +117,7 @@ extension ArchiveStatusBox {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
+            text: R.string.phrase.dataRequestedWaitingDescription(),
             font: R.font.atlasGroteskLight(size: 18),
             colorTheme: .black,
             lineHeight: 1.2)

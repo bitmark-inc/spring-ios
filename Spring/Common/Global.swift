@@ -77,7 +77,7 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
-        UserDefaults.standard.FBArchiveCreatedAt = nil
+        Global.default.userDefault?.FBArchiveCreatedAt = nil
         Global.current.userDefault?.latestArchiveStatus = nil
 
         // clear user cookie in webview
@@ -166,11 +166,6 @@ extension UserDefaults {
         return UserDefaults(suiteName: number)
     }
 
-    var FBArchiveCreatedAt: Date? {
-        get { return date(forKey: #function) }
-        set { set(newValue, forKey: #function) }
-    }
-
     var enteredBackgroundTime: Date? {
         get { return date(forKey: #function) }
         set { set(newValue, forKey: #function) }
@@ -193,6 +188,11 @@ extension UserDefaults {
     }
 
     // Per Account
+    var FBArchiveCreatedAt: Date? {
+        get { return date(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
     var latestArchiveStatus: String? {
         get { return string(forKey: #function) }
         set { set(newValue, forKey: #function) }

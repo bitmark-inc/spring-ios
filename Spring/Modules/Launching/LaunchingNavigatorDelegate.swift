@@ -67,11 +67,11 @@ extension LaunchingNavigatorDelegate {
         // **** When Data is Requesting
         // - user click notification: make animation to download Archive
         // - user enter the app:      go to check now screen
-        if UserDefaults.standard.FBArchiveCreatedAt != nil  { // data is requesting
+        if Global.default.userDefault?.FBArchiveCreatedAt != nil  { // data is requesting
             loadingState.onNext(.hide)
             if Global.current.didUserTapNotification {
                 Global.current.didUserTapNotification = false
-                gotoDownloadFBArchiveScreen()
+                gotoMainScreenWithDownloadMission()
             } else {
                 gotoDataRequestedWithCheckButtonScreen()
             }
@@ -119,10 +119,10 @@ extension LaunchingNavigatorDelegate {
         func navigateWithArchiveStatus(_ archiveStatus: ArchiveStatus?) {
             if archiveStatus != nil {
                 if InsightDataEngine.existsAdsCategories() {
-                    navigator.show(segue: .hometabs(isArchiveStatusBoxShowed: true), sender: self, transition: .replace(type: .none))
+                    navigator.show(segue: .hometabs(missions: []), sender: self, transition: .replace(type: .none))
                 } else {
-                    let viewModel = RequestDataViewModel(missions: [.getCategories])
-                    navigator.show(segue: .requestData(viewModel: viewModel), sender: self, transition: .replace(type: .none))
+                    navigator.show(segue: .hometabs(missions: [.getCategories]),
+                                   sender: self, transition: .replace(type: .none))
                 }
             } else {
                 Global.current.account == nil ? gotoSignInWallScreen() : gotoTrustIsCritialScreen()
@@ -166,9 +166,9 @@ extension LaunchingNavigatorDelegate {
         navigator.show(segue: .trustIsCritical(buttonItemType: .none), sender: self, transition: .replace(type: .none))
     }
 
-    fileprivate func gotoDownloadFBArchiveScreen() {
-        let viewModel = RequestDataViewModel(missions: [.getCategories, .downloadData])
-        navigator.show(segue: .requestData(viewModel: viewModel), sender: self, transition: .replace(type: .none))
+    fileprivate func gotoMainScreenWithDownloadMission() {
+        navigator.show(segue: .hometabs(missions: [.downloadData]),
+                       sender: self, transition: .replace(type: .none))
     }
 
     fileprivate func gotoDataRequestedWithCheckButtonScreen() {

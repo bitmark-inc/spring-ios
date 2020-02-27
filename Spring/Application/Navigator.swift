@@ -30,12 +30,11 @@ class Navigator {
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
-        case howItWorks
-        case requestData(viewModel: RequestDataViewModel)
+        case howItWorks(viewModel: HowItWorksViewModel)
         case checkDataRequested
         case safari(URL)
         case safariController(URL)
-        case hometabs(isArchiveStatusBoxShowed: Bool)
+        case hometabs(missions: [Mission])
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -82,8 +81,7 @@ class Navigator {
             trustIsCriticalViewController.buttonItemType = buttonItemType
             return trustIsCriticalViewController
 
-        case .howItWorks: return HowItWorksViewController()
-        case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
+        case .howItWorks(let viewModel): return HowItWorksViewController(viewModel: viewModel)
         case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -94,8 +92,9 @@ class Navigator {
             vc.hidesBottomBarWhenPushed = true
             return vc
 
-        case .hometabs(let isArchiveStatusBoxShowed):
-            return HomeTabbarController.tabbarController(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed)
+        case .hometabs(let missions):
+            return HomeTabbarController.tabbarController(missions: missions)
+
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
         case .incomeQuestion:
