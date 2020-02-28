@@ -26,7 +26,6 @@ class LaunchingViewController: ViewController, LaunchingNavigatorDelegate {
             gotoReleaseNoteScreen()
         } else {
             SettingsBundle.setVersion()
-            loadingState.onNext(.loading)
             loadAndNavigate()
         }
     }
