@@ -39,7 +39,6 @@
 		5832FC46237A863300FA3196 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1F237A863300FA3196 /* ViewController.swift */; };
 		5832FC47237A863300FA3196 /* ThemedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC20237A863300FA3196 /* ThemedViewController.swift */; };
 		5832FC48237A863300FA3196 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC21237A863300FA3196 /* NavigationController.swift */; };
-		5832FC49237A863300FA3196 /* UnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC23237A863300FA3196 /* UnderlinedTextField.swift */; };
 		5832FC4A237A863300FA3196 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC24237A863300FA3196 /* Label.swift */; };
 		5832FC4C237A863300FA3196 /* SubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC26237A863300FA3196 /* SubmitButton.swift */; };
 		5832FC4D237A863300FA3196 /* NoInternetBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC27237A863300FA3196 /* NoInternetBanner.swift */; };
@@ -313,7 +312,6 @@
 		5B5D002A23A1F0F4003D1A1C /* ConfirmRecoveryKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1D237A863300FA3196 /* ConfirmRecoveryKeyViewController.swift */; };
 		5B5D002B23A1F0F4003D1A1C /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCC3237AB8AB00FA3196 /* R.generated.swift */; };
 		5B5D002D23A1F0F4003D1A1C /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1A237A863300FA3196 /* ThemeManager.swift */; };
-		5B5D002E23A1F0F4003D1A1C /* UnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC23237A863300FA3196 /* UnderlinedTextField.swift */; };
 		5B5D002F23A1F0F4003D1A1C /* ListHeadingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */; };
 		5B5D003023A1F0F4003D1A1C /* UsageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832D6E3238BBE390074AEDC /* UsageViewModel.swift */; };
 		5B5D003223A1F0F4003D1A1C /* MoyaAuthPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55FA238D0A6800F1BCF2 /* MoyaAuthPlugin.swift */; };
@@ -403,7 +401,6 @@
 		5B5DFFF023A1F0F4003D1A1C /* LinkAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23807C52396023F0079A3C4 /* LinkAttributedString.swift */; };
 		5B5DFFF223A1F0F4003D1A1C /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC35237A863300FA3196 /* ImageView.swift */; };
 		5B5DFFF323A1F0F4003D1A1C /* UsageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E21EF9F6239111E3004D4513 /* UsageService.swift */; };
-		5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
 		5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24420392399067600520FE9 /* MediaPostTableViewCell.swift */; };
 		5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCB4237A9FD700FA3196 /* Navigator.swift */; };
 		5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC2D237A863300FA3196 /* EditingTextView.swift */; };
@@ -622,8 +619,6 @@
 		E27959DD23868795000E9CB9 /* RequestDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959DB23868795000E9CB9 /* RequestDataViewModel.swift */; };
 		E27959DF238687A2000E9CB9 /* RequestDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959DE238687A2000E9CB9 /* RequestDataViewController.swift */; };
 		E27959E0238687A2000E9CB9 /* RequestDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959DE238687A2000E9CB9 /* RequestDataViewController.swift */; };
-		E27959E22386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
-		E27959E32386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */; };
 		E28B55F0238CE66400F1BCF2 /* CheckDataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */; };
 		E28B55F1238CE66500F1BCF2 /* CheckDataRequestedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */; };
 		E28B55F4238D03C600F1BCF2 /* FBArchiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */; };
@@ -738,7 +733,6 @@
 		E2DB66A9237D3B69005367C2 /* ConfirmRecoveryKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1D237A863300FA3196 /* ConfirmRecoveryKeyViewController.swift */; };
 		E2DB66AA237D3B69005367C2 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FCC3237AB8AB00FA3196 /* R.generated.swift */; };
 		E2DB66AB237D3B69005367C2 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC1A237A863300FA3196 /* ThemeManager.swift */; };
-		E2DB66AC237D3B69005367C2 /* UnderlinedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC23237A863300FA3196 /* UnderlinedTextField.swift */; };
 		E2DB66AD237D3B69005367C2 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC18237A863300FA3196 /* Currency.swift */; };
 		E2DB66AF237D3B69005367C2 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC19237A863300FA3196 /* ViewModel.swift */; };
 		E2DB66B0237D3B69005367C2 /* Observable+Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5832FC9C237A8A9200FA3196 /* Observable+Operators.swift */; };
@@ -859,7 +853,6 @@
 		5832FC1F237A863300FA3196 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5832FC20237A863300FA3196 /* ThemedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemedViewController.swift; sourceTree = "<group>"; };
 		5832FC21237A863300FA3196 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		5832FC23237A863300FA3196 /* UnderlinedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnderlinedTextField.swift; sourceTree = "<group>"; };
 		5832FC24237A863300FA3196 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		5832FC26237A863300FA3196 /* SubmitButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubmitButton.swift; sourceTree = "<group>"; };
 		5832FC27237A863300FA3196 /* NoInternetBanner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoInternetBanner.swift; sourceTree = "<group>"; };
@@ -1070,7 +1063,6 @@
 		E27959D72386309C000E9CB9 /* AccountService+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountService+Rx.swift"; sourceTree = "<group>"; };
 		E27959DB23868795000E9CB9 /* RequestDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDataViewModel.swift; sourceTree = "<group>"; };
 		E27959DE238687A2000E9CB9 /* RequestDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestDataViewController.swift; sourceTree = "<group>"; };
-		E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithRightIcon.swift; sourceTree = "<group>"; };
 		E28B55EA238CCB9200F1BCF2 /* Spring Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spring Dev.entitlements"; sourceTree = "<group>"; };
 		E28B55EF238CE66400F1BCF2 /* CheckDataRequestedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDataRequestedViewController.swift; sourceTree = "<group>"; };
 		E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArchiveAPI.swift; sourceTree = "<group>"; };
@@ -1355,7 +1347,6 @@
 				5B4A239323B1B64000447366 /* Dashboard */,
 				5B2097BD23B4681A0079B421 /* List */,
 				58C009CF2398A40F00302F49 /* Charts */,
-				5832FC23237A863300FA3196 /* UnderlinedTextField.swift */,
 				5832FC24237A863300FA3196 /* Label.swift */,
 				5832FC26237A863300FA3196 /* SubmitButton.swift */,
 				5832FC27237A863300FA3196 /* NoInternetBanner.swift */,
@@ -1369,7 +1360,6 @@
 				5832FC29237A863300FA3196 /* TableViewCell.swift */,
 				5832FC31237A863300FA3196 /* Switch.swift */,
 				5832FC32237A863300FA3196 /* TextField.swift */,
-				E27959E12386B8C1000E9CB9 /* TextFieldWithRightIcon.swift */,
 				5832FC33237A863300FA3196 /* IconButtonView.swift */,
 				5832FC34237A863300FA3196 /* SeparateLine.swift */,
 				5832FC35237A863300FA3196 /* ImageView.swift */,
@@ -2926,7 +2916,6 @@
 				5B93230823A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				5832FC5B237A863300FA3196 /* ImageView.swift in Sources */,
 				E21EF9F7239111E3004D4513 /* UsageService.swift in Sources */,
-				E27959E22386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203A2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				5832FCB5237A9FD700FA3196 /* Navigator.swift in Sources */,
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
@@ -3011,7 +3000,6 @@
 				5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
 				5B93B2B123D59D17004CCD51 /* Deeplink.swift in Sources */,
 				5832FC43237A863300FA3196 /* ThemeManager.swift in Sources */,
-				5832FC49237A863300FA3196 /* UnderlinedTextField.swift in Sources */,
 				5832D6E4238BBE390074AEDC /* UsageViewModel.swift in Sources */,
 				5B93230023A3635E00C3C408 /* SignOutViewController.swift in Sources */,
 				E28B561B238D21A700F1BCF2 /* NotificationPermission.swift in Sources */,
@@ -3139,7 +3127,6 @@
 				5B5DFFF223A1F0F4003D1A1C /* ImageView.swift in Sources */,
 				5B93230A23A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				5B5DFFF323A1F0F4003D1A1C /* UsageService.swift in Sources */,
-				5B5DFFF423A1F0F4003D1A1C /* TextFieldWithRightIcon.swift in Sources */,
 				5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */,
 				5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */,
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
@@ -3219,7 +3206,6 @@
 				5B4A239123B118E500447366 /* SectionHeadingView.swift in Sources */,
 				5B5D002D23A1F0F4003D1A1C /* ThemeManager.swift in Sources */,
 				5B4A237923B1132E00447366 /* UsageBadgeView.swift in Sources */,
-				5B5D002E23A1F0F4003D1A1C /* UnderlinedTextField.swift in Sources */,
 				5B5D002F23A1F0F4003D1A1C /* ListHeadingViewCell.swift in Sources */,
 				5B4A238123B1145100447366 /* TimeFilterView.swift in Sources */,
 				5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
@@ -3349,7 +3335,6 @@
 				E2DB6692237D3B69005367C2 /* ImageView.swift in Sources */,
 				5B93230923A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift in Sources */,
 				E21EF9F8239111E3004D4513 /* UsageService.swift in Sources */,
-				E27959E32386B8C1000E9CB9 /* TextFieldWithRightIcon.swift in Sources */,
 				E244203B2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				E2DB6693237D3B69005367C2 /* Navigator.swift in Sources */,
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
@@ -3429,7 +3414,6 @@
 				5B4A239023B118E500447366 /* SectionHeadingView.swift in Sources */,
 				E2DB66AB237D3B69005367C2 /* ThemeManager.swift in Sources */,
 				5B4A237823B1132E00447366 /* UsageBadgeView.swift in Sources */,
-				E2DB66AC237D3B69005367C2 /* UnderlinedTextField.swift in Sources */,
 				E22BC2EC239E3FF000018BC4 /* ListHeadingViewCell.swift in Sources */,
 				5B4A238023B1145100447366 /* TimeFilterView.swift in Sources */,
 				5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
@@ -3889,7 +3873,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3914,7 +3898,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Dev.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 15;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Dev-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -26,13 +26,6 @@
 "askNotifications.title" = "Notifications";
 "askNotifications.description" = "Facebook may take a few days to prepare your data archive, depending on how much data you have.\n\nWould you like us to remind you to check back here? If not, you will need to remember on your own to check if your backup is ready.";
 
-"getYourData.screenTitle" = "Get Your Data";
-"getYourData.login.placeholder" = "Facebook login";
-"getYourData.password.placeholder" = "Facebook password";
-"getYourData.giveAutomateTrust" = "We’ll only use your Facebook login information to automate your back up.\n\nYour login is stored on your device, never in the Cloud.";
-"getYourData.authorize.automate" = "Authorize »";
-"getYourData.authorize.manual" = "Prefer not to automate this?";
-
 "guide.automating" = "Automating... Please wait.";
 "guide.requiredHelp" = "Your Help is Required";
 "guide.requiredLogin" = "Login To Get Your Data";
@@ -143,10 +136,7 @@
 "account.about.title" = "About";
 "account.about.description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum metus scelerisque vehicula mattis. Quisque molestie nisl et mauris laoreet, sed euismod ipsum tempor. Pellentesque mattis lobortis lacus, sed interdum leo gravida non. Etiam nulla erat, auctor eu odio ac, tincidunt ultricies ante. Aenean eleifend pharetra dolor. Mauris urna orci, consectetur eu vulputate in, pretium vitae tellus.";
 
-"account.faq.title" = "FAQ";
-"account.faq.description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultricies integer quis auctor elit sed vulputate mi sit. Ac tortor dignissim convallis aenean et tortor at risus viverra. Facilisi nullam vehicula ipsum a arcu. Ut etiam sit amet nisl purus in. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Leo in vitae turpis massa sed elementum tempus. Dictum fusce ut placerat orci nulla pellentesque dignissim. Eu non diam phasellus vestibulum lorem sed. Sollicitudin ac orci phasellus egestas tellus rutrum tellus pellentesque eu. Scelerisque purus semper eget duis at tellus. Aenean euismod elementum nisi quis eleifend quam adipiscing vitae. Condimentum id venenatis a condimentum. Adipiscing at in tellus integer feugiat scelerisque varius. Risus nec feugiat in fermentum posuere urna. Tristique magna sit amet purus gravida quis blandit turpis cursus. Nisi quis eleifend quam adipiscing vitae. Fermentum iaculis eu non diam. In eu mi bibendum neque egestas congue quisque egestas diam. Non consectetur a erat nam at lectus urna duis. Bibendum neque egestas congue quisque egestas diam in. Nec ullamcorper sit amet risus nullam eget. Tellus integer feugiat scelerisque varius morbi enim nunc. Amet dictum sit amet justo donec. Facilisis volutpat est velit egestas dui id ornare arcu. Mi ipsum faucibus vitae aliquet. Pretium viverra suspendisse potenti nullam ac tortor vitae. Suspendisse sed nisi lacus sed viverra. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Venenatis urna cursus eget nunc scelerisque viverra.";
-
-"releaseNote.title" = "What's New";
+"releaseNote.title" = "What’s New";
 "releaseNote.appVersion" = "Version %@";
 "releaseNote.letUsKnow" = "let us know";
 "releaseNote.content" = "%@\nWe value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";

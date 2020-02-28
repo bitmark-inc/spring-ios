@@ -28,6 +28,7 @@ class SignInViewController: ConfirmRecoveryKeyViewController, BackNavigator, Lau
                 guard let self = self else { return }
                 switch event {
                 case .error(let error):
+                    loadingState.onNext(.hide)
                     self.errorWhenSignInAccount(error: error)
                 case .completed:
                     Global.log.info("[done] signIn Account")
