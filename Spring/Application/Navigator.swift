@@ -34,6 +34,8 @@ class Navigator {
         case safari(URL)
         case safariController(URL)
         case hometabs
+        case uploadData(viewModel: UploadDataViewModel)
+        case getYourDataInstruction
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -94,8 +96,17 @@ class Navigator {
             return HomeTabbarController.tabbarController()
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
-        case .incomeQuestion:
-            let viewController = IncomeQuestionViewController()
+
+        case .incomeQuestion, .uploadData, .getYourDataInstruction:
+            let viewController: UIViewController!
+            switch segue {
+            case .incomeQuestion:               viewController = IncomeQuestionViewController()
+        case .uploadData(let viewModel):        viewController = UploadDataViewController(viewModel: viewModel)
+            case .getYourDataInstruction:       viewController = GetYourDataInstructionViewController()
+            default:
+                viewController = UIViewController()
+            }
+
             viewController.hidesBottomBarWhenPushed = true
             return viewController
 

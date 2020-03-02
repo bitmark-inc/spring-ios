@@ -208,8 +208,12 @@ class UsageViewController: ViewController {
                 switch appArchiveStatus {
                 case .none:
                     dependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.navigationController?.tabBarItem.badgeValue = "1"
+
                 case .processing:
                     dependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
+                    self.navigationController?.tabBarItem.badgeValue = nil
+
                 case .processed:
                     dependentUsageSections.flex.addItem(self.moodView)
                     dependentUsageSections.flex.addItem(SectionSeparator())
@@ -223,6 +227,7 @@ class UsageViewController: ViewController {
                     dependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
                     dependentUsageSections.flex.addItem(self.reactionsFilterDayView)
                     dependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
+                    self.navigationController?.tabBarItem.badgeValue = nil
                 }
 
                 dependentUsageSections.flex.markDirty()
@@ -302,7 +307,7 @@ extension UsageViewController {
     fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
         let requestUploadDataView = RequestUploadDataView()
         requestUploadDataView.containerLayoutDelegate = self
-        requestUploadDataView.setProperties(section: .askToUploadData, container: self)
+        requestUploadDataView.setProperties(section: .requestUploadData, container: self)
         return requestUploadDataView
     }
 }

@@ -29,6 +29,8 @@ class HomeTabbarController: ESTabBarController {
             title: R.string.localizable.usage().localizedUppercase,
             image: R.image.usage_tab_icon(),
             tag: 1)
+        usageNavVC.tabBarItem.badgeColor = ColorTheme.cognac.color
+
 
         let settingsVC = AccountViewController(viewModel: AccountViewModel())
         let settingsNavVC = NavigationController(rootViewController: settingsVC)
@@ -41,6 +43,7 @@ class HomeTabbarController: ESTabBarController {
 
         let tabbarController = HomeTabbarController()
         tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
+        tabbarController.selectedIndex = 1
 
         return tabbarController
     }
@@ -83,7 +86,7 @@ class HomeTabbarController: ESTabBarController {
 class MainTabbarItemContentView: ESTabBarItemContentView {
     let disposeBag = DisposeBag()
     let selectedIndicatorLineView = UIView()
-    
+
     convenience init(highlightColor: UIColor) {
         self.init()
         

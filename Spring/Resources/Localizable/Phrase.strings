@@ -46,6 +46,10 @@
 
 "income.description" = "Income Facebook made from you since %@";
 
+"requestUploadData.title" = "See More Analytics";
+"requestUploadData.description" = "XXX";
+"requestUploadData.action" = "Upload Facebook data »";
+
 "adsCategory.header" = "CATEGORIES FOR ADS";
 "adsCategory.description" = "These categories are based on your activity. They are used by advertisers to personalize your information.";
 
@@ -60,6 +64,19 @@
 "aggAnalysis.heading" = "All Of Spring";
 "aggAnalysis.subHeading" = "aggregate analysis";
 "aggAnalysis.springUserAvergatePosts" = "SPRING users average";
+
+"uploadData.title" = "Upload";
+"uploadData.description" = "Instructions on how to %@. Please save your Facebook data archive .zip file to any cloud storage such as Google Drive, iCloud, Dropbox, etc.";
+"uploadData.gotoInstruction" = "get your Facebook data";
+"uploadData.browserFile" = "Upload Facebook archive (.zip) »";
+"uploadData.provideURL" = "Provide downloadable URL";
+
+"instruction.getYourData.title" = "Get Your Data";
+"instruction.getYourData." = "Facebook login";
+"getYourData.password.placeholder" = "Facebook password";
+"getYourData.giveAutomateTrust" = "We’ll only use your Facebook login information to automate your back up.\n\nYour login is stored on your device, never in the Cloud.";
+"getYourData.authorize.automate" = "Authorize »";
+"getYourData.authorize.manual" = "Prefer not to automate this?";
 
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
