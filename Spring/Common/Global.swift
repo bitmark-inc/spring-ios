@@ -77,7 +77,6 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
-        UserDefaults.standard.FBArchiveCreatedAt = nil
         Global.current.userDefault?.latestArchiveStatus = nil
 
         // clear user cookie in webview
@@ -164,11 +163,6 @@ enum AccountError: Error {
 extension UserDefaults {
     static func userStandard(for number: String) -> UserDefaults? {
         return UserDefaults(suiteName: number)
-    }
-
-    var FBArchiveCreatedAt: Date? {
-        get { return date(forKey: #function) }
-        set { set(newValue, forKey: #function) }
     }
 
     var enteredBackgroundTime: Date? {

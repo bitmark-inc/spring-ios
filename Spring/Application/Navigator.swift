@@ -31,11 +31,9 @@ class Navigator {
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
         case howItWorks
-        case requestData(viewModel: RequestDataViewModel)
-        case checkDataRequested
         case safari(URL)
         case safariController(URL)
-        case hometabs(isArchiveStatusBoxShowed: Bool)
+        case hometabs
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -83,8 +81,6 @@ class Navigator {
             return trustIsCriticalViewController
 
         case .howItWorks: return HowItWorksViewController()
-        case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
-        case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil
@@ -94,8 +90,8 @@ class Navigator {
             vc.hidesBottomBarWhenPushed = true
             return vc
 
-        case .hometabs(let isArchiveStatusBoxShowed):
-            return HomeTabbarController.tabbarController(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed)
+        case .hometabs:
+            return HomeTabbarController.tabbarController()
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
         case .incomeQuestion:
@@ -223,46 +219,6 @@ class Navigator {
             }
         default: break
         }
-    }
-
-    static func refreshOnboardingStateIfNeeded() {
-        _ = AppVersion.checkAppVersion()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onCompleted: {
-                guard let window = getWindow() else {
-                    Global.log.error("window is empty")
-                    return
-                }
-
-                guard let rootViewController = getRootViewController() else {
-                    Global.log.error("rootViewController is empty")
-                    return
-                }
-
-                // check if scene is on onboarding flow's refresh state
-                guard let currentVC = rootViewController.viewControllers.last else { return }
-
-                guard (type(of: currentVC) == HomeTabbarController.self && (currentVC as! HomeTabbarController).selectedIndex != 2 && AppArchiveStatus.currentState != .done)
-                    else {
-                        return
-                }
-
-                Navigator.default.show(segue: .launchingNavigation, sender: nil, transition: .root(in: window))
-            }, onError: { (error) in
-                if let error = error as? AppError {
-                    switch error {
-                    case .requireAppUpdate(let updateURL):
-                        AppVersion.showAppRequireUpdateAlert(updateURL: updateURL)
-                        return
-                    case .noInternetConnection:
-                        return
-                    default:
-                        break
-                    }
-                }
-
-                Global.log.error(error)
-            })
     }
 
     static let requireAuthorizationTime = 30 // minutes

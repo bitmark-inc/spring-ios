@@ -40,15 +40,6 @@ class ArchiveStatusBox: UIView {
     let disposeBag = DisposeBag()
     var heightConstraint: Constraint!
 
-    var appArchiveStatus: AppArchiveStatus = .none {
-        didSet {
-            if appArchiveStatus == .stillWaiting {
-                statusLabel.setText(R.string.phrase.dataRequestedWaitingTitle())
-                descriptionLabel.setText(R.string.phrase.dataRequestedWaitingDescription())
-            }
-        }
-    }
-
     // MARK: - Properties
     override init(frame: CGRect) {
         super.init(frame: frame)

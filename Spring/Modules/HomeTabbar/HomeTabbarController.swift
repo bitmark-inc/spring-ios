@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 
 class HomeTabbarController: ESTabBarController {
-    class func tabbarController(isArchiveStatusBoxShowed: Bool) -> HomeTabbarController {
+    class func tabbarController() -> HomeTabbarController {
         let insightsVC = InsightViewController(viewModel: InsightViewModel())
         let insightsNavVC = NavigationController(rootViewController: insightsVC)
         insightsNavVC.tabBarItem = ESTabBarItem(
@@ -40,29 +40,11 @@ class HomeTabbarController: ESTabBarController {
         )
 
         let tabbarController = HomeTabbarController()
-        tabbarController.isArchiveStatusBoxShowed = isArchiveStatusBoxShowed
         tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
 
         return tabbarController
     }
 
-    lazy var archiveStatusBox = makeArchiveStatusBox()
-    lazy var appArchiveStatus = AppArchiveStatus.currentState
-    var isArchiveStatusBoxShowed: Bool = true {
-        didSet {
-            if isArchiveStatusBoxShowed && appArchiveStatus == .stillWaiting {
-                view.insertSubview(archiveStatusBox, belowSubview: tabBar)
-
-                archiveStatusBox.snp.makeConstraints { (make) in
-                    make.width.equalToSuperview()
-                    make.leading.trailing.equalToSuperview()
-                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-tabBar.height)
-                }
-            } else {
-                archiveStatusBox.removeFromSuperview()
-            }
-        }
-    }
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -87,12 +69,6 @@ class HomeTabbarController: ESTabBarController {
                 self.registerOneSignal()
             })
             .disposed(by: disposeBag)
-    }
-
-    fileprivate func makeArchiveStatusBox() -> ArchiveStatusBox {
-        let box = ArchiveStatusBox()
-        box.appArchiveStatus = AppArchiveStatus.currentState
-        return box
     }
 }
 
