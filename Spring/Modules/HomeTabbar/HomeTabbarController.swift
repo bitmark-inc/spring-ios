@@ -60,12 +60,20 @@ class HomeTabbarController: ESTabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        ArchiveDataEngine.fetchAppArchiveStatus()
+            .subscribe(onSuccess: {
+                Global.current.userDefault?.latestAppArchiveStatus = $0
+                AppArchiveStatus.currentState.accept($0)
+            }, onError: { (error) in
+                Global.log.error(error)
+            })
+            .disposed(by: disposeBag)
+
         NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
             .observeOn(MainScheduler.instance)
             .subscribe(onSuccess: { [weak self] (authorizationStatus) in
                 guard let self = self, authorizationStatus == .authorized else { return }
 
-                self.scheduleReminderNotificationIfNeeded()
                 self.registerOneSignal()
             })
             .disposed(by: disposeBag)

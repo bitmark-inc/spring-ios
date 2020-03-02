@@ -10,7 +10,33 @@ import Foundation
 import RealmSwift
 import RxSwift
 
-class InsightDataEngine {
+protocol InsightDataEngineDelegate {
+    static func fetchInsight() throws -> Results<UserInfo>
+    static func syncInsight()
+}
+
+class InsightDataEngine: InsightDataEngineDelegate {
+    static let disposeBag = DisposeBag()
+
+    static func fetchInsight() throws -> Results<UserInfo> {
+        guard Thread.current.isMainThread else {
+            throw AppError.incorrectThread
+        }
+
+        let realm = try RealmConfig.currentRealm()
+        return realm.objects(UserInfo.self).filter("key == %@", UserInfoKey.insight.rawValue)
+    }
+
+    static func syncInsight() {
+        InsightService.getAsUserInfo()
+            .flatMapCompletable { Storage.store($0) }
+            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .subscribe(onError: { (error) in
+                Global.backgroundErrorSubject.onNext(error)
+            })
+            .disposed(by: disposeBag)
+    }
+
     static func fetchAdsCategoriesInfo() -> UserInfo? {
         autoreleasepool {
             do {
@@ -42,54 +68,6 @@ class InsightDataEngine {
                 Global.log.error(error)
                 return false
             }
-        }
-    }
-}
-
-extension InsightDataEngine: ReactiveCompatible {}
-
-extension Reactive where Base: InsightDataEngine {
-
-    static func fetchAndSyncInsight() -> Single<UserInfo?> {
-        Global.log.info("[start] InsightDataEngine.rx.fetchAndSyncInsight")
-
-        return Single<UserInfo?>.create { (event) -> Disposable in
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else {
-                        throw AppError.incorrectThread
-                    }
-
-                    let realm = try RealmConfig.currentRealm()
-
-                    let insightsInfo = realm.object(ofType: UserInfo.self, forPrimaryKey: UserInfoKey.insight.rawValue)
-
-                    if insightsInfo != nil {
-                        event(.success(insightsInfo))
-
-                        _ = InsightService.getInUserInfo()
-                            .flatMapCompletable { Storage.store($0) }
-                            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-                            .subscribe(onError: { (error) in
-                                Global.backgroundErrorSubject.onNext(error)
-                            })
-                    } else {
-                        _ = InsightService.getInUserInfo()
-                            .flatMapCompletable { Storage.store($0) }
-                            .observeOn(MainScheduler.instance)
-                            .subscribe(onCompleted: {
-                                let insightsInfo = realm.object(ofType: UserInfo.self, forPrimaryKey: UserInfoKey.insight.rawValue)
-                                event(.success(insightsInfo))
-                            }, onError: { (error) in
-                                event(.error(error))
-                            })
-                    }
-                } catch {
-                    event(.error(error))
-                }
-            }
-
-            return Disposables.create()
         }
     }
 }

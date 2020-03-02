@@ -26,20 +26,16 @@ class IncomeView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column)
+            .padding(30, 0, 40, 0)
+            .alignItems(.center)
             .define { (flex) in
-                flex.addItem(SectionSeparator())
-
                 flex.addItem()
-                    .padding(30, 0, 40, 0)
-                    .alignItems(.center).define { (flex) in
-                        flex.addItem()
-                            .alignItems(.start)
-                            .direction(.row).define { (flex) in
-                                flex.addItem(amountLabel).marginLeft(44)
-                                flex.addItem(questionButton).marginTop(-15).marginLeft(3)
-                        }
-                        flex.addItem(descriptionLabel).marginTop(18)
-                    }
+                    .alignItems(.start)
+                    .direction(.row).define { (flex) in
+                        flex.addItem(amountLabel).marginLeft(44)
+                        flex.addItem(questionButton).marginTop(-15).marginLeft(3)
+                }
+                flex.addItem(descriptionLabel).marginTop(18)
             }
     }
 

@@ -27,15 +27,16 @@ class InsightViewController: ViewController {
     lazy var fbIncomeView = makeFBIncomeView()
     lazy var adsCategoryView = makeAdsCategoryView()
     lazy var moreInsightsComingView = makeMoreInsightsComingView()
+    lazy var dependentInsightsSections = UIView()
 
     // SECTION: FB Income
     lazy var realmInsightObservable: Observable<Insight> = {
-        thisViewModel.realmInsightsInfoRelay.filterNil()
+        thisViewModel.realmInsightInfoResultsRelay.filterNil()
+            .flatMap { Observable.changeset(from: $0) }
+            .map { $0.0.first }.filterNil()
             .flatMap { Observable.from(object: $0) }
             .map { $0.valueObject() }.filterNil()
     }()
-
-    lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         if #available(iOS 13.0, *) {
@@ -60,12 +61,21 @@ class InsightViewController: ViewController {
                 }
             })
             .disposed(by: disposeBag)
+    }
 
-        viewModel.fetchQuickInsight()
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
-        if appArchiveStatus == .done {
-            viewModel.fetchInsight()
-        }
+        // observes AppArchiveStatus to fetch insight data
+        AppArchiveStatus.currentState
+            .subscribe(onNext: { [weak self] (archiveStatus) in
+                guard let self = self else { return }
+                switch archiveStatus {
+                case .processed: self.thisViewModel.fetchInsight()
+                default: break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     func errorWhenFetchingData(error: Error) {
@@ -88,13 +98,7 @@ class InsightViewController: ViewController {
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(SectionSeparator())
-            flex.addItem(adsCategoryView)
-
-            if appArchiveStatus == .done {
-                flex.addItem(fbIncomeView)
-            } else {
-                flex.addItem(moreInsightsComingView)
-            }
+            flex.addItem(dependentInsightsSections)
             flex.addItem(SectionSeparator())
         }
 
@@ -103,6 +107,30 @@ class InsightViewController: ViewController {
             .direction(.column).define { (flex) in
                 flex.addItem(scroll).height(100%)
         }
+
+        observeArchiveStatusToBuildInsights()
+    }
+
+    func observeArchiveStatusToBuildInsights() {
+        AppArchiveStatus.currentState
+            .filterNil()
+            .distinctUntilChanged { $0.rawValue == $1.rawValue }
+            .subscribe(onNext: { [weak self, weak dependentInsightsSections] (appArchiveStatus) in
+                guard let self = self, let dependentInsightsSections = dependentInsightsSections else { return }
+                dependentInsightsSections.removeSubviews()
+                switch appArchiveStatus {
+                case .none:
+                    break
+                case .processing:
+                    dependentInsightsSections.flex.addItem(self.moreInsightsComingView)
+                case .processed:
+                    dependentInsightsSections.flex.addItem(self.fbIncomeView)
+                }
+
+                dependentInsightsSections.flex.markDirty()
+                self.layout()
+            })
+            .disposed(by: disposeBag)
     }
 }
 

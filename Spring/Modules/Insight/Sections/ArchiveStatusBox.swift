@@ -12,22 +12,16 @@ import RxCocoa
 import FlexLayout
 import SnapKit
 
-enum AppArchiveStatus {
-    case stillWaiting
-    case done
+enum AppArchiveStatus: String {
+    case processing
+    case processed
     case none
 
-    static var currentState: Self {
-        if UserDefaults.standard.FBArchiveCreatedAt != nil {
-            return .stillWaiting
-        }
-
-        let archiveStatus = ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? "")
-        switch archiveStatus {
-        case .processed: return .done
-        default: return .none
-        }
+    static var localLatestArchiveStatus: AppArchiveStatus {
+        return Global.current.userDefault?.latestAppArchiveStatus ?? .none
     }
+
+    static var currentState = BehaviorRelay<AppArchiveStatus?>(value: localLatestArchiveStatus)
 }
 
 class ArchiveStatusBox: UIView {

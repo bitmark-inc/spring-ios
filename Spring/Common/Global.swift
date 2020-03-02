@@ -77,7 +77,7 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
-        Global.current.userDefault?.latestArchiveStatus = nil
+        Global.current.userDefault?.latestAppArchiveStatus = nil
 
         // clear user cookie in webview
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
@@ -92,6 +92,7 @@ class Global {
         SettingsBundle.setAccountNumber(accountNumber: nil)
 
         Global.current = Global() // reset local variable
+        AppArchiveStatus.currentState.accept(nil)
         AuthService.shared = AuthService()
         Intercom.logout()
         OneSignal.setSubscription(false)
@@ -187,9 +188,9 @@ extension UserDefaults {
     }
 
     // Per Account
-    var latestArchiveStatus: String? {
-        get { return string(forKey: #function) }
-        set { set(newValue, forKey: #function) }
+    var latestAppArchiveStatus: AppArchiveStatus? {
+        get { return AppArchiveStatus(rawValue: string(forKey: #function) ?? "") }
+        set { set(newValue?.rawValue, forKey: #function) }
     }
 
     var isAccountSecured: Bool {

@@ -11,11 +11,34 @@ import BitmarkSDK
 import RealmSwift
 import RxSwift
 
-class ArchiveDataEngine {}
+protocol ArchiveDataEngineDelegate {
+    static func store(_ archives: [Archive]) -> Completable
+    static func issueBitmarkIfNeeded() -> Completable
+    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus>
+}
 
-extension ArchiveDataEngine: ReactiveCompatible {}
+class ArchiveDataEngine: ArchiveDataEngineDelegate {
+    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus> {
+        return FBArchiveService.getAll()
+            .do(onSuccess: { (archives) in
+                _ = ArchiveDataEngine.store(archives)
+                    .andThen(ArchiveDataEngine.issueBitmarkIfNeeded())
+                    .subscribe(onCompleted: {
+                        Global.log.info("[done] storeAndIssueBitmarkIfNeeded")
+                    }, onError: { (error) in
+                        Global.log.error(error)
+                    })
+            })
+            .map { (archives) -> AppArchiveStatus in
+                guard archives.count > 0 else {
+                    return .none
+                }
 
-extension Reactive where Base: ArchiveDataEngine {
+                return archives.firstIndex(where: { $0.status == ArchiveStatus.processed.rawValue }) != nil ?
+                    .processed :
+                    .processing
+            }
+    }
 
     static func store(_ archives: [Archive]) -> Completable {
         return RealmConfig.rxCurrentRealm()

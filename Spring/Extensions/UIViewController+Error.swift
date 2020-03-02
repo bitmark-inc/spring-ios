@@ -40,6 +40,25 @@ extension UIViewController {
         alertController.preferredAction = supportButton
         alertController.show()
     }
+
+    func handleErrorIfAsAFError(_ error: Error) -> Bool {
+        guard let error = error.asAFError else {
+            return false
+        }
+
+        switch error {
+        case .sessionTaskFailed(let error):
+            showErrorAlert(message: error.localizedDescription)
+            Global.log.info("[done] handle AFError; show error: \(error.localizedDescription)")
+            Global.log.error(error)
+            return true
+
+        default:
+            break
+        }
+
+        return false
+    }
 }
 
 struct ErrorAlert {
@@ -81,5 +100,25 @@ struct ErrorAlert {
         alertController.addAction(supportButton)
         alertController.preferredAction = supportButton
         alertController.show()
+    }
+}
+
+extension Global {
+    static func handleErrorIfAsAFError(_ error: Error) -> Bool {
+        guard let error = error.asAFError else {
+            return false
+        }
+
+        switch error {
+        case .sessionTaskFailed(let error):
+            Global.log.info("[done] handle silently AFError; show error: \(error.localizedDescription)")
+            Global.log.error(error)
+            return true
+
+        default:
+            break
+        }
+
+        return false
     }
 }
