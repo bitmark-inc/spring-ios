@@ -30,7 +30,7 @@ class Navigator {
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
-        case howItWorks
+        case howItWorks(viewModel: HowItWorksViewModel)
         case safari(URL)
         case safariController(URL)
         case hometabs
@@ -80,7 +80,7 @@ class Navigator {
             trustIsCriticalViewController.buttonItemType = buttonItemType
             return trustIsCriticalViewController
 
-        case .howItWorks: return HowItWorksViewController()
+        case .howItWorks(let viewModel): return HowItWorksViewController(viewModel: viewModel)
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil

@@ -23,9 +23,36 @@ class HowItWorksViewController: ViewController, BackNavigator {
     override func bindViewModel() {
         super.bindViewModel()
 
-        continueButton.rx.tap.bind { [weak self] in
-            self?.gotoRequestDataScreen()
+        guard let viewModel = viewModel as? HowItWorksViewModel else { return }
+
+        viewModel.signUpResultSubject
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .error(let error):
+                    self.errorWhenSignUp(error: error)
+                case .completed:
+                    Global.log.info("[done] SignUp")
+                    self.gotoHomeTab()
+                default:
+                    break
+                }
+            }).disposed(by: disposeBag)
+
+        continueButton.rx.tap.bind {
+            viewModel.signUp()
         }.disposed(by: disposeBag)
+    }
+
+    fileprivate func errorWhenSignUp(error: Error) {
+        guard !AppError.errorByNetworkConnection(error),
+            !handleErrorIfAsAFError(error),
+            !showIfRequireUpdateVersion(with: error) else {
+                return
+        }
+
+        Global.log.error(error)
+        showErrorAlertWithSupport(message: R.string.error.system())
     }
 
     override func setupViews() {
@@ -82,10 +109,9 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension HowItWorksViewController {
-    func gotoRequestDataScreen() {
-        let viewModel = RequestDataViewModel(missions: [.requestData, .getCategories])
-        navigator.show(segue: .requestData(viewModel: viewModel), sender: self)
-    }
+    fileprivate func gotoHomeTab() {
+       navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
+   }
 }
 
 extension HowItWorksViewController {

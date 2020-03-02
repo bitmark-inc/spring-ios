@@ -497,6 +497,9 @@
 		5BA9FF6F23B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
 		5BA9FF7023B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
 		5BA9FF7123B23CAA00E57A20 /* IncomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */; };
+		5BAAE58C240672980073F93A /* HowItWorksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAAE58B240672980073F93A /* HowItWorksViewModel.swift */; };
+		5BAAE58D240672980073F93A /* HowItWorksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAAE58B240672980073F93A /* HowItWorksViewModel.swift */; };
+		5BAAE58E240672980073F93A /* HowItWorksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BAAE58B240672980073F93A /* HowItWorksViewModel.swift */; };
 		5BB067D023ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
 		5BB067D123ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
 		5BB067D223ED0F960059C642 /* HomeTabbarController+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */; };
@@ -993,6 +996,7 @@
 		5BA9FF6623B2294900E57A20 /* InsightService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightService.swift; sourceTree = "<group>"; };
 		5BA9FF6A23B22A9400E57A20 /* InsightDataEngine+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InsightDataEngine+Rx.swift"; sourceTree = "<group>"; };
 		5BA9FF6E23B23CAA00E57A20 /* IncomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeView.swift; sourceTree = "<group>"; };
+		5BAAE58B240672980073F93A /* HowItWorksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowItWorksViewModel.swift; sourceTree = "<group>"; };
 		5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTabbarController+Notification.swift"; sourceTree = "<group>"; };
 		5BB2852923A33796000C04CA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5BB2852E23A34235000C04CA /* SettingsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundle.swift; sourceTree = "<group>"; };
@@ -2062,6 +2066,7 @@
 		E29F5A782383F8C900C1D9D8 /* How It Works */ = {
 			isa = PBXGroup;
 			children = (
+				5BAAE58B240672980073F93A /* HowItWorksViewModel.swift */,
 				E29F5A7C2383F8FD00C1D9D8 /* HowItWorksViewController.swift */,
 			);
 			path = "How It Works";
@@ -2822,6 +2827,7 @@
 				5B32F5B723CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */,
 				5832FC5D237A863300FA3196 /* Button.swift in Sources */,
 				5B4A23A523B21CD400447366 /* SectionSeparator.swift in Sources */,
+				5BAAE58C240672980073F93A /* HowItWorksViewModel.swift in Sources */,
 				5832FC11237A85B000FA3196 /* AppDelegate.swift in Sources */,
 				5832FC4C237A863300FA3196 /* SubmitButton.swift in Sources */,
 				5832FC58237A863300FA3196 /* TextField.swift in Sources */,
@@ -3031,6 +3037,7 @@
 				5B32F5B923CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */,
 				5B5DFFCA23A1F0F4003D1A1C /* AppDelegate.swift in Sources */,
 				5B4A23A723B21CD400447366 /* SectionSeparator.swift in Sources */,
+				5BAAE58E240672980073F93A /* HowItWorksViewModel.swift in Sources */,
 				5B5DFFCB23A1F0F4003D1A1C /* SubmitButton.swift in Sources */,
 				5B5DFFCC23A1F0F4003D1A1C /* TextField.swift in Sources */,
 				5BC91CC223CC29CB000058A7 /* Converter.swift in Sources */,
@@ -3236,6 +3243,7 @@
 				5B32F5B823CD70B200959DFF /* LaunchingNavigatorDelegate.swift in Sources */,
 				E2DB6681237D3B69005367C2 /* AppDelegate.swift in Sources */,
 				5B4A23A623B21CD400447366 /* SectionSeparator.swift in Sources */,
+				5BAAE58D240672980073F93A /* HowItWorksViewModel.swift in Sources */,
 				E2DB6682237D3B69005367C2 /* SubmitButton.swift in Sources */,
 				E2DB6683237D3B69005367C2 /* TextField.swift in Sources */,
 				5BC91CC123CC29CB000058A7 /* Converter.swift in Sources */,
