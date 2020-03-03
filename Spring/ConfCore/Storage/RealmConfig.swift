@@ -22,15 +22,33 @@ enum RealmConfig {
         guard let accountNumber = Global.current.account?.getAccountNumber() else {
             throw AppError.emptyCurrentAccount
         }
-        let userConfiguration = try RealmConfig.user(accountNumber).configuration()
+        let realmconfig = RealmConfig.user(accountNumber)
+        let userConfiguration = try realmconfig.configuration()
         Global.log.debug("UserRealm: \(userConfiguration)")
-        return try Realm(configuration: userConfiguration)
+
+        do {
+            return try Realm(configuration: userConfiguration)
+        } catch {
+            // Remove current realm file to make realm recreate another file with new schema
+            Global.log.debug("[] renew realm file when migration requires")
+            try realmconfig.deleteCurrentRealmFile()
+            return try Realm(configuration: userConfiguration)
+        }
     }
 
     static func globalRealm() throws -> Realm {
-        let configuration = try RealmConfig.anonymous.configuration()
+        let realmconfig = RealmConfig.anonymous
+        let configuration = try realmconfig.configuration()
         Global.log.debug("globalRealm: \(configuration)")
-        return try Realm(configuration: configuration)
+
+        do {
+            return try Realm(configuration: configuration)
+        } catch {
+            // Remove current realm file to make realm recreate another file with new schema
+            Global.log.debug("[] renew realm file when migration requires")
+            try realmconfig.deleteCurrentRealmFile()
+            return try Realm(configuration: configuration)
+        }
     }
 
     static func rxCurrentRealm() -> Single<Realm> {
@@ -68,6 +86,18 @@ enum RealmConfig {
                 // nothing to do; The addition of properties can be handled automatically
             }
         )
+    }
+
+    private func deleteCurrentRealmFile() throws {
+        var fileURL: URL!
+        switch self {
+        case .anonymous:
+            fileURL = dbDirectoryURL().appendingPathComponent("data.realm")
+        case .user(let accountNumber):
+            fileURL = dbDirectoryURL(for: accountNumber).appendingPathComponent("\(accountNumber).realm")
+        }
+
+        try FileManager.default.removeItem(at: fileURL)
     }
 
     static func removeRealm(of accountNumber: String) throws {

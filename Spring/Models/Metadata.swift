@@ -19,7 +19,7 @@ struct Metadata: Codable {
 }
 
 extension Metadata {
-    var lastActivityDate: Date? {
+    var latestActivityDate: Date? {
         guard let lastActivityTimestamp = lastActivityTimestamp else {
             return nil
         }
