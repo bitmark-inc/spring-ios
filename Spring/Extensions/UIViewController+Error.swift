@@ -76,6 +76,25 @@ struct ErrorAlert {
         return retryAuthenticationAlert
     }
 
+    static func invalidArchiveFileAlert(action: @escaping () -> Void) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: R.string.error.generalTitle(),
+            message: R.string.error.invalidArchiveFile(),
+            preferredStyle: .alert)
+
+        let tryAgainButton = UIAlertAction(
+            title: R.string.localizable.tryAgain(),
+            style: .default, handler: { (_) in action() })
+
+        let contactUsButotn = UIAlertAction(title: R.string.localizable.contact_us(), style: .default) { (_) in
+            Intercom.presentMessenger()
+        }
+
+        alertController.addAction(tryAgainButton)
+        alertController.addAction(contactUsButotn)
+        return alertController
+    }
+
     static func showErrorAlert(message: String) {
         let alertController = UIAlertController(
             title: R.string.error.generalTitle(),

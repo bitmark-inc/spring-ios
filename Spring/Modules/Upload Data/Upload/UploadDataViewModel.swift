@@ -17,13 +17,13 @@ class UploadDataViewModel: ViewModel {
     var downloadableURLRelay = BehaviorRelay<URL?>(value: nil)
 
     // MARK: - Outputs
-    var submitEnabledDriver: Driver<Bool>
+    let submitArchiveDataResultSubject = PublishSubject<Event<Never>>()
 
-    override init() {
-        submitEnabledDriver = BehaviorRelay.combineLatest(archiveZipURLRelay, downloadableURLRelay)
-            .map { $0 != nil || $1 != nil }
-            .asDriver(onErrorJustReturn: false)
+    func submitArchiveData() {
+        if let archiveZipURL = archiveZipURLRelay.value {
+            FBArchiveService.submitByFile(archiveZipURL)
+        } else if let downloadableURL = downloadableURLRelay.value {
 
-        super.init()
+        }
     }
 }

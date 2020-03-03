@@ -35,7 +35,6 @@ class Navigator {
         case safariController(URL)
         case hometabs
         case uploadData(viewModel: UploadDataViewModel)
-        case getYourDataInstruction
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -97,12 +96,11 @@ class Navigator {
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
 
-        case .incomeQuestion, .uploadData, .getYourDataInstruction:
+        case .incomeQuestion, .uploadData:
             let viewController: UIViewController!
             switch segue {
             case .incomeQuestion:               viewController = IncomeQuestionViewController()
-        case .uploadData(let viewModel):        viewController = UploadDataViewController(viewModel: viewModel)
-            case .getYourDataInstruction:       viewController = GetYourDataInstructionViewController()
+            case .uploadData(let viewModel):    viewController = UploadDataViewController(viewModel: viewModel)
             default:
                 viewController = UIViewController()
             }

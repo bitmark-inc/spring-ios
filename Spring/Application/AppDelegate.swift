@@ -98,6 +98,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Navigator.handleDeeplink(url: url)
         return true
     }
+
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        Global.log.info("handleEventsForBackgroundURLSession: \(identifier)")
+        let backgroundSession = BackgroundTaskManager.shared.urlSession(identifier: identifier)
+        Global.log.debug("Rejoining session \(backgroundSession)")
+
+        BackgroundTaskManager.shared.addCompletionHandler(handler: completionHandler, identifier: identifier)
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

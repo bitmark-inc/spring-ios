@@ -33,10 +33,15 @@
 "SubmitArrow" = "Submit »";
 "DownloadArrow" = "Download »";
 
+"Uploading..." = "Uploading...";
+"Processing..." = "Processing";
+"sizeProgress" = "%@ of %@";
+
 "requireAppUpdate.title" = "Update Required";
 "requireAppUpdate.message" = "The Spring app on your device is out of date. Please update Spring to continue using it.";
 "requireAppUpdate.action" = "Update now";
 "ok" = "OK";
+"to_continue:" = "To continue:";
 
 "plural.post" = "posts";
 "plural.link" = "links";
@@ -98,6 +103,7 @@
 "Contact" = "Contact";
 "Cancel" = "Cancel";
 "TryAgain" = "Try Again";
+"Contact_us" = "Contact us";
 "friends.withOther" = "%@ and %@ others";
 
 "Your_posts_and_reactions" = "Your posts & reactions";

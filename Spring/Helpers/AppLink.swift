@@ -16,7 +16,6 @@ enum AppLink: String {
     case support
     case viewRecoveryKey = "view-recovery-key"
     case exportData = "export-data"
-    case getFBDataInstruction = "get-facebook-data-instruction"
 
     var path: String {
         return Constant.appName + "://\(rawValue)"
@@ -26,7 +25,6 @@ enum AppLink: String {
         switch self {
         case .eula:                 return R.string.phrase.eula()
         case .privacyOfPolicy:      return R.string.phrase.privacyPolicy()
-        case .getFBDataInstruction: return R.string.phrase.uploadDataGotoInstruction()
         default:
             return ""
         }

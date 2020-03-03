@@ -65,18 +65,17 @@
 "aggAnalysis.subHeading" = "aggregate analysis";
 "aggAnalysis.springUserAvergatePosts" = "SPRING users average";
 
-"uploadData.title" = "Upload";
-"uploadData.description" = "Instructions on how to %@. Please save your Facebook data archive .zip file to any cloud storage such as Google Drive, iCloud, Dropbox, etc.";
-"uploadData.gotoInstruction" = "get your Facebook data";
-"uploadData.browserFile" = "Upload Facebook archive (.zip) »";
-"uploadData.provideURL" = "Provide downloadable URL";
+"uploadData.title" = "Get Your Data";
+"uploadData.instruction.step1.title" = "Step 1: Request your Facebook data";
+"uploadData.instruction.step1.desc.1" = "Go to %@ and select “Download Your Information”.";
+"uploadData.instruction.step1.desc.2" = "Make sure to select “JSON” for the format.";
 
-"instruction.getYourData.title" = "Get Your Data";
-"instruction.getYourData." = "Facebook login";
-"getYourData.password.placeholder" = "Facebook password";
-"getYourData.giveAutomateTrust" = "We’ll only use your Facebook login information to automate your back up.\n\nYour login is stored on your device, never in the Cloud.";
-"getYourData.authorize.automate" = "Authorize »";
-"getYourData.authorize.manual" = "Prefer not to automate this?";
+"uploadData.instruction.step2.title" = "Step 2: Make your backup";
+"uploadData.instruction.step2.desc.1" = "Facebook will let you know when your data is ready for download. Typically, this takes 1-2 days.";
+"uploadData.instruction.step2.desc.2" = "When notified, store your zip file in the cloud or on this device. We recommend doing this on a fast Internet connection.";
+
+"uploadData.browserFile" = "Add zip file »";
+"uploadData.provideURL" = "Add cloud url";
 
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";

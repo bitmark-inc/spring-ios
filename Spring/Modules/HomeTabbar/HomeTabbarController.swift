@@ -80,6 +80,49 @@ class HomeTabbarController: ESTabBarController {
                 self.registerOneSignal()
             })
             .disposed(by: disposeBag)
+
+        // observe the result of archive uploading
+        BackgroundTaskManager.shared.uploadProgressRelay
+            .map { $0[SessionIdentifier.upload.rawValue] }.filterNil()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .error(let error):
+                    self.handleErrorWhenUpload(error: error)
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Handle Error
+extension HomeTabbarController {
+    fileprivate func handleErrorWhenUpload(error: Error) {
+        if let error = error as? ServerAPIError {
+            switch error.code {
+            case .InvalidArchiveFile:
+                let alertController = ErrorAlert.invalidArchiveFileAlert { [weak self] in
+                    DispatchQueue.main.async {
+                        guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                            let sender = selectedNavigation.topViewController,
+                            !(sender is UploadDataViewController) else { return }
+
+                        let viewModel = UploadDataViewModel()
+                        Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    }
+
+                }
+                alertController.show()
+                return
+            default:
+                break
+            }
+        }
+
+        Global.log.error(error)
     }
 }
 

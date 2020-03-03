@@ -12,12 +12,6 @@ import FlexLayout
 
 class SubmitButton: Button {
 
-    override var isEnabled: Bool {
-        didSet {
-            alpha = isEnabled ? 1 : 0.5
-        }
-    }
-
     override func setupViews() {
         super.setupViews()
 
