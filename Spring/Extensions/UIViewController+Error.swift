@@ -76,10 +76,10 @@ struct ErrorAlert {
         return retryAuthenticationAlert
     }
 
-    static func invalidArchiveFileAlert(action: @escaping () -> Void) -> UIAlertController {
+    static func invalidArchiveFileAlert(message: String, action: @escaping () -> Void) -> UIAlertController {
         let alertController = UIAlertController(
             title: R.string.error.generalTitle(),
-            message: R.string.error.invalidArchiveFile(),
+            message: message,
             preferredStyle: .alert)
 
         let tryAgainButton = UIAlertAction(

@@ -41,6 +41,7 @@ class ProgressView: UIView {
                 AppArchiveStatus.currentState
                     .subscribe(onNext: { [weak self] (appArchiveStatus) in
                         guard let self = self else { return }
+                        self.isHidden = false
                         switch appArchiveStatus {
                         case .processing:
                             self.indeterminateProgressBar.isHidden = false
@@ -57,8 +58,8 @@ class ProgressView: UIView {
                     })
                     .disposed(by: disposeBag)
 
-            default:
-                break
+            case .error:
+                self.isHidden = true
             }
 
             flex.markDirty()

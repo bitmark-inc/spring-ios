@@ -101,28 +101,29 @@ class HomeTabbarController: ESTabBarController {
 // MARK: - Handle Error
 extension HomeTabbarController {
     fileprivate func handleErrorWhenUpload(error: Error) {
+        var errorMessage = R.string.error.system()
         if let error = error as? ServerAPIError {
             switch error.code {
             case .InvalidArchiveFile:
-                let alertController = ErrorAlert.invalidArchiveFileAlert { [weak self] in
-                    DispatchQueue.main.async {
-                        guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
-                            let sender = selectedNavigation.topViewController,
-                            !(sender is UploadDataViewController) else { return }
-
-                        let viewModel = UploadDataViewModel()
-                        Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
-                    }
-
-                }
-                alertController.show()
-                return
+                errorMessage = R.string.error.invalidArchiveFile()
             default:
                 break
             }
         }
 
         Global.log.error(error)
+        let alertController = ErrorAlert.invalidArchiveFileAlert(message: errorMessage) { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                    let sender = selectedNavigation.topViewController,
+                    !(sender is UploadDataViewController) else { return }
+
+                let viewModel = UploadDataViewModel()
+                Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+            }
+
+        }
+        alertController.show()
     }
 }
 
