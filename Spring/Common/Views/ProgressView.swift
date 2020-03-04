@@ -22,6 +22,14 @@ class ProgressView: UIView {
 
     let disposeBag = DisposeBag()
 
+    override var isHidden: Bool {
+        didSet {
+            if !isHidden {
+                loadingState.onNext(.hide)
+            }
+        }
+    }
+
     var progressInfo: ProgressInfo? {
         didSet {
             guard let progressInfo = progressInfo else { return }

@@ -61,7 +61,7 @@ class HomeTabbarController: ESTabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        syncAppArchiveStatus()
+        Global.syncAppArchiveStatus()
 
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
             guard let self = self else { return }
@@ -82,21 +82,10 @@ class HomeTabbarController: ESTabBarController {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
-                    self.syncAppArchiveStatus()
+                    Global.syncAppArchiveStatus()
                 default:
                     break
                 }
-            })
-            .disposed(by: disposeBag)
-    }
-
-    fileprivate func syncAppArchiveStatus() {
-        ArchiveDataEngine.fetchAppArchiveStatus()
-            .subscribe(onSuccess: {
-                Global.current.userDefault?.latestAppArchiveStatus = $0
-                AppArchiveStatus.currentState.accept($0)
-            }, onError: { (error) in
-                Global.log.error(error)
             })
             .disposed(by: disposeBag)
     }

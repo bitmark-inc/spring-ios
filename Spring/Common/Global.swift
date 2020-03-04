@@ -19,6 +19,7 @@ class Global {
     static var current = Global()
     static let `default` = current
     static let backgroundErrorSubject = PublishSubject<Error>()
+    static let disposeBag = DisposeBag()
 
     var account: Account?
     var currency: Currency?
@@ -100,6 +101,17 @@ class Global {
         OneSignal.setSubscription(false)
         OneSignal.deleteTag(Constant.OneSignalTag.key)
         ErrorReporting.setUser(bitmarkAccountNumber: nil)
+    }
+
+    static func syncAppArchiveStatus() {
+        ArchiveDataEngine.fetchAppArchiveStatus()
+            .subscribe(onSuccess: {
+                Global.current.userDefault?.latestAppArchiveStatus = $0
+                AppArchiveStatus.currentState.accept($0)
+            }, onError: { (error) in
+                Global.log.error(error)
+            })
+            .disposed(by: disposeBag)
     }
 
     let networkLoggerPlugin: [PluginType] = [

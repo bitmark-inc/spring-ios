@@ -14,6 +14,7 @@ import Alamofire
 protocol FBArchiveServiceDelegate {
     static func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable
     static func submitByFile(_ fileURL: URL)
+    static func submitByURL(_ fileURL: URL) -> Completable
     static func getAll() -> Single<[Archive]>
 }
 
@@ -67,6 +68,15 @@ class FBArchiveService: FBArchiveServiceDelegate {
                 Global.log.error(error)
             })
             .disposed(by: disposeBag)
+    }
+
+    static func submitByURL(_ fileURL: URL) -> Completable {
+        Global.log.info("[start] FBArchiveService.submitByURL")
+
+        return provider.rx
+            .requestWithRefreshJwt(.submitByURL(fileURL))
+            .filterSuccess()
+            .asCompletable()
     }
 
     static func getAll() -> Single<[Archive]> {

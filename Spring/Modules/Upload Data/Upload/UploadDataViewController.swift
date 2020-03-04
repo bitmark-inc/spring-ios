@@ -42,24 +42,15 @@ class UploadDataViewController: ViewController, BackNavigator {
             self.browseFile(fileTypes: [kUTTypeZipArchive as String])
         }.disposed(by: disposeBag)
 
-        provideURLTextField.rx.text
-            .map { URL(string: $0) }
-            .map { (url) -> URL? in
-                guard let url = url else { return nil }
-                return UIApplication.shared.canOpenURL(url) ? url : nil
-            }
-            .subscribe(onNext: {
-                viewModel.downloadableURLRelay.accept($0)
-            })
-            .disposed(by: disposeBag)
-
         viewModel.submitArchiveDataResultSubject
             .subscribe(onNext: { [weak self] (event) in
                 guard let self = self else { return }
                 switch event {
                 case .error(let error):
+                    loadingState.onNext(.hide)
                     self.errorWhenSubmitArchiveData(error: error)
                 case .completed:
+                    Global.syncAppArchiveStatus()
                     Global.log.info("[done] submitArchiveDataResult")
                 default:
                     break
@@ -155,8 +146,8 @@ extension UploadDataViewController: DocumentPickerDelegate, UIDocumentPickerDele
     }
 }
 
-// MARK: UITextViewDelegate
-extension UploadDataViewController: UITextViewDelegate {
+// MARK: UITextViewDelegate, UITextFieldDelegate
+extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         guard !lockTextViewClick else { return false }
         lockTextViewClick = true
@@ -168,6 +159,23 @@ extension UploadDataViewController: UITextViewDelegate {
         lockTextViewClick = false
         return true
     }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let urlPath = textField.text, let url = URL(string: urlPath) else {
+            return false
+        }
+
+        guard UIApplication.shared.canOpenURL(url) else {
+            showErrorAlert(message: R.string.error.invalidArchiveFile())
+            return false
+        }
+
+        thisViewModel.downloadableURLRelay.accept(url)
+        thisViewModel.submitArchiveData()
+
+        return true
+    }
+
 }
 
 extension UploadDataViewController {
@@ -285,6 +293,7 @@ extension UploadDataViewController {
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.returnKeyType = .done
+        textField.delegate = self
         return textField
     }
 

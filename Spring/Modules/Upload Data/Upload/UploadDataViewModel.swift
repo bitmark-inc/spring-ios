@@ -23,7 +23,13 @@ class UploadDataViewModel: ViewModel {
         if let archiveZipURL = archiveZipURLRelay.value {
             FBArchiveService.submitByFile(archiveZipURL)
         } else if let downloadableURL = downloadableURLRelay.value {
-
+            loadingState.onNext(.loading)
+            FBArchiveService.submitByURL(downloadableURL)
+                .asObservable()
+                .materialize().bind { [weak self] in
+                    self?.submitArchiveDataResultSubject.onNext($0)
+                }
+                .disposed(by: disposeBag)
         }
     }
 }
