@@ -51,8 +51,10 @@ class IncreasePrivacyListViewController: ViewController, BackNavigator {
 
                 for (index, privacyOption) in IncreasePrivacyOption.allCases.enumerated() {
                     flex.addItem(makePrivacyOptionView(increasePrivacyOption: privacyOption, index: index))
-                        .marginTop(27)
+                        .marginTop(27).marginRight(30)
                 }
+
+                flex.addItem().height(20)
             }
 
         scroll.addSubview(privacyListView)
@@ -109,8 +111,8 @@ extension IncreasePrivacyListViewController {
         label.numberOfLines = 0
         label.apply(
             text: R.string.phrase.fbIncreasePrivacyDescription(6),
-            font: R.font.atlasGroteskLight(size: 12),
-            colorTheme: .black, lineHeight: 1.27)
+            font: R.font.atlasGroteskLight(size: 22),
+            colorTheme: .black, lineHeight: 1.32)
         return label
     }
 
@@ -118,7 +120,7 @@ extension IncreasePrivacyListViewController {
         let indexLabel = Label()
         indexLabel.apply(
             text:  String(index + 1),
-            font: R.font.atlasGroteskLight(size: 14),
+            font: R.font.atlasGroteskLight(size: 16),
             colorTheme: .black, lineHeight: 1.2)
 
         let titleTextView = ReadingTextView()
@@ -132,9 +134,6 @@ extension IncreasePrivacyListViewController {
 
         let actionGuideLabel = Label()
         actionGuideLabel.numberOfLines = 0
-        actionGuideLabel.apply(
-            font: R.font.atlasGroteskLight(size: 16),
-            colorTheme: .black, lineHeight: 1.2)
         actionGuideLabel.attributedText = increasePrivacyOption.actionGuide
 
         let view = UIView()
@@ -145,7 +144,7 @@ extension IncreasePrivacyListViewController {
                 flex.addItem(indexLabel).marginRight(14).alignSelf(.start)
                 flex.addItem().grow(1).alignItems(.stretch).define { (flex) in
                     flex.addItem(titleTextView)
-                    flex.addItem(actionGuideLabel).marginTop(5)
+                    flex.addItem(actionGuideLabel).marginTop(8)
                 }
             }
 
@@ -164,7 +163,7 @@ enum IncreasePrivacyOption: String, CaseIterable {
 
     var title: NSAttributedString {
         let normal = Style {
-            $0.font = self.hasClicked ? R.font.atlasGroteskRegularItalic(size: 16) : R.font.atlasGroteskLightItalic(size: 16)
+            $0.font = self.hasClicked ? R.font.atlasGroteskRegular(size: 18) : R.font.atlasGroteskLight(size: 18)
             $0.color = self.clickedStatusColor
         }
 
@@ -178,15 +177,11 @@ enum IncreasePrivacyOption: String, CaseIterable {
 
     var actionGuide: NSAttributedString {
         let normal = Style {
-            $0.font = R.font.atlasGroteskLight(size: 12)
+            $0.font = R.font.atlasGroteskLight(size: 16)
             $0.color = themeService.attrs.blackTextColor
         }
 
-        let bold = Style {
-            $0.font = R.font.atlasGroteskRegular(size: 12)
-        }
-
-        return actionGuideText.set(style: StyleXML(base: normal, ["b": bold]))
+        return actionGuideText.set(style: StyleXML(base: normal, ["b": normal]))
     }
 
     var clickedStatusColor: UIColor {
