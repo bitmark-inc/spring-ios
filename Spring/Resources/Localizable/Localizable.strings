@@ -40,6 +40,8 @@
 "Processing..." = "Processing";
 "sizeProgress" = "%@ of %@";
 
+"Success" = "Success";
+
 "requireAppUpdate.title" = "Update Required";
 "requireAppUpdate.message" = "The Spring app on your device is out of date. Please update Spring to continue using it.";
 "requireAppUpdate.action" = "Update now";

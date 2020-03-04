@@ -103,24 +103,25 @@ extension HomeTabbarController {
         if let error = error as? ServerAPIError {
             switch error.code {
             case .InvalidArchiveFile:
-                errorMessage = R.string.error.invalidArchiveFile()
+                errorMessage = R.string.error.invalidArchiveFileMessage()
             default:
                 break
             }
         }
 
         Global.log.error(error)
-        let alertController = ErrorAlert.invalidArchiveFileAlert(message: errorMessage) { [weak self] in
-            DispatchQueue.main.async {
-                guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
-                    let sender = selectedNavigation.topViewController,
-                    !(sender is UploadDataViewController) else { return }
+        let alertController = ErrorAlert.invalidArchiveFileAlert(
+            title: R.string.error.invalidArchiveFileTitle(),
+            message: errorMessage) { [weak self] in
+                DispatchQueue.main.async {
+                    guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                        let sender = selectedNavigation.topViewController,
+                        !(sender is UploadDataViewController) else { return }
 
-                let viewModel = UploadDataViewModel()
-                Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    let viewModel = UploadDataViewModel()
+                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                }
             }
-
-        }
         alertController.show()
     }
 }

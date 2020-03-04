@@ -122,9 +122,16 @@ class UploadDataViewController: ViewController, BackNavigator {
             .disposed(by: disposeBag)
 
         AppArchiveStatus.currentState
-            .subscribe(onNext: { [weak self, weak uploadProgressView] in
-                uploadProgressView?.appArchiveStatusCurrentState = $0
-                self?.setEnableOptionButton(isEnabled: $0 == AppArchiveStatus.none)
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                if appArchiveStatus == .processed {
+                    loadingState.onNext(.tickSuccess)
+                    self.navigationController?.popViewController()
+                    return
+                }
+
+                self.uploadProgressView.appArchiveStatusCurrentState = appArchiveStatus
+                self.setEnableOptionButton(isEnabled: appArchiveStatus == AppArchiveStatus.none)
             })
             .disposed(by: disposeBag)
     }
@@ -166,8 +173,12 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
         }
 
         guard UIApplication.shared.canOpenURL(url) else {
-            showErrorAlert(message: R.string.error.invalidArchiveFile())
-            return false
+            let alertController = ErrorAlert.invalidArchiveFileAlert(
+                title: R.string.error.invalidArchiveURLTitle(),
+                message: R.string.error.invalidArchiveURLMessage(),
+                action: {})
+            alertController.show()
+            return true
         }
 
         thisViewModel.downloadableURLRelay.accept(url)
