@@ -117,7 +117,7 @@ extension MoreComingView {
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         button.apply(
             title: R.string.localizable.notify_me(),
-            font: R.font.atlasGroteskRegular(size: 16),
+            font: R.font.atlasGroteskLight(size: 16),
             colorTheme: .cognac)
         return button
     }

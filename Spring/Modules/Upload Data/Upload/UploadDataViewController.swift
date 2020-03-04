@@ -113,12 +113,34 @@ class UploadDataViewController: ViewController, BackNavigator {
             .map { $0[SessionIdentifier.upload.rawValue] }
             .filterNil()
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (event) in
-                guard let self = self else { return }
-                self.uploadProgressView.progressInfoEvent = event
+            .subscribe(onNext: { [weak self, weak uploadProgressView] (event) in
+                guard let self = self, let uploadProgressView = uploadProgressView else { return }
+                switch event {
+                case .next(let progressInfo):
+                    uploadProgressView.progressInfo = progressInfo
+                    self.setEnableOptionButton(isEnabled: false)
+
+                case .error:
+                    uploadProgressView.isHidden = true
+                    self.setEnableOptionButton(isEnabled: true)
+
+                default:
+                    self.setEnableOptionButton(isEnabled: false)
+                }
             })
             .disposed(by: disposeBag)
 
+        AppArchiveStatus.currentState
+            .subscribe(onNext: { [weak self, weak uploadProgressView] in
+                uploadProgressView?.appArchiveStatusCurrentState = $0
+                self?.setEnableOptionButton(isEnabled: $0 == AppArchiveStatus.none)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func setEnableOptionButton(isEnabled: Bool) {
+        uploadFileButton.isEnabled = isEnabled
+        provideURLTextField.isEnabled = isEnabled
     }
 }
 

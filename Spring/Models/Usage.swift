@@ -81,7 +81,8 @@ enum Section: String {
     case adInterest
     case adveriser
     case location
-    case requestUploadData
+    case requestUploadDataInUsage
+    case requestUploadDataInInsights
     case moreInsightsComing
     case morePersonalAnalyticsComing
     case aggregateAnalysis

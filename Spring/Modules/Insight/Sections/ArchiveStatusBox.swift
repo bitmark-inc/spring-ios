@@ -13,6 +13,7 @@ import FlexLayout
 import SnapKit
 
 enum AppArchiveStatus: String {
+    case uploading
     case processing
     case processed
     case none

@@ -13,7 +13,9 @@
 "Continue" = "Continue";
 "BackNavigator" = "< BACK";
 "Usage" = "Usage";
+"Summary" = "Summary";
 "Insights" = "Insights";
+"Browse" = "Browse";
 "Account" = "Account";
 "Settings" = "Settings";
 "Lens" = "Lens";
@@ -32,6 +34,7 @@
 "View_insights" = "View insights »";
 "SubmitArrow" = "Submit »";
 "DownloadArrow" = "Download »";
+"View_progress" = "View progress »";
 
 "Uploading..." = "Uploading...";
 "Processing..." = "Processing";

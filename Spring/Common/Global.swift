@@ -94,6 +94,8 @@ class Global {
         Global.current = Global() // reset local variable
         AppArchiveStatus.currentState.accept(nil)
         AuthService.shared = AuthService()
+        BackgroundTaskManager.shared = BackgroundTaskManager()
+
         Intercom.logout()
         OneSignal.setSubscription(false)
         OneSignal.deleteTag(Constant.OneSignalTag.key)

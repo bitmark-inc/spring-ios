@@ -40,7 +40,6 @@ class UsageViewController: ViewController {
     lazy var usageView = UIView()
     lazy var headingView = makeHeadingView()
     lazy var timelineView = makeTimelineView()
-    lazy var moodView = makeMoodView()
     lazy var postsHeadingView = makeSectionHeadingView(section: .post)
     lazy var postsFilterTypeView = makeFilterTypeView(section: .post)
     lazy var postsFilterDayView = makeFilterDayView(section: .post)
@@ -56,7 +55,8 @@ class UsageViewController: ViewController {
     lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
     lazy var requestUploadDataView = makeRequestUploadDataView()
     lazy var aggregateAnalysisView = makeAggregateAnalysisView()
-    lazy var dependentUsageSections = UIView()
+    lazy var prefixDependentUsageSections = UIView()
+    lazy var suffixDependentUsageSections = UIView()
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -182,11 +182,11 @@ class UsageViewController: ViewController {
         usageView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(timelineView)
-            flex.addItem(SectionSeparator())
-            flex.addItem(dependentUsageSections)
+            flex.addItem(prefixDependentUsageSections)
             flex.addItem(SectionSeparator())
             flex.addItem(aggregateAnalysisView)
             flex.addItem(SectionSeparator())
+            flex.addItem(suffixDependentUsageSections)
         }
 
         scroll.addSubview(usageView)
@@ -202,35 +202,43 @@ class UsageViewController: ViewController {
         AppArchiveStatus.currentState
             .filterNil()
             .distinctUntilChanged { $0.rawValue == $1.rawValue }
-            .subscribe(onNext: { [weak self, weak dependentUsageSections] (appArchiveStatus) in
-                guard let self = self, let dependentUsageSections = dependentUsageSections else { return }
-                dependentUsageSections.removeSubviews()
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                self.suffixDependentUsageSections.removeSubviews()
+                self.prefixDependentUsageSections.removeSubviews()
                 switch appArchiveStatus {
                 case .none:
-                    dependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.navigationController?.tabBarItem.badgeValue = "1"
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
+
+                case .uploading:
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
 
                 case .processing:
-                    dependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
-                    self.navigationController?.tabBarItem.badgeValue = nil
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+                    self.prefixDependentUsageSections.flex.markDirty()
 
                 case .processed:
-                    dependentUsageSections.flex.addItem(self.moodView)
-                    dependentUsageSections.flex.addItem(SectionSeparator())
-                    dependentUsageSections.flex.addItem(self.postsHeadingView)
-                    dependentUsageSections.flex.addItem(self.postsFilterTypeView)
-                    dependentUsageSections.flex.addItem(self.postsFilterDayView)
-                    dependentUsageSections.flex.addItem(self.postsFilterFriendView)
-                    dependentUsageSections.flex.addItem(self.postsFilterPlaceView)
-                    dependentUsageSections.flex.addItem(SectionSeparator())
-                    dependentUsageSections.flex.addItem(self.reationsHeadingView)
-                    dependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
-                    dependentUsageSections.flex.addItem(self.reactionsFilterDayView)
-                    dependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
-                    self.navigationController?.tabBarItem.badgeValue = nil
+                    self.suffixDependentUsageSections.flex.addItem(self.postsHeadingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterTypeView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterDayView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterFriendView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterPlaceView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.suffixDependentUsageSections.flex.addItem(self.reationsHeadingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterDayView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
                 }
 
-                dependentUsageSections.flex.markDirty()
+                self.suffixDependentUsageSections.flex.markDirty()
                 self.layout()
             })
             .disposed(by: disposeBag)
@@ -240,8 +248,7 @@ class UsageViewController: ViewController {
 extension UsageViewController {
     fileprivate func makeHeadingView() -> HeadingView {
         let headingView = HeadingView()
-        headingView.setHeading(title: R.string.localizable.usage().localizedUppercase, color:  UIColor(hexString: "#932C19"))
-        headingView.subTitle = R.string.localizable.howyouusefacebooK()
+        headingView.setHeading(title: R.string.localizable.summary().localizedUppercase, color:  UIColor(hexString: "#932C19"))
         return headingView
     }
 
@@ -256,13 +263,6 @@ extension UsageViewController {
         sectionHeadingView.setProperties(section: section, container: self)
         sectionHeadingView.flex.padding(0, 18, 26, 18)
         return sectionHeadingView
-    }
-
-    fileprivate func makeMoodView() -> MoodView {
-        let moodView = MoodView()
-        moodView.containerLayoutDelegate = self
-        moodView.setProperties(section: .mood, container: self)
-        return moodView
     }
 
     fileprivate func makeFilterTypeView(section: Section) -> FilterTypeView {
@@ -307,7 +307,7 @@ extension UsageViewController {
     fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
         let requestUploadDataView = RequestUploadDataView()
         requestUploadDataView.containerLayoutDelegate = self
-        requestUploadDataView.setProperties(section: .requestUploadData, container: self)
+        requestUploadDataView.setProperties(section: .requestUploadDataInUsage, container: self)
         return requestUploadDataView
     }
 }

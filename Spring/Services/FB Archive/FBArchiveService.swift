@@ -57,6 +57,7 @@ class FBArchiveService: FBArchiveServiceDelegate {
 
                 BackgroundTaskManager.shared.uploadInfoRelay
                     .accept([SessionIdentifier.upload.rawValue: fileURL.lastPathComponent])
+                AppArchiveStatus.currentState.accept(.uploading)
             }, onError: { (error) in
                 guard !AppError.errorByNetworkConnection(error),
                     !Global.handleErrorIfAsAFError(error) else {

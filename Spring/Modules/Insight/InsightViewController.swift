@@ -27,7 +27,8 @@ class InsightViewController: ViewController {
     lazy var fbIncomeView = makeFBIncomeView()
     lazy var adsCategoryView = makeAdsCategoryView()
     lazy var moreInsightsComingView = makeMoreInsightsComingView()
-    lazy var dependentInsightsSections = UIView()
+    lazy var requestUploadDataView = makeRequestUploadDataView()
+    lazy var prefixDependentUsageSections = UIView()
 
     // SECTION: FB Income
     lazy var realmInsightObservable: Observable<Insight> = {
@@ -97,9 +98,7 @@ class InsightViewController: ViewController {
 
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
-            flex.addItem(SectionSeparator())
-            flex.addItem(dependentInsightsSections)
-            flex.addItem(SectionSeparator())
+            flex.addItem(prefixDependentUsageSections)
         }
 
         scroll.addSubview(insightView)
@@ -115,19 +114,28 @@ class InsightViewController: ViewController {
         AppArchiveStatus.currentState
             .filterNil()
             .distinctUntilChanged { $0.rawValue == $1.rawValue }
-            .subscribe(onNext: { [weak self, weak dependentInsightsSections] (appArchiveStatus) in
-                guard let self = self, let dependentInsightsSections = dependentInsightsSections else { return }
-                dependentInsightsSections.removeSubviews()
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                self.prefixDependentUsageSections.removeSubviews()
+
                 switch appArchiveStatus {
                 case .none:
-                    break
-                case .processing:
-                    dependentInsightsSections.flex.addItem(self.moreInsightsComingView)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
+
+                case .uploading, .processing:
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+
                 case .processed:
-                    dependentInsightsSections.flex.addItem(self.fbIncomeView)
+                    self.prefixDependentUsageSections.flex.addItem(self.makeComingSoonLabel()).marginLeft(18)
                 }
 
-                dependentInsightsSections.flex.markDirty()
+                self.prefixDependentUsageSections.flex.markDirty()
                 self.layout()
             })
             .disposed(by: disposeBag)
@@ -147,9 +155,8 @@ extension InsightViewController {
     fileprivate func makeHeadingView() -> HeadingView {
         let headingView = HeadingView()
         headingView.setHeading(
-            title: R.string.localizable.insights().localizedUppercase,
+            title: R.string.localizable.browse().localizedUppercase,
             color:  ColorTheme.internationalKleinBlue.color)
-        headingView.subTitle = R.string.localizable.howfacebookusesyoU()
         return headingView
     }
 
@@ -179,6 +186,22 @@ extension InsightViewController {
         moreComingView.section = .moreInsightsComing
         return moreComingView
     }
+
+    fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
+        let requestUploadDataView = RequestUploadDataView()
+        requestUploadDataView.containerLayoutDelegate = self
+        requestUploadDataView.setProperties(section: .requestUploadDataInInsights, container: self)
+        return requestUploadDataView
+    }
+
+    fileprivate func makeComingSoonLabel() -> Label {
+        let label = Label()
+        label.apply(
+            text: R.string.localizable.comingSoon(),
+            font: R.font.atlasGroteskLight(size: 22),
+            colorTheme: .black)
+        return label
+    }
 }
 
 // MARK: - Navigator
@@ -190,5 +213,10 @@ extension InsightViewController {
 
     func gotoIncomeQuestionURL() {
         navigator.show(segue: .incomeQuestion, sender: self)
+    }
+
+    func gotoUploadDataScreen() {
+        let viewModel = UploadDataViewModel()
+        navigator.show(segue: .uploadData(viewModel: viewModel), sender: self)
     }
 }

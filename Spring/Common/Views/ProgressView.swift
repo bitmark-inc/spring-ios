@@ -22,44 +22,41 @@ class ProgressView: UIView {
 
     let disposeBag = DisposeBag()
 
-    var progressInfoEvent: Event<ProgressInfo>? {
+    var progressInfo: ProgressInfo? {
         didSet {
-            guard let progressInfoEvent = progressInfoEvent else { return }
+            guard let progressInfo = progressInfo else { return }
 
-            switch progressInfoEvent {
-            case .next(let progressInfo):
-                isHidden = false
-                titleLabel.setText(R.string.localizable.uploading().localizedUppercase)
-                fileLabel.setText(BackgroundTaskManager.shared.uploadInfoRelay.value[SessionIdentifier.upload.rawValue])
+            isHidden = false
+            titleLabel.setText(R.string.localizable.uploading().localizedUppercase)
+            fileLabel.setText(BackgroundTaskManager.shared.uploadInfoRelay.value[SessionIdentifier.upload.rawValue])
 
-                progressBar.setProgress(progressInfo.fractionCompleted, animated: true)
-                valueLabel.setText(R.string.localizable.sizeProgress(
-                    format(progressInfo.totalBytesSent),
-                    format(progressInfo.totalBytesExpectedToSend)))
+            progressBar.setProgress(progressInfo.fractionCompleted, animated: true)
+            valueLabel.setText(R.string.localizable.sizeProgress(
+                format(progressInfo.totalBytesSent),
+                format(progressInfo.totalBytesExpectedToSend)))
 
-            case .completed:
-                AppArchiveStatus.currentState
-                    .subscribe(onNext: { [weak self] (appArchiveStatus) in
-                        guard let self = self else { return }
-                        self.isHidden = false
-                        switch appArchiveStatus {
-                        case .processing:
-                            self.indeterminateProgressBar.isHidden = false
-                            self.progressBar.isHidden = true
-                            self.titleLabel.setText(R.string.localizable.processing().localizedUppercase)
-                            self.fileLabel.setText("")
-                            self.valueLabel.setText(nil)
-                            self.indeterminateProgressBar.startAnimating()
-                        case .processed:
-                            self.removeFromSuperview()
-                        default:
-                            break
-                        }
-                    })
-                    .disposed(by: disposeBag)
+            flex.markDirty()
+            flex.layout()
+        }
+    }
 
-            case .error:
-                self.isHidden = true
+    var appArchiveStatusCurrentState: AppArchiveStatus? {
+        didSet {
+            switch appArchiveStatusCurrentState {
+            case .processing:
+                self.isHidden = false
+                self.indeterminateProgressBar.isHidden = false
+                self.progressBar.isHidden = true
+                self.titleLabel.setText(R.string.localizable.processing().localizedUppercase)
+                self.fileLabel.setText(nil)
+                self.fileLabel.flex.height(18)
+                self.valueLabel.setText(nil)
+                self.indeterminateProgressBar.startAnimating()
+            case .processed:
+                self.removeFromSuperview()
+
+            default:
+                break
             }
 
             flex.markDirty()

@@ -13,24 +13,22 @@ import RxCocoa
 
 class HomeTabbarController: ESTabBarController {
     class func tabbarController() -> HomeTabbarController {
-        let insightsVC = InsightViewController(viewModel: InsightViewModel())
-        let insightsNavVC = NavigationController(rootViewController: insightsVC)
-        insightsNavVC.tabBarItem = ESTabBarItem(
-            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
-            title: R.string.localizable.insights().localizedUppercase,
-            image: R.image.insights_tab_icon(),
-            tag: 0
-        )
-
         let usageVC = UsageViewController(viewModel: UsageViewModel())
         let usageNavVC = NavigationController(rootViewController: usageVC)
         usageNavVC.tabBarItem = ESTabBarItem(
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#932C19")!),
-            title: R.string.localizable.usage().localizedUppercase,
+            title: R.string.localizable.summary().localizedUppercase,
             image: R.image.usage_tab_icon(),
-            tag: 1)
-        usageNavVC.tabBarItem.badgeColor = ColorTheme.cognac.color
+            tag: 0)
 
+        let insightsVC = InsightViewController(viewModel: InsightViewModel())
+        let insightsNavVC = NavigationController(rootViewController: insightsVC)
+        insightsNavVC.tabBarItem = ESTabBarItem(
+            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
+            title: R.string.localizable.browse().localizedUppercase,
+            image: R.image.browseTabIcon(),
+            tag: 1
+        )
 
         let settingsVC = AccountViewController(viewModel: AccountViewModel())
         let settingsNavVC = NavigationController(rootViewController: settingsVC)
@@ -42,8 +40,8 @@ class HomeTabbarController: ESTabBarController {
         )
 
         let tabbarController = HomeTabbarController()
-        tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
-        tabbarController.selectedIndex = 1
+        tabbarController.viewControllers = [usageNavVC, insightsNavVC, settingsNavVC]
+        tabbarController.selectedIndex = 0
 
         return tabbarController
     }
@@ -63,23 +61,16 @@ class HomeTabbarController: ESTabBarController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        ArchiveDataEngine.fetchAppArchiveStatus()
-            .subscribe(onSuccess: {
-                Global.current.userDefault?.latestAppArchiveStatus = $0
-                AppArchiveStatus.currentState.accept($0)
-            }, onError: { (error) in
-                Global.log.error(error)
-            })
-            .disposed(by: disposeBag)
+        syncAppArchiveStatus()
 
-        NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (authorizationStatus) in
-                guard let self = self, authorizationStatus == .authorized else { return }
-
-                self.registerOneSignal()
-            })
-            .disposed(by: disposeBag)
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
+            guard let self = self else { return }
+            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self.registerOneSignal()
+                }
+            }
+        }
 
         // observe the result of archive uploading
         BackgroundTaskManager.shared.uploadProgressRelay
@@ -90,9 +81,22 @@ class HomeTabbarController: ESTabBarController {
                 switch event {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
+                case .completed:
+                    self.syncAppArchiveStatus()
                 default:
                     break
                 }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func syncAppArchiveStatus() {
+        ArchiveDataEngine.fetchAppArchiveStatus()
+            .subscribe(onSuccess: {
+                Global.current.userDefault?.latestAppArchiveStatus = $0
+                AppArchiveStatus.currentState.accept($0)
+            }, onError: { (error) in
+                Global.log.error(error)
             })
             .disposed(by: disposeBag)
     }

@@ -37,7 +37,7 @@ class Button: UIButton {
 }
 
 extension Button {
-    func apply(title: String, font: UIFont?, colorTheme: ColorTheme) {
+    func apply(title: String = "", font: UIFont?, colorTheme: ColorTheme) {
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = font
 
