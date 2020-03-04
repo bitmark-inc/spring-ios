@@ -13,6 +13,12 @@ class Button: UIButton {
 
     let disposeBag = DisposeBag()
 
+    override var isEnabled: Bool {
+        didSet {
+            alpha = isEnabled ? 1 : 0.5
+        }
+    }
+
     required init() {
         super.init(frame: .zero)
         setupViews()

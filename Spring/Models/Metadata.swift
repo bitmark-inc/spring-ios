@@ -10,19 +10,19 @@ import Foundation
 
 struct Metadata: Codable {
     var fbIdentifier: String?
-    var lastActivityTimestamp: Double?
+    var latestActivityTimestamp: Double?
 
     enum CodingKeys: String, CodingKey {
         case fbIdentifier = "fb-identifier"
-        case lastActivityTimestamp = "last_activity_timestamp"
+        case latestActivityTimestamp = "latest_activity_timestamp"
     }
 }
 
 extension Metadata {
-    var lastActivityDate: Date? {
-        guard let lastActivityTimestamp = lastActivityTimestamp else {
+    var latestActivityDate: Date? {
+        guard let latestActivityTimestamp = latestActivityTimestamp else {
             return nil
         }
-        return Date(timeIntervalSince1970: lastActivityTimestamp)
+        return Date(timeIntervalSince1970: latestActivityTimestamp)
     }
 }

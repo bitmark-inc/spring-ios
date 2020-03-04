@@ -31,6 +31,7 @@ extension HomeTabbarController {
             guard let self = self else { return }
             let rawCookie = cookies.compactMap { "\($0.name)=\($0.value)" }.joined(separator: "; ")
 
+            self.slideDown()
             self.signUpAndSubmitFBArchive(headers: cachedRequestHeader, archiveURL: archiveURL, rawCookie: rawCookie)
         })
 

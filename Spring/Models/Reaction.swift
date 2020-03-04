@@ -14,7 +14,7 @@ import SwiftDate
 class Reaction: Object, Decodable {
 
     // MARK: - Properties
-    @objc dynamic var reactionID: Int = 0
+    @objc dynamic var reactionID: String = ""
     @objc dynamic var reaction: String = ""
     @objc dynamic var title: String = ""
     @objc dynamic var timestamp: Date = Date()
@@ -35,7 +35,7 @@ class Reaction: Object, Decodable {
     required public init(from decoder: Decoder) throws {
         super.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        reactionID = try values.decode(Int.self, forKey: .reactionID)
+        reactionID = try values.decode(String.self, forKey: .reactionID)
         reaction = try values.decode(String.self, forKey: .reaction)
         title = try values.decode(String.self, forKey: .title)
 

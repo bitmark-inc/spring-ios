@@ -20,7 +20,12 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
     }
 
     var path: String {
-        return ""
+        switch self {
+        case .submit:
+            return "url"
+        case .getAll:
+            return ""
+        }
     }
 
     var method: Moya.Method {
