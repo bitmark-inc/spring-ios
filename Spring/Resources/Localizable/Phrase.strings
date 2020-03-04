@@ -91,20 +91,20 @@
 "incomeQuestion.description" = "Average revenue per user, or ARPU is how Facebook assesses its ability to monetize users. ARPU is calculated by computing revenue by user geography based on Facebook’s estimate of the geography in which ad impressions are delivered. These numbers are made public in <a href='https://investor.fb.com/financials/?section=quarterlyearnings'>their quarterly earning reports</a>.\n\nYet besides the dollar value, analyzing user value based only on ARPU underestimates the value to Facebook. Even though Facebook doesn’t make much money with their users outside US, Canada, and Western Europe, they still collect lots of data. That data creates the network effect that makes their platform become stronger and more valuable over time.\n";
 
 "account.settings.title" = "Settings";
-"account.settings.security" = "Security";
-"account.settings.security.signOut" = "Unlink from device »";
-"account.settings.security.biometricAuth" = "%@ »";
-"account.settings.security.recoveryKey" = "Recovery key »";
+
 "account.settings.account" = "Account";
-"account.settings.account.deleteAccount" = "Delete account »";
-"account.setting.facebook" = "Facebook";
-"account.settings.facebook.increasePrivacy" = "Increase privacy »";
+"account.settings.account.deleteAccount" = "Delete data »";
+"account.settings.account.signOut" = "Sign out »";
+"account.settings.account.recoveryKey" = "Recovery key »";
+
+"account.settings.security" = "Security";
+"account.settings.security.biometricAuth" = "%@ »";
+"account.settings.security.increasePrivacy" = "Increase Facebook privacy »";
+
 "account.settings.support" = "Support";
-"account.settings.support.about" = "About »";
 "account.settings.support.faq" = "FAQ »";
 "account.settings.support.whatsNew" = "What's new »";
-"account.settings.support.contact" = "Help »";
-"account.settings.support.getYourThoughts" = "Tell us your thoughts »";
+"account.settings.support.contact" = "Contact us »";
 
 "account.signOut.warning.title" = "Unlink Account";
 "account.signOut.warning.description" = "If you unlink your account, you will be completely logged out on this device and will need to enter your 12-word recovery key to regain access and relink your account to this device.\n\nTo make ensure that you will not completely lose access to your account, you will next be asked to enter your 12-word recovery key before unlinking your account. If you haven’t already written down your recovery key, %@.";
@@ -139,20 +139,17 @@
 "fb.increasePrivacy.description" = "Here are %d simple steps you can take to increase your privacy while using Facebook:";
 
 "fb.increasePrivacy.turnOffFaceRecognition.title" = "<a>Turn off Face Recognition</a> »";
-"fb.increasePrivacy.turnOffFaceRecognition.actionGuide" = "Tap the option and select <b>“No”</b>";
+"fb.increasePrivacy.turnOffFaceRecognition.actionGuide" = "Tap the option and select “No”";
 "fb.increasePrivacy.deleteAllEmailContacts.title" = "<a>Delete all your email contacts</a> »";
-"fb.increasePrivacy.deleteAllEmailContacts.actionGuide" = "Tap <b>“Delete All”</b>";
+"fb.increasePrivacy.deleteAllEmailContacts.actionGuide" = "Tap “Delete All”";
 "fb.increasePrivacy.deleteAllPhoneContacts.title" = "<a>Delete all your phone contacts</a> »";
-"fb.increasePrivacy.deleteAllPhoneContacts.actionGuide" = "Tap <b>“Delete All Contacts”</b>";
+"fb.increasePrivacy.deleteAllPhoneContacts.actionGuide" = "Tap “Delete All Contacts”";
 "fb.increasePrivacy.optOutOfAdsFromPartner.title" = "<a>Opt out of ads based on data from partners</a> »";
-"fb.increasePrivacy.optOutOfAdsFromPartner.actionGuide" = "Tap <b>“Continue”</b>, change to <b>“Not Allowed”</b> and tap <b>“Save”</b>";
+"fb.increasePrivacy.optOutOfAdsFromPartner.actionGuide" = "Tap “Continue”, change to “Not Allowed” and tap “Save”";
 "fb.increasePrivacy.optOutOfAdsFromActivity.title" = "<a>Opt out of ads based on your activity on Facebook Company Products that you see elsewhere</a> »";
-"fb.increasePrivacy.optOutOfAdsFromActivity.actionGuide" = "Select <b>“No”</b>";
+"fb.increasePrivacy.optOutOfAdsFromActivity.actionGuide" = "Select “No”";
 "fb.increasePrivacy.optOutOfFriendsSeeingAds.title" = "<a>Opt out of friends seeing ads you like</a> »";
-"fb.increasePrivacy.optOutOfFriendsSeeingAds.actionGuide" = "Select <b>“No One”</b>";
-
-"account.about.title" = "About";
-"account.about.description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum metus scelerisque vehicula mattis. Quisque molestie nisl et mauris laoreet, sed euismod ipsum tempor. Pellentesque mattis lobortis lacus, sed interdum leo gravida non. Etiam nulla erat, auctor eu odio ac, tincidunt ultricies ante. Aenean eleifend pharetra dolor. Mauris urna orci, consectetur eu vulputate in, pretium vitae tellus.";
+"fb.increasePrivacy.optOutOfFriendsSeeingAds.actionGuide" = "Select “No One”";
 
 "releaseNote.title" = "What’s New";
 "releaseNote.appVersion" = "Version %@";

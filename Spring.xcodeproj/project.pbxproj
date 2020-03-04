@@ -452,9 +452,6 @@
 		5B93231023A363AE00C3C408 /* ViewRecoveryKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93230F23A363AE00C3C408 /* ViewRecoveryKeyViewController.swift */; };
 		5B93231123A363AE00C3C408 /* ViewRecoveryKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93230F23A363AE00C3C408 /* ViewRecoveryKeyViewController.swift */; };
 		5B93231223A363AE00C3C408 /* ViewRecoveryKeyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93230F23A363AE00C3C408 /* ViewRecoveryKeyViewController.swift */; };
-		5B93231823A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
-		5B93231923A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
-		5B93231A23A363C800C3C408 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93231723A363C800C3C408 /* AboutViewController.swift */; };
 		5B93232423A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232523A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
 		5B93232623A39BFC00C3C408 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B93232323A39BFC00C3C408 /* Archive.swift */; };
@@ -1000,7 +997,6 @@
 		5B93230723A3638C00C3C408 /* ViewRecoveryKeyWarningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecoveryKeyWarningViewController.swift; sourceTree = "<group>"; };
 		5B93230B23A363A100C3C408 /* ViewRecoveryKeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecoveryKeyViewModel.swift; sourceTree = "<group>"; };
 		5B93230F23A363AE00C3C408 /* ViewRecoveryKeyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRecoveryKeyViewController.swift; sourceTree = "<group>"; };
-		5B93231723A363C800C3C408 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		5B93232323A39BFC00C3C408 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
 		5B93B2A323D5618E004CCD51 /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		5B93B2A823D567BC004CCD51 /* DocumentationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentationAPI.swift; sourceTree = "<group>"; };
@@ -1232,7 +1228,6 @@
 				5B9322ED23A3622000C3C408 /* View Recovery Key */,
 				5B2DEE3223F1488C00D3300A /* Delete Account */,
 				5B32F5BE23CDBCA800959DFF /* Increase Privacy */,
-				5B9322F023A3625300C3C408 /* About */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -1761,14 +1756,6 @@
 				5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */,
 			);
 			path = "View Recovery Key";
-			sourceTree = "<group>";
-		};
-		5B9322F023A3625300C3C408 /* About */ = {
-			isa = PBXGroup;
-			children = (
-				5B93231723A363C800C3C408 /* AboutViewController.swift */,
-			);
-			path = About;
 			sourceTree = "<group>";
 		};
 		5B93B2A723D567AE004CCD51 /* Documentation */ = {
@@ -2963,7 +2950,6 @@
 				5832FC4E237A863300FA3196 /* ReadingTextView.swift in Sources */,
 				5B54FADB23C6DACA0029B5D5 /* AdsCategoryView.swift in Sources */,
 				E29F5A262383E2E700C1D9D8 /* SignInWallViewController.swift in Sources */,
-				5B93231823A363C800C3C408 /* AboutViewController.swift in Sources */,
 				5832FCA7237A8A9200FA3196 /* RxOptional+Single+Optional.swift in Sources */,
 				E222908F239509F900412CBC /* PostListViewModel.swift in Sources */,
 				5832FC7C237A883500FA3196 /* NetworkConnectionManager.swift in Sources */,
@@ -3180,7 +3166,6 @@
 				5B5D000623A1F0F4003D1A1C /* ReadingTextView.swift in Sources */,
 				5B54FADD23C6DACA0029B5D5 /* AdsCategoryView.swift in Sources */,
 				5B5D000723A1F0F4003D1A1C /* SignInWallViewController.swift in Sources */,
-				5B93231A23A363C800C3C408 /* AboutViewController.swift in Sources */,
 				5B5D000A23A1F0F4003D1A1C /* RxOptional+Single+Optional.swift in Sources */,
 				5B5D000B23A1F0F4003D1A1C /* NetworkConnectionManager.swift in Sources */,
 				5B5D000C23A1F0F4003D1A1C /* SecondaryButton.swift in Sources */,
@@ -3393,7 +3378,6 @@
 				E2DB669C237D3B69005367C2 /* ReadingTextView.swift in Sources */,
 				5B54FADC23C6DACA0029B5D5 /* AdsCategoryView.swift in Sources */,
 				E29F5A272383E2E700C1D9D8 /* SignInWallViewController.swift in Sources */,
-				5B93231923A363C800C3C408 /* AboutViewController.swift in Sources */,
 				E2DB669D237D3B69005367C2 /* RxOptional+Single+Optional.swift in Sources */,
 				E2DB669E237D3B69005367C2 /* NetworkConnectionManager.swift in Sources */,
 				E2DB669F237D3B69005367C2 /* SecondaryButton.swift in Sources */,
