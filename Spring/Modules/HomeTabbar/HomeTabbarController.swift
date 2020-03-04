@@ -27,8 +27,7 @@ class HomeTabbarController: ESTabBarController {
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
             title: R.string.localizable.browse().localizedUppercase,
             image: R.image.browseTabIcon(),
-            tag: 1
-        )
+            tag: 1)
 
         let settingsVC = AccountViewController(viewModel: AccountViewModel())
         let settingsNavVC = NavigationController(rootViewController: settingsVC)
@@ -36,8 +35,7 @@ class HomeTabbarController: ESTabBarController {
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#5F6D07")!),
             title: R.string.localizable.settings().localizedUppercase,
             image: R.image.account_icon(),
-            tag: 2
-        )
+            tag: 2)
 
         let tabbarController = HomeTabbarController()
         tabbarController.viewControllers = [usageNavVC, insightsNavVC, settingsNavVC]
@@ -56,23 +54,17 @@ class HomeTabbarController: ESTabBarController {
         themeService.rx
             .bind({ $0.background }, to: view.rx.backgroundColor)
             .disposed(by: disposeBag)
+
+        bindViewModel()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    // 1. polling archive status when archive status is still processing
+    // 1. observe the result of archive uploading
+    fileprivate func bindViewModel() {
+         // 1
+        Global.pollingSyncAppArchiveStatus()
 
-        Global.syncAppArchiveStatus()
-
-        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
-            guard let self = self else { return }
-            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
-                DispatchQueue.main.async {
-                    self.registerOneSignal()
-                }
-            }
-        }
-
-        // observe the result of archive uploading
+        // 2
         BackgroundTaskManager.shared.uploadProgressRelay
             .map { $0[SessionIdentifier.upload.rawValue] }.filterNil()
             .observeOn(MainScheduler.instance)
@@ -82,12 +74,25 @@ class HomeTabbarController: ESTabBarController {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
-                    Global.syncAppArchiveStatus()
+                    Global.pollingSyncAppArchiveStatus()
                 default:
                     break
                 }
             })
             .disposed(by: disposeBag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
+            guard let self = self else { return }
+            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self.registerOneSignal()
+                }
+            }
+        }
     }
 }
 

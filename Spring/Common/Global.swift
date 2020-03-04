@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
+import RxSwiftExt
 import BitmarkSDK
 import Moya
 import Intercom
@@ -103,14 +105,24 @@ class Global {
         ErrorReporting.setUser(bitmarkAccountNumber: nil)
     }
 
-    static func syncAppArchiveStatus() {
-        ArchiveDataEngine.fetchAppArchiveStatus()
-            .subscribe(onSuccess: {
-                Global.current.userDefault?.latestAppArchiveStatus = $0
-                AppArchiveStatus.currentState.accept($0)
-            }, onError: { (error) in
-                Global.log.error(error)
-            })
+    static func pollingSyncAppArchiveStatus() {
+        func pollingFunction() -> Observable<Void> {
+            return ArchiveDataEngine.fetchAppArchiveStatus()
+                .do(onSuccess: {
+                    Global.current.userDefault?.latestAppArchiveStatus = $0
+                    AppArchiveStatus.currentState.accept($0)
+                })
+                .asObservable()
+                .flatMap({ (appArchiveStatus) -> Observable<Void> in
+                    return appArchiveStatus == .processing ?
+                        Observable.error(AppError.archiveIsNotProcessed) :
+                        Observable.empty()
+                })
+        }
+
+        pollingFunction()
+            .retry(.delayed(maxCount: 1000, time: 30))
+            .subscribe()
             .disposed(by: disposeBag)
     }
 
@@ -153,12 +165,12 @@ enum AppError: Error {
     case incorrectPostFilter
     case incorrectReactionFilter
     case requireAppUpdate(updateURL: URL)
-    case fbRequiredPageIsNotReady
     case loginFailedIsNotDetected
     case incorrectEmptyRealmObject
     case biometricNotConfigured
     case biometricError
     case didRemoteQuery
+    case archiveIsNotProcessed
 
     static func errorByNetworkConnection(_ error: Error) -> Bool {
         guard let error = error as? Self else { return false }

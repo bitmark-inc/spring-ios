@@ -50,7 +50,7 @@ class UploadDataViewController: ViewController, BackNavigator {
                     loadingState.onNext(.hide)
                     self.errorWhenSubmitArchiveData(error: error)
                 case .completed:
-                    Global.syncAppArchiveStatus()
+                    Global.pollingSyncAppArchiveStatus()
                     Global.log.info("[done] submitArchiveDataResult")
                 default:
                     break
