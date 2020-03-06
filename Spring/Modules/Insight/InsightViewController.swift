@@ -119,7 +119,7 @@ class InsightViewController: ViewController {
                 self.prefixDependentUsageSections.removeSubviews()
 
                 switch appArchiveStatus {
-                case .none:
+                case .none, .invalid, .created:
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.prefixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())

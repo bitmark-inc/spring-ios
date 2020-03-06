@@ -12,19 +12,6 @@ import RxCocoa
 import FlexLayout
 import SnapKit
 
-enum AppArchiveStatus: String {
-    case uploading
-    case processing
-    case processed
-    case none
-
-    static var localLatestArchiveStatus: AppArchiveStatus {
-        return Global.current.userDefault?.latestAppArchiveStatus ?? .none
-    }
-
-    static var currentState = BehaviorRelay<AppArchiveStatus?>(value: localLatestArchiveStatus)
-}
-
 class ArchiveStatusBox: UIView {
 
     // MARK: - Properties

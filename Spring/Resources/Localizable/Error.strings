@@ -40,3 +40,6 @@
 
 "invalid.archiveURL.title" = "Invalid URL format";
 "invalid.archiveURL.message" = "The URL you provided was invalid.";
+
+"excessFileSize.title" = "Excess file size";
+"excessFileSize.message" = "Your file size is excess 5GB, please provide url";

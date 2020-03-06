@@ -171,6 +171,7 @@ enum AppError: Error {
     case biometricError
     case didRemoteQuery
     case archiveIsNotProcessed
+    case invalidPresignedURL
 
     static func errorByNetworkConnection(_ error: Error) -> Bool {
         guard let error = error as? Self else { return false }
@@ -199,6 +200,11 @@ extension UserDefaults {
 
     var clickedIncreasePrivacyURLs: [String]? {
         get { return stringArray(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var showedInvalidArchiveIDs: [Int64] {
+        get { return (array(forKey: #function) as? [Int64]) ?? [] }
         set { set(newValue, forKey: #function) }
     }
 

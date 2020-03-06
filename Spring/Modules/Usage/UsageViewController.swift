@@ -148,7 +148,7 @@ class UsageViewController: ViewController {
         viewModel.fetchSpringStats()
 
         AppArchiveStatus.currentState
-            .filter { $0 == .processed }
+            .filter { $0?.rawValue == "processed" }
             .take(1).ignoreElements()
             .andThen(viewModel.fetchActivity())
             .subscribe(onCompleted: {
@@ -207,7 +207,7 @@ class UsageViewController: ViewController {
                 self.suffixDependentUsageSections.removeSubviews()
                 self.prefixDependentUsageSections.removeSubviews()
                 switch appArchiveStatus {
-                case .none:
+                case .none, .invalid, .created:
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()

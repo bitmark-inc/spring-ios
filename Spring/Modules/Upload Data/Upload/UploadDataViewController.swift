@@ -124,14 +124,19 @@ class UploadDataViewController: ViewController, BackNavigator {
         AppArchiveStatus.currentState
             .subscribe(onNext: { [weak self] (appArchiveStatus) in
                 guard let self = self else { return }
-                if appArchiveStatus == .processed {
+
+                if appArchiveStatus?.rawValue != "created" {
+                    loadingState.onNext(.hide)
+                }
+
+                if appArchiveStatus?.rawValue == "processed" {
                     loadingState.onNext(.tickSuccess)
                     self.navigationController?.popViewController()
                     return
                 }
 
                 self.uploadProgressView.appArchiveStatusCurrentState = appArchiveStatus
-                self.setEnableOptionButton(isEnabled: appArchiveStatus == AppArchiveStatus.none)
+                self.setEnableOptionButton(isEnabled: ["none", "invalid"].contains(appArchiveStatus?.rawValue))
             })
             .disposed(by: disposeBag)
     }
@@ -148,8 +153,25 @@ extension UploadDataViewController: DocumentPickerDelegate, UIDocumentPickerDele
     }
 
     func handle(selectedFileURL: URL) {
-        thisViewModel.archiveZipURLRelay.accept(selectedFileURL)
-        thisViewModel.submitArchiveData()
+        do {
+            guard let fileSize = try FileManager.default.attributesOfItem(atPath: selectedFileURL.path)[.size] as? Int64 else {
+                return
+            }
+
+            if fileSizeIfValid(fileSize) {
+                thisViewModel.archiveZipRelay.accept((url: selectedFileURL, size: fileSize))
+                thisViewModel.submitArchiveData()
+            } else {
+                showErrorAlert(title: R.string.error.excessFileSizeTitle(),
+                               message: R.string.error.excessFileSizeMessage())
+            }
+        } catch {
+            Global.log.error(error)
+        }
+    }
+
+    fileprivate func fileSizeIfValid(_ fileSize: Int64) -> Bool {
+        return (fileSize / 1024 / 1024 / 1024) <= 5 // limit 5GB
     }
 }
 
@@ -159,12 +181,12 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
         guard !lockTextViewClick else { return false }
         lockTextViewClick = true
 
-        if URL.path == dyiFacebookPath {
+        if URL.absoluteString == dyiFacebookPath {
             moveToDYIFacebookPage()
         }
 
         lockTextViewClick = false
-        return true
+        return false
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

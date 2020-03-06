@@ -22,14 +22,6 @@ class ProgressView: UIView {
 
     let disposeBag = DisposeBag()
 
-    override var isHidden: Bool {
-        didSet {
-            if !isHidden {
-                loadingState.onNext(.hide)
-            }
-        }
-    }
-
     var progressInfo: ProgressInfo? {
         didSet {
             guard let progressInfo = progressInfo else { return }
@@ -60,6 +52,10 @@ class ProgressView: UIView {
                 self.fileLabel.flex.height(18)
                 self.valueLabel.setText(nil)
                 self.indeterminateProgressBar.startAnimating()
+
+            case .invalid:
+                self.isHidden = true
+
             case .processed:
                 self.removeFromSuperview()
 

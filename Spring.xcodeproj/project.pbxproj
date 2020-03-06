@@ -521,6 +521,9 @@
 		5BB2852F23A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
 		5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
 		5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2852E23A34235000C04CA /* SettingsBundle.swift */; };
+		5BB2E3762414CA930013EA0D /* AppArchiveStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */; };
+		5BB2E3772414CA930013EA0D /* AppArchiveStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */; };
+		5BB2E3782414CA930013EA0D /* AppArchiveStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */; };
 		5BBB663823A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
 		5BBB663923A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
 		5BBB663A23A7305800DAAB1F /* RecoveryKeyWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */; };
@@ -1022,6 +1025,7 @@
 		5BB067CF23ED0F960059C642 /* HomeTabbarController+Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeTabbarController+Notification.swift"; sourceTree = "<group>"; };
 		5BB2852923A33796000C04CA /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		5BB2852E23A34235000C04CA /* SettingsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBundle.swift; sourceTree = "<group>"; };
+		5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppArchiveStatus.swift; sourceTree = "<group>"; };
 		5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryKeyWordCell.swift; sourceTree = "<group>"; };
 		5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionWithDelete.swift; sourceTree = "<group>"; };
@@ -1946,6 +1950,7 @@
 				5B32F5BA23CD830100959DFF /* AppLink.swift */,
 				5B93B2A323D5618E004CCD51 /* AppInfo.swift */,
 				5B93B2B023D59D17004CCD51 /* Deeplink.swift */,
+				5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2874,6 +2879,7 @@
 				5B3C54FC23D6B49E00708B1B /* IncomeQuestionViewController.swift in Sources */,
 				5B561C5923F25850008F9745 /* Stats.swift in Sources */,
 				5832FC44237A863300FA3196 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
+				5BB2E3762414CA930013EA0D /* AppArchiveStatus.swift in Sources */,
 				5B5B948F23D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
 				5B98950123AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238323B1156F00447366 /* FilterTypeView.swift in Sources */,
@@ -3090,6 +3096,7 @@
 				5B5DFFD123A1F0F4003D1A1C /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B561C5B23F25850008F9745 /* Stats.swift in Sources */,
 				5B5B949123D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
+				5BB2E3782414CA930013EA0D /* AppArchiveStatus.swift in Sources */,
 				5B98950323AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238523B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232623A39BFC00C3C408 /* Archive.swift in Sources */,
@@ -3302,6 +3309,7 @@
 				E2DB6684237D3B69005367C2 /* ConfirmRecoveryKeyViewModel.swift in Sources */,
 				5B561C5A23F25850008F9745 /* Stats.swift in Sources */,
 				5B5B949023D071ED00D1ED97 /* ArchiveDataEngine+Rx.swift in Sources */,
+				5BB2E3772414CA930013EA0D /* AppArchiveStatus.swift in Sources */,
 				5B98950223AA0EC000B72700 /* FilterScope.swift in Sources */,
 				5B4A238423B1156F00447366 /* FilterTypeView.swift in Sources */,
 				5B93232523A39BFC00C3C408 /* Archive.swift in Sources */,

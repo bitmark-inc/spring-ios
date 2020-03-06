@@ -59,7 +59,8 @@ class HomeTabbarController: ESTabBarController {
     }
 
     // 1. polling archive status when archive status is still processing
-    // 1. observe the result of archive uploading
+    // 2. observe the result of archive uploading
+    // 3. observe the result of archive processing, show error if invalid
     fileprivate func bindViewModel() {
          // 1
         Global.pollingSyncAppArchiveStatus()
@@ -74,7 +75,33 @@ class HomeTabbarController: ESTabBarController {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
-                    Global.pollingSyncAppArchiveStatus()
+                    Global.current.userDefault?.latestAppArchiveStatus = .processing
+                    AppArchiveStatus.currentState.accept(.processing)
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                        Global.pollingSyncAppArchiveStatus()
+                    }
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
+        // 3
+        AppArchiveStatus.currentState
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                switch appArchiveStatus {
+                case .invalid(let invalidArchiveIDs, let messageError):
+                    guard let latestInvalidArchiveID = invalidArchiveIDs.first,
+                        !UserDefaults.standard.showedInvalidArchiveIDs.contains(latestInvalidArchiveID)
+                        else {
+                            return
+                    }
+
+                    UserDefaults.standard.showedInvalidArchiveIDs = invalidArchiveIDs
+                    self.handleErrorWhenArchiveInvalid(messageError: messageError)
                 default:
                     break
                 }
@@ -98,21 +125,35 @@ class HomeTabbarController: ESTabBarController {
 
 // MARK: - Handle Error
 extension HomeTabbarController {
-    fileprivate func handleErrorWhenUpload(error: Error) {
+    fileprivate func handleErrorWhenArchiveInvalid(messageError: ArchiveMessageError?) {
         var errorMessage = R.string.error.system()
-        if let error = error as? ServerAPIError {
-            switch error.code {
-            case .InvalidArchiveFile:
-                errorMessage = R.string.error.invalidArchiveFileMessage()
-            default:
-                break
-            }
+        switch messageError {
+        case .failToCreateArchive:
+            errorMessage = R.string.error.invalidArchiveFileMessage()
+        default:
+            break
         }
 
-        Global.log.error(error)
         let alertController = ErrorAlert.invalidArchiveFileAlert(
             title: R.string.error.invalidArchiveFileTitle(),
             message: errorMessage) { [weak self] in
+                DispatchQueue.main.async {
+                    guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                        let sender = selectedNavigation.topViewController,
+                        !(sender is UploadDataViewController) else { return }
+
+                    let viewModel = UploadDataViewModel()
+                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                }
+            }
+        alertController.show()
+    }
+
+    fileprivate func handleErrorWhenUpload(error: Error) {
+        Global.log.error(error)
+        let alertController = ErrorAlert.invalidArchiveFileAlert(
+            title: R.string.error.generalTitle(),
+            message: R.string.error.system()) { [weak self] in
                 DispatchQueue.main.async {
                     guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
                         let sender = selectedNavigation.topViewController,

@@ -36,7 +36,7 @@ class AggregateAnalysisView: UIView {
             }
 
         AppArchiveStatus.currentState
-            .filter { $0 == .processed }.distinctUntilChanged()
+            .filter { $0?.rawValue == "processed" }
             .subscribe(onNext: { [weak self, weak subHeadingView] (_) in
                 guard let self = self, let subHeadingView = subHeadingView else { return }
                 subHeadingView.flex.addItem(self.makeCircle(ColorTheme.cognac.color)).marginLeft(18)

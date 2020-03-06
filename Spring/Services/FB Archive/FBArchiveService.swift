@@ -13,8 +13,9 @@ import Alamofire
 
 protocol FBArchiveServiceDelegate {
     static func submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date) -> Completable
-    static func submitByFile(_ fileURL: URL)
+    static func submitByFile(_ fileURL: URL, with presignedURL: String)
     static func submitByURL(_ fileURL: URL) -> Completable
+    static func getPresignedURL(with fileSize: Int64) -> Single<String>
     static func getAll() -> Single<[Archive]>
 }
 
@@ -32,43 +33,26 @@ class FBArchiveService: FBArchiveServiceDelegate {
             .asCompletable()
     }
 
-    static func submitByFile(_ fileURL: URL) {
+    static func submitByFile(_ fileURL: URL, with presignedURL: String) {
         Global.log.info("[start] FBArchiveService.submitByFile")
 
-        AuthService.shared.jwtCompletable
-            .do(onSubscribed: { AuthService.shared.mutexRefreshJwt() })
-            .andThen(connectedToInternet())
-            .subscribe(onCompleted: {
-                guard let jwtToken = AuthService.shared.auth?.jwtToken,
-                    let bundleVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String else {
-                        return
-                }
+        guard let url = URL(string: presignedURL) else {
+            Global.log.info("presignedURL: \([presignedURL])")
+            Global.log.error(AppError.invalidPresignedURL)
+            return
+        }
 
-                var urlRequest = URLRequest(url: URL(string: Constant.default.fBMServerURL + "/api/archives?type=facebook")!)
-                urlRequest.method = .post
-                urlRequest.setValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
-                urlRequest.addValue("ios", forHTTPHeaderField: "Client-Type")
-                urlRequest.addValue(bundleVersion, forHTTPHeaderField: "Client-Version")
-                urlRequest.addValue("Bearer " + jwtToken, forHTTPHeaderField: "Authorization")
+        var urlRequest = URLRequest(url: url)
+        urlRequest.method = .put
 
-                BackgroundTaskManager.shared
-                    .urlSession(identifier: SessionIdentifier.upload.rawValue)
-                    .uploadTask(with: urlRequest, fromFile: fileURL)
-                    .resume()
+        BackgroundTaskManager.shared
+            .urlSession(identifier: SessionIdentifier.upload.rawValue)
+            .uploadTask(with: urlRequest, fromFile: fileURL)
+            .resume()
 
-                BackgroundTaskManager.shared.uploadInfoRelay
-                    .accept([SessionIdentifier.upload.rawValue: fileURL.lastPathComponent])
-                AppArchiveStatus.currentState.accept(.uploading)
-
-            }, onError: { (error) in
-                guard !AppError.errorByNetworkConnection(error),
-                    !Global.handleErrorIfAsAFError(error) else {
-                        return
-                }
-
-                Global.log.error(error)
-            })
-            .disposed(by: disposeBag)
+        BackgroundTaskManager.shared.uploadInfoRelay
+            .accept([SessionIdentifier.upload.rawValue: fileURL.lastPathComponent])
+        AppArchiveStatus.currentState.accept(.uploading)
     }
 
     static func submitByURL(_ fileURL: URL) -> Completable {
@@ -80,6 +64,16 @@ class FBArchiveService: FBArchiveServiceDelegate {
             .asCompletable()
     }
 
+    static func getPresignedURL(with fileSize: Int64) -> Single<String> {
+        Global.log.info("[start] FBArchiveService.getPresignedURL")
+
+        return provider.rx
+            .requestWithRefreshJwt(.getPresignedURL(fileSize))
+            .filterSuccess()
+            .map(PresignedURLResult.self, atKeyPath: "result")
+            .map { $0.url }
+    }
+
     static func getAll() -> Single<[Archive]> {
         Global.log.info("[start] getAll")
 
@@ -88,4 +82,9 @@ class FBArchiveService: FBArchiveServiceDelegate {
             .filterSuccess()
             .map([Archive].self, atKeyPath: "result", using: Global.default.decoder)
     }
+}
+
+struct PresignedURLResult: Decodable {
+    let url: String
+    let headers: [String: [String]]
 }

@@ -12,6 +12,7 @@ import Moya
 enum FBArchiveAPI {
     case submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date)
     case submitByURL(_ fileURL: URL)
+    case getPresignedURL(_ size: Int64)
     case getAll
 }
 
@@ -23,14 +24,14 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
     var path: String {
         switch self {
         case .submitByURL: return "url"
-        case .submit, .getAll:
+        case .submit, .getAll, .getPresignedURL:
             return ""
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .submit, .submitByURL:
+        case .submit, .submitByURL, .getPresignedURL:
             return .post
         case .getAll:
             return .get
@@ -61,6 +62,14 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
             ]
 
             return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+
+        case .getPresignedURL(let fileSize):
+            let params: [String: Any] = [
+                "type": "facebook",
+                "size": fileSize
+            ]
+
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
 
         case .getAll:
             return .requestPlain

@@ -13,15 +13,22 @@ import RxCocoa
 class UploadDataViewModel: ViewModel {
 
     // MARK: - Inputs
-    var archiveZipURLRelay = BehaviorRelay<URL?>(value: nil)
+    var archiveZipRelay = BehaviorRelay<(url: URL, size: Int64)?>(value: nil)
     var downloadableURLRelay = BehaviorRelay<URL?>(value: nil)
 
     // MARK: - Outputs
     let submitArchiveDataResultSubject = PublishSubject<Event<Never>>()
 
     func submitArchiveData() {
-        if let archiveZipURL = archiveZipURLRelay.value {
-            FBArchiveService.submitByFile(archiveZipURL)
+        if let archiveZip = archiveZipRelay.value {
+            FBArchiveService.getPresignedURL(with: archiveZip.size)
+                .subscribe(onSuccess: { (presignedURL) in
+                    FBArchiveService.submitByFile(archiveZip.url, with: presignedURL)
+                }, onError: { [weak self] (error) in
+                    self?.submitArchiveDataResultSubject.onNext(Event.error(error))
+                })
+                .disposed(by: disposeBag)
+
         } else if let downloadableURL = downloadableURLRelay.value {
             loadingState.onNext(.loading)
             FBArchiveService.submitByURL(downloadableURL)

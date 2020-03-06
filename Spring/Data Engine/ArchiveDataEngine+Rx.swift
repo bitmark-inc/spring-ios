@@ -34,9 +34,19 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                     return .none
                 }
 
-                return archives.firstIndex(where: { $0.status == ArchiveStatus.processed.rawValue }) != nil ?
-                    .processed :
-                    .processing
+                if archives.contains(where: { $0.status == ArchiveStatus.processed.rawValue }) {
+                    return .processed
+                } else {
+                    let sortedInvalidArchiveIDs = archives
+                        .filter { $0.status == ArchiveStatus.invalid.rawValue }
+                        .sorted { $0.updatedAt > $1.updatedAt }
+
+                    if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
+                        return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+                    } else {
+                        return .processing
+                    }
+                }
             }
     }
 
