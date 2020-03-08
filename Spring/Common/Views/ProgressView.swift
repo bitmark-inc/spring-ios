@@ -17,7 +17,7 @@ class ProgressView: UIView {
     fileprivate lazy var titleLabel = makeTitleLabel()
     fileprivate lazy var fileLabel = makeFileLabel()
     fileprivate lazy var progressBar = makeProgressBar()
-    fileprivate lazy var indeterminateProgressBar = makeIndeterminateProgressBar()
+    lazy var indeterminateProgressBar = makeIndeterminateProgressBar()
     fileprivate lazy var valueLabel = makeValueLabel()
 
     let disposeBag = DisposeBag()
@@ -45,13 +45,10 @@ class ProgressView: UIView {
             switch appArchiveStatusCurrentState {
             case .processing:
                 self.isHidden = false
-                self.indeterminateProgressBar.isHidden = false
-                self.progressBar.isHidden = true
                 self.titleLabel.setText(R.string.localizable.processing().localizedUppercase)
                 self.fileLabel.setText(nil)
                 self.fileLabel.flex.height(18)
                 self.valueLabel.setText(nil)
-                self.indeterminateProgressBar.startAnimating()
 
             case .invalid:
                 self.isHidden = true
@@ -63,8 +60,25 @@ class ProgressView: UIView {
                 break
             }
 
+            if let appArchiveStatusCurrentState = appArchiveStatusCurrentState {
+                toggleProgressBar(isProgressing:
+                    appArchiveStatusCurrentState == .processing)
+            }
+
             flex.markDirty()
             flex.layout()
+        }
+    }
+
+    fileprivate func toggleProgressBar(isProgressing: Bool) {
+        if isProgressing {
+            indeterminateProgressBar.isHidden = false
+            progressBar.isHidden = true
+            indeterminateProgressBar.startAnimating()
+        } else {
+            indeterminateProgressBar.isHidden = true
+            progressBar.isHidden = false
+            indeterminateProgressBar.stopAnimating()
         }
     }
 

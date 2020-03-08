@@ -78,7 +78,7 @@ class HomeTabbarController: ESTabBarController {
                     Global.current.userDefault?.latestAppArchiveStatus = .processing
                     AppArchiveStatus.currentState.accept(.processing)
 
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 30) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                         Global.pollingSyncAppArchiveStatus()
                     }
                 default:

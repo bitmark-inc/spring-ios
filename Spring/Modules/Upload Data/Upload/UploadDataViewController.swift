@@ -31,6 +31,12 @@ class UploadDataViewController: ViewController, BackNavigator {
     weak var documentPickerDelegate: DocumentPickerDelegate?
     let lock = NSLock()
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        uploadProgressView.indeterminateProgressBar.startAnimating()
+    }
+
     // MARK: - Binds Model
     override func bindViewModel() {
         super.bindViewModel()
@@ -39,6 +45,7 @@ class UploadDataViewController: ViewController, BackNavigator {
 
         uploadFileButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
+            self.view.endEditing(true)
             self.browseFile(fileTypes: [kUTTypeZipArchive as String])
         }.disposed(by: disposeBag)
 
@@ -51,7 +58,7 @@ class UploadDataViewController: ViewController, BackNavigator {
                     self.errorWhenSubmitArchiveData(error: error)
                 case .completed:
                     Global.pollingSyncAppArchiveStatus()
-                    Global.log.info("[done] submitArchiveDataResult")
+                    Global.log.info("[done] submitArchiveDataResult; submitByURL")
                 default:
                     break
                 }
@@ -122,21 +129,25 @@ class UploadDataViewController: ViewController, BackNavigator {
             .disposed(by: disposeBag)
 
         AppArchiveStatus.currentState
+            .filterNil()
+            .do(onNext: {
+                if $0.rawValue != AppArchiveStatus.created.rawValue {
+                    loadingState.onNext(.hide)
+                }
+            })
+            .distinctUntilChanged { $0.rawValue == $1.rawValue }
             .subscribe(onNext: { [weak self] (appArchiveStatus) in
                 guard let self = self else { return }
 
-                if appArchiveStatus?.rawValue != "created" {
-                    loadingState.onNext(.hide)
-                }
-
-                if appArchiveStatus?.rawValue == "processed" {
+                if appArchiveStatus.rawValue == AppArchiveStatus.processed.rawValue {
                     loadingState.onNext(.tickSuccess)
                     self.navigationController?.popViewController()
                     return
                 }
 
                 self.uploadProgressView.appArchiveStatusCurrentState = appArchiveStatus
-                self.setEnableOptionButton(isEnabled: ["none", "invalid"].contains(appArchiveStatus?.rawValue))
+                self.setEnableOptionButton(isEnabled:
+                    ["none", "invalid"].contains(appArchiveStatus.rawValue))
             })
             .disposed(by: disposeBag)
     }
@@ -171,7 +182,7 @@ extension UploadDataViewController: DocumentPickerDelegate, UIDocumentPickerDele
     }
 
     fileprivate func fileSizeIfValid(_ fileSize: Int64) -> Bool {
-        return (fileSize / 1024 / 1024 / 1024) <= 5 // limit 5GB
+        return fileSize <= 5 * 1024 * 1024 * 1024 // limit 5GB
     }
 }
 
@@ -190,11 +201,12 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let urlPath = textField.text, let url = URL(string: urlPath) else {
-            return false
+        guard let urlPath = textField.text, urlPath.isNotEmpty else {
+            textField.endEditing(true)
+            return true
         }
 
-        guard UIApplication.shared.canOpenURL(url) else {
+        guard let url = URL(string: urlPath), UIApplication.shared.canOpenURL(url) else {
             let alertController = ErrorAlert.invalidArchiveFileAlert(
                 title: R.string.error.invalidArchiveURLTitle(),
                 message: R.string.error.invalidArchiveURLMessage(),
@@ -213,6 +225,7 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
 
 extension UploadDataViewController {
     fileprivate func moveToDYIFacebookPage() {
+        uploadProgressView.indeterminateProgressBar.stopAnimating()
         guard let dyiFacebookURL = URL(string: dyiFacebookPath) else { return }
         navigator.show(segue: .safariController(dyiFacebookURL), sender: self, transition: .alert)
     }
@@ -327,6 +340,7 @@ extension UploadDataViewController {
         textField.autocorrectionType = .no
         textField.returnKeyType = .done
         textField.delegate = self
+        textField.clearButtonMode = .whileEditing
         return textField
     }
 

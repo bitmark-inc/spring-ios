@@ -211,19 +211,21 @@ class UsageViewController: ViewController {
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
+                    self.prefixDependentUsageSections.flex.layout()
 
                 case .uploading:
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+                    self.prefixDependentUsageSections.flex.layout()
 
                 case .processing:
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.prefixDependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
+                    self.prefixDependentUsageSections.flex.markDirty()
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
-                    self.prefixDependentUsageSections.flex.markDirty()
 
                 case .processed:
                     self.suffixDependentUsageSections.flex.addItem(self.postsHeadingView)
@@ -236,6 +238,7 @@ class UsageViewController: ViewController {
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterDayView)
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
+                    self.prefixDependentUsageSections.flex.layout()
                 }
 
                 self.suffixDependentUsageSections.flex.markDirty()

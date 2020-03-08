@@ -36,6 +36,8 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
 
                 if archives.contains(where: { $0.status == ArchiveStatus.processed.rawValue }) {
                     return .processed
+                } else if archives.contains(where: { [ArchiveStatus.submitted.rawValue, ArchiveStatus.processing.rawValue].contains($0.status) }) {
+                    return .processing
                 } else {
                     let sortedInvalidArchiveIDs = archives
                         .filter { $0.status == ArchiveStatus.invalid.rawValue }
@@ -43,6 +45,8 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
 
                     if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
                         return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+                    } else if archives.contains(where: { $0.status == ArchiveStatus.created.rawValue }) {
+                        return .created
                     } else {
                         return .processing
                     }

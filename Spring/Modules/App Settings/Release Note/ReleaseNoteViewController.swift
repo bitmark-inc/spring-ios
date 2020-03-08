@@ -17,6 +17,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
     // MARK: - Properties
     lazy var screenTitle = makeScreenTitle()
     lazy var versionLabel = makeVersionLabel()
+    lazy var releaseNoteLabel = makeReleaseNoteLabel()
     lazy var feedbackTextView = makeFeedbackTextView()
     lazy var continueButton = makeContinueButton()
 
@@ -60,7 +61,8 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
                     .define { (flex) in
                         flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
                         flex.addItem(versionLabel)
-                        flex.addItem(feedbackTextView).marginTop(15).height(0).grow(1)
+                        flex.addItem(releaseNoteLabel).marginTop(5).marginLeft(25)
+                        flex.addItem(feedbackTextView).marginTop(10).height(0).grow(1)
                             .marginRight(-OurTheme.paddingInset.right)
                     }
 
@@ -133,7 +135,7 @@ extension ReleaseNoteViewController {
         return label
     }
 
-    fileprivate func makeFeedbackTextView() -> UITextView {
+    fileprivate func makeReleaseNoteLabel() -> Label {
         var content = ""
         if let releaseNotesURL = releaseNotesURL {
             do {
@@ -143,12 +145,19 @@ extension ReleaseNoteViewController {
             }
         }
 
+        let label = Label()
+        label.numberOfLines = 0
+        label.apply(text: content, font: R.font.atlasGroteskLight(size: 22), colorTheme: .tundora, lineHeight: 1.315)
+        return label
+    }
+
+    fileprivate func makeFeedbackTextView() -> UITextView {
         let textView = ReadingTextView()
         textView.apply(colorTheme: .tundora)
         textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: OurTheme.paddingInset.right)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
-            string: R.string.phrase.releaseNoteContent(content, R.string.phrase.releaseNoteLetUsKnow()),
+            string: R.string.phrase.releaseNoteContent(R.string.phrase.releaseNoteLetUsKnow()),
             lineHeight: 1.315,
             attributes: [.font: R.font.atlasGroteskLight(size: 22)!, .foregroundColor: ColorTheme.tundora.color],
             links: [(text: R.string.phrase.releaseNoteLetUsKnow(), url: AppLink.support.path)],

@@ -121,7 +121,7 @@ class Global {
         }
 
         pollingFunction()
-            .retry(.delayed(maxCount: 1000, time: 30))
+            .retry(.delayed(maxCount: 1000, time: 5 * 60))
             .subscribe()
             .disposed(by: disposeBag)
     }

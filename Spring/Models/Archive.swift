@@ -67,7 +67,7 @@ extension Archive {
 }
 
 enum ArchiveStatus: String {
-    case submitted, stored, processed, invalid
+    case created, submitted, processing, processed, invalid
 }
 
 enum ArchiveMessageError: String {

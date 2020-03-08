@@ -38,10 +38,10 @@ class BackgroundTaskManager : NSObject, URLSessionDelegate, URLSessionDataDelega
 
     func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         guard let identifier = session.configuration.identifier else { return }
-        let progress = task.progress.fractionCompleted
+        let progress = Float(totalBytesSent) / Float(totalBytesExpectedToSend)
 
         let progressInfo = ProgressInfo(
-            fractionCompleted: Float(progress),
+            fractionCompleted: progress,
             totalBytesSent: totalBytesSent, totalBytesExpectedToSend: totalBytesExpectedToSend)
 
         Global.log.debug("Progress \(identifier): \(progress)")
@@ -51,6 +51,8 @@ class BackgroundTaskManager : NSObject, URLSessionDelegate, URLSessionDataDelega
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         guard let identifier = session.configuration.identifier,
             let response = dataTask.response as? HTTPURLResponse else { return }
+
+        Global.log.debug("Transfer Background Result: \(response.statusCode)")
 
         if 200 ... 299 ~= response.statusCode { // requests successfully
             uploadProgressRelay.accept([identifier: Event.completed])
