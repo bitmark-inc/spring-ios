@@ -208,26 +208,26 @@ class UsageViewController: ViewController {
                 self.prefixDependentUsageSections.removeSubviews()
                 switch appArchiveStatus {
                 case .none, .invalid, .created:
+                    self.prefixDependentUsageSections.flex.addItem()
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
-                    self.prefixDependentUsageSections.flex.layout()
 
                 case .uploading:
+                    self.prefixDependentUsageSections.flex.addItem()
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
-                    self.prefixDependentUsageSections.flex.layout()
 
                 case .processing:
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.prefixDependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
-                    self.prefixDependentUsageSections.flex.markDirty()
                     self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
                     self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
 
                 case .processed:
+                    self.prefixDependentUsageSections.flex.addItem()
                     self.suffixDependentUsageSections.flex.addItem(self.postsHeadingView)
                     self.suffixDependentUsageSections.flex.addItem(self.postsFilterTypeView)
                     self.suffixDependentUsageSections.flex.addItem(self.postsFilterDayView)
@@ -238,9 +238,9 @@ class UsageViewController: ViewController {
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterDayView)
                     self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
-                    self.prefixDependentUsageSections.flex.layout()
                 }
 
+                self.prefixDependentUsageSections.flex.markDirty()
                 self.suffixDependentUsageSections.flex.markDirty()
                 self.layout()
             })

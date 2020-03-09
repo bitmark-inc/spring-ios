@@ -101,6 +101,10 @@
 "account.settings.security.biometricAuth" = "%@ »";
 "account.settings.security.increasePrivacy" = "Increase Facebook privacy »";
 
+"account.settings.development" = "Development";
+"account.settings.development.personalAPI" = "Personal API »";
+"account.settings.development.sourceCode" = "Source code »";
+
 "account.settings.support" = "Support";
 "account.settings.support.faq" = "FAQ »";
 "account.settings.support.whatsNew" = "What's new »";
@@ -153,6 +157,8 @@
 
 "releaseNote.title" = "What’s New";
 "releaseNote.appVersion" = "Version %@";
+"releaseNote.section.1" = "Hightlights of the new features";
+"releaseNote.section.2" = "Enhancements";
 "releaseNote.letUsKnow" = "let us know";
 "releaseNote.content" = "We value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";
 

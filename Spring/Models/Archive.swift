@@ -17,12 +17,13 @@ class Archive: Object, Decodable {
     @objc dynamic var status: String = ""
     @objc dynamic var contentHash: String = ""
     @objc dynamic var issueBitmark: Bool = false
-    @objc dynamic var message: String = ""
+    @objc dynamic var errorCode: String = ""
     @objc dynamic var updatedAt: Date = Date()
 
     enum CodingKeys: String, CodingKey {
         case id
-        case status, message
+        case status
+        case error = "error"
         case contentHash = "content_hash"
         case updatedAt = "updated_at"
     }
@@ -37,7 +38,7 @@ class Archive: Object, Decodable {
         id = try values.decode(Int64.self, forKey: .id)
         status = try values.decode(String.self, forKey: .status)
         contentHash = try values.decodeIfPresent(String.self, forKey: .contentHash) ?? ""
-        message = try values.decodeIfPresent(String.self, forKey: .message) ?? ""
+        errorCode = try values.decodeIfPresent([String: String].self, forKey: .error)?["code"] ?? ""
         updatedAt = try values.decode(Date.self, forKey: .updatedAt)
     }
 
@@ -62,7 +63,7 @@ class Archive: Object, Decodable {
 
 extension Archive {
     var messageError: ArchiveMessageError? {
-        return ArchiveMessageError(rawValue: message)
+        return ArchiveMessageError(rawValue: errorCode)
     }
 }
 

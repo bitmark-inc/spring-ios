@@ -126,16 +126,18 @@ class HomeTabbarController: ESTabBarController {
 // MARK: - Handle Error
 extension HomeTabbarController {
     fileprivate func handleErrorWhenArchiveInvalid(messageError: ArchiveMessageError?) {
+        var errorTitle = R.string.error.generalTitle()
         var errorMessage = R.string.error.system()
         switch messageError {
-        case .failToCreateArchive:
+        case .failToCreateArchive, .failToDownloadArchive:
+            errorTitle = R.string.error.invalidArchiveFileTitle()
             errorMessage = R.string.error.invalidArchiveFileMessage()
         default:
             break
         }
 
         let alertController = ErrorAlert.invalidArchiveFileAlert(
-            title: R.string.error.invalidArchiveFileTitle(),
+            title: errorTitle,
             message: errorMessage) { [weak self] in
                 DispatchQueue.main.async {
                     guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,

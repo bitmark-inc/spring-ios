@@ -37,7 +37,8 @@ class AggregateAnalysisView: UIView {
 
         AppArchiveStatus.currentState
             .filter { $0?.rawValue == "processed" }
-            .subscribe(onNext: { [weak self, weak subHeadingView] (_) in
+            .take(1).ignoreElements()
+            .subscribe(onCompleted: { [weak self, weak subHeadingView] in
                 guard let self = self, let subHeadingView = subHeadingView else { return }
                 subHeadingView.flex.addItem(self.makeCircle(ColorTheme.cognac.color)).marginLeft(18)
                 subHeadingView.flex.addItem(self.makeSubHeadingLabel(text: R.string.localizable.your_posts_and_reactions()))

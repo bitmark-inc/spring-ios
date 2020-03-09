@@ -79,7 +79,7 @@ class Post: Object, Decodable {
 }
 
 class Friend: Object, Decodable {
-    @objc dynamic var id: Int = 0
+    @objc dynamic var id: String = ""
     @objc dynamic var name: String = ""
 
     override class func primaryKey() -> String? {

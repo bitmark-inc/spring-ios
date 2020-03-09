@@ -30,7 +30,6 @@ class Global {
             else { return nil }
         return UserDefaults.userStandard(for: accountNumber)
     }()
-    var didUserTapNotification: Bool = false
 
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()

@@ -44,7 +44,13 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                         .sorted { $0.updatedAt > $1.updatedAt }
 
                     if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
-                        return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+                        switch latestInvalidArchive.messageError {
+                        case .failToCreateArchive, .failToDownloadArchive:
+                            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+                        default:
+                            return .processing
+                        }
+
                     } else if archives.contains(where: { $0.status == ArchiveStatus.created.rawValue }) {
                         return .created
                     } else {

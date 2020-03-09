@@ -57,7 +57,7 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
 
         case .submitByURL(let fileURL):
             let params = [
-                "file_url": fileURL.path,
+                "file_url": fileURL.absoluteString,
                 "archive_type": "facebook"
             ]
 

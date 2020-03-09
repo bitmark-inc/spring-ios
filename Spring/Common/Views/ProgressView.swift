@@ -141,6 +141,7 @@ extension ProgressView {
         progressBar.progressBarColor = UIColor(hexString: "#0011AF")!
         progressBar.isHidden = true
         progressBar.backgroundColor = UIColor(red: 0, green: 17/255, blue: 175/255, alpha: 0.5)
+        progressBar.startAnimating()
         return progressBar
     }
 

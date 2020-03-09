@@ -17,6 +17,8 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
     // MARK: - Properties
     lazy var screenTitle = makeScreenTitle()
     lazy var versionLabel = makeVersionLabel()
+    lazy var scroll = UIScrollView()
+    lazy var scrollContentView = UIView()
     lazy var releaseNoteLabel = makeReleaseNoteLabel()
     lazy var feedbackTextView = makeFeedbackTextView()
     lazy var continueButton = makeContinueButton()
@@ -32,6 +34,11 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
         } else {
             return .default
         }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        scroll.contentSize = scrollContentView.frame.size
     }
 
     override func bindViewModel() {
@@ -53,18 +60,21 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
             marginBottomForContent += 80
         }
 
+        scrollContentView.flex.define { (flex) in
+            flex.addItem(releaseNoteLabel).marginRight(10)
+            flex.addItem(feedbackTextView).marginTop(25)
+            flex.addItem().height(60)
+        }
+
+        scroll.addSubview(scrollContentView)
+        scroll.showsVerticalScrollIndicator = false
+
         contentView.flex
             .padding(OurTheme.paddingInset)
             .define { (flex) in
-                flex.addItem()
-                    .grow(1).marginBottom(marginBottomForContent)
-                    .define { (flex) in
-                        flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
+                flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
                         flex.addItem(versionLabel)
-                        flex.addItem(releaseNoteLabel).marginTop(5).marginLeft(25)
-                        flex.addItem(feedbackTextView).marginTop(10).height(0).grow(1)
-                            .marginRight(-OurTheme.paddingInset.right)
-                    }
+                flex.addItem(scroll).grow(1).height(0)
 
                 switch buttonItemType {
                 case .back:
@@ -135,26 +145,46 @@ extension ReleaseNoteViewController {
         return label
     }
 
-    fileprivate func makeReleaseNoteLabel() -> Label {
-        var content = ""
-        if let releaseNotesURL = releaseNotesURL {
-            do {
-                content = try String(contentsOf: releaseNotesURL, encoding: .utf8)
-            } catch {
-                Global.log.error(error)
+    fileprivate func makeReleaseNoteLabel() -> UIView {
+        guard let releaseNotesURL = releaseNotesURL else { return UIView() }
+
+        func makeLabel(text: String) -> Label {
+            let label = Label()
+            label.numberOfLines = 0
+            label.apply(text: text, font: R.font.atlasGroteskLight(size: 22), colorTheme: .tundora, lineHeight: 1.315)
+            return label
+        }
+        var content: String = ""
+        do {
+            content = try String(contentsOf: releaseNotesURL, encoding: .utf8)
+        } catch {
+            Global.log.error(error)
+        }
+
+        let view = UIView()
+        let sections = content.components(separatedBy: "\n\n\n")
+
+        view.flex.define { (flex) in
+            for (index, section) in sections.enumerated() {
+                flex.addItem(makeLabel(text: "releaseNote.section.\(index + 1)".localized(tableName: "Phrase")))
+                    .marginTop(15)
+
+                for content in section.split(separator: "\n").map(String.init) {
+                    flex.addItem().marginTop(5).direction(.row).alignItems(.start).define { (flex) in
+                        flex.addItem(makeLabel(text: "—"))
+                        flex.addItem(makeLabel(text: content)).marginLeft(10)
+                    }
+                }
             }
         }
 
-        let label = Label()
-        label.numberOfLines = 0
-        label.apply(text: content, font: R.font.atlasGroteskLight(size: 22), colorTheme: .tundora, lineHeight: 1.315)
-        return label
+        return view
     }
 
     fileprivate func makeFeedbackTextView() -> UITextView {
         let textView = ReadingTextView()
+        textView.isScrollEnabled = false
         textView.apply(colorTheme: .tundora)
-        textView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: OurTheme.paddingInset.right)
         textView.delegate = self
         textView.attributedText = LinkAttributedString.make(
             string: R.string.phrase.releaseNoteContent(R.string.phrase.releaseNoteLetUsKnow()),
@@ -163,7 +193,9 @@ extension ReleaseNoteViewController {
             links: [(text: R.string.phrase.releaseNoteLetUsKnow(), url: AppLink.support.path)],
             customLineSpacing: true)
         textView.linkTextAttributes = [
-          .foregroundColor: ColorTheme.internationalKleinBlue.color
+          .underlineColor: themeService.attrs.tundoraTextColor,
+          .underlineStyle: NSUnderlineStyle.single.rawValue,
+          .foregroundColor: themeService.attrs.tundoraTextColor
         ]
         return textView
     }

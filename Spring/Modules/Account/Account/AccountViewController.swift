@@ -29,6 +29,10 @@ class AccountViewController: ViewController, BackNavigator {
     lazy var biometricAuthOptionButton = makeBiometricAuthOptionButton()
     lazy var increasePrivacyButton = makeOptionButton(title: R.string.phrase.accountSettingsSecurityIncreasePrivacy())
 
+    // *** Section - Development
+    lazy var personalAPIOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsDevelopmentPersonalAPI())
+    lazy var sourceCodeOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsDevelopmentSourceCode())
+
     // *** Section - Support
     lazy var faqOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportFaq())
     lazy var whatsNewButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportWhatsNew())
@@ -68,6 +72,14 @@ class AccountViewController: ViewController, BackNavigator {
             self?.gotoIncreasePrivacyListScreen()
         }.disposed(by: disposeBag)
 
+        personalAPIOptionButton.rx.tap.bind { [weak self] in
+            self?.gotoPersonalAPIScreen()
+        }.disposed(by: disposeBag)
+
+        sourceCodeOptionButton.rx.tap.bind { [weak self] in
+            self?.gotoSourceCodeScreen()
+        }.disposed(by: disposeBag)
+
         faqOptionButton.rx.tap.bind { [weak self] in
             self?.gotoFAQScreen()
         }.disposed(by: disposeBag)
@@ -104,13 +116,19 @@ class AccountViewController: ViewController, BackNavigator {
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsAccount(),
-                    options: [deleteAccountButton, signOutOptionButton, recoveryKeyOptionButton]))
+                    options: [signOutOptionButton, recoveryKeyOptionButton]))
                 .marginTop(12)
 
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsSecurity(),
                     options: securityButtonGroup))
+                .marginTop(12)
+
+            flex.addItem(
+                makeOptionsSection(
+                    name: R.string.phrase.accountSettingsDevelopment(),
+                    options: [personalAPIOptionButton, sourceCodeOptionButton]))
                 .marginTop(12)
 
             flex.addItem(
@@ -167,10 +185,16 @@ extension AccountViewController {
         Intercom.presentMessenger()
     }
 
-    fileprivate func showSurveyLink() {
-        navigator.show(segue: .safariController(Constant.surveyURL), sender: self, transition: .alert)
+    fileprivate func gotoPersonalAPIScreen() {
+        guard let url = AppLink.personalAPI.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self, transition: .alert)
     }
-}
+
+    fileprivate func gotoSourceCodeScreen() {
+        guard let url = AppLink.sourceCode.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self, transition: .alert)
+    }
+ }
 
 // MARK: UITextViewDelegate
 extension AccountViewController: UITextViewDelegate {
