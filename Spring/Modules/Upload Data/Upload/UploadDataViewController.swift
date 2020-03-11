@@ -147,7 +147,7 @@ class UploadDataViewController: ViewController, BackNavigator {
 
                 self.uploadProgressView.appArchiveStatusCurrentState = appArchiveStatus
                 self.setEnableOptionButton(isEnabled:
-                    ["none", "invalid"].contains(appArchiveStatus.rawValue))
+                    ["none", "created", "invalid"].contains(appArchiveStatus.rawValue))
             })
             .disposed(by: disposeBag)
     }
