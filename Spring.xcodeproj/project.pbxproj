@@ -95,6 +95,9 @@
 		58FF431023B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431123B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
 		58FF431223B4BB380029700C /* AbbreviatedValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */; };
+		5B09F841241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09F840241A0F0D00CE3F59 /* AxisValueFormatter.swift */; };
+		5B09F842241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09F840241A0F0D00CE3F59 /* AxisValueFormatter.swift */; };
+		5B09F843241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B09F840241A0F0D00CE3F59 /* AxisValueFormatter.swift */; };
 		5B13D3A323CEFD4A00F82350 /* IncreasePrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */; };
 		5B13D3A423CEFD4A00F82350 /* IncreasePrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */; };
 		5B13D3A523CEFD4A00F82350 /* IncreasePrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */; };
@@ -915,6 +918,7 @@
 		58E8B24823F269B90006D45B /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 		58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomyAxisRender.swift; sourceTree = "<group>"; };
 		58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbbreviatedValueFormatter.swift; sourceTree = "<group>"; };
+		5B09F840241A0F0D00CE3F59 /* AxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisValueFormatter.swift; sourceTree = "<group>"; };
 		5B13D3A223CEFD4A00F82350 /* IncreasePrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewController.swift; sourceTree = "<group>"; };
 		5B13D3A623CF000100F82350 /* IncreasePrivacyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncreasePrivacyViewModel.swift; sourceTree = "<group>"; };
 		5B2097A023B464360079B421 /* ReactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactionService.swift; sourceTree = "<group>"; };
@@ -1513,6 +1517,7 @@
 				5B590A7123B31D6D006C194D /* StackedBarValueFormatter.swift */,
 				58FF430F23B4BB380029700C /* AbbreviatedValueFormatter.swift */,
 				58E8B24C23F2A9420006D45B /* CustomyAxisRender.swift */,
+				5B09F840241A0F0D00CE3F59 /* AxisValueFormatter.swift */,
 			);
 			path = Charts;
 			sourceTree = "<group>";
@@ -2935,6 +2940,7 @@
 				E21EF9F7239111E3004D4513 /* UsageService.swift in Sources */,
 				E244203A2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				5832FCB5237A9FD700FA3196 /* Navigator.swift in Sources */,
+				5B09F841241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */,
 				5832FC53237A863300FA3196 /* EditingTextView.swift in Sources */,
 				5B67AA6823C830D300136B68 /* String+Extension.swift in Sources */,
 				5BC278192408CD2B00564A98 /* SelectionWithDelete.swift in Sources */,
@@ -3152,6 +3158,7 @@
 				5B5DFFF323A1F0F4003D1A1C /* UsageService.swift in Sources */,
 				5B5DFFF623A1F0F4003D1A1C /* MediaPostTableViewCell.swift in Sources */,
 				5B5DFFF723A1F0F4003D1A1C /* Navigator.swift in Sources */,
+				5B09F843241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */,
 				5B5DFFF923A1F0F4003D1A1C /* EditingTextView.swift in Sources */,
 				5B67AA6A23C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853123A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -3365,6 +3372,7 @@
 				E21EF9F8239111E3004D4513 /* UsageService.swift in Sources */,
 				E244203B2399067600520FE9 /* MediaPostTableViewCell.swift in Sources */,
 				E2DB6693237D3B69005367C2 /* Navigator.swift in Sources */,
+				5B09F842241A0F0D00CE3F59 /* AxisValueFormatter.swift in Sources */,
 				E2DB6694237D3B69005367C2 /* EditingTextView.swift in Sources */,
 				5B67AA6923C830D300136B68 /* String+Extension.swift in Sources */,
 				5BB2853023A34235000C04CA /* SettingsBundle.swift in Sources */,
@@ -3664,7 +3672,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3690,7 +3698,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3761,7 +3769,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Inhouse.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = A52M7AQ8B2;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Inhouse-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3786,7 +3794,7 @@
 				CODE_SIGN_ENTITLEMENTS = "$(SRCROOT)/Spring Inhouse.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = A52M7AQ8B2;
 				INFOPLIST_FILE = "$(SRCROOT)/Spring/Inhouse-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3953,7 +3961,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3977,7 +3985,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 15;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Z5CE7A3A7N;
 				INFOPLIST_FILE = OneSignalNotificationServiceExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
