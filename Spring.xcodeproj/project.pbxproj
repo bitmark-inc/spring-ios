@@ -341,8 +341,6 @@
 		5B5D004E23A1F0F4003D1A1C /* DomaineSansText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A562383E70000C1D9D8 /* DomaineSansText-Regular.otf */; };
 		5B5D004F23A1F0F4003D1A1C /* AtlasGrotesk-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A382383E59700C1D9D8 /* AtlasGrotesk-BlackItalic.otf */; };
 		5B5D005023A1F0F4003D1A1C /* DomaineSansText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A552383E70000C1D9D8 /* DomaineSansText-Medium.otf */; };
-		5B5D005123A1F0F4003D1A1C /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BB23964638000D7F51 /* Phrase.strings */; };
-		5B5D005223A1F0F4003D1A1C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5C69023A0A4B000EA211E /* InfoPlist.strings */; };
 		5B5D005323A1F0F4003D1A1C /* AtlasGrotesk-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A2E2383E59700C1D9D8 /* AtlasGrotesk-Bold.otf */; };
 		5B5D005423A1F0F4003D1A1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5832FCBF237AB8AB00FA3196 /* LaunchScreen.storyboard */; };
 		5B5D005523A1F0F4003D1A1C /* AtlasGrotesk-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A342383E59700C1D9D8 /* AtlasGrotesk-Light.otf */; };
@@ -351,7 +349,6 @@
 		5B5D005823A1F0F4003D1A1C /* AtlasGrotesk-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A302383E59700C1D9D8 /* AtlasGrotesk-BoldItalic.otf */; };
 		5B5D005B23A1F0F4003D1A1C /* AtlasGrotesk-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A372383E59700C1D9D8 /* AtlasGrotesk-Medium.otf */; };
 		5B5D005C23A1F0F4003D1A1C /* DomaineSansText-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A582383E70000C1D9D8 /* DomaineSansText-RegularItalic.otf */; };
-		5B5D005D23A1F0F4003D1A1C /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BC23964638000D7F51 /* Error.strings */; };
 		5B5D005E23A1F0F4003D1A1C /* AtlasGrotesk-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A332383E59700C1D9D8 /* AtlasGrotesk-Thin.otf */; };
 		5B5D005F23A1F0F4003D1A1C /* AtlasGrotesk-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A352383E59700C1D9D8 /* AtlasGrotesk-RegularItalic.otf */; };
 		5B5D006023A1F0F4003D1A1C /* AtlasGrotesk-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A312383E59700C1D9D8 /* AtlasGrotesk-MediumItalic.otf */; };
@@ -362,7 +359,6 @@
 		5B5D006523A1F0F4003D1A1C /* DomaineSansText-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A532383E6FF00C1D9D8 /* DomaineSansText-BlackItalic.otf */; };
 		5B5D006723A1F0F4003D1A1C /* AtlasGrotesk-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A2D2383E59700C1D9D8 /* AtlasGrotesk-Black.otf */; };
 		5B5D006823A1F0F4003D1A1C /* DomaineSansText-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A592383E70000C1D9D8 /* DomaineSansText-BoldItalic.otf */; };
-		5B5D006923A1F0F4003D1A1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BA23964638000D7F51 /* Localizable.strings */; };
 		5B5D006C23A1F0F4003D1A1C /* AtlasGrotesk-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A322383E59700C1D9D8 /* AtlasGrotesk-Regular.otf */; };
 		5B5D006D23A1F0F4003D1A1C /* DomaineSansText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A5C2383E70000C1D9D8 /* DomaineSansText-Light.otf */; };
 		5B5D006E23A1F0F4003D1A1C /* DomaineSansText-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = E29F5A5A2383E70000C1D9D8 /* DomaineSansText-Black.otf */; };
@@ -536,17 +532,12 @@
 		5BC278192408CD2B00564A98 /* SelectionWithDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */; };
 		5BC2781A2408CD2B00564A98 /* SelectionWithDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */; };
 		5BC2781B2408CD2B00564A98 /* SelectionWithDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */; };
-		5BC5C69123A0A4B000EA211E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5C69023A0A4B000EA211E /* InfoPlist.strings */; };
-		5BC5C69223A0A4B100EA211E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BC5C69023A0A4B000EA211E /* InfoPlist.strings */; };
 		5BC91CC023CC29CB000058A7 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CBF23CC29CB000058A7 /* Converter.swift */; };
 		5BC91CC123CC29CB000058A7 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CBF23CC29CB000058A7 /* Converter.swift */; };
 		5BC91CC223CC29CB000058A7 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CBF23CC29CB000058A7 /* Converter.swift */; };
 		5BC91CC523CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
 		5BC91CC623CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
 		5BC91CC723CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
-		5BC91CD323CC66E4000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
-		5BC91CD423CC66E5000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
-		5BC91CD523CC66E5000058A7 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */; };
 		5BDC63E823F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63E923F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63EA23F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
@@ -569,9 +560,24 @@
 		5BEF584423AB2EA500901D52 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF584323AB2EA500901D52 /* Date+Extension.swift */; };
 		5BEF584523AB2EA500901D52 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF584323AB2EA500901D52 /* Date+Extension.swift */; };
 		5BEF584623AB2EA500901D52 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BEF584323AB2EA500901D52 /* Date+Extension.swift */; };
-		5BEF584823AB6BE200901D52 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF584723AB6BE200901D52 /* Localizable.stringsdict */; };
-		5BEF584923AB6BE200901D52 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF584723AB6BE200901D52 /* Localizable.stringsdict */; };
-		5BEF584A23AB6BE200901D52 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BEF584723AB6BE200901D52 /* Localizable.stringsdict */; };
+		5BF45648241B4764009D9736 /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4564C241B4764009D9736 /* Error.strings */; };
+		5BF45649241B4764009D9736 /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4564C241B4764009D9736 /* Error.strings */; };
+		5BF4564A241B4764009D9736 /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4564C241B4764009D9736 /* Error.strings */; };
+		5BF4564D241B4766009D9736 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45651241B4766009D9736 /* Localizable.strings */; };
+		5BF4564E241B4766009D9736 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45651241B4766009D9736 /* Localizable.strings */; };
+		5BF4564F241B4766009D9736 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45651241B4766009D9736 /* Localizable.strings */; };
+		5BF45652241B4768009D9736 /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45656241B4768009D9736 /* Phrase.strings */; };
+		5BF45653241B4768009D9736 /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45656241B4768009D9736 /* Phrase.strings */; };
+		5BF45654241B4768009D9736 /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45656241B4768009D9736 /* Phrase.strings */; };
+		5BF45657241B476A009D9736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4565B241B476A009D9736 /* InfoPlist.strings */; };
+		5BF45658241B476A009D9736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4565B241B476A009D9736 /* InfoPlist.strings */; };
+		5BF45659241B476A009D9736 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5BF4565B241B476A009D9736 /* InfoPlist.strings */; };
+		5BF4565C241B476C009D9736 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45660241B476C009D9736 /* Localizable.stringsdict */; };
+		5BF4565D241B476C009D9736 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45660241B476C009D9736 /* Localizable.stringsdict */; };
+		5BF4565E241B476C009D9736 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45660241B476C009D9736 /* Localizable.stringsdict */; };
+		5BF45661241B4776009D9736 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45665241B4776009D9736 /* ReleaseNotes.md */; };
+		5BF45662241B4776009D9736 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45665241B4776009D9736 /* ReleaseNotes.md */; };
+		5BF45663241B4776009D9736 /* ReleaseNotes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5BF45665241B4776009D9736 /* ReleaseNotes.md */; };
 		7A5CBBA81EA5D84069611561 /* Pods_OneSignalNotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD3458BDABE45BC66DFCFC96 /* Pods_OneSignalNotificationServiceExtension.framework */; };
 		8C115147CF5C29DFF9C36184 /* Pods_Spring.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92DFDE2269C4999B2EC0A546 /* Pods_Spring.framework */; };
 		97CE242080AB51423CB4F1B8 /* Pods_Spring_Dev.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8898C24D1E8EC21CE74A1202 /* Pods_Spring_Dev.framework */; };
@@ -631,12 +637,6 @@
 		E2442041239910E100520FE9 /* UpdatePostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E244203F239910E100520FE9 /* UpdatePostTableViewCell.swift */; };
 		E24829C9238BC31000995FBB /* R.generated+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24829C8238BC30F00995FBB /* R.generated+Font.swift */; };
 		E24829CA238BC31000995FBB /* R.generated+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24829C8238BC30F00995FBB /* R.generated+Font.swift */; };
-		E26268BD23964638000D7F51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BA23964638000D7F51 /* Localizable.strings */; };
-		E26268BE23964638000D7F51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BA23964638000D7F51 /* Localizable.strings */; };
-		E26268BF23964638000D7F51 /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BB23964638000D7F51 /* Phrase.strings */; };
-		E26268C023964638000D7F51 /* Phrase.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BB23964638000D7F51 /* Phrase.strings */; };
-		E26268C123964638000D7F51 /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BC23964638000D7F51 /* Error.strings */; };
-		E26268C223964638000D7F51 /* Error.strings in Resources */ = {isa = PBXBuildFile; fileRef = E26268BC23964638000D7F51 /* Error.strings */; };
 		E27959D82386309C000E9CB9 /* AccountService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959D72386309C000E9CB9 /* AccountService+Rx.swift */; };
 		E27959D92386309C000E9CB9 /* AccountService+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27959D72386309C000E9CB9 /* AccountService+Rx.swift */; };
 		E28B55F4238D03C600F1BCF2 /* FBArchiveAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */; };
@@ -1033,10 +1033,8 @@
 		5BBB663723A7305800DAAB1F /* RecoveryKeyWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryKeyWordCell.swift; sourceTree = "<group>"; };
 		5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionWithDelete.swift; sourceTree = "<group>"; };
-		5BC5C69023A0A4B000EA211E /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		5BC91CBF23CC29CB000058A7 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseNoteViewController.swift; sourceTree = "<group>"; };
-		5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReleaseNotes.md; sourceTree = "<group>"; };
 		5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateAnalysisView.swift; sourceTree = "<group>"; };
 		5BDC63EB23F3EFAF004C7532 /* stats-posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-posts.json"; sourceTree = "<group>"; };
 		5BDC63EF23F3EFC1004C7532 /* stats-reactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-reactions.json"; sourceTree = "<group>"; };
@@ -1046,7 +1044,12 @@
 		5BE86EA123C45ADB00D3D9BB /* Int+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Formatter.swift"; sourceTree = "<group>"; };
 		5BEB478B23AC7EB100750AC6 /* UsageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageAPI.swift; sourceTree = "<group>"; };
 		5BEF584323AB2EA500901D52 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		5BEF584723AB6BE200901D52 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
+		5BF4564B241B4764009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Error.strings; sourceTree = "<group>"; };
+		5BF45650241B4766009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5BF45655241B4768009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Phrase.strings; sourceTree = "<group>"; };
+		5BF4565A241B476A009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5BF4565F241B476C009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		5BF45664241B4776009D9736 /* en */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = en; path = en.lproj/ReleaseNotes.md; sourceTree = "<group>"; };
 		5E11FE756F9F5F0B8EA76D1E /* Pods_OneSignalNotificationServiceDevExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OneSignalNotificationServiceDevExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8898C24D1E8EC21CE74A1202 /* Pods_Spring_Dev.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spring_Dev.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92DFDE2269C4999B2EC0A546 /* Pods_Spring.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spring.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1084,9 +1087,6 @@
 		E24420392399067600520FE9 /* MediaPostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPostTableViewCell.swift; sourceTree = "<group>"; };
 		E244203F239910E100520FE9 /* UpdatePostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePostTableViewCell.swift; sourceTree = "<group>"; };
 		E24829C8238BC30F00995FBB /* R.generated+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "R.generated+Font.swift"; sourceTree = "<group>"; };
-		E26268BA23964638000D7F51 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		E26268BB23964638000D7F51 /* Phrase.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Phrase.strings; sourceTree = "<group>"; };
-		E26268BC23964638000D7F51 /* Error.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Error.strings; sourceTree = "<group>"; };
 		E27959D72386309C000E9CB9 /* AccountService+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountService+Rx.swift"; sourceTree = "<group>"; };
 		E28B55EA238CCB9200F1BCF2 /* Spring Dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Spring Dev.entitlements"; sourceTree = "<group>"; };
 		E28B55F3238D03C600F1BCF2 /* FBArchiveAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBArchiveAPI.swift; sourceTree = "<group>"; };
@@ -1501,7 +1501,6 @@
 			children = (
 				E29F5A742383F1ED00C1D9D8 /* Localizable */,
 				E29F5A512383E68C00C1D9D8 /* Fonts */,
-				5BC91CD023CC66D4000058A7 /* ReleaseNotes */,
 				5832FCBE237AB8AB00FA3196 /* Assets.xcassets */,
 				5832FCBF237AB8AB00FA3196 /* LaunchScreen.storyboard */,
 				5832FCC1237AB8AB00FA3196 /* Main.storyboard */,
@@ -1861,7 +1860,7 @@
 		5BC91CD023CC66D4000058A7 /* ReleaseNotes */ = {
 			isa = PBXGroup;
 			children = (
-				5BC91CD123CC66E0000058A7 /* ReleaseNotes.md */,
+				5BF45665241B4776009D9736 /* ReleaseNotes.md */,
 			);
 			path = ReleaseNotes;
 			sourceTree = "<group>";
@@ -2102,11 +2101,12 @@
 		E29F5A742383F1ED00C1D9D8 /* Localizable */ = {
 			isa = PBXGroup;
 			children = (
-				E26268BC23964638000D7F51 /* Error.strings */,
-				E26268BA23964638000D7F51 /* Localizable.strings */,
-				E26268BB23964638000D7F51 /* Phrase.strings */,
-				5BC5C69023A0A4B000EA211E /* InfoPlist.strings */,
-				5BEF584723AB6BE200901D52 /* Localizable.stringsdict */,
+				5BF4564C241B4764009D9736 /* Error.strings */,
+				5BF45651241B4766009D9736 /* Localizable.strings */,
+				5BF45656241B4768009D9736 /* Phrase.strings */,
+				5BF4565B241B476A009D9736 /* InfoPlist.strings */,
+				5BF45660241B476C009D9736 /* Localizable.stringsdict */,
+				5BC91CD023CC66D4000058A7 /* ReleaseNotes */,
 			);
 			path = Localizable;
 			sourceTree = "<group>";
@@ -2333,8 +2333,8 @@
 				5BDC63F023F3EFC1004C7532 /* stats-reactions.json in Resources */,
 				E21DAF5123F03066004D99B3 /* archives.json in Resources */,
 				E29F5A612383E70000C1D9D8 /* DomaineSansText-Medium.otf in Resources */,
-				E26268BF23964638000D7F51 /* Phrase.strings in Resources */,
-				5BC5C69123A0A4B000EA211E /* InfoPlist.strings in Resources */,
+				5BF45652241B4768009D9736 /* Phrase.strings in Resources */,
+				5BF45657241B476A009D9736 /* InfoPlist.strings in Resources */,
 				5B54FAB123C6D4470029B5D5 /* IBMPlexMono-MediumItalic.ttf in Resources */,
 				5B54FAB423C6D4470029B5D5 /* IBMPlexMono-ExtraLight.ttf in Resources */,
 				E29F5A3B2383E59700C1D9D8 /* AtlasGrotesk-Bold.otf in Resources */,
@@ -2350,7 +2350,7 @@
 				E29F5A672383E70000C1D9D8 /* DomaineSansText-RegularItalic.otf in Resources */,
 				5B93E5BC23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B54FAB923C6D4470029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
-				E26268C123964638000D7F51 /* Error.strings in Resources */,
+				5BF45648241B4764009D9736 /* Error.strings in Resources */,
 				E29F5A452383E59700C1D9D8 /* AtlasGrotesk-Thin.otf in Resources */,
 				E29F5A492383E59700C1D9D8 /* AtlasGrotesk-RegularItalic.otf in Resources */,
 				5B54FABC23C6D4470029B5D5 /* IBMPlexMono-LightItalic.ttf in Resources */,
@@ -2369,11 +2369,11 @@
 				5BB2852A23A33796000C04CA /* Settings.bundle in Resources */,
 				E29F5A692383E70000C1D9D8 /* DomaineSansText-BoldItalic.otf in Resources */,
 				5B54FAAF23C6D4470029B5D5 /* IBMPlexMono-Thin.ttf in Resources */,
-				5BEF584823AB6BE200901D52 /* Localizable.stringsdict in Resources */,
-				5BC91CD323CC66E4000058A7 /* ReleaseNotes.md in Resources */,
+				5BF4565C241B476C009D9736 /* Localizable.stringsdict in Resources */,
+				5BF45661241B4776009D9736 /* ReleaseNotes.md in Resources */,
 				5B54FAB323C6D4470029B5D5 /* IBMPlexMono-Medium.ttf in Resources */,
 				5B54FABA23C6D4470029B5D5 /* IBMPlexMono-SemiBold.ttf in Resources */,
-				E26268BD23964638000D7F51 /* Localizable.strings in Resources */,
+				5BF4564D241B4766009D9736 /* Localizable.strings in Resources */,
 				5B54FAB023C6D4470029B5D5 /* IBMPlexMono-Bold.ttf in Resources */,
 				E29F5A432383E59700C1D9D8 /* AtlasGrotesk-Regular.otf in Resources */,
 				E29F5A6F2383E70000C1D9D8 /* DomaineSansText-Light.otf in Resources */,
@@ -2400,8 +2400,8 @@
 				5BDC63F223F3EFC1004C7532 /* stats-reactions.json in Resources */,
 				E21DAF5323F03066004D99B3 /* archives.json in Resources */,
 				5B5D005023A1F0F4003D1A1C /* DomaineSansText-Medium.otf in Resources */,
-				5B5D005123A1F0F4003D1A1C /* Phrase.strings in Resources */,
-				5B5D005223A1F0F4003D1A1C /* InfoPlist.strings in Resources */,
+				5BF45654241B4768009D9736 /* Phrase.strings in Resources */,
+				5BF45659241B476A009D9736 /* InfoPlist.strings in Resources */,
 				5B54FACD23C6D4480029B5D5 /* IBMPlexMono-MediumItalic.ttf in Resources */,
 				5B54FAD023C6D4480029B5D5 /* IBMPlexMono-ExtraLight.ttf in Resources */,
 				5B5D005323A1F0F4003D1A1C /* AtlasGrotesk-Bold.otf in Resources */,
@@ -2417,7 +2417,7 @@
 				5B54FAD523C6D4480029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
 				5B93E5BE23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B94F64D23E2E50900AD7578 /* auth.json in Resources */,
-				5B5D005D23A1F0F4003D1A1C /* Error.strings in Resources */,
+				5BF4564A241B4764009D9736 /* Error.strings in Resources */,
 				5B5D005E23A1F0F4003D1A1C /* AtlasGrotesk-Thin.otf in Resources */,
 				5B5D005F23A1F0F4003D1A1C /* AtlasGrotesk-RegularItalic.otf in Resources */,
 				5B54FAD823C6D4480029B5D5 /* IBMPlexMono-LightItalic.ttf in Resources */,
@@ -2436,11 +2436,11 @@
 				5BB2852C23A33796000C04CA /* Settings.bundle in Resources */,
 				5B5D006823A1F0F4003D1A1C /* DomaineSansText-BoldItalic.otf in Resources */,
 				5B54FACB23C6D4480029B5D5 /* IBMPlexMono-Thin.ttf in Resources */,
-				5BEF584A23AB6BE200901D52 /* Localizable.stringsdict in Resources */,
-				5BC91CD523CC66E5000058A7 /* ReleaseNotes.md in Resources */,
+				5BF4565E241B476C009D9736 /* Localizable.stringsdict in Resources */,
+				5BF45663241B4776009D9736 /* ReleaseNotes.md in Resources */,
 				5B54FACF23C6D4480029B5D5 /* IBMPlexMono-Medium.ttf in Resources */,
 				5B54FAD623C6D4480029B5D5 /* IBMPlexMono-SemiBold.ttf in Resources */,
-				5B5D006923A1F0F4003D1A1C /* Localizable.strings in Resources */,
+				5BF4564F241B4766009D9736 /* Localizable.strings in Resources */,
 				5B54FACC23C6D4480029B5D5 /* IBMPlexMono-Bold.ttf in Resources */,
 				5B5D006C23A1F0F4003D1A1C /* AtlasGrotesk-Regular.otf in Resources */,
 				5B5D006D23A1F0F4003D1A1C /* DomaineSansText-Light.otf in Resources */,
@@ -2474,8 +2474,8 @@
 				5BDC63F123F3EFC1004C7532 /* stats-reactions.json in Resources */,
 				E21DAF5223F03066004D99B3 /* archives.json in Resources */,
 				E29F5A622383E70000C1D9D8 /* DomaineSansText-Medium.otf in Resources */,
-				E26268C023964638000D7F51 /* Phrase.strings in Resources */,
-				5BC5C69223A0A4B100EA211E /* InfoPlist.strings in Resources */,
+				5BF45653241B4768009D9736 /* Phrase.strings in Resources */,
+				5BF45658241B476A009D9736 /* InfoPlist.strings in Resources */,
 				5B54FABF23C6D4470029B5D5 /* IBMPlexMono-MediumItalic.ttf in Resources */,
 				5B54FAC223C6D4470029B5D5 /* IBMPlexMono-ExtraLight.ttf in Resources */,
 				E29F5A3C2383E59700C1D9D8 /* AtlasGrotesk-Bold.otf in Resources */,
@@ -2491,7 +2491,7 @@
 				5B54FAC723C6D4470029B5D5 /* IBMPlexMono-Italic.ttf in Resources */,
 				5B93E5BD23F500EE00F38DF0 /* stats-reactions-with-yourposts.json in Resources */,
 				5B94F64C23E2E50900AD7578 /* auth.json in Resources */,
-				E26268C223964638000D7F51 /* Error.strings in Resources */,
+				5BF45649241B4764009D9736 /* Error.strings in Resources */,
 				E29F5A462383E59700C1D9D8 /* AtlasGrotesk-Thin.otf in Resources */,
 				E29F5A4A2383E59700C1D9D8 /* AtlasGrotesk-RegularItalic.otf in Resources */,
 				5B54FACA23C6D4470029B5D5 /* IBMPlexMono-LightItalic.ttf in Resources */,
@@ -2510,11 +2510,11 @@
 				5BB2852B23A33796000C04CA /* Settings.bundle in Resources */,
 				E29F5A6A2383E70000C1D9D8 /* DomaineSansText-BoldItalic.otf in Resources */,
 				5B54FABD23C6D4470029B5D5 /* IBMPlexMono-Thin.ttf in Resources */,
-				5BEF584923AB6BE200901D52 /* Localizable.stringsdict in Resources */,
-				5BC91CD423CC66E5000058A7 /* ReleaseNotes.md in Resources */,
+				5BF4565D241B476C009D9736 /* Localizable.stringsdict in Resources */,
+				5BF45662241B4776009D9736 /* ReleaseNotes.md in Resources */,
 				5B54FAC123C6D4470029B5D5 /* IBMPlexMono-Medium.ttf in Resources */,
 				5B54FAC823C6D4470029B5D5 /* IBMPlexMono-SemiBold.ttf in Resources */,
-				E26268BE23964638000D7F51 /* Localizable.strings in Resources */,
+				5BF4564E241B4766009D9736 /* Localizable.strings in Resources */,
 				5B54FABE23C6D4470029B5D5 /* IBMPlexMono-Bold.ttf in Resources */,
 				E29F5A442383E59700C1D9D8 /* AtlasGrotesk-Regular.otf in Resources */,
 				E29F5A702383E70000C1D9D8 /* DomaineSansText-Light.otf in Resources */,
@@ -3544,6 +3544,54 @@
 				5832FCC2237AB8AB00FA3196 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		5BF4564C241B4764009D9736 /* Error.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF4564B241B4764009D9736 /* en */,
+			);
+			name = Error.strings;
+			sourceTree = "<group>";
+		};
+		5BF45651241B4766009D9736 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF45650241B4766009D9736 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		5BF45656241B4768009D9736 /* Phrase.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF45655241B4768009D9736 /* en */,
+			);
+			name = Phrase.strings;
+			sourceTree = "<group>";
+		};
+		5BF4565B241B476A009D9736 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF4565A241B476A009D9736 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		5BF45660241B476C009D9736 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF4565F241B476C009D9736 /* en */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		5BF45665241B4776009D9736 /* ReleaseNotes.md */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5BF45664241B4776009D9736 /* en */,
+			);
+			name = ReleaseNotes.md;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
