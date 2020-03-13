@@ -1,4 +1,6 @@
-—   Options to increase Facebook privacy
-—   Categories used by Advertisers
-—   Spring FAQ
-—   Misc bug fixes and UX improvements.
+Manually upload facebook archive
+
+
+Bug fixes and performance improvement
+Updated Increase Privacy UI
+Redesigned bottom navigation bar

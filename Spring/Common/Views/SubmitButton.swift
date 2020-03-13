@@ -12,16 +12,10 @@ import FlexLayout
 
 class SubmitButton: Button {
 
-    override var isEnabled: Bool {
-        didSet {
-            alpha = isEnabled ? 1 : 0.5
-        }
-    }
-
     override func setupViews() {
         super.setupViews()
 
-        titleLabel?.font = R.font.atlasGroteskRegular(size: 18)
+        titleLabel?.font = R.font.atlasGroteskLight(size: 18)
         flex.height(50)
     }
 }
@@ -46,6 +40,7 @@ extension SubmitButton {
                 .bind({ UIImage(color: $0.themeColor, size: CGSize(width: 1, height: 1)) }, to: rx.backgroundImage(for: .normal))
                 .bind({ UIImage(color: $0.themeMercuryColor, size: CGSize(width: 1, height: 1)) }, to: rx.backgroundImage(for: .disabled))
                 .bind({ $0.lightButtonTextColor }, to: rx.titleColor(for: .normal))
+                .bind({ $0.blackButtonTextColor }, to: rx.titleColor(for: .disabled))
                 .disposed(by: disposeBag)
         }
     }

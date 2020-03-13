@@ -22,7 +22,7 @@ class InsightService {
             .map(Insight.self, atKeyPath: "result")
     }
 
-    static func getInUserInfo() -> Single<UserInfo> {
+    static func getAsUserInfo() -> Single<UserInfo> {
         return get()
             .map({ (insight) -> UserInfo in
                 return try UserInfo(key: UserInfoKey.insight, value: insight)

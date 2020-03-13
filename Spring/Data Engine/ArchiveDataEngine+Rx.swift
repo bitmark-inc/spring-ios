@@ -11,11 +11,54 @@ import BitmarkSDK
 import RealmSwift
 import RxSwift
 
-class ArchiveDataEngine {}
+protocol ArchiveDataEngineDelegate {
+    static func store(_ archives: [Archive]) -> Completable
+    static func issueBitmarkIfNeeded() -> Completable
+    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus>
+}
 
-extension ArchiveDataEngine: ReactiveCompatible {}
+class ArchiveDataEngine: ArchiveDataEngineDelegate {
+    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus> {
+        return FBArchiveService.getAll()
+            .do(onSuccess: { (archives) in
+                _ = ArchiveDataEngine.store(archives)
+                    .andThen(ArchiveDataEngine.issueBitmarkIfNeeded())
+                    .subscribe(onCompleted: {
+                        Global.log.info("[done] storeAndIssueBitmarkIfNeeded")
+                    }, onError: { (error) in
+                        Global.log.error(error)
+                    })
+            })
+            .map { (archives) -> AppArchiveStatus in
+                guard archives.count > 0 else {
+                    return .none
+                }
 
-extension Reactive where Base: ArchiveDataEngine {
+                if archives.contains(where: { $0.status == ArchiveStatus.processed.rawValue }) {
+                    return .processed
+                } else if archives.contains(where: { [ArchiveStatus.submitted.rawValue, ArchiveStatus.processing.rawValue].contains($0.status) }) {
+                    return .processing
+                } else {
+                    let sortedInvalidArchiveIDs = archives
+                        .filter { $0.status == ArchiveStatus.invalid.rawValue }
+                        .sorted { $0.updatedAt > $1.updatedAt }
+
+                    if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
+                        switch latestInvalidArchive.messageError {
+                        case .failToCreateArchive, .failToDownloadArchive:
+                            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+                        default:
+                            return .processing
+                        }
+
+                    } else if archives.contains(where: { $0.status == ArchiveStatus.created.rawValue }) {
+                        return .created
+                    } else {
+                        return .processing
+                    }
+                }
+            }
+    }
 
     static func store(_ archives: [Archive]) -> Completable {
         return RealmConfig.rxCurrentRealm()

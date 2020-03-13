@@ -29,36 +29,36 @@ class UsageViewModel: ViewModel {
     func fetchActivity() -> Completable {
         return FbmAccountDataEngine.fetchLatestFbmAccount()
             .map { try Converter<Metadata>(from: $0.metadata).value }
-            .map { $0.lastActivityDate }
-            .map { (lastActivityDate) -> Date in
-                guard let lastActivityDate = lastActivityDate, Int(lastActivityDate.timeIntervalSince1970) != 0 else {
+            .map { $0.latestActivityDate }
+            .map { (latestActivityDate) -> Date in
+                guard let lastActivityDate = latestActivityDate, Int(lastActivityDate.timeIntervalSince1970) != 0 else {
                     return Date()
                 }
                 return lastActivityDate
             }
-            .flatMapCompletable { [weak self] (lastActivityDate) -> Completable in
+            .flatMapCompletable { [weak self] (latestActivityDate) -> Completable in
                 guard let self = self else { return Completable.never() }
 
                 var weekDistance = 0
                 var yearDistance = 0
                 var decadeDistance = 0
 
-                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .week, distance: weekDistance) {
+                while latestActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .week, distance: weekDistance) {
                     weekDistance -= 1
                 }
 
-                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .year, distance: yearDistance) {
+                while latestActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .year, distance: yearDistance) {
                     yearDistance -= 1
                 }
 
-                while lastActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .decade, distance: decadeDistance) {
+                while latestActivityDate < Date().dateAtStartOfTimeUnit(timeUnit: .decade, distance: decadeDistance) {
                     decadeDistance -= 1
                 }
 
                 self.segmentDistances.accept(
                     [.week: weekDistance, .year: yearDistance, .decade: decadeDistance]
                 )
-                self.dateRelay.accept(lastActivityDate.in(Locales.english).dateAtStartOf(.weekOfMonth).date)
+                self.dateRelay.accept(latestActivityDate.in(Locales.english).dateAtStartOf(.weekOfMonth).date)
 
                 return Completable.empty()
             }

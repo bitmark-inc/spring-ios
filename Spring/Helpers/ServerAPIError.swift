@@ -16,7 +16,27 @@ enum APIErrorCode: Int, Codable {
     case AccountHasTaken            = 1003
     case AccountNotFound            = 1006
     case RequireUpdateVersion       = 1007
+    case InvalidArchiveFile         = 2001
     case UnexpectedResponseFormat   = 500
+}
+
+extension Data {
+    func convertServerAPIError() -> ServerAPIError {
+        var error: ServerAPIError
+        do {
+            let serverError = try JSONDecoder().decode([String: ServerAPIError].self, from: self)
+            if serverError.has(key: errorKeyPath) {
+                error = serverError[errorKeyPath]!
+            } else {
+                throw "incorrect error keypath"
+            }
+        } catch (_) {
+            error = ServerAPIError(
+                code: .UnexpectedResponseFormat,
+                message: String(data: self, encoding: .utf8) ?? "")
+        }
+        return error
+    }
 }
 
 struct ServerAPIError: Codable, Error {
@@ -38,21 +58,8 @@ extension PrimitiveSequence where Trait == SingleTrait, Element == Response {
                 return Single.error(ServerAPIError(code: .RequireUpdateVersion, message: ""))
             }
 
-            var error: ServerAPIError
-            do {
-                let serverError = try JSONDecoder().decode([String: ServerAPIError].self, from: response.data)
-                if serverError.has(key: errorKeyPath) {
-                    error = serverError[errorKeyPath]!
-                } else {
-                    throw "incorrect error keypath"
-                }
-            } catch (_) {
-                error = ServerAPIError(
-                    code: .UnexpectedResponseFormat,
-                    message: String(data: response.data, encoding: .utf8) ?? "")
-            }
-
-            return Single.error(error)
+            let serverAPIError = response.data.convertServerAPIError()
+            return Single.error(serverAPIError)
         }
     }
 }

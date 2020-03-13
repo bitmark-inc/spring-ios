@@ -64,26 +64,13 @@ extension LaunchingNavigatorDelegate {
             return
         }
 
-        // **** When Data is Requesting
-        // - user click notification: make animation to download Archive
-        // - user enter the app:      go to check now screen
-        if UserDefaults.standard.FBArchiveCreatedAt != nil  { // data is requesting
-            loadingState.onNext(.hide)
-            if Global.current.didUserTapNotification {
-                Global.current.didUserTapNotification = false
-                gotoDownloadFBArchiveScreen()
-            } else {
-                gotoDataRequestedWithCheckButtonScreen()
-            }
-            return
-        }
-
         // *** user logged in
         // - no connect Spring; no data requesting: goto HowItWork Screen
-        // - connected Spring: .checkArchivesStatusToNavigate()
+        // - connected Spring: .gotoHomeTab()
         FbmAccountDataEngine.fetchCurrentFbmAccount()
             .subscribe(onSuccess: {  [weak self] (_) in
-                self?.checkArchivesStatusToNavigate()
+                loadingState.onNext(.hide)
+                self?.gotoHomeTab()
 
             }, onError: { [weak self] (error) in
                 loadingState.onNext(.hide)
@@ -109,50 +96,6 @@ extension LaunchingNavigatorDelegate {
             })
             .disposed(by: disposeBag)
     }
-
-    fileprivate func checkArchivesStatusToNavigate() {
-
-        // ** archiveStatus is nil - no archives: goto SignInWall / HowItWorks Screen (this case is coverred in case, shouldn't happen)
-        // ** archiveStatus is present - archive uploaded:
-        // ---- goto MainScreen with showing appArchiveStatus box
-        // ---- when adsCategories is empty, goto get it first
-        func navigateWithArchiveStatus(_ archiveStatus: ArchiveStatus?) {
-            if archiveStatus != nil {
-                if InsightDataEngine.existsAdsCategories() {
-                    navigator.show(segue: .hometabs(isArchiveStatusBoxShowed: true), sender: self, transition: .replace(type: .none))
-                } else {
-                    let viewModel = RequestDataViewModel(missions: [.getCategories])
-                    navigator.show(segue: .requestData(viewModel: viewModel), sender: self, transition: .replace(type: .none))
-                }
-            } else {
-                Global.current.account == nil ? gotoSignInWallScreen() : gotoTrustIsCritialScreen()
-            }
-        }
-
-        // sync latestArchiveStatus from remoting
-        // ---- if there are noInternetConnection, make offline version by using localLatestArchiveStatus
-        FbmAccountDataEngine.fetchOverallArchiveStatus()
-            .subscribe(onSuccess: { (archiveStatus) in
-                loadingState.onNext(.hide)
-                Global.current.userDefault?.latestArchiveStatus = archiveStatus?.rawValue
-                navigateWithArchiveStatus(archiveStatus)
-
-            }, onError: { [weak self] (error) in
-                loadingState.onNext(.hide)
-                guard let self = self else { return }
-                if AppError.errorByNetworkConnection(error) {
-                    let archiveStatus = ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? "")
-                    navigateWithArchiveStatus(archiveStatus)
-                    return
-                }
-
-                guard !self.showIfRequireUpdateVersion(with: error) else { return }
-
-                Global.log.error(error)
-                self.showErrorAlertWithSupport(message: R.string.error.system())
-            })
-            .disposed(by: disposeBag)
-    }
 }
 
 // MARK: - Navigator
@@ -166,12 +109,7 @@ extension LaunchingNavigatorDelegate {
         navigator.show(segue: .trustIsCritical(buttonItemType: .none), sender: self, transition: .replace(type: .none))
     }
 
-    fileprivate func gotoDownloadFBArchiveScreen() {
-        let viewModel = RequestDataViewModel(missions: [.getCategories, .downloadData])
-        navigator.show(segue: .requestData(viewModel: viewModel), sender: self, transition: .replace(type: .none))
-    }
-
-    fileprivate func gotoDataRequestedWithCheckButtonScreen() {
-        navigator.show(segue: .checkDataRequested, sender: self, transition: .replace(type: .none))
+    fileprivate func gotoHomeTab() {
+        navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
     }
 }

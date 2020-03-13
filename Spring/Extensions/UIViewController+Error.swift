@@ -40,6 +40,25 @@ extension UIViewController {
         alertController.preferredAction = supportButton
         alertController.show()
     }
+
+    func handleErrorIfAsAFError(_ error: Error) -> Bool {
+        guard let error = error.asAFError else {
+            return false
+        }
+
+        switch error {
+        case .sessionTaskFailed(let error):
+            showErrorAlert(message: error.localizedDescription)
+            Global.log.info("[done] handle AFError; show error: \(error.localizedDescription)")
+            Global.log.error(error)
+            return true
+
+        default:
+            break
+        }
+
+        return false
+    }
 }
 
 struct ErrorAlert {
@@ -55,6 +74,22 @@ struct ErrorAlert {
             handler: { _ in action() })
         retryAuthenticationAlert.show()
         return retryAuthenticationAlert
+    }
+
+    static func invalidArchiveFileAlert(title: String, message: String, action: @escaping () -> Void) -> UIAlertController {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        let tryAgainButton = UIAlertAction(
+            title: R.string.localizable.tryAgain(),
+            style: .default, handler: { (_) in action() })
+
+        let contactUsButotn = UIAlertAction(title: R.string.localizable.contact_us(), style: .default) { (_) in
+            Intercom.presentMessenger()
+        }
+
+        alertController.addAction(tryAgainButton)
+        alertController.addAction(contactUsButotn)
+        return alertController
     }
 
     static func showErrorAlert(message: String) {
@@ -81,5 +116,25 @@ struct ErrorAlert {
         alertController.addAction(supportButton)
         alertController.preferredAction = supportButton
         alertController.show()
+    }
+}
+
+extension Global {
+    static func handleErrorIfAsAFError(_ error: Error) -> Bool {
+        guard let error = error.asAFError else {
+            return false
+        }
+
+        switch error {
+        case .sessionTaskFailed(let error):
+            Global.log.info("[done] handle silently AFError; show error: \(error.localizedDescription)")
+            Global.log.error(error)
+            return true
+
+        default:
+            break
+        }
+
+        return false
     }
 }

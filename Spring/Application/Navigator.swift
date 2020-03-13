@@ -30,12 +30,11 @@ class Navigator {
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
-        case howItWorks
-        case requestData(viewModel: RequestDataViewModel)
-        case checkDataRequested
+        case howItWorks(viewModel: HowItWorksViewModel)
         case safari(URL)
         case safariController(URL)
-        case hometabs(isArchiveStatusBoxShowed: Bool)
+        case hometabs
+        case uploadData(viewModel: UploadDataViewModel)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case incomeQuestion
@@ -48,7 +47,6 @@ class Navigator {
         case deleteAccount(viewModel: DeleteAccountViewModel)
         case increasePrivacyList
         case increasePrivacy(viewModel: IncreasePrivacyViewModel)
-        case about
         case releaseNote(buttonItemType: ButtonItemType)
     }
 
@@ -82,9 +80,7 @@ class Navigator {
             trustIsCriticalViewController.buttonItemType = buttonItemType
             return trustIsCriticalViewController
 
-        case .howItWorks: return HowItWorksViewController()
-        case .requestData(let viewModel): return RequestDataViewController(viewModel: viewModel)
-        case .checkDataRequested: return CheckDataRequestedViewController()
+        case .howItWorks(let viewModel): return HowItWorksViewController(viewModel: viewModel)
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil
@@ -94,12 +90,20 @@ class Navigator {
             vc.hidesBottomBarWhenPushed = true
             return vc
 
-        case .hometabs(let isArchiveStatusBoxShowed):
-            return HomeTabbarController.tabbarController(isArchiveStatusBoxShowed: isArchiveStatusBoxShowed)
+        case .hometabs:
+            return HomeTabbarController.tabbarController()
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
-        case .incomeQuestion:
-            let viewController = IncomeQuestionViewController()
+
+        case .incomeQuestion, .uploadData:
+            let viewController: UIViewController!
+            switch segue {
+            case .incomeQuestion:               viewController = IncomeQuestionViewController()
+            case .uploadData(let viewModel):    viewController = UploadDataViewController(viewModel: viewModel)
+            default:
+                viewController = UIViewController()
+            }
+
             viewController.hidesBottomBarWhenPushed = true
             return viewController
 
@@ -113,7 +117,7 @@ class Navigator {
              .viewRecoveryKeyWarning, .viewRecoverykey,
              .deleteAccount,
              .increasePrivacyList, .increasePrivacy,
-             .about, .releaseNote:
+             .releaseNote:
 
             let viewController: UIViewController!
             switch segue {
@@ -125,7 +129,6 @@ class Navigator {
             case .deleteAccount(let viewModel):     viewController = DeleteAccountViewController(viewModel: viewModel)
             case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
             case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
-            case .about:                            viewController = AboutViewController()
             case .releaseNote(let buttonItemType):
                 let releaseNoteViewController = ReleaseNoteViewController()
                 releaseNoteViewController.buttonItemType = buttonItemType
@@ -223,46 +226,6 @@ class Navigator {
             }
         default: break
         }
-    }
-
-    static func refreshOnboardingStateIfNeeded() {
-        _ = AppVersion.checkAppVersion()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onCompleted: {
-                guard let window = getWindow() else {
-                    Global.log.error("window is empty")
-                    return
-                }
-
-                guard let rootViewController = getRootViewController() else {
-                    Global.log.error("rootViewController is empty")
-                    return
-                }
-
-                // check if scene is on onboarding flow's refresh state
-                guard let currentVC = rootViewController.viewControllers.last else { return }
-
-                guard (type(of: currentVC) == HomeTabbarController.self && (currentVC as! HomeTabbarController).selectedIndex != 2 && AppArchiveStatus.currentState != .done)
-                    else {
-                        return
-                }
-
-                Navigator.default.show(segue: .launchingNavigation, sender: nil, transition: .root(in: window))
-            }, onError: { (error) in
-                if let error = error as? AppError {
-                    switch error {
-                    case .requireAppUpdate(let updateURL):
-                        AppVersion.showAppRequireUpdateAlert(updateURL: updateURL)
-                        return
-                    case .noInternetConnection:
-                        return
-                    default:
-                        break
-                    }
-                }
-
-                Global.log.error(error)
-            })
     }
 
     static let requireAuthorizationTime = 30 // minutes

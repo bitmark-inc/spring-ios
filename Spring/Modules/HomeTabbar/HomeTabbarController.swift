@@ -12,22 +12,21 @@ import RxSwift
 import RxCocoa
 
 class HomeTabbarController: ESTabBarController {
-    class func tabbarController(isArchiveStatusBoxShowed: Bool) -> HomeTabbarController {
-        let insightsVC = InsightViewController(viewModel: InsightViewModel())
-        let insightsNavVC = NavigationController(rootViewController: insightsVC)
-        insightsNavVC.tabBarItem = ESTabBarItem(
-            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
-            title: R.string.localizable.insights().localizedUppercase,
-            image: R.image.insights_tab_icon(),
-            tag: 0
-        )
-
+    class func tabbarController() -> HomeTabbarController {
         let usageVC = UsageViewController(viewModel: UsageViewModel())
         let usageNavVC = NavigationController(rootViewController: usageVC)
         usageNavVC.tabBarItem = ESTabBarItem(
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#932C19")!),
-            title: R.string.localizable.usage().localizedUppercase,
+            title: R.string.localizable.summary().localizedUppercase,
             image: R.image.usage_tab_icon(),
+            tag: 0)
+
+        let insightsVC = InsightViewController(viewModel: InsightViewModel())
+        let insightsNavVC = NavigationController(rootViewController: insightsVC)
+        insightsNavVC.tabBarItem = ESTabBarItem(
+            MainTabbarItemContentView(highlightColor: UIColor(hexString: "#0011AF")!),
+            title: R.string.localizable.browse().localizedUppercase,
+            image: R.image.browseTabIcon(),
             tag: 1)
 
         let settingsVC = AccountViewController(viewModel: AccountViewModel())
@@ -36,33 +35,15 @@ class HomeTabbarController: ESTabBarController {
             MainTabbarItemContentView(highlightColor: UIColor(hexString: "#5F6D07")!),
             title: R.string.localizable.settings().localizedUppercase,
             image: R.image.account_icon(),
-            tag: 2
-        )
+            tag: 2)
 
         let tabbarController = HomeTabbarController()
-        tabbarController.isArchiveStatusBoxShowed = isArchiveStatusBoxShowed
-        tabbarController.viewControllers = [insightsNavVC, usageNavVC, settingsNavVC]
+        tabbarController.viewControllers = [usageNavVC, insightsNavVC, settingsNavVC]
+        tabbarController.selectedIndex = 0
 
         return tabbarController
     }
 
-    lazy var archiveStatusBox = makeArchiveStatusBox()
-    lazy var appArchiveStatus = AppArchiveStatus.currentState
-    var isArchiveStatusBoxShowed: Bool = true {
-        didSet {
-            if isArchiveStatusBoxShowed && appArchiveStatus == .stillWaiting {
-                view.insertSubview(archiveStatusBox, belowSubview: tabBar)
-
-                archiveStatusBox.snp.makeConstraints { (make) in
-                    make.width.equalToSuperview()
-                    make.leading.trailing.equalToSuperview()
-                    make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-tabBar.height)
-                }
-            } else {
-                archiveStatusBox.removeFromSuperview()
-            }
-        }
-    }
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -73,33 +54,125 @@ class HomeTabbarController: ESTabBarController {
         themeService.rx
             .bind({ $0.background }, to: view.rx.backgroundColor)
             .disposed(by: disposeBag)
+
+        bindViewModel()
+    }
+
+    // 1. polling archive status when archive status is still processing
+    // 2. observe the result of archive uploading
+    // 3. observe the result of archive processing, show error if invalid
+    fileprivate func bindViewModel() {
+         // 1
+        Global.pollingSyncAppArchiveStatus()
+
+        // 2
+        BackgroundTaskManager.shared.uploadProgressRelay
+            .map { $0[SessionIdentifier.upload.rawValue] }.filterNil()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .error(let error):
+                    self.handleErrorWhenUpload(error: error)
+                case .completed:
+                    Global.current.userDefault?.latestAppArchiveStatus = .processing
+                    AppArchiveStatus.currentState.accept(.processing)
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
+                        Global.pollingSyncAppArchiveStatus()
+                    }
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
+        // 3
+        AppArchiveStatus.currentState
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                switch appArchiveStatus {
+                case .invalid(let invalidArchiveIDs, let messageError):
+                    guard let latestInvalidArchiveID = invalidArchiveIDs.first,
+                        !UserDefaults.standard.showedInvalidArchiveIDs.contains(latestInvalidArchiveID)
+                        else {
+                            return
+                    }
+
+                    UserDefaults.standard.showedInvalidArchiveIDs = invalidArchiveIDs
+                    self.handleErrorWhenArchiveInvalid(messageError: messageError)
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        NotificationPermission.askForNotificationPermission(handleWhenDenied: false)
-            .observeOn(MainScheduler.instance)
-            .subscribe(onSuccess: { [weak self] (authorizationStatus) in
-                guard let self = self, authorizationStatus == .authorized else { return }
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
+            guard let self = self else { return }
+            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self.registerOneSignal()
+                }
+            }
+        }
+    }
+}
 
-                self.scheduleReminderNotificationIfNeeded()
-                self.registerOneSignal()
-            })
-            .disposed(by: disposeBag)
+// MARK: - Handle Error
+extension HomeTabbarController {
+    fileprivate func handleErrorWhenArchiveInvalid(messageError: ArchiveMessageError?) {
+        var errorTitle = R.string.error.generalTitle()
+        var errorMessage = R.string.error.system()
+        switch messageError {
+        case .failToCreateArchive, .failToDownloadArchive:
+            errorTitle = R.string.error.invalidArchiveFileTitle()
+            errorMessage = R.string.error.invalidArchiveFileMessage()
+        default:
+            break
+        }
+
+        let alertController = ErrorAlert.invalidArchiveFileAlert(
+            title: errorTitle,
+            message: errorMessage) { [weak self] in
+                DispatchQueue.main.async {
+                    guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                        let sender = selectedNavigation.topViewController,
+                        !(sender is UploadDataViewController) else { return }
+
+                    let viewModel = UploadDataViewModel()
+                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                }
+            }
+        alertController.show()
     }
 
-    fileprivate func makeArchiveStatusBox() -> ArchiveStatusBox {
-        let box = ArchiveStatusBox()
-        box.appArchiveStatus = AppArchiveStatus.currentState
-        return box
+    fileprivate func handleErrorWhenUpload(error: Error) {
+        Global.log.error(error)
+        let alertController = ErrorAlert.invalidArchiveFileAlert(
+            title: R.string.error.generalTitle(),
+            message: R.string.error.system()) { [weak self] in
+                DispatchQueue.main.async {
+                    guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
+                        let sender = selectedNavigation.topViewController,
+                        !(sender is UploadDataViewController) else { return }
+
+                    let viewModel = UploadDataViewModel()
+                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                }
+            }
+        alertController.show()
     }
 }
 
 class MainTabbarItemContentView: ESTabBarItemContentView {
     let disposeBag = DisposeBag()
     let selectedIndicatorLineView = UIView()
-    
+
     convenience init(highlightColor: UIColor) {
         self.init()
         

@@ -125,6 +125,7 @@ class StatsChartView: UIView {
             chartView.xAxis.granularity = 1
             chartView.xAxis.axisMinimum = 0
             chartView.xAxis.axisMaximum = barData.groupWidth(groupSpace: groupSpace, barSpace: barSpace) * Double(data.count)
+            chartView.rightAxis.valueFormatter = AxisValueFormatter()
 
             noActivityView.isHidden = true
             if data.count <= 4 {

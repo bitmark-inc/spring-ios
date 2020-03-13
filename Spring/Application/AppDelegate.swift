@@ -87,7 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         Navigator.evaluatePolicyWhenUserSetEnable()
-        Navigator.refreshOnboardingStateIfNeeded()
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -99,12 +98,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Navigator.handleDeeplink(url: url)
         return true
     }
+
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        Global.log.info("handleEventsForBackgroundURLSession: \(identifier)")
+        let backgroundSession = BackgroundTaskManager.shared.urlSession(identifier: identifier)
+        Global.log.debug("Rejoining session \(backgroundSession)")
+
+        BackgroundTaskManager.shared.addCompletionHandler(handler: completionHandler, identifier: identifier)
+    }
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        
-        Global.current.didUserTapNotification = true
-        completionHandler()
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        Global.pollingSyncAppArchiveStatus()
     }
 }

@@ -34,6 +34,16 @@ class AggregateAnalysisView: UIView {
                 flex.addItem(postStatsView).marginTop(35)
                 flex.addItem(reactionStatsView).marginTop(14)
             }
+
+        AppArchiveStatus.currentState
+            .filter { $0?.rawValue == "processed" }
+            .take(1).ignoreElements()
+            .subscribe(onCompleted: { [weak self, weak subHeadingView] in
+                guard let self = self, let subHeadingView = subHeadingView else { return }
+                subHeadingView.flex.addItem(self.makeCircle(ColorTheme.cognac.color)).marginLeft(18)
+                subHeadingView.flex.addItem(self.makeSubHeadingLabel(text: R.string.localizable.your_posts_and_reactions()))
+            })
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -117,31 +127,10 @@ extension AggregateAnalysisView {
     }
 
     fileprivate func makeSubHeadingView() -> UIView {
-        func makeCircle(_ color: UIColor) -> UIView {
-            let view = UIView()
-            view.cornerRadius = 6
-            view.backgroundColor = color
-            view.flex.height(12).width(12).marginRight(5)
-            return view
-        }
-
-        func makeLabel(text: String) -> Label {
-            let label = Label()
-            label.apply(text: text,
-                        font: R.font.atlasGroteskLight(size: 10),
-                        colorTheme: .black, lineHeight: 1.056)
-            return label
-        }
-
         let view = UIView()
         view.flex.direction(.row).define { (flex) in
             flex.addItem(makeCircle(ColorTheme.indianKhaki.color))
-            flex.addItem(makeLabel(text: R.string.phrase.aggAnalysisSpringUserAvergatePosts()))
-
-            if AppArchiveStatus.currentState == .done {
-                flex.addItem(makeCircle(ColorTheme.cognac.color)).marginLeft(18)
-                flex.addItem(makeLabel(text: R.string.localizable.your_posts_and_reactions()))
-            }
+            flex.addItem(makeSubHeadingLabel(text: R.string.phrase.aggAnalysisSpringUserAvergatePosts()))
         }
         return view
     }
@@ -150,5 +139,21 @@ extension AggregateAnalysisView {
         return StatsChartView(headingTitle: section == .post
             ? R.string.localizable.postsByType()
             : R.string.localizable.reactionsByType())
+    }
+
+    func makeCircle(_ color: UIColor) -> UIView {
+        let view = UIView()
+        view.cornerRadius = 6
+        view.backgroundColor = color
+        view.flex.height(12).width(12).marginRight(5)
+        return view
+    }
+
+    func makeSubHeadingLabel(text: String) -> Label {
+        let label = Label()
+        label.apply(text: text,
+                    font: R.font.atlasGroteskLight(size: 10),
+                    colorTheme: .black, lineHeight: 1.056)
+        return label
     }
 }

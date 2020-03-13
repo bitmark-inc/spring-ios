@@ -20,23 +20,23 @@ class AccountViewController: ViewController, BackNavigator {
 
     lazy var screenTitle = makeScreenTitle()
 
-    // *** Section - Security
-    lazy var signOutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecuritySignOut())
-    lazy var biometricAuthOptionButton = makeBiometricAuthOptionButton()
-    lazy var recoveryKeyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSecurityRecoveryKey())
-
     // *** Section - Account
     lazy var deleteAccountButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountDeleteAccount())
+    lazy var signOutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountSignOut())
+    lazy var recoveryKeyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountRecoveryKey())
 
-    // *** Section - Facebook
-    lazy var increasePrivacyButton = makeOptionButton(title: R.string.phrase.accountSettingsFacebookIncreasePrivacy())
+    // *** Section - Security
+    lazy var biometricAuthOptionButton = makeBiometricAuthOptionButton()
+    lazy var increasePrivacyButton = makeOptionButton(title: R.string.phrase.accountSettingsSecurityIncreasePrivacy())
+
+    // *** Section - Development
+    lazy var personalAPIOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsDevelopmentPersonalAPI())
+    lazy var sourceCodeOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsDevelopmentSourceCode())
 
     // *** Section - Support
-    lazy var aboutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportAbout())
     lazy var faqOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportFaq())
     lazy var whatsNewButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportWhatsNew())
     lazy var contactOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportContact())
-    lazy var surveyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsSupportGetYourThoughts())
 
     lazy var versionLabel = makeVersionLabel()
     lazy var bitmarkCertView = makeBitmarkCertView()
@@ -72,8 +72,12 @@ class AccountViewController: ViewController, BackNavigator {
             self?.gotoIncreasePrivacyListScreen()
         }.disposed(by: disposeBag)
 
-        aboutOptionButton.rx.tap.bind { [weak self] in
-            self?.gotoAboutScreen()
+        personalAPIOptionButton.rx.tap.bind { [weak self] in
+            self?.gotoPersonalAPIScreen()
+        }.disposed(by: disposeBag)
+
+        sourceCodeOptionButton.rx.tap.bind { [weak self] in
+            self?.gotoSourceCodeScreen()
         }.disposed(by: disposeBag)
 
         faqOptionButton.rx.tap.bind { [weak self] in
@@ -87,10 +91,6 @@ class AccountViewController: ViewController, BackNavigator {
         contactOptionButton.rx.tap.bind { [weak self] in
             self?.showIntercomContact()
         }.disposed(by: disposeBag)
-
-        surveyOptionButton.rx.tap.bind { [weak self] in
-            self?.showSurveyLink()
-        }.disposed(by: disposeBag)
     }
 
     override func viewDidLayoutSubviews() {
@@ -103,9 +103,9 @@ class AccountViewController: ViewController, BackNavigator {
         let securityButtonGroup: [Button]!
 
         if let biometricAuthOptionButton = biometricAuthOptionButton {
-            securityButtonGroup = [signOutOptionButton, biometricAuthOptionButton, recoveryKeyOptionButton]
+            securityButtonGroup = [biometricAuthOptionButton, increasePrivacyButton]
         } else {
-            securityButtonGroup = [signOutOptionButton, recoveryKeyOptionButton]
+            securityButtonGroup = [increasePrivacyButton]
         }
 
         settingsView.flex.define { (flex) in
@@ -115,26 +115,26 @@ class AccountViewController: ViewController, BackNavigator {
 
             flex.addItem(
                 makeOptionsSection(
+                    name: R.string.phrase.accountSettingsAccount(),
+                    options: [signOutOptionButton, recoveryKeyOptionButton]))
+                .marginTop(12)
+
+            flex.addItem(
+                makeOptionsSection(
                     name: R.string.phrase.accountSettingsSecurity(),
                     options: securityButtonGroup))
                 .marginTop(12)
 
             flex.addItem(
                 makeOptionsSection(
-                   name: R.string.phrase.accountSettingsAccount(),
-                   options: [deleteAccountButton]))
-                .marginTop(12)
-
-            flex.addItem(
-                makeOptionsSection(
-                   name: R.string.phrase.accountSettingFacebook(),
-                   options: [increasePrivacyButton]))
+                    name: R.string.phrase.accountSettingsDevelopment(),
+                    options: [personalAPIOptionButton, sourceCodeOptionButton]))
                 .marginTop(12)
 
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsSupport(),
-                    options: [faqOptionButton, whatsNewButton, contactOptionButton, surveyOptionButton]))
+                    options: [whatsNewButton, faqOptionButton, contactOptionButton]))
                 .marginTop(12)
 
             flex.addItem(bitmarkCertView)
@@ -172,10 +172,6 @@ extension AccountViewController {
         navigator.show(segue: .increasePrivacyList, sender: self)
     }
 
-    fileprivate func gotoAboutScreen() {
-        navigator.show(segue: .about, sender: self)
-    }
-
     fileprivate func gotoFAQScreen() {
         guard let url = AppLink.faq.websiteURL else { return }
         navigator.show(segue: .safariController(url), sender: self, transition: .alert)
@@ -189,10 +185,16 @@ extension AccountViewController {
         Intercom.presentMessenger()
     }
 
-    fileprivate func showSurveyLink() {
-        navigator.show(segue: .safariController(Constant.surveyURL), sender: self, transition: .alert)
+    fileprivate func gotoPersonalAPIScreen() {
+        guard let url = AppLink.personalAPI.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self, transition: .alert)
     }
-}
+
+    fileprivate func gotoSourceCodeScreen() {
+        guard let url = AppLink.sourceCode.websiteURL else { return }
+        navigator.show(segue: .safariController(url), sender: self, transition: .alert)
+    }
+ }
 
 // MARK: UITextViewDelegate
 extension AccountViewController: UITextViewDelegate {

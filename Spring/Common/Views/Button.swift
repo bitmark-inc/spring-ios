@@ -13,6 +13,12 @@ class Button: UIButton {
 
     let disposeBag = DisposeBag()
 
+    override var isEnabled: Bool {
+        didSet {
+            alpha = isEnabled ? 1 : 0.5
+        }
+    }
+
     required init() {
         super.init(frame: .zero)
         setupViews()
@@ -31,7 +37,7 @@ class Button: UIButton {
 }
 
 extension Button {
-    func apply(title: String, font: UIFont?, colorTheme: ColorTheme) {
+    func apply(title: String = "", font: UIFont?, colorTheme: ColorTheme) {
         self.setTitle(title, for: .normal)
         self.titleLabel?.font = font
 
@@ -44,13 +50,29 @@ extension Button {
         case .white:
             themeService.rx
                 .bind({ $0.lightButtonTextColor }, to: rx.titleColor(for: .normal))
-                .bind({ $0.lightButtonTextColor.withAlphaComponent(0.5) }, to: rx.titleColor(for: .disabled))
                 .disposed(by: disposeBag)
 
         case .cognac:
             themeService.rx
                 .bind({ $0.themeColor }, to: rx.titleColor(for: .normal))
-                .bind({ $0.themeColor.withAlphaComponent(0.5) }, to: rx.titleColor(for: .disabled))
+                .disposed(by: disposeBag)
+
+        default:
+            themeService.rx
+                .bind({ $0.blackButtonTextColor }, to: rx.titleColor(for: .normal))
+                .disposed(by: disposeBag)
+        }
+    }
+
+    func applyBackground(title: String, font: UIFont?, colorTheme: ColorTheme) {
+        self.setTitle(title, for: .normal)
+        self.titleLabel?.font = font
+
+        switch colorTheme {
+        case .mercury:
+            themeService.rx
+                .bind({ $0.blackButtonTextColor }, to: rx.titleColor(for: .normal))
+                .bind({ $0.themeMercuryColor }, to: rx.backgroundColor)
                 .disposed(by: disposeBag)
 
         default:

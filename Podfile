@@ -39,6 +39,7 @@ def sharedPods
   pod 'Kingfisher'
   pod 'UPCarouselFlowLayout'
   pod 'SwiftRichString'
+  pod 'MaterialProgressBar'
 end
 
 target 'Spring' do

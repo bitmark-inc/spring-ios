@@ -24,9 +24,9 @@ class MoreComingView: UIView {
         didSet {
             switch section {
             case .moreInsightsComing:
-                titleLabel.setText(R.string.phrase.moreInsightsComingTitle())
+                titleLabel.setText(R.string.phrase.moreInsightsComingTitle().localizedUppercase)
             case .morePersonalAnalyticsComing:
-                titleLabel.setText(R.string.phrase.morePersonalAnalyticsComingTitle())
+                titleLabel.setText(R.string.phrase.morePersonalAnalyticsComingTitle().localizedUppercase)
             default:
                 return
             }
@@ -40,16 +40,11 @@ class MoreComingView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column)
+            .padding(30, 18, 18, 18)
             .define { (flex) in
-                flex.addItem(SectionSeparator())
-
-                flex.addItem()
-                    .padding(30, 18, 37, 18)
-                    .define { (flex) in
-                        flex.addItem(titleLabel)
-                        flex.addItem(descriptionLabel).marginTop(7)
-                        flex.addItem(notifyMeButton).marginTop(20).height(notifyMeButtonHeight)
-                    }
+                flex.addItem(titleLabel)
+                flex.addItem(descriptionLabel).marginTop(7)
+                flex.addItem(notifyMeButton).marginTop(20).height(notifyMeButtonHeight)
             }
 
         reloadState()
@@ -100,6 +95,7 @@ class MoreComingView: UIView {
 extension MoreComingView {
     fileprivate func makeTitleLabel() -> Label {
         let label = Label()
+        label.numberOfLines = 0
         label.apply(
             font: R.font.domaineSansTextLight(size: 22),
             colorTheme: .black, lineHeight: 1.056)
@@ -110,8 +106,8 @@ extension MoreComingView {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskLight(size: 12),
-            colorTheme: .black, lineHeight: 1.27)
+            font: R.font.atlasGroteskLight(size: 16),
+            colorTheme: .black, lineHeight: 1.25)
         return label
     }
 
@@ -121,7 +117,7 @@ extension MoreComingView {
         button.contentEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 2, right: 0)
         button.apply(
             title: R.string.localizable.notify_me(),
-            font: R.font.atlasGroteskRegular(size: 16),
+            font: R.font.atlasGroteskLight(size: 16),
             colorTheme: .cognac)
         return button
     }

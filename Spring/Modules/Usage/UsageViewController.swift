@@ -40,7 +40,6 @@ class UsageViewController: ViewController {
     lazy var usageView = UIView()
     lazy var headingView = makeHeadingView()
     lazy var timelineView = makeTimelineView()
-    lazy var moodView = makeMoodView()
     lazy var postsHeadingView = makeSectionHeadingView(section: .post)
     lazy var postsFilterTypeView = makeFilterTypeView(section: .post)
     lazy var postsFilterDayView = makeFilterDayView(section: .post)
@@ -54,8 +53,10 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
     lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
+    lazy var requestUploadDataView = makeRequestUploadDataView()
     lazy var aggregateAnalysisView = makeAggregateAnalysisView()
-    lazy var appArchiveStatus: AppArchiveStatus = AppArchiveStatus.currentState
+    lazy var prefixDependentUsageSections = UIView()
+    lazy var suffixDependentUsageSections = UIView()
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
@@ -137,24 +138,33 @@ class UsageViewController: ViewController {
                     distance: distance, limitedDistance: limitedDistance)
             })
             .disposed(by: disposeBag)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        guard let viewModel = viewModel as? UsageViewModel else { return }
 
         viewModel.fetchSpringStats()
 
-        if appArchiveStatus == .done {
-            viewModel.fetchActivity()
-                .subscribe(onCompleted: {
-                    viewModel.fetchUsage()
-                }, onError: { (error) in
-                    loadingState.onNext(.hide)
-                    Global.log.error(error)
-                })
-                .disposed(by: disposeBag)
-        }
+        AppArchiveStatus.currentState
+            .filter { $0?.rawValue == "processed" }
+            .take(1).ignoreElements()
+            .andThen(viewModel.fetchActivity())
+            .subscribe(onCompleted: {
+                viewModel.fetchUsage()
+            }, onError: { [weak self] (error) in
+                self?.errorWhenFetchingData(error: error)
+            })
+            .disposed(by: disposeBag)
     }
 
     func errorWhenFetchingData(error: Error) {
-        guard !AppError.errorByNetworkConnection(error) else { return }
-        guard !showIfRequireUpdateVersion(with: error) else { return }
+        guard !AppError.errorByNetworkConnection(error),
+            !showIfRequireUpdateVersion(with: error),
+            !handleErrorIfAsAFError(error) else {
+                return
+        }
 
         Global.log.error(error)
         showErrorAlertWithSupport(message: R.string.error.system())
@@ -172,27 +182,11 @@ class UsageViewController: ViewController {
         usageView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(timelineView)
-
-            if appArchiveStatus == .done {
-                flex.addItem(SectionSeparator())
-                flex.addItem(moodView)
-                flex.addItem(SectionSeparator())
-                flex.addItem(postsHeadingView)
-                flex.addItem(postsFilterTypeView)
-                flex.addItem(postsFilterDayView)
-                flex.addItem(postsFilterFriendView)
-                flex.addItem(postsFilterPlaceView)
-                flex.addItem(SectionSeparator())
-                flex.addItem(reationsHeadingView)
-                flex.addItem(reactionsFilterTypeView)
-                flex.addItem(reactionsFilterDayView)
-                flex.addItem(reactionsFilterFriendView)
-            } else {
-                flex.addItem(morePersonalAnalyticsComingView)
-            }
+            flex.addItem(prefixDependentUsageSections)
             flex.addItem(SectionSeparator())
             flex.addItem(aggregateAnalysisView)
             flex.addItem(SectionSeparator())
+            flex.addItem(suffixDependentUsageSections)
         }
 
         scroll.addSubview(usageView)
@@ -200,14 +194,64 @@ class UsageViewController: ViewController {
             .direction(.column).define { (flex) in
                 flex.addItem(scroll).height(100%)
             }
+
+        observeArchiveStatusToBuildUsage()
+    }
+
+    func observeArchiveStatusToBuildUsage() {
+        AppArchiveStatus.currentState
+            .filterNil()
+            .distinctUntilChanged { $0.rawValue == $1.rawValue }
+            .subscribe(onNext: { [weak self] (appArchiveStatus) in
+                guard let self = self else { return }
+                self.suffixDependentUsageSections.removeSubviews()
+                self.prefixDependentUsageSections.removeSubviews()
+                switch appArchiveStatus {
+                case .none, .invalid, .created:
+                    self.prefixDependentUsageSections.flex.addItem()
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
+
+                case .uploading:
+                    self.prefixDependentUsageSections.flex.addItem()
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+
+                case .processing:
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+
+                case .processed:
+                    self.prefixDependentUsageSections.flex.addItem()
+                    self.suffixDependentUsageSections.flex.addItem(self.postsHeadingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterTypeView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterDayView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterFriendView)
+                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterPlaceView)
+                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.suffixDependentUsageSections.flex.addItem(self.reationsHeadingView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterDayView)
+                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
+                }
+
+                self.prefixDependentUsageSections.flex.markDirty()
+                self.suffixDependentUsageSections.flex.markDirty()
+                self.layout()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
 extension UsageViewController {
     fileprivate func makeHeadingView() -> HeadingView {
         let headingView = HeadingView()
-        headingView.setHeading(title: R.string.localizable.usage().localizedUppercase, color:  UIColor(hexString: "#932C19"))
-        headingView.subTitle = R.string.localizable.howyouusefacebooK()
+        headingView.setHeading(title: R.string.localizable.summary().localizedUppercase, color:  UIColor(hexString: "#932C19"))
         return headingView
     }
 
@@ -222,13 +266,6 @@ extension UsageViewController {
         sectionHeadingView.setProperties(section: section, container: self)
         sectionHeadingView.flex.padding(0, 18, 26, 18)
         return sectionHeadingView
-    }
-
-    fileprivate func makeMoodView() -> MoodView {
-        let moodView = MoodView()
-        moodView.containerLayoutDelegate = self
-        moodView.setProperties(section: .mood, container: self)
-        return moodView
     }
 
     fileprivate func makeFilterTypeView(section: Section) -> FilterTypeView {
@@ -268,6 +305,13 @@ extension UsageViewController {
         aggregateAnalysisView.containerLayoutDelegate = self
         aggregateAnalysisView.setProperties(container: self)
         return aggregateAnalysisView
+    }
+
+    fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
+        let requestUploadDataView = RequestUploadDataView()
+        requestUploadDataView.containerLayoutDelegate = self
+        requestUploadDataView.setProperties(section: .requestUploadDataInUsage, container: self)
+        return requestUploadDataView
     }
 }
 
@@ -343,5 +387,10 @@ extension UsageViewController: NavigatorDelegate {
 
         let viewModel = ReactionListViewModel(filterScope: filterScope)
         navigator.show(segue: .reactionList(viewModel: viewModel), sender: self)
+    }
+
+    func gotoUploadDataScreen() {
+        let viewModel = UploadDataViewModel()
+        navigator.show(segue: .uploadData(viewModel: viewModel), sender: self)
     }
 }

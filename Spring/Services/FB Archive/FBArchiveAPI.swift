@@ -11,6 +11,8 @@ import Moya
 
 enum FBArchiveAPI {
     case submit(headers: [String: String], fileURL: String, rawCookie: String, startedAt: Date?, endedAt: Date)
+    case submitByURL(_ fileURL: URL)
+    case getPresignedURL(_ size: Int64)
     case getAll
 }
 
@@ -20,12 +22,16 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
     }
 
     var path: String {
-        return ""
+        switch self {
+        case .submitByURL: return "url"
+        case .submit, .getAll, .getPresignedURL:
+            return ""
+        }
     }
 
     var method: Moya.Method {
         switch self {
-        case .submit:
+        case .submit, .submitByURL, .getPresignedURL:
             return .post
         case .getAll:
             return .get
@@ -36,26 +42,38 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
         return Data()
     }
 
-    var parameters: [String: Any]? {
-        var params: [String: Any] = [:]
+    var task: Task {
         switch self {
         case .submit(let headers, let fileURL, let rawCookie, let startedAt, let endedAt):
-            params["headers"] = headers
-            params["file_url"] = fileURL
-            params["raw_cookie"] = rawCookie
-            params["started_at"] = Int(startedAt?.timeIntervalSince1970 ?? 0)
-            params["ended_at"] = Int(endedAt.timeIntervalSince1970)
-        case .getAll:
-            return nil
-        }
-        return params
-    }
+            let params: [String : Any] = [
+                "headers": headers,
+                "file_url": fileURL,
+                "raw_cookie": rawCookie,
+                "started_at": Int(startedAt?.timeIntervalSince1970 ?? 0),
+                "ended_at": Int(endedAt.timeIntervalSince1970)
+            ]
 
-    var task: Task {
-        if let parameters = parameters {
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+
+        case .submitByURL(let fileURL):
+            let params = [
+                "file_url": fileURL.absoluteString,
+                "archive_type": "facebook"
+            ]
+
+            return .requestParameters(parameters: params, encoding: JSONEncoding.default)
+
+        case .getPresignedURL(let fileSize):
+            let params: [String: Any] = [
+                "type": "facebook",
+                "size": fileSize
+            ]
+
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
+
+        case .getAll:
+            return .requestPlain
         }
-        return .requestPlain
     }
 
     var headers: [String: String]? {

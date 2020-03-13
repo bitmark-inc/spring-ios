@@ -20,7 +20,9 @@ extension Reactive where Base: SVProgressHUD {
             case .loading:
                 SVProgressHUD.show()
             case .success:
-                SVProgressHUD.showSuccess(withStatus: "Success".localized())
+                SVProgressHUD.showSuccess(withStatus: R.string.localizable.success())
+            case .tickSuccess:
+                SVProgressHUD.showSuccess(withStatus: nil)
             case .failed:
                 SVProgressHUD.showError(withStatus: nil)
             case .hide:
@@ -35,4 +37,5 @@ enum LoadState {
     case success
     case failed
     case hide
+    case tickSuccess
 }

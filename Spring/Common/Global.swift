@@ -8,6 +8,8 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
+import RxSwiftExt
 import BitmarkSDK
 import Moya
 import Intercom
@@ -19,6 +21,7 @@ class Global {
     static var current = Global()
     static let `default` = current
     static let backgroundErrorSubject = PublishSubject<Error>()
+    static let disposeBag = DisposeBag()
 
     var account: Account?
     var currency: Currency?
@@ -27,7 +30,6 @@ class Global {
             else { return nil }
         return UserDefaults.userStandard(for: accountNumber)
     }()
-    var didUserTapNotification: Bool = false
 
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -77,8 +79,7 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
-        UserDefaults.standard.FBArchiveCreatedAt = nil
-        Global.current.userDefault?.latestArchiveStatus = nil
+        Global.current.userDefault?.latestAppArchiveStatus = nil
 
         // clear user cookie in webview
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
@@ -93,11 +94,35 @@ class Global {
         SettingsBundle.setAccountNumber(accountNumber: nil)
 
         Global.current = Global() // reset local variable
+        AppArchiveStatus.currentState.accept(nil)
         AuthService.shared = AuthService()
+        BackgroundTaskManager.shared = BackgroundTaskManager()
+
         Intercom.logout()
         OneSignal.setSubscription(false)
         OneSignal.deleteTag(Constant.OneSignalTag.key)
         ErrorReporting.setUser(bitmarkAccountNumber: nil)
+    }
+
+    static func pollingSyncAppArchiveStatus() {
+        func pollingFunction() -> Observable<Void> {
+            return ArchiveDataEngine.fetchAppArchiveStatus()
+                .do(onSuccess: {
+                    Global.current.userDefault?.latestAppArchiveStatus = $0
+                    AppArchiveStatus.currentState.accept($0)
+                })
+                .asObservable()
+                .flatMap({ (appArchiveStatus) -> Observable<Void> in
+                    return appArchiveStatus == .processing ?
+                        Observable.error(AppError.archiveIsNotProcessed) :
+                        Observable.empty()
+                })
+        }
+
+        pollingFunction()
+            .retry(.delayed(maxCount: 1000, time: 5 * 60))
+            .subscribe()
+            .disposed(by: disposeBag)
     }
 
     let networkLoggerPlugin: [PluginType] = [
@@ -139,12 +164,13 @@ enum AppError: Error {
     case incorrectPostFilter
     case incorrectReactionFilter
     case requireAppUpdate(updateURL: URL)
-    case fbRequiredPageIsNotReady
     case loginFailedIsNotDetected
     case incorrectEmptyRealmObject
     case biometricNotConfigured
     case biometricError
     case didRemoteQuery
+    case archiveIsNotProcessed
+    case invalidPresignedURL
 
     static func errorByNetworkConnection(_ error: Error) -> Bool {
         guard let error = error as? Self else { return false }
@@ -166,11 +192,6 @@ extension UserDefaults {
         return UserDefaults(suiteName: number)
     }
 
-    var FBArchiveCreatedAt: Date? {
-        get { return date(forKey: #function) }
-        set { set(newValue, forKey: #function) }
-    }
-
     var enteredBackgroundTime: Date? {
         get { return date(forKey: #function) }
         set { set(newValue, forKey: #function) }
@@ -178,6 +199,11 @@ extension UserDefaults {
 
     var clickedIncreasePrivacyURLs: [String]? {
         get { return stringArray(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var showedInvalidArchiveIDs: [Int64] {
+        get { return (array(forKey: #function) as? [Int64]) ?? [] }
         set { set(newValue, forKey: #function) }
     }
 
@@ -193,9 +219,9 @@ extension UserDefaults {
     }
 
     // Per Account
-    var latestArchiveStatus: String? {
-        get { return string(forKey: #function) }
-        set { set(newValue, forKey: #function) }
+    var latestAppArchiveStatus: AppArchiveStatus? {
+        get { return AppArchiveStatus(rawValue: string(forKey: #function) ?? "") }
+        set { set(newValue?.rawValue, forKey: #function) }
     }
 
     var isAccountSecured: Bool {

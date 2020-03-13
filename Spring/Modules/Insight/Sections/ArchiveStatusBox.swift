@@ -12,24 +12,6 @@ import RxCocoa
 import FlexLayout
 import SnapKit
 
-enum AppArchiveStatus {
-    case stillWaiting
-    case done
-    case none
-
-    static var currentState: Self {
-        if UserDefaults.standard.FBArchiveCreatedAt != nil {
-            return .stillWaiting
-        }
-
-        let archiveStatus = ArchiveStatus(rawValue: Global.current.userDefault?.latestArchiveStatus ?? "")
-        switch archiveStatus {
-        case .processed: return .done
-        default: return .none
-        }
-    }
-}
-
 class ArchiveStatusBox: UIView {
 
     // MARK: - Properties
@@ -39,15 +21,6 @@ class ArchiveStatusBox: UIView {
 
     let disposeBag = DisposeBag()
     var heightConstraint: Constraint!
-
-    var appArchiveStatus: AppArchiveStatus = .none {
-        didSet {
-            if appArchiveStatus == .stillWaiting {
-                statusLabel.setText(R.string.phrase.dataRequestedWaitingTitle())
-                descriptionLabel.setText(R.string.phrase.dataRequestedWaitingDescription())
-            }
-        }
-    }
 
     // MARK: - Properties
     override init(frame: CGRect) {

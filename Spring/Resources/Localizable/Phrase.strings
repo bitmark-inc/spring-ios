@@ -19,7 +19,7 @@
 "howitworks.content.3" = "We’ll give you ways to use your data for good (Future).";
 
 "trustIsCritical.title" = "Trust is Critical";
-"trustIsCritical.description" = "Spring is from Bitmark, makers of the universal system for digital property rights. Our mission is to restore trust in data. We believe an internet where individuals control their own data will lead to a better future. Building this protocol to unlock the value of your data is our business.";
+"trustIsCritical.description" = "Spring is from Bitmark, makers of the internet protocol that secures data provenance. Our mission is to restore trust in data. We believe an internet where individuals control their own data will lead to a better future. Building this protocol to unlock the value of your data is our business.";
 "trustIsCritical.sincerely" = "Sincerely,";
 "trustIsCritical.titleSignature" = "Sean Moss-Pultz\nCo-founder and CEO ";
 
@@ -46,6 +46,12 @@
 
 "income.description" = "Income Facebook made from you since %@";
 
+"requestUploadData.usage.title" = "See How You Compare?";
+"requestUploadData.usage.description" = "Upload your Facebook Information Archive to receive your own personal analytics. You will also be able to browse, search, and share your Facebook data.";
+
+"requestUploadData.insights.title" = "Get your facebook data";
+"requestUploadData.insights.description" = "Upload your Facebook Information Archive to browse, search, and share your Facebook data.";
+
 "adsCategory.header" = "CATEGORIES FOR ADS";
 "adsCategory.description" = "These categories are based on your activity. They are used by advertisers to personalize your information.";
 
@@ -61,6 +67,18 @@
 "aggAnalysis.subHeading" = "aggregate analysis";
 "aggAnalysis.springUserAvergatePosts" = "SPRING users average";
 
+"uploadData.title" = "Get Your Data";
+"uploadData.instruction.step1.title" = "Step 1: Request your Facebook data";
+"uploadData.instruction.step1.desc.1" = "Go to %@ and select “Download Your Information”.";
+"uploadData.instruction.step1.desc.2" = "Make sure to select “JSON” for the format.";
+
+"uploadData.instruction.step2.title" = "Step 2: Make your backup";
+"uploadData.instruction.step2.desc.1" = "Facebook will let you know when your data is ready for download. Typically, this takes 1-2 days.";
+"uploadData.instruction.step2.desc.2" = "When notified, store your zip file in the cloud or on this device. We recommend doing this on a fast Internet connection.";
+
+"uploadData.browserFile" = "Add zip file »";
+"uploadData.provideURL" = "Add cloud url";
+
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
 "post.postInfo.locationTag" = " @%@";
@@ -73,20 +91,24 @@
 "incomeQuestion.description" = "Average revenue per user, or ARPU is how Facebook assesses its ability to monetize users. ARPU is calculated by computing revenue by user geography based on Facebook’s estimate of the geography in which ad impressions are delivered. These numbers are made public in <a href='https://investor.fb.com/financials/?section=quarterlyearnings'>their quarterly earning reports</a>.\n\nYet besides the dollar value, analyzing user value based only on ARPU underestimates the value to Facebook. Even though Facebook doesn’t make much money with their users outside US, Canada, and Western Europe, they still collect lots of data. That data creates the network effect that makes their platform become stronger and more valuable over time.\n";
 
 "account.settings.title" = "Settings";
-"account.settings.security" = "Security";
-"account.settings.security.signOut" = "Unlink from device »";
-"account.settings.security.biometricAuth" = "%@ »";
-"account.settings.security.recoveryKey" = "Recovery key »";
+
 "account.settings.account" = "Account";
-"account.settings.account.deleteAccount" = "Delete account »";
-"account.setting.facebook" = "Facebook";
-"account.settings.facebook.increasePrivacy" = "Increase privacy »";
+"account.settings.account.deleteAccount" = "Delete data »";
+"account.settings.account.signOut" = "Sign out »";
+"account.settings.account.recoveryKey" = "Recovery key »";
+
+"account.settings.security" = "Security";
+"account.settings.security.biometricAuth" = "%@ »";
+"account.settings.security.increasePrivacy" = "Increase Facebook privacy »";
+
+"account.settings.development" = "Development";
+"account.settings.development.personalAPI" = "Personal API »";
+"account.settings.development.sourceCode" = "Source code »";
+
 "account.settings.support" = "Support";
-"account.settings.support.about" = "About »";
 "account.settings.support.faq" = "FAQ »";
 "account.settings.support.whatsNew" = "What's new »";
-"account.settings.support.contact" = "Help »";
-"account.settings.support.getYourThoughts" = "Tell us your thoughts »";
+"account.settings.support.contact" = "Contact us »";
 
 "account.signOut.warning.title" = "Unlink Account";
 "account.signOut.warning.description" = "If you unlink your account, you will be completely logged out on this device and will need to enter your 12-word recovery key to regain access and relink your account to this device.\n\nTo make ensure that you will not completely lose access to your account, you will next be asked to enter your 12-word recovery key before unlinking your account. If you haven’t already written down your recovery key, %@.";
@@ -121,27 +143,26 @@
 "fb.increasePrivacy.description" = "Here are %d simple steps you can take to increase your privacy while using Facebook:";
 
 "fb.increasePrivacy.turnOffFaceRecognition.title" = "<a>Turn off Face Recognition</a> »";
-"fb.increasePrivacy.turnOffFaceRecognition.actionGuide" = "Tap the option and select <b>“No”</b>";
+"fb.increasePrivacy.turnOffFaceRecognition.actionGuide" = "Tap the option and select “No”";
 "fb.increasePrivacy.deleteAllEmailContacts.title" = "<a>Delete all your email contacts</a> »";
-"fb.increasePrivacy.deleteAllEmailContacts.actionGuide" = "Tap <b>“Delete All”</b>";
+"fb.increasePrivacy.deleteAllEmailContacts.actionGuide" = "Tap “Delete All”";
 "fb.increasePrivacy.deleteAllPhoneContacts.title" = "<a>Delete all your phone contacts</a> »";
-"fb.increasePrivacy.deleteAllPhoneContacts.actionGuide" = "Tap <b>“Delete All Contacts”</b>";
+"fb.increasePrivacy.deleteAllPhoneContacts.actionGuide" = "Tap “Delete All Contacts”";
 "fb.increasePrivacy.optOutOfAdsFromPartner.title" = "<a>Opt out of ads based on data from partners</a> »";
-"fb.increasePrivacy.optOutOfAdsFromPartner.actionGuide" = "Tap <b>“Continue”</b>, change to <b>“Not Allowed”</b> and tap <b>“Save”</b>";
+"fb.increasePrivacy.optOutOfAdsFromPartner.actionGuide" = "Tap “Continue”, change to “Not Allowed” and tap “Save”";
 "fb.increasePrivacy.optOutOfAdsFromActivity.title" = "<a>Opt out of ads based on your activity on Facebook Company Products that you see elsewhere</a> »";
-"fb.increasePrivacy.optOutOfAdsFromActivity.actionGuide" = "Select <b>“No”</b>";
+"fb.increasePrivacy.optOutOfAdsFromActivity.actionGuide" = "Select “No”";
 "fb.increasePrivacy.optOutOfFriendsSeeingAds.title" = "<a>Opt out of friends seeing ads you like</a> »";
-"fb.increasePrivacy.optOutOfFriendsSeeingAds.actionGuide" = "Select <b>“No One”</b>";
-
-"account.about.title" = "About";
-"account.about.description" = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec fermentum metus scelerisque vehicula mattis. Quisque molestie nisl et mauris laoreet, sed euismod ipsum tempor. Pellentesque mattis lobortis lacus, sed interdum leo gravida non. Etiam nulla erat, auctor eu odio ac, tincidunt ultricies ante. Aenean eleifend pharetra dolor. Mauris urna orci, consectetur eu vulputate in, pretium vitae tellus.";
+"fb.increasePrivacy.optOutOfFriendsSeeingAds.actionGuide" = "Select “No One”";
 
 "releaseNote.title" = "What’s New";
 "releaseNote.appVersion" = "Version %@";
+"releaseNote.section.1" = "Hightlights of the new features";
+"releaseNote.section.2" = "Enhancements";
 "releaseNote.letUsKnow" = "let us know";
-"releaseNote.content" = "%@\nWe value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";
+"releaseNote.content" = "We value your feedback, if you have ideas or suggestions on how to make our app even better, please %@.\n";
 
 "eula" = "EULA";
 "privacyPolicy" = "Privacy Policy";
 "termsAndPolicyPhrase" = "%@ and %@.";
-"termAndPolicyPhrase.prefix.inSignInWall" = "By continuing, you agree to the Bitmark";
+"termAndPolicyPhrase.prefix.inSignInWall" = "By continuing, you agree to our";
