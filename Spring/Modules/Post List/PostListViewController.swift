@@ -26,40 +26,28 @@ class PostListViewController: ViewController, BackNavigator {
     fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
 
-    var posts: Results<Post>?
     lazy var thisViewModel = viewModel as! PostListViewModel
 
     // MARK: - bind ViewModel
     override func bindViewModel() {
         super.bindViewModel()
 
-        guard let viewModel = viewModel as? PostListViewModel else { return }
+        guard let viewModel = viewModel as? PostListViewModel,
+            let realmPost = viewModel.realmPosts else { return }
 
-        viewModel.postsRelay.filterNil()
-            .subscribe(onNext: { [weak self] (realmPosts) in
+        Observable.changeset(from: realmPost)
+            .subscribe(onNext: { [weak self] (_, _) in
                 guard let self = self else { return }
-                self.posts = realmPosts
-                self.tableView.reloadData()
                 self.refreshView()
-
-                Observable.changeset(from: realmPosts)
-                    .subscribe(onNext: { [weak self] (_, _) in
-                        guard let self = self else { return }
-                        self.refreshView()
-                        self.tableView.reloadData()
-                    }, onError: { (error) in
-                        Global.log.error(error)
-                    })
-                    .disposed(by: self.disposeBag)
-
+                self.tableView.reloadData()
+            }, onError: { (error) in
+                Global.log.error(error)
             })
-            .disposed(by: disposeBag)
-
-        viewModel.getPosts()
+            .disposed(by: self.disposeBag)
     }
 
     func refreshView() {
-        let hasPosts = posts != nil && !posts!.isEmpty
+        let hasPosts = thisViewModel.realmPosts != nil && !thisViewModel.realmPosts!.isEmpty
         emptyView.isHidden = hasPosts
         tableView.isScrollEnabled = hasPosts
     }
@@ -104,7 +92,7 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return 1
         case 1:
-            return posts?.count ?? 0
+            return thisViewModel.realmPosts?.count ?? 0
         default:
             return 0
         }
@@ -125,7 +113,7 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
 
         case 1:
-            let post = posts![indexPath.row]
+            let post = thisViewModel.realmPosts![indexPath.row]
             guard let postType = PostType(rawValue: post.type) else {
                 return UITableViewCell()
             }

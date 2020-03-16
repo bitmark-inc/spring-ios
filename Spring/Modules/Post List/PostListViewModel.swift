@@ -17,47 +17,44 @@ class PostListViewModel: ViewModel {
 
     // MARK: - Inputs
     let filterScope: FilterScope!
+    var syncLoadDataEngine: SyncLoadDataEngine!
 
     // MARK: - Outputs
-    let postsRelay = BehaviorRelay<Results<Post>?>(value: nil)
+    var realmPosts: Results<Post>?
 
     // MARK: - Init
     init(filterScope: FilterScope) {
         self.filterScope = filterScope
+        let datePeriod = filterScope.datePeriod ?? DatePeriod(startDate: Date(), endDate: Date())
+        self.syncLoadDataEngine = SyncLoadDataEngine(datePeriod: datePeriod, remoteQuery: .posts)
         super.init()
-    }
 
-    deinit {
-        // cancel syncing posts
-        PostDataEngine.datePeriodSubject?.onCompleted()
-    }
+        realmPosts = PostDataEngine
+            .fetch(with: filterScope)?
+            .sorted(byKeyPath: "timestamp", ascending: false)
 
-    func getPosts() {
-        PostDataEngine.rx.fetch(with: filterScope)
-            .map { $0.sorted(byKeyPath: "timestamp", ascending: false)}
-            .asObservable()
-            .bind(to: postsRelay)
-            .disposed(by: disposeBag)
+        if realmPosts?.count == 0 {
+            loadMore()
+        }
     }
 
     func loadMore() {
-        guard let posts = postsRelay.value else { return }
-        let currentNumberOfPosts = posts.count
+        guard let posts = realmPosts,
+            !syncLoadDataEngine.isCompleted else { return }
 
-        PostDataEngine.triggerSubject?
-            .filter({ $0 == .remoteLoaded}).take(1)
-            .asSingle()
-            .subscribe(onSuccess: { [weak self] (_) in
+        let trackedNumberOfPosts = posts.count
+
+        syncLoadDataEngine.sync()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
-                let updatedNumberOfPosts = posts.count
-
-                if updatedNumberOfPosts <= currentNumberOfPosts {
+                if posts.count <= trackedNumberOfPosts {
                     self.loadMore()
                 }
+            }, onError: { (error) in
+                Global.log.error(error)
             })
             .disposed(by: disposeBag)
-
-        PostDataEngine.triggerSubject?.onNext(.triggerRemoteLoad)
     }
 
     func makeSectionTitle() -> String {

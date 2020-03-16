@@ -11,7 +11,7 @@ import SwiftDate
 
 struct DatePeriod: Codable {
     let startDate: Date
-    let endDate: Date
+    var endDate: Date
 }
 
 extension DatePeriod {

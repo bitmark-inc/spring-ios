@@ -17,46 +17,44 @@ class ReactionListViewModel: ViewModel {
 
     // MARK: - Inputs
     let filterScope: FilterScope!
+    var syncLoadDataEngine: SyncLoadDataEngine!
 
     // MARK: - Outputs
-    let reactionsRelay = BehaviorRelay<Results<Reaction>?>(value: nil)
+    var realmReactions: Results<Reaction>?
 
     // MARK: - Init
     init(filterScope: FilterScope) {
         self.filterScope = filterScope
+        let datePeriod = filterScope.datePeriod ?? DatePeriod(startDate: Date(), endDate: Date())
+        self.syncLoadDataEngine = SyncLoadDataEngine(datePeriod: datePeriod, remoteQuery: .reactions)
         super.init()
-    }
 
-    deinit {
-        // cancel syncing reactions
-        ReactionDataEngine.datePeriodSubject?.onCompleted()
-    }
+        realmReactions = ReactionDataEngine
+            .fetch(with: filterScope)?
+            .sorted(byKeyPath: "timestamp", ascending: false)
 
-    func getReactions() {
-        ReactionDataEngine.rx.fetch(with: filterScope)
-            .map { $0.sorted(byKeyPath: "timestamp", ascending: false)}
-            .asObservable()
-            .bind(to: reactionsRelay)
-            .disposed(by: disposeBag)
+        if realmReactions?.count == 0 {
+            loadMore()
+        }
     }
 
     func loadMore() {
-        guard let reactions = reactionsRelay.value else { return }
-        let currentNumberOfReactions = reactions.count
+        guard let reactions = realmReactions,
+            !syncLoadDataEngine.isCompleted else { return }
 
-        ReactionDataEngine.triggerSubject?
-            .filter({ $0 == .remoteLoaded}).take(1)
-            .asSingle()
-            .subscribe(onSuccess: { (_) in
-                let updatedNumberOfReactions = reactions.count
+        let trackedNumberOfReactions = reactions.count
 
-                if updatedNumberOfReactions <= currentNumberOfReactions {
+        syncLoadDataEngine.sync()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                if reactions.count <= trackedNumberOfReactions {
                     self.loadMore()
                 }
+            }, onError: { (error) in
+                Global.log.error(error)
             })
             .disposed(by: disposeBag)
-
-        ReactionDataEngine.triggerSubject?.onNext(.triggerRemoteLoad)
     }
 
     func makeSectionTitle() -> String {

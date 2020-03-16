@@ -37,6 +37,9 @@ class Navigator {
         case uploadData(viewModel: UploadDataViewModel)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
+        case postListSection(viewModel: PostListSectionViewModel)
+        case mediaListSection(viewModel: MediaListSectionViewModel)
+        case reactionListSection(viewModel: ReactionListSectionViewModel)
         case incomeQuestion
         case account(viewModel: AccountViewModel)
         case signOutWarning
@@ -94,6 +97,22 @@ class Navigator {
             return HomeTabbarController.tabbarController()
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
+
+        case .postListSection, .mediaListSection, .reactionListSection:
+            let viewController: UIViewController!
+            switch segue {
+            case .postListSection(let viewModel):
+                viewController = PostListSectionViewController(viewModel: viewModel)
+            case .mediaListSection(let viewModel):
+                viewController = MediaListSectionViewController(viewModel: viewModel)
+            case .reactionListSection(let viewModel):
+                viewController = ReactionListSectionViewController(viewModel: viewModel)
+            default:
+                viewController = UIViewController()
+            }
+
+            viewController.hidesBottomBarWhenPushed = true
+            return viewController
 
         case .incomeQuestion, .uploadData:
             let viewController: UIViewController!

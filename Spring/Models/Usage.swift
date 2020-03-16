@@ -86,4 +86,9 @@ enum Section: String {
     case moreInsightsComing
     case morePersonalAnalyticsComing
     case aggregateAnalysis
+
+    // Browse
+    case browsePosts
+    case browsePhotosAndVideos
+    case browseLikesAndReactions
 }

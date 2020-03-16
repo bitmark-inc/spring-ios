@@ -27,12 +27,12 @@ class LinkPostTableViewCell: TableViewCell, PostDataTableViewCell {
             .bind({ $0.postCellBackgroundColor }, to: rx.backgroundColor)
 
         contentView.flex.direction(.column).define { (flex) in
+            flex.addItem(makeSeparator())
             flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
                 flex.addItem(postInfoLabel)
                 flex.addItem(captionLabel)
                 flex.addItem(linkLabel)
             }
-            flex.addItem(makeSeparator())
         }
     }
 

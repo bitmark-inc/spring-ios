@@ -22,40 +22,28 @@ class ReactionListViewController: ViewController, BackNavigator {
     fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
 
-    var reactions: Results<Reaction>?
     lazy var thisViewModel = viewModel as! ReactionListViewModel
 
     // MARK: - bind ViewModel
     override func bindViewModel() {
         super.bindViewModel()
 
-        guard let viewModel = viewModel as? ReactionListViewModel else { return }
+        guard let viewModel = viewModel as? ReactionListViewModel,
+            let realmReactions = viewModel.realmReactions else { return }
 
-        viewModel.reactionsRelay.filterNil()
-            .subscribe(onNext: { [weak self] (realmReactions) in
+        Observable.changeset(from: realmReactions)
+            .subscribe(onNext: { [weak self] (_, _) in
                 guard let self = self else { return }
-                self.reactions = realmReactions
-                self.tableView.reloadData()
                 self.refreshView()
-
-                Observable.changeset(from: realmReactions)
-                    .subscribe(onNext: { [weak self] (_, _) in
-                        guard let self = self else { return }
-                        self.refreshView()
-                        self.tableView.reloadData()
-                    }, onError: { (error) in
-                        Global.log.error(error)
-                    })
-                    .disposed(by: self.disposeBag)
-
+                self.tableView.reloadData()
+            }, onError: { (error) in
+                Global.log.error(error)
             })
-            .disposed(by: disposeBag)
-
-        viewModel.getReactions()
+            .disposed(by: self.disposeBag)
     }
 
     func refreshView() {
-        let hasReactions = reactions != nil && !reactions!.isEmpty
+        let hasReactions = thisViewModel.realmReactions != nil && !thisViewModel.realmReactions!.isEmpty
         emptyView.isHidden = hasReactions
         tableView.isScrollEnabled = hasReactions
     }
@@ -98,7 +86,7 @@ extension ReactionListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:     return 1
-        case 1:     return reactions?.count ?? 0
+        case 1:     return thisViewModel.realmReactions?.count ?? 0
         default:    return 0
         }
     }
@@ -117,7 +105,7 @@ extension ReactionListViewController: UITableViewDataSource, UITableViewDelegate
             return cell
 
         case 1:
-            let reaction = reactions![indexPath.row]
+            let reaction = thisViewModel.realmReactions![indexPath.row]
             let cell = tableView.dequeueReusableCell(withClass: ReactionTableViewCell.self, for: indexPath)
             cell.bindData(reaction: reaction)
             return cell

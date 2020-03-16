@@ -28,6 +28,9 @@ class InsightViewController: ViewController {
     lazy var adsCategoryView = makeAdsCategoryView()
     lazy var moreInsightsComingView = makeMoreInsightsComingView()
     lazy var requestUploadDataView = makeRequestUploadDataView()
+    lazy var browsePostsView = makeBrowseView(section: .browsePosts)
+    lazy var browsePhotosAndVideosView = makeBrowseView(section: .browsePhotosAndVideos)
+    lazy var browseLikesAndReactionsView = makeBrowseView(section: .browseLikesAndReactions)
     lazy var prefixDependentUsageSections = UIView()
 
     // SECTION: FB Income
@@ -99,6 +102,7 @@ class InsightViewController: ViewController {
         insightView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(prefixDependentUsageSections)
+            flex.addItem(SectionSeparator())
         }
 
         scroll.addSubview(insightView)
@@ -122,17 +126,20 @@ class InsightViewController: ViewController {
                 case .none, .invalid, .created:
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.prefixDependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
 
                 case .uploading, .processing:
                     self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.prefixDependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
                     self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
 
                 case .processed:
-                    self.prefixDependentUsageSections.flex.addItem(self.makeComingSoonLabel()).marginLeft(18)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.browsePostsView)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.browsePhotosAndVideosView)
+                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
+                    self.prefixDependentUsageSections.flex.addItem(self.browseLikesAndReactionsView)
                 }
 
                 self.prefixDependentUsageSections.flex.markDirty()
@@ -194,6 +201,24 @@ extension InsightViewController {
         return requestUploadDataView
     }
 
+    fileprivate func makeBrowseView(section: Section) -> BrowseView {
+        let browseView = BrowseView()
+        browseView.setProperties(section: section)
+
+        browseView.selectButton.rx.tap.bind { [weak self] in
+            guard let self = self else { return }
+            switch section {
+            case .browsePosts:              self.gotoPostListSectionScreen()
+            case .browsePhotosAndVideos:    self.gotoMediaListSectionScreen()
+            case .browseLikesAndReactions:  self.gotoReactionListSectionScreen()
+            default:
+                break
+            }
+        }.disposed(by: disposeBag)
+
+        return browseView
+    }
+
     fileprivate func makeComingSoonLabel() -> Label {
         let label = Label()
         label.apply(
@@ -218,5 +243,20 @@ extension InsightViewController {
     func gotoUploadDataScreen() {
         let viewModel = UploadDataViewModel()
         navigator.show(segue: .uploadData(viewModel: viewModel), sender: self)
+    }
+
+    func gotoPostListSectionScreen() {
+        let viewModel = PostListSectionViewModel()
+        navigator.show(segue: .postListSection(viewModel: viewModel), sender: self)
+    }
+
+    func gotoMediaListSectionScreen() {
+        let viewModel = MediaListSectionViewModel()
+        navigator.show(segue: .mediaListSection(viewModel: viewModel), sender: self)
+    }
+
+    func gotoReactionListSectionScreen() {
+        let viewModel = ReactionListSectionViewModel()
+        navigator.show(segue: .reactionListSection(viewModel: viewModel), sender: self)
     }
 }

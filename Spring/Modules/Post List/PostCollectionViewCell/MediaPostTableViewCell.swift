@@ -33,13 +33,13 @@ class MediaPostTableViewCell: TableViewCell, PostDataTableViewCell {
 
         contentView.flex.direction(.column)
             .define { (flex) in
+                flex.addItem(makeSeparator())
                 flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
-                flex.addItem(postInfoLabel)
-                flex.addItem(captionLabel)
-                flex.addItem(photosView).width(100%)
+                    flex.addItem(postInfoLabel)
+                    flex.addItem(captionLabel)
+                    flex.addItem(photosView).width(100%)
+                }
             }
-            flex.addItem(makeSeparator())
-        }
 
         contentView.flex.layout(mode: .adjustHeight)
     }

@@ -9,8 +9,18 @@
 import RxSwift
 import Kingfisher
 import AVFoundation
+import Moya
 
 class MediaService {
+    static var provider = MoyaProvider<MediaAPI>(plugins: Global.default.networkLoggerPlugin)
+
+    static func getAll(startDate: Date, endDate: Date) -> Single<[Media]> {
+        Global.log.info("[start] MediaService.get(startDate, endDate)")
+
+        return provider.rx.requestWithRefreshJwt(.get(startDate: startDate, endDate: endDate))
+            .filterSuccess()
+            .map([Media].self, atKeyPath: "result")
+    }
 
     static func makePhotoURL(key: String) -> Single<(photoURL: URL, modifier: AnyModifier)> {
         var photoURL = URL(string: Constant.fbImageServerURL)!

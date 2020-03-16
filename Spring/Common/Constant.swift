@@ -54,8 +54,10 @@ public struct Constant {
     }
 
     static let appStoreURLScheme = "com.spring"
+    static let facebookCreationDate = Date("01-01-2004")!
 
     static let separator = ","
     static let fbImageServerURL = Credential.valueForKey(keyName: "API_FBM_SERVER_URL") + "/api/media"
     static let surveyURL = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLScL41kNU6SBzo7ndcraUf7O-YJ_JrPqg_rlI588UjLK-_sGtQ/viewform?usp=sf_link")!
+    static let fbVideoExtensions = [".3g2", ".3gp", ".3gpp", ".asf", ".avi", ".dat", ".divx", ".dv", ".f4v", ".flv", ".gif", ".m2ts", ".m4v", ".mkv", ".mod", ".mov", ".mp4", ".mpe", ".mpeg", ".mpeg4", ".mpg", ".mts", ".nsv", ".ogm", ".ogv", ".qt", ".tod", ".ts", ".vob", ".wmv"]
 }

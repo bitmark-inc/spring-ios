@@ -17,147 +17,38 @@ enum LoadDataEvent {
     case remoteLoaded
 }
 
-class PostDataEngine {
-
-    static var datePeriodSubject: PublishSubject<DatePeriod>?
-    static var triggerSubject: PublishSubject<LoadDataEvent>?
-
-    static func sync(datePeriod: DatePeriod?) throws {
-        guard let datePeriod = datePeriod else { return }
-
-        datePeriodSubject = PublishSubject<DatePeriod>()
-
-        var trackedDatePeriods = [DatePeriod]()
-        var shortenPeriod: DatePeriod?
-        let rootEndDate = datePeriod.endDate
-
-        autoreleasepool {
-            do {
-                let realm = try RealmConfig.currentRealm()
-                let queryTrack = realm.object(ofType: QueryTrack.self, forPrimaryKey: RemoteQuery.posts.rawValue)
-
-                trackedDatePeriods = queryTrack?.datePeriods ?? []
-
-                if let queryTrack = queryTrack {
-                    shortenPeriod = queryTrack.removeQueriedPeriod(for: datePeriod)
-                } else {
-                    shortenPeriod = datePeriod
-                }
-            } catch {
-                Global.log.error(error)
-            }
-        }
-        var syncedStartDate: Date?
-
-        guard let datePeriodSubject = datePeriodSubject, let triggerSubject = triggerSubject else { return }
-        let triggeredDatePeriodObserver = PublishSubject
-            .zip(
-                datePeriodSubject,
-                triggerSubject.filter { $0 == .triggerRemoteLoad })
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .subscribe(onNext: { (datePeriod, _) in
-                let (startDate, endDate) = (datePeriod.startDate, datePeriod.endDate)
-                _ = fetchRemote(startDate: startDate, endDate: endDate)
-                    .subscribe(onSuccess: { (syncedSt) in
-                        loadingState.onNext(.hide)
-                        syncedStartDate = syncedSt
-
-                        guard let syncedStartDate = syncedStartDate else { return }
-                        if syncedStartDate <= startDate {
-                            datePeriodSubject.onCompleted()
-                        } else {
-                            Self.datePeriodSubject?.onNext(
-                                DatePeriod(startDate: startDate, endDate: syncedStartDate - 1.seconds))
-                        }
-                        triggerSubject.onNext(.remoteLoaded)
-                    }, onError: { (error) in
-                        loadingState.onNext(.hide)
-                        Global.backgroundErrorSubject.onNext(error)
-                    })
-            }, onError: { (error) in
-                if let error = error as? AppError {
-                    switch error {
-                    case .didRemoteQuery: break
-                    default:
-                        Global.log.error(error)
-                    }
-                } else {
-                    Global.log.error(error)
-                }
-            })
-
-        _ = datePeriodSubject
-            .subscribe(onCompleted: {
-                triggeredDatePeriodObserver.dispose()
-                if let syncedStartDate = syncedStartDate {
-                    QueryTrack.store(
-                        trackedDatePeriods: trackedDatePeriods, in: .posts,
-                        syncedDatePeriod: DatePeriod(startDate: syncedStartDate, endDate: rootEndDate))
-                }
-            })
-
-        if let shortenPeriod = shortenPeriod {
-            datePeriodSubject.onNext(shortenPeriod)
-
-            if shortenPeriod.endDate.appTimeFormat == datePeriod.endDate.appTimeFormat {
-                triggerSubject.onNext(.triggerRemoteLoad)
-            }
-        } else {
-            loadingState.onNext(.hide)
-            datePeriodSubject.onError(AppError.didRemoteQuery) // this is not error, just track to ignore waste to store QueryTrack
-        }
-    }
-
-    static func fetchRemote(startDate: Date, endDate: Date) -> Single<Date> {
-        return PostService.getAll(startDate: startDate, endDate: endDate)
-            .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-            .flatMap({ (posts) -> Single<Date> in
-                let syncedStartDate = posts.compactMap { $0.timestamp }.min() ?? startDate
-                return Storage.store(posts)
-                    .andThen(Single.just(syncedStartDate))
-            })
-    }
-
+protocol PostDataEngineDelegate {
+    static func fetch(with filterScope: FilterScope?) -> Results<Post>?
 }
 
-extension PostDataEngine: ReactiveCompatible {}
-
-extension Reactive where Base: PostDataEngine {
-
-    static func fetch(with filterScope: FilterScope) -> Single<Results<Post>> {
+class PostDataEngine: PostDataEngineDelegate {
+    static func fetch(with filterScope: FilterScope? = nil) -> Results<Post>? {
         Global.log.info("[start] PostDataEngine.rx.fetch")
 
-        return Single<Results<Post>>.create { (event) -> Disposable in
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else {
-                        throw AppError.incorrectThread
-                    }
-
-                    let realm = try RealmConfig.currentRealm()
-                    PostDataEngine.triggerSubject = PublishSubject<LoadDataEvent>()
-
-                    guard let filterQuery = makeFilterQuery(filterScope) else {
-                        throw AppError.incorrectPostFilter
-                    }
-                    let posts = realm.objects(Post.self).filter(filterQuery)
-                    event(.success(posts))
-
-                    if posts.count == 0 { loadingState.onNext(.loading) }
-
-                    let datePeriod = extractQueryDatePeriod(filterScope)
-                    try PostDataEngine.sync(datePeriod: datePeriod)
-                } catch {
-                    event(.error(error))
-                }
+        do {
+            guard Thread.current.isMainThread else {
+                throw AppError.incorrectThread
             }
 
-            return Disposables.create()
+            let realm = try RealmConfig.currentRealm()
+            if let filterScope = filterScope {
+                guard let filterQuery = makeFilterQuery(filterScope) else {
+                    throw AppError.incorrectPostFilter
+                }
+
+
+                return realm.objects(Post.self).filter(filterQuery)
+            } else {
+                return realm.objects(Post.self)
+            }
+        } catch {
+            Global.log.error(error)
+            return nil
         }
     }
 
-    static func makeFilterQuery(_ filterScope: FilterScope) -> NSCompoundPredicate? {
-        guard let datePeriod = extractQueryDatePeriod(filterScope) else { return nil }
+    fileprivate static func makeFilterQuery(_ filterScope: FilterScope) -> NSCompoundPredicate? {
+        guard let datePeriod = filterScope.datePeriod else { return nil }
         let datePredicate = NSPredicate(format: "timestamp >= %@ AND timestamp <= %@",
                                         datePeriod.startDate as NSDate, datePeriod.endDate as NSDate)
         var filterPredicate: NSPredicate?
@@ -189,26 +80,4 @@ extension Reactive where Base: PostDataEngine {
 
         return NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
     }
-
-    static func extractQueryDatePeriod(_ filterScope: FilterScope) -> DatePeriod? {
-        let timeUnit = filterScope.timeUnit
-
-        switch filterScope.filterBy {
-        case .day:
-            guard let filterDay = filterScope.filterValue as? Date
-                else {
-                    Global.log.error("formatInDay is incorrect.")
-                    return nil
-            }
-
-            return filterDay.extractSubPeriod(timeUnit: timeUnit)
-        default:
-            return filterScope.date.extractDatePeriod(timeUnit: timeUnit)
-        }
-    }
-}
-
-enum RemoteQuery: String {
-    case posts
-    case reactions
 }

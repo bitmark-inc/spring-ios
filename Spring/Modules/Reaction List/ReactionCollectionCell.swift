@@ -1,9 +1,9 @@
 //
-//  ReactionTableViewCell.swift
+//  ReactionCollectionCell.swift
 //  Spring
 //
-//  Created by Thuyen Truong on 12/26/19.
-//  Copyright © 2019 Bitmark Inc. All rights reserved.
+//  Created by Thuyen Truong on 3/16/20.
+//  Copyright © 2020 Bitmark Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import FlexLayout
 import RxSwift
 import SwiftDate
 
-class ReactionTableViewCell: TableViewCell {
+class ReactionCollectionCell: CollectionViewCell {
 
     // MARK: - Properties
     fileprivate lazy var timeLabel = makeTimeLabel()
@@ -19,19 +19,19 @@ class ReactionTableViewCell: TableViewCell {
     fileprivate lazy var reactionImageView = makeReactionImageView()
 
     // MARK: - Inits
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         themeService.rx
             .bind({ $0.reactionCellBackgroundColor }, to: rx.backgroundColor)
 
         contentView.flex.direction(.column).define { (flex) in
-            flex.addItem(SectionSeparator())
             flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
                 flex.addItem(timeLabel)
                 flex.addItem(descriptionLabel).marginTop(12)
                 flex.addItem(reactionImageView).marginTop(23).alignSelf(.start)
             }
+            flex.addItem(SectionSeparator())
         }
     }
 
@@ -51,12 +51,14 @@ class ReactionTableViewCell: TableViewCell {
         descriptionLabel.setText(reaction.title)
         reactionImageView.image = reaction.reactionType?.reactionImage
 
+        timeLabel.flex.markDirty()
         descriptionLabel.flex.markDirty()
-        contentView.flex.layout(mode: .adjustHeight)
+        reactionImageView.flex.markDirty()
+        flex.layout()
     }
 }
 
-extension ReactionTableViewCell {
+extension ReactionCollectionCell {
     fileprivate func makeTimeLabel() -> Label {
         let label = Label()
         label.apply(font: R.font.atlasGroteskRegular(size: 14),
