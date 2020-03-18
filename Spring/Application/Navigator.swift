@@ -30,10 +30,11 @@ class Navigator {
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
-        case howItWorks(viewModel: HowItWorksViewModel)
+        case howItWorks
+        case checkDataRequested
         case safari(URL)
         case safariController(URL)
-        case hometabs
+        case hometabs(missions: [Mission])
         case uploadData(viewModel: UploadDataViewModel)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
@@ -83,7 +84,8 @@ class Navigator {
             trustIsCriticalViewController.buttonItemType = buttonItemType
             return trustIsCriticalViewController
 
-        case .howItWorks(let viewModel): return HowItWorksViewController(viewModel: viewModel)
+        case .howItWorks: return HowItWorksViewController()
+        case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil
@@ -93,8 +95,11 @@ class Navigator {
             vc.hidesBottomBarWhenPushed = true
             return vc
 
-        case .hometabs:
-            return HomeTabbarController.tabbarController()
+        case .hometabs(let missions):
+            let hometabVC = HomeTabbarController.tabbarController()
+            hometabVC.missions = missions
+            return hometabVC
+
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
 
@@ -245,6 +250,13 @@ class Navigator {
             }
         default: break
         }
+    }
+
+    // MARK: - refreshOnboardingStateIfNeeded
+    static func refreshOnboardingStateIfNeeded() {
+        guard GetYourData.standard.requestedAtRelay.value != nil else { return }
+
+        Navigator.default.show(segue: .checkDataRequested, sender: nil, transition: .replace(type: .none))
     }
 
     static let requireAuthorizationTime = 30 // minutes

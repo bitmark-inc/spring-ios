@@ -26,7 +26,6 @@ class ProgressView: UIView {
         didSet {
             guard let progressInfo = progressInfo else { return }
 
-            isHidden = false
             titleLabel.setText(R.string.localizable.uploading().localizedUppercase)
             fileLabel.setText(BackgroundTaskManager.shared.uploadInfoRelay.value[SessionIdentifier.upload.rawValue])
 
@@ -107,6 +106,36 @@ class ProgressView: UIView {
                     flex.addItem(valueLabel).marginTop(6).alignSelf(.end)
             }
         }
+
+        bindInfo()
+    }
+
+    fileprivate func bindInfo() {
+        BackgroundTaskManager.shared
+            .uploadProgressRelay
+            .map { $0[SessionIdentifier.upload.rawValue] }
+            .filterNil()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] (event) in
+                guard let self = self else { return }
+                switch event {
+                case .next(let progressInfo):
+                    self.progressInfo = progressInfo
+
+                default:
+                    break
+                }
+            })
+            .disposed(by: disposeBag)
+
+        AppArchiveStatus.currentState
+            .filterNil()
+            .distinctUntilChanged { $0.rawValue == $1.rawValue }
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.appArchiveStatusCurrentState = $0
+            })
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {

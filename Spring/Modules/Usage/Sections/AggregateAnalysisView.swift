@@ -53,25 +53,18 @@ class AggregateAnalysisView: UIView {
     // MARK: - Handlers
     func setProperties(container: UsageViewController) {
         weak var container = container
-        var postStatsdataObserver: Disposable? // stop observing old-data
-        var reactionStatsdataObserver: Disposable?
 
-        container?.thisViewModel.realmPostStatsRelay
-            .subscribe(onNext: { [weak self] (stats) in
+        container?.thisViewModel.realmPostStatsResultsRelay
+            .filterNil()
+            .observeObject()
+            .mapGroupsValue()
+            .subscribe(onNext: { [weak self] (groups) in
                 guard let self = self else { return }
 
-                if let stats = stats {
-                    postStatsdataObserver?.dispose()
-
-                    postStatsdataObserver = Observable.from(object: stats)
-                        .map { try Converter<StatsGroups>(from: $0.groups).value }
-                        .map { GraphDataConverter.getStats(with: $0, in: .post) }
-                        .subscribe(onNext: { [weak self] (statsData) in
-                            self?.postStatsView.fillData(with: statsData)
-                            self?.layout(in: .post)
-                        })
-
-                    postStatsdataObserver?.disposed(by: self.disposeBag)
+                if let groups = groups {
+                    let statsData = GraphDataConverter.getStats(with: groups, in: .post)
+                    self.postStatsView.fillData(with: statsData)
+                    self.layout(in: .post)
                 } else {
                     self.postStatsView.fillData(with: nil)
                     self.layout(in: .post)
@@ -79,27 +72,21 @@ class AggregateAnalysisView: UIView {
             })
             .disposed(by: disposeBag)
 
-        container?.thisViewModel.realmReactionStatsRelay
-            .subscribe(onNext: { [weak self] (stats) in
+        container?.thisViewModel.realmReactionStatsResultsRelay
+            .filterNil()
+            .observeObject()
+            .mapGroupsValue()
+            .subscribe(onNext: { [weak self] (groups) in
                 guard let self = self else { return }
 
-                if let stats = stats {
-                    reactionStatsdataObserver?.dispose()
-
-                    reactionStatsdataObserver = Observable.from(object: stats)
-                        .map { try Converter<StatsGroups>(from: $0.groups).value }
-                        .map { GraphDataConverter.getStats(with: $0, in: .reaction) }
-                        .subscribe(onNext: { [weak self] (statsData) in
-                            self?.reactionStatsView.fillData(with: statsData)
-                            self?.layout(in: .reaction)
-                        })
-
-                    reactionStatsdataObserver?.disposed(by: self.disposeBag)
+                if let groups = groups {
+                    let statsData = GraphDataConverter.getStats(with: groups, in: .reaction)
+                    self.reactionStatsView.fillData(with: statsData)
+                    self.layout(in: .reaction)
                 } else {
                     self.reactionStatsView.fillData(with: nil)
                     self.layout(in: .reaction)
                 }
-
             })
             .disposed(by: disposeBag)
     }

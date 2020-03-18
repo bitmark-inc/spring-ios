@@ -79,6 +79,7 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
+        UserDefaults.standard.FBArchiveCreatedAt = nil
         Global.current.userDefault?.latestAppArchiveStatus = nil
 
         // clear user cookie in webview
@@ -171,6 +172,7 @@ enum AppError: Error {
     case didRemoteQuery
     case archiveIsNotProcessed
     case invalidPresignedURL
+    case fbRequiredPageIsNotReady
 
     static func errorByNetworkConnection(_ error: Error) -> Bool {
         guard let error = error as? Self else { return false }
@@ -205,6 +207,14 @@ extension UserDefaults {
     var showedInvalidArchiveIDs: [Int64] {
         get { return (array(forKey: #function) as? [Int64]) ?? [] }
         set { set(newValue, forKey: #function) }
+    }
+
+    var FBArchiveCreatedAt: Date? {
+        get { return date(forKey: #function) }
+        set {
+            GetYourData.standard.requestedAtRelay.accept(newValue)
+            set(newValue, forKey: #function)
+        }
     }
 
     // MARK: - Settings

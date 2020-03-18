@@ -52,40 +52,15 @@ class UsageViewController: ViewController {
     lazy var reactionsFilterDayView = makeFilterDayView(section: .reaction)
     lazy var reactionsFilterFriendView = makeFilterGeneralView(section: .reaction, groupBy:
         .friend)
-    lazy var morePersonalAnalyticsComingView = makeMorePersonalAnalyticsComingView()
+    lazy var adsCategoryView = makeAdsCategoryView()
     lazy var requestUploadDataView = makeRequestUploadDataView()
     lazy var aggregateAnalysisView = makeAggregateAnalysisView()
-    lazy var prefixDependentUsageSections = UIView()
-    lazy var suffixDependentUsageSections = UIView()
+    lazy var dependentSections = UIView()
 
     // SECTION: Mood
     lazy var moodObservable: Observable<Usage> = {
         thisViewModel.realmMoodRelay.filterNil()
             .flatMap { Observable.from(object: $0) }
-    }()
-
-    // SECTION: Post
-    lazy var postUsageObservable: Observable<Usage> = {
-        thisViewModel.realmPostUsageRelay.filterNil()
-            .flatMap { Observable.from(object: $0) }
-    }()
-
-    lazy var groupsPostUsageObservable: Observable<Groups> = {
-        postUsageObservable
-            .map { $0.groups }
-            .map { try Converter<Groups>(from: $0).value }
-    }()
-
-    // SECTION: Reaction
-    lazy var reactionUsageObservable: Observable<Usage> = {
-        thisViewModel.realmReactionUsageRelay.filterNil()
-            .flatMap { Observable.from(object: $0) }
-    }()
-
-    lazy var groupsReactionUsageObservable: Observable<Groups> = {
-        reactionUsageObservable
-            .map { $0.groups }
-            .map { try Converter<Groups>(from: $0).value }
     }()
 
     var segmentDistances: [TimeUnit: Int] = [
@@ -182,11 +157,9 @@ class UsageViewController: ViewController {
         usageView.flex.define { (flex) in
             flex.addItem(headingView)
             flex.addItem(timelineView)
-            flex.addItem(prefixDependentUsageSections)
             flex.addItem(SectionSeparator())
-            flex.addItem(aggregateAnalysisView)
+            flex.addItem(dependentSections)
             flex.addItem(SectionSeparator())
-            flex.addItem(suffixDependentUsageSections)
         }
 
         scroll.addSubview(usageView)
@@ -198,120 +171,80 @@ class UsageViewController: ViewController {
         observeArchiveStatusToBuildUsage()
     }
 
-    func observeArchiveStatusToBuildUsage() {
-        AppArchiveStatus.currentState
-            .filterNil()
-            .distinctUntilChanged { $0.rawValue == $1.rawValue }
-            .subscribe(onNext: { [weak self] (appArchiveStatus) in
-                guard let self = self else { return }
-                self.suffixDependentUsageSections.removeSubviews()
-                self.prefixDependentUsageSections.removeSubviews()
-                switch appArchiveStatus {
-                case .none, .invalid, .created:
-                    self.prefixDependentUsageSections.flex.addItem()
-                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
-                    self.requestUploadDataView.actionTitle = R.string.localizable.getStarted()
+    fileprivate func observeArchiveStatusToBuildUsage() {
+        BehaviorRelay.combineLatest(
+            GetYourData.standard.optionRelay.distinctUntilChanged { $0.rawValue == $1.rawValue },
+            AppArchiveStatus.currentState.filterNil().distinctUntilChanged { $0.rawValue == $1.rawValue }
+        )
+        .subscribe(onNext: { [weak self] (getYourDataOption, currentState) in
+            guard let self = self else { return }
+            self.dependentSections.removeSubviews()
 
-                case .uploading:
-                    self.prefixDependentUsageSections.flex.addItem()
-                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
-                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+            switch currentState {
+            case .none, .invalid, .created: self.makeUIWhenNone(option: getYourDataOption)
+            case .uploading, .processing:   self.makeUIWhenProcessing(option: getYourDataOption)
+            case .processed:                self.makeUIWhenProcessed(option: getYourDataOption)
+            }
 
-                case .processing:
-                    self.prefixDependentUsageSections.flex.addItem(SectionSeparator())
-                    self.prefixDependentUsageSections.flex.addItem(self.morePersonalAnalyticsComingView)
-                    self.suffixDependentUsageSections.flex.addItem(self.requestUploadDataView)
-                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
-                    self.requestUploadDataView.actionTitle = R.string.localizable.view_progress()
-
-                case .processed:
-                    self.prefixDependentUsageSections.flex.addItem()
-                    self.suffixDependentUsageSections.flex.addItem(self.postsHeadingView)
-                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterTypeView)
-                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterDayView)
-                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterFriendView)
-                    self.suffixDependentUsageSections.flex.addItem(self.postsFilterPlaceView)
-                    self.suffixDependentUsageSections.flex.addItem(SectionSeparator())
-                    self.suffixDependentUsageSections.flex.addItem(self.reationsHeadingView)
-                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterTypeView)
-                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterDayView)
-                    self.suffixDependentUsageSections.flex.addItem(self.reactionsFilterFriendView)
-                }
-
-                self.prefixDependentUsageSections.flex.markDirty()
-                self.suffixDependentUsageSections.flex.markDirty()
-                self.layout()
-            })
-            .disposed(by: disposeBag)
-    }
-}
-
-extension UsageViewController {
-    fileprivate func makeHeadingView() -> HeadingView {
-        let headingView = HeadingView()
-        headingView.setHeading(title: R.string.localizable.summary().localizedUppercase, color:  UIColor(hexString: "#932C19"))
-        return headingView
+            self.dependentSections.flex.markDirty()
+            self.layout()
+        })
+        .disposed(by: disposeBag)
     }
 
-    fileprivate func makeTimelineView() -> TimeFilterView {
-        let timeFilterView = TimeFilterView()
-        timeFilterView.timelineDelegate = self
-        return timeFilterView
+    // .none, .invalid, .created
+    fileprivate func makeUIWhenNone(option: GetYourDataOption) {
+        switch option {
+        case .undefined:
+            dependentSections.flex.addItem(aggregateAnalysisView)
+
+        case .automate:
+            dependentSections.flex.addItem(aggregateAnalysisView)
+            dependentSections.flex.addItem(SectionSeparator())
+            dependentSections.flex.addItem(adsCategoryView)
+
+        case .manual:
+            dependentSections.flex.addItem(aggregateAnalysisView)
+        }
     }
 
-    fileprivate func makeSectionHeadingView(section: Section) -> SectionHeadingView {
-        let sectionHeadingView = SectionHeadingView()
-        sectionHeadingView.setProperties(section: section, container: self)
-        sectionHeadingView.flex.padding(0, 18, 26, 18)
-        return sectionHeadingView
+    // .uploading, .processing
+    fileprivate func makeUIWhenProcessing(option: GetYourDataOption) {
+        switch option {
+        case .undefined:
+            Global.log.error("incorrect flow: option is undefined when processing")
+            dependentSections.flex.addItem()
+
+        case .automate:
+            dependentSections.flex.addItem(aggregateAnalysisView)
+            dependentSections.flex.addItem(SectionSeparator())
+            dependentSections.flex.addItem(adsCategoryView)
+
+        case .manual:
+            dependentSections.flex.addItem(aggregateAnalysisView)
+            dependentSections.flex.addItem(SectionSeparator())
+            dependentSections.flex.addItem(requestUploadDataView)
+            requestUploadDataView.actionTitle = R.string.localizable.view_progress()
+        }
     }
 
-    fileprivate func makeFilterTypeView(section: Section) -> FilterTypeView {
-        let filterTypeView = FilterTypeView()
-        filterTypeView.setProperties(section: section, container: self)
-        filterTypeView.containerLayoutDelegate = self
-        filterTypeView.navigatorDelegate = self
-        filterTypeView.selectionEnabled = true
-        return filterTypeView
-    }
-
-    fileprivate func makeFilterDayView(section: Section) -> FilterDayView {
-        let filterDayView = FilterDayView()
-        filterDayView.setProperties(section: section, container: self)
-        filterDayView.containerLayoutDelegate = self
-        filterDayView.navigatorDelegate = self
-        return filterDayView
-    }
-
-    fileprivate func makeFilterGeneralView(section: Section, groupBy groupKey: GroupKey) -> FilterGeneralView {
-        let filterGeneralView = FilterGeneralView()
-        filterGeneralView.setProperties(section: section, groupKey: groupKey, container: self)
-        filterGeneralView.containerLayoutDelegate = self
-        filterGeneralView.navigatorDelegate = self
-        return filterGeneralView
-    }
-
-    fileprivate func makeMorePersonalAnalyticsComingView() -> MoreComingView {
-        let moreComingView = MoreComingView()
-        moreComingView.containerLayoutDelegate = self
-        moreComingView.section = .morePersonalAnalyticsComing
-        return moreComingView
-    }
-
-    fileprivate func makeAggregateAnalysisView() -> AggregateAnalysisView {
-        let aggregateAnalysisView = AggregateAnalysisView()
-        aggregateAnalysisView.containerLayoutDelegate = self
-        aggregateAnalysisView.setProperties(container: self)
-        return aggregateAnalysisView
-    }
-
-    fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
-        let requestUploadDataView = RequestUploadDataView()
-        requestUploadDataView.containerLayoutDelegate = self
-        requestUploadDataView.setProperties(section: .requestUploadDataInUsage, container: self)
-        return requestUploadDataView
+    fileprivate func makeUIWhenProcessed(option: GetYourDataOption) {
+        dependentSections.flex.addItem(aggregateAnalysisView)
+        if option == .automate {
+            dependentSections.flex.addItem(SectionSeparator())
+            dependentSections.flex.addItem(adsCategoryView)
+        }
+        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(postsHeadingView)
+        dependentSections.flex.addItem(postsFilterTypeView)
+        dependentSections.flex.addItem(postsFilterDayView)
+        dependentSections.flex.addItem(postsFilterFriendView)
+        dependentSections.flex.addItem(postsFilterPlaceView)
+        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(reationsHeadingView)
+        dependentSections.flex.addItem(reactionsFilterTypeView)
+        dependentSections.flex.addItem(reactionsFilterDayView)
+        dependentSections.flex.addItem(reactionsFilterFriendView)
     }
 }
 
@@ -367,6 +300,11 @@ extension UsageViewController: TimelineDelegate {
 
 // MARK: - NavigatorDelegate
 extension UsageViewController: NavigatorDelegate {
+    func moveToViewProgressScreen() {
+        guard let hometabVC = navigationController?.parent as? HomeTabbarController else { return }
+        hometabVC.selectedIndex = 1
+    }
+
     func goToPostListScreen(filterBy: GroupKey, filterValue: Any) {
         let filterScope = FilterScope(
             date: thisViewModel.dateRelay.value,
@@ -388,9 +326,72 @@ extension UsageViewController: NavigatorDelegate {
         let viewModel = ReactionListViewModel(filterScope: filterScope)
         navigator.show(segue: .reactionList(viewModel: viewModel), sender: self)
     }
+}
 
-    func gotoUploadDataScreen() {
-        let viewModel = UploadDataViewModel()
-        navigator.show(segue: .uploadData(viewModel: viewModel), sender: self)
+// MARK: - Setup Views
+extension UsageViewController {
+    fileprivate func makeHeadingView() -> HeadingView {
+        let headingView = HeadingView()
+        headingView.setHeading(title: R.string.localizable.summary().localizedUppercase, color:  UIColor(hexString: "#932C19"))
+        return headingView
+    }
+
+    fileprivate func makeTimelineView() -> TimeFilterView {
+        let timeFilterView = TimeFilterView()
+        timeFilterView.timelineDelegate = self
+        return timeFilterView
+    }
+
+    fileprivate func makeSectionHeadingView(section: Section) -> SectionHeadingView {
+        let sectionHeadingView = SectionHeadingView()
+        sectionHeadingView.setProperties(section: section, container: self)
+        sectionHeadingView.flex.padding(0, 18, 26, 18)
+        return sectionHeadingView
+    }
+
+    fileprivate func makeFilterTypeView(section: Section) -> FilterTypeView {
+        let filterTypeView = FilterTypeView()
+        filterTypeView.setProperties(section: section, container: self)
+        filterTypeView.containerLayoutDelegate = self
+        filterTypeView.navigatorDelegate = self
+        filterTypeView.selectionEnabled = true
+        return filterTypeView
+    }
+
+    fileprivate func makeFilterDayView(section: Section) -> FilterDayView {
+        let filterDayView = FilterDayView()
+        filterDayView.setProperties(section: section, container: self)
+        filterDayView.containerLayoutDelegate = self
+        filterDayView.navigatorDelegate = self
+        return filterDayView
+    }
+
+    fileprivate func makeFilterGeneralView(section: Section, groupBy groupKey: GroupKey) -> FilterGeneralView {
+        let filterGeneralView = FilterGeneralView()
+        filterGeneralView.setProperties(section: section, groupKey: groupKey, container: self)
+        filterGeneralView.containerLayoutDelegate = self
+        filterGeneralView.navigatorDelegate = self
+        return filterGeneralView
+    }
+
+    fileprivate func makeAggregateAnalysisView() -> AggregateAnalysisView {
+        let aggregateAnalysisView = AggregateAnalysisView()
+        aggregateAnalysisView.containerLayoutDelegate = self
+        aggregateAnalysisView.setProperties(container: self)
+        return aggregateAnalysisView
+    }
+
+    fileprivate func makeRequestUploadDataView() -> RequestUploadDataView {
+        let requestUploadDataView = RequestUploadDataView()
+        requestUploadDataView.containerLayoutDelegate = self
+        requestUploadDataView.setProperties(section: .requestUploadDataInUsage, container: self)
+        return requestUploadDataView
+    }
+
+    fileprivate func makeAdsCategoryView() -> AdsCategoryView {
+        let adsCategoryView = AdsCategoryView()
+        adsCategoryView.containerLayoutDelegate = self
+        adsCategoryView.setProperties(container: self)
+        return adsCategoryView
     }
 }

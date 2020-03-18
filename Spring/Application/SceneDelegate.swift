@@ -40,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         Navigator.evaluatePolicyWhenUserSetEnable()
+        Navigator.refreshOnboardingStateIfNeeded()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

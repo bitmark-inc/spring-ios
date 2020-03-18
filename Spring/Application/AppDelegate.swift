@@ -87,6 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         Navigator.evaluatePolicyWhenUserSetEnable()
+        Navigator.refreshOnboardingStateIfNeeded()
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

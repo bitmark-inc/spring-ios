@@ -10,6 +10,7 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class HomeTabbarController: ESTabBarController {
     class func tabbarController() -> HomeTabbarController {
@@ -43,6 +44,33 @@ class HomeTabbarController: ESTabBarController {
 
         return tabbarController
     }
+
+    // MARK: - Request Data Properties
+    lazy var automateRequestDataView = makeAutomateRequestDataView()
+    let requestDataViewTop: CGFloat = 80
+    var bottomRequestDataViewConstraint: Constraint?
+
+    var missions = [Mission]() {
+        didSet {
+            if GetYourData.standard.optionRelay.value == .automate && InsightDataEngine.noExistsAdsCategories()  {
+                missions.prepend(.getCategories)
+                GetYourData.standard.getCategoriesState.accept(.loading)
+            }
+
+            undoneMissions = missions
+            if missions.count > 0 {
+                startAutomatingFbScripts()
+            }
+        }
+    }
+
+    var undoneMissions = [Mission]()
+    var fbScripts = [FBScript]()
+    var cachedRequestHeader: [String : String]?
+    lazy var archivePageScript = fbScripts.find(.archive)
+
+    let guideStateRelay = BehaviorRelay<GuideState>(value: .start)
+    let signUpAndSubmitArchiveResultSubject = PublishSubject<Event<Never>>()
 
     let disposeBag = DisposeBag()
 
@@ -166,6 +194,27 @@ extension HomeTabbarController {
                 }
             }
         alertController.show()
+    }
+}
+
+// MARK: - Automate Request FB Archive  Data
+extension HomeTabbarController: RequestDataDelegate {
+    func startAutomatingFbScripts() {
+        automateRequestDataView.removeFromSuperview()
+        view.insertSubview(automateRequestDataView, aboveSubview: tabBar)
+
+        automateRequestDataView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().offset(-requestDataViewTop)
+            bottomRequestDataViewConstraint = make.top.equalToSuperview().offset(view.height + 200).constraint
+        }
+
+        automateRequestDataView.closeButton.rx.tap.bind { [weak self] in
+            self?.closeAutomateRequestData()
+        }.disposed(by: disposeBag)
+
+        startAndObserveEvents()
     }
 }
 

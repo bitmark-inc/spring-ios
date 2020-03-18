@@ -65,12 +65,21 @@ extension LaunchingNavigatorDelegate {
         }
 
         // *** user logged in
+        // - requesting fbArchive
+        if GetYourData.standard.requestedAtRelay.value != nil {
+            loadingState.onNext(.hide)
+            gotoCheckDataRequestedScreen()
+            return
+        }
+
         // - no connect Spring; no data requesting: goto HowItWork Screen
         // - connected Spring: .gotoHomeTab()
-        FbmAccountDataEngine.fetchCurrentFbmAccount()
-            .subscribe(onSuccess: {  [weak self] (_) in
+        FbmAccountDataEngine.syncMe()
+            .andThen(Single.just(FbmAccountDataEngine.fetchMe()))
+            .subscribe(onSuccess: { [weak self] (_) in
+                guard let self = self else { return }
                 loadingState.onNext(.hide)
-                self?.gotoHomeTab()
+                self.gotoHomeTab()
 
             }, onError: { [weak self] (error) in
                 loadingState.onNext(.hide)
@@ -110,6 +119,10 @@ extension LaunchingNavigatorDelegate {
     }
 
     fileprivate func gotoHomeTab() {
-        navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
+        navigator.show(segue: .hometabs(missions: []), sender: self, transition: .replace(type: .none))
+    }
+
+    fileprivate func gotoCheckDataRequestedScreen() {
+        navigator.show(segue: .checkDataRequested, sender: self, transition: .replace(type: .none))
     }
 }

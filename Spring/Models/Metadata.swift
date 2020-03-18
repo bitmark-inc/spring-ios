@@ -11,10 +11,12 @@ import Foundation
 struct Metadata: Codable {
     var fbIdentifier: String?
     var latestActivityTimestamp: Double?
+    var automate: Bool?
 
     enum CodingKeys: String, CodingKey {
         case fbIdentifier = "fb-identifier"
         case latestActivityTimestamp = "latest_activity_timestamp"
+        case automate
     }
 }
 

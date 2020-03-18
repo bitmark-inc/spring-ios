@@ -13,23 +13,4 @@ import SwiftDate
 
 class InsightViewModel: ViewModel {
 
-    // MARK: - Outputs
-    let fetchDataResultSubject = PublishSubject<Event<Void>>()
-    let realmInsightInfoResultsRelay = BehaviorRelay<Results<UserInfo>?>(value: nil)
-    let realmAdsCategoriesRelay = BehaviorRelay<UserInfo?>(value: nil)
-
-    func fetchQuickInsight() {
-        realmAdsCategoriesRelay.accept(InsightDataEngine.fetchAdsCategoriesInfo())
-    }
-
-    func fetchInsight() {
-        do {
-            let realmInsightResults = try InsightDataEngine.fetchInsight()
-            realmInsightInfoResultsRelay.accept(realmInsightResults)
-
-            InsightDataEngine.syncInsight()
-        } catch {
-            fetchDataResultSubject.onNext(Event.error(error))
-        }
-    }
 }

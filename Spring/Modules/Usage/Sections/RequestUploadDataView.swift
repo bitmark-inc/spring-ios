@@ -50,7 +50,7 @@ class RequestUploadDataView: UIView {
         uploadDataButton.setTitleColor(ColorTheme.cognac.color, for: .normal)
 
         uploadDataButton.rx.tap.bind { [weak container] in
-            container?.gotoUploadDataScreen()
+            container?.moveToViewProgressScreen()
         }.disposed(by: disposeBag)
     }
 

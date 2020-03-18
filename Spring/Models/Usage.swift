@@ -20,7 +20,7 @@ class Usage: Object, Decodable {
     @objc dynamic var quantity: Int = 0
     @objc dynamic var value: Double = 0.0
     @objc dynamic var diffFromPrevious: Double = 0
-    @objc dynamic var groups: String = ""
+    @objc dynamic var groupsString: String = ""
 
     override static func primaryKey() -> String? {
         return "id"
@@ -49,8 +49,8 @@ class Usage: Object, Decodable {
                           timeUnit: TimeUnit(rawValue: timeUnit) ?? .week,
                           section: Section(rawValue: sectionName) ?? .post).makeID()
 
-        if let groupsValue = try values.decodeIfPresent(Groups.self, forKey: .groups) {
-            groups = try Converter<Groups>(from: groupsValue).valueAsString
+        if let groups = try values.decodeIfPresent(Groups.self, forKey: .groups) {
+            groupsString = try Converter<Groups>(from: groups).valueAsString
         }
     }
 

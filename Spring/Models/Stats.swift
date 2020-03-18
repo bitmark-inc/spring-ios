@@ -17,7 +17,7 @@ class Stats: Object {
     @objc dynamic var sectionName: String = ""
     @objc dynamic var startDate: Date = Date()
     @objc dynamic var endDate: Date = Date()
-    @objc dynamic var groups: String = ""
+    @objc dynamic var groupsString: String = ""
 
     override static func primaryKey() -> String? {
         return "id"
@@ -29,7 +29,7 @@ class Stats: Object {
         self.sectionName = section.rawValue
         self.startDate = startDate
         self.endDate = endDate
-        self.groups = try Converter<StatsGroups>(from: statsGroups).valueAsString
+        self.groupsString = try Converter<StatsGroups>(from: statsGroups).valueAsString
     }
 }
 

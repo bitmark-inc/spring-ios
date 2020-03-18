@@ -11,133 +11,52 @@ import RealmSwift
 import RxSwift
 
 protocol FbmAccountDataEngineDelegate {
-    static func fetchCurrentFbmAccount() -> Single<FbmAccount>
-    static func fetchLocalFbmAccount() -> Single<FbmAccount?>
-    static func fetchLatestFbmAccount() -> Single<FbmAccount>
-    static func create() -> Single<FbmAccount>
+    static func createOrUpdate(isAutomate: Bool) -> Single<FbmAccount>
+    static func syncMe() -> Completable
+    static func fetchMe() -> FbmAccount?
 }
 
 class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
-    static func fetchCurrentFbmAccount() -> Single<FbmAccount> {
-        Global.log.info("[start] FbmAccountDataEngine.rx.fetchCurrentFbmAccount")
+    static func syncMe() -> Completable {
+        return FbmAccountService.getMe()
+            .flatMapCompletable { Storage.store($0) }
+    }
 
-        return Single<FbmAccount>.create { (event) -> Disposable in
-            guard let number = Global.current.account?.getAccountNumber() else {
-                return Disposables.create()
+    static func fetchMe() -> FbmAccount? {
+        guard let number = Global.current.account?.getAccountNumber() else {
+            Global.log.error("incorrect flow: call fetchMe when no Global.current.account")
+            return nil
+        }
+
+        do {
+            let realm = try RealmConfig.currentRealm()
+            let me = realm.object(ofType: FbmAccount.self, forPrimaryKey: number)
+
+            if let me = me {
+                GetYourData.standard.optionRelay.accept( me.metadataInfo?.automate == false ? .manual : .automate)
             }
 
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else {
-                        throw AppError.incorrectThread
-                    }
-                    
-                    let realm = try RealmConfig.currentRealm()
-                    if let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number) {
-                        event(.success(fbmAccount))
-                    } else {
-                        _ = FbmAccountService.getMe()
-                            .flatMapCompletable { Storage.store($0) }
-                            .observeOn(MainScheduler.instance)
-                            .subscribe(onCompleted: {
-                                guard let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number)
-                                    else {
-                                        Global.log.error(AppError.incorrectEmptyRealmObject)
-                                        return
-                                }
-                                
-                                event(.success(fbmAccount))
-                            }, onError: { (error) in
-                                event(.error(error))
-                            })
-                    }
-                } catch {
-                    event(.error(error))
-                }
-            }
-
-            return Disposables.create()
+            return me
+        } catch {
+            Global.log.error(error)
+            return nil
         }
     }
 
-    static func fetchLocalFbmAccount() -> Single<FbmAccount?> {
-        return Single<FbmAccount?>.create { (event) -> Disposable in
-            guard let number = Global.current.account?.getAccountNumber() else {
-                return Disposables.create()
-            }
-
-            autoreleasepool {
-                do {
-                    let realm = try RealmConfig.currentRealm()
-                    event(.success(realm.object(ofType: FbmAccount.self, forPrimaryKey: number)))
-                } catch {
-                    event(.error(error))
-                }
-            }
-
-            return Disposables.create()
-        }
-    }
-
-    static func fetchLatestFbmAccount() -> Single<FbmAccount> {
-        Global.log.info("[start] FbmAccountDataEngine.rx.fetchLatestFbmAccount")
-
-       return Single<FbmAccount>.create { (event) -> Disposable in
-           guard let number = Global.current.account?.getAccountNumber() else {
-               return Disposables.create()
-           }
-
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else { throw AppError.incorrectThread }
-                    let realm = try RealmConfig.currentRealm()
-
-                   _ = FbmAccountService.getMe()
-                       .flatMapCompletable { Storage.store($0) }
-                       .observeOn(MainScheduler.instance)
-                       .subscribe(onCompleted: {
-                           guard let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number)
-                               else {
-                                   Global.log.error(AppError.incorrectEmptyRealmObject)
-                                   return
-                           }
-
-                           event(.success(fbmAccount))
-                       }, onError: { (error) in
-                            if let fbmAccount = realm.object(ofType: FbmAccount.self, forPrimaryKey: number) {
-                                event(.success(fbmAccount))
-
-                                // sends error if error is not networkConnection or requireUpdateVersion
-                                guard !AppError.errorByNetworkConnection(error) else { return }
-                                if let error = error as? ServerAPIError {
-                                    switch error.code {
-                                    case .RequireUpdateVersion : return
-                                    default: break
-                                    }
-                                }
-
-                                Global.log.error(error)
-                            } else {
-                                event(.error(error))
-                            }
-                       })
-                } catch {
-                    event(.error(error))
-                }
-            }
-
-            return Disposables.create()
-       }
-    }
-
-    static func create() -> Single<FbmAccount> {
-        fetchLocalFbmAccount()
+    static func createOrUpdate(isAutomate: Bool) -> Single<FbmAccount> {
+        return Single.just(fetchMe())
             .flatMap { (fbmAccount) in
+                let metadata = ["automate": isAutomate]
+
                 guard let fbmAccount = fbmAccount else {
-                    return FbmAccountService.create(metadata: [:])
+                    return FbmAccountService.create(metadata: metadata)
                 }
 
-                return Single.just(fbmAccount)
+                if fbmAccount.metadataInfo?.automate == isAutomate {
+                    return Single.just(fbmAccount)
+                } else {
+                    return FbmAccountService.updateMe(metadata: metadata)
+                }
             }
     }
 }
