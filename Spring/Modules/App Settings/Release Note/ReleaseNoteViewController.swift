@@ -73,7 +73,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
             .padding(OurTheme.paddingInset)
             .define { (flex) in
                 flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
-                        flex.addItem(versionLabel)
+                flex.addItem(versionLabel)
                 flex.addItem(scroll).grow(1).height(0)
 
                 switch buttonItemType {

@@ -74,15 +74,6 @@ struct OurTheme {
         return UIEdgeInsets(top: 21, left: rowPadding, bottom: 10, right: rowPadding)
     }()
 
-    static let trustIsCriticalTop: CGFloat = {
-        switch UIScreen.main.bounds.size.height {
-        case let x where x <= 667:
-            return 43
-        default:
-            return 100
-        }
-    }()
-
     static let halfImagePercent: CGFloat = {
         switch UIScreen.main.bounds.size.height {
         case let x where x <= 667:
