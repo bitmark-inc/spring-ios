@@ -13,7 +13,8 @@ import SwiftDate
 
 class Media: Object, Decodable {
     @objc dynamic var id: String = ""
-    @objc dynamic var url: String = ""
+    @objc dynamic var source: String = ""
+    @objc dynamic var thumbnail: String = ""
     @objc dynamic var `extension`: String = ""
     @objc dynamic var timestamp: Date = Date()
 
@@ -22,14 +23,15 @@ class Media: Object, Decodable {
     }
 
     enum CodingKeys: String, CodingKey {
-        case id, url, `extension`, timestamp
+        case id, source, thumbnail, `extension`, timestamp
     }
 
     required public init(from decoder: Decoder) throws {
         super.init()
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(String.self, forKey: .id)
-        url = try values.decode(String.self, forKey: .url)
+        source = try values.decode(String.self, forKey: .source)
+        thumbnail = try values.decode(String.self, forKey: .thumbnail)
         `extension` = try values.decode(String.self, forKey: .extension)
         let timestampInterval = try values.decode(Double.self, forKey: .timestamp)
         timestamp = Date(timeIntervalSince1970: timestampInterval)

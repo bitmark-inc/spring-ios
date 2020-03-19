@@ -58,5 +58,9 @@ class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
                     return FbmAccountService.updateMe(metadata: metadata)
                 }
             }
+            .flatMap({ (fbmAccount) in
+                Storage.store(fbmAccount)
+                    .andThen(Single.just(fbmAccount))
+            })
     }
 }

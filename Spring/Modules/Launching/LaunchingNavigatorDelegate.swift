@@ -76,10 +76,16 @@ extension LaunchingNavigatorDelegate {
         // - connected Spring: .gotoHomeTab()
         FbmAccountDataEngine.syncMe()
             .andThen(Single.just(FbmAccountDataEngine.fetchMe()))
-            .subscribe(onSuccess: { [weak self] (_) in
+            .flatMap { _ in ArchiveDataEngine.fetchAppArchiveStatus() }
+            .subscribe(onSuccess: { [weak self] (appArchiveStatus) in
                 guard let self = self else { return }
                 loadingState.onNext(.hide)
-                self.gotoHomeTab()
+
+                Global.current.userDefault?.latestAppArchiveStatus = appArchiveStatus
+
+                appArchiveStatus.isStartPoint ?
+                    self.gotoTrustIsCritialScreen() :
+                    self.gotoHomeTab()
 
             }, onError: { [weak self] (error) in
                 loadingState.onNext(.hide)

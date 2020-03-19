@@ -39,8 +39,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
+        guard Global.current.account != nil else { return }
         Navigator.evaluatePolicyWhenUserSetEnable()
         Navigator.refreshOnboardingStateIfNeeded()
+        Global.pollingSyncAppArchiveStatus()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

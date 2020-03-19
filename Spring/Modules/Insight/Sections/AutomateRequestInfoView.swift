@@ -50,6 +50,10 @@ class AutomateRequestInfoView: UIView {
                 } else {
                     self.requestTimelabel.setText(nil)
                 }
+
+                self.requestTimelabel.flex.markDirty()
+                self.flex.layout()
+
             })
             .disposed(by: disposeBag)
 

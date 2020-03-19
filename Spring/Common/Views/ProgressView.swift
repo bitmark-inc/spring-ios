@@ -14,6 +14,7 @@ import MaterialProgressBar
 class ProgressView: UIView {
 
     // MARK: - Properties
+    fileprivate lazy var boxView = makeBoxView()
     fileprivate lazy var titleLabel = makeTitleLabel()
     fileprivate lazy var fileLabel = makeFileLabel()
     fileprivate lazy var progressBar = makeProgressBar()
@@ -33,9 +34,6 @@ class ProgressView: UIView {
             valueLabel.setText(R.string.localizable.sizeProgress(
                 format(progressInfo.totalBytesSent),
                 format(progressInfo.totalBytesExpectedToSend)))
-
-            flex.markDirty()
-            flex.layout()
         }
     }
 
@@ -43,10 +41,8 @@ class ProgressView: UIView {
         didSet {
             switch appArchiveStatusCurrentState {
             case .processing:
-                self.isHidden = false
                 self.titleLabel.setText(R.string.localizable.processing().localizedUppercase)
                 self.fileLabel.setText(nil)
-                self.fileLabel.flex.height(18)
                 self.valueLabel.setText(nil)
 
             case .invalid:
@@ -63,9 +59,6 @@ class ProgressView: UIView {
                 toggleProgressBar(isProgressing:
                     appArchiveStatusCurrentState == .processing)
             }
-
-            flex.markDirty()
-            flex.layout()
         }
     }
 
@@ -73,11 +66,22 @@ class ProgressView: UIView {
         if isProgressing {
             indeterminateProgressBar.isHidden = false
             progressBar.isHidden = true
-            indeterminateProgressBar.startAnimating()
+            restartIndeterminateProgressBar()
         } else {
             indeterminateProgressBar.isHidden = true
             progressBar.isHidden = false
             indeterminateProgressBar.stopAnimating()
+        }
+    }
+
+    func restartIndeterminateProgressBar() {
+        indeterminateProgressBar.stopAnimating()
+        indeterminateProgressBar.startAnimating()
+    }
+
+    var hasBorder: Bool = false {
+        didSet {
+            boxView.isHidden = !hasBorder
         }
     }
 
@@ -88,22 +92,20 @@ class ProgressView: UIView {
         backgroundColor = .white
 
         flex.define { (flex) in
-            let boxImage = ImageView(image: R.image.progressBox())
-            boxImage.contentMode = .scaleToFill
-            flex.addItem(boxImage).grow(1).width(100%).height(100%)
+            flex.addItem(boxView).grow(1).width(100%).height(100%)
                 .position(.absolute)
                 .top(0)
 
             flex.addItem()
-                .padding(UIEdgeInsets(top: 22, left: 18, bottom: 21, right: 18))
+                .padding(UIEdgeInsets(top: 22, left: 18, bottom: 0, right: 18))
                 .define { (flex) in
                     flex.addItem(titleLabel)
-                    flex.addItem(fileLabel).marginTop(8)
-                    flex.addItem().marginTop(6).define { (flex) in
+                    flex.addItem(fileLabel).marginTop(19).height(20)
+                    flex.addItem().marginTop(4).define { (flex) in
                         flex.addItem(progressBar)
                         flex.addItem(indeterminateProgressBar)
                     }
-                    flex.addItem(valueLabel).marginTop(6).alignSelf(.end)
+                    flex.addItem(valueLabel).marginTop(5).alignSelf(.end).height(16).width(100%)
             }
         }
 
@@ -144,6 +146,13 @@ class ProgressView: UIView {
 }
 
 extension ProgressView {
+    fileprivate func makeBoxView() -> ImageView {
+        let boxImage = ImageView(image: R.image.progressBox())
+        boxImage.contentMode = .scaleToFill
+        boxImage.isHidden = true
+        return boxImage
+    }
+
     fileprivate func makeTitleLabel() -> Label {
         let label = Label()
         label.apply(font: R.font.domaineSansTextLight(size: 22), colorTheme: .black)
@@ -176,6 +185,7 @@ extension ProgressView {
 
     fileprivate func makeValueLabel() -> Label {
         let label = Label()
+        label.textAlignment = .right
         label.apply(font: R.font.atlasGroteskLight(size: 12), colorTheme: .tundora)
         return label
     }

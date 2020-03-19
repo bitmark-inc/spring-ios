@@ -73,6 +73,7 @@ extension RequestDataDelegate where Self: UIViewController {
         if !undoneMissions.isEmpty {
             loadWebView()
         } else {
+            automateRequestDataView.removeFromSuperview()
             GetYourData.standard.runningState.accept(.success)
         }
     }
@@ -106,6 +107,7 @@ extension RequestDataDelegate where Self: UIViewController {
                 case .completed:
                     Global.log.info("[done] SignUpAndSubmitArchive")
                     UserDefaults.standard.FBArchiveCreatedAt = nil
+                    Global.current.userDefault?.latestAppArchiveStatus = .processing
 
                     Global.pollingSyncAppArchiveStatus()
 
@@ -304,6 +306,8 @@ extension RequestDataDelegate where Self: UIViewController {
 
             Global.log.info("[done] createFBArchive")
             UserDefaults.standard.FBArchiveCreatedAt = Date()
+            Global.current.userDefault?.latestAppArchiveStatus = .requesting
+
             self.finishMission()
         }
     }
@@ -517,8 +521,10 @@ extension RequestDataDelegate where Self: UIViewController {
         automateRequestDataView.webView.navigationDelegate = self
 
         switch AppArchiveStatus.currentState.value {
-        case .processed: automateRequestDataView.closeButton.isHidden = true
-        default:         automateRequestDataView.closeButton.isHidden = false
+        case .none, .created, .invalid:
+            automateRequestDataView.closeButton.isHidden = false
+        default:
+            automateRequestDataView.closeButton.isHidden = true
         }
 
         return automateRequestDataView

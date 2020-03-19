@@ -39,7 +39,7 @@
 "View_progress" = "View progress »";
 
 "Uploading..." = "Uploading...";
-"Processing..." = "Processing";
+"Processing..." = "Processing..";
 "sizeProgress" = "%@ of %@";
 
 "Success" = "Success";

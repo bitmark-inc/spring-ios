@@ -15,6 +15,7 @@ import FlexLayout
 import RealmSwift
 import Realm
 import SwiftDate
+import RxAppState
 
 class InsightViewController: ViewController {
 
@@ -39,6 +40,22 @@ class InsightViewController: ViewController {
         } else {
             return .default
         }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        uploadProgressView.restartIndeterminateProgressBar()
+    }
+
+    override func bindViewModel() {
+        super.bindViewModel()
+
+        UIApplication.shared.rx.didOpenApp
+            .subscribe(onNext: { [weak uploadProgressView] (_) in
+                uploadProgressView?.restartIndeterminateProgressBar()
+            })
+            .disposed(by: disposeBag)
     }
 
     override func viewDidLayoutSubviews() {
@@ -71,10 +88,13 @@ class InsightViewController: ViewController {
         )
         .subscribe(onNext: { [weak self] (getYourDataOption, currentState) in
             guard let self = self else { return }
+            Global.log.debug("[renew insight]: with \(currentState)")
+
             self.dependentSections.removeSubviews()
 
             switch currentState {
             case .none, .invalid, .created: self.makeUIWhenNone(option: getYourDataOption)
+            case .requesting:               self.makeUIWhenNone(option: getYourDataOption)
             case .uploading, .processing:   self.makeUIWhenProcessing(option: getYourDataOption)
             case .processed:                self.makeUIWhenProcessed(option: getYourDataOption)
             }
@@ -107,19 +127,19 @@ class InsightViewController: ViewController {
             dependentSections.flex.addItem()
 
         case .automate, .manual:
-            dependentSections.flex.addItem(uploadProgressView)
+            dependentSections.flex.addItem(uploadProgressView).marginTop(-22)
             dependentSections.flex.addItem(moreInsightsComingView)
         }
     }
 
     fileprivate func makeUIWhenProcessed(option: GetYourDataOption) {
-        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(SingleSeparator())
         dependentSections.flex.addItem(browsePostsView)
-        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(SingleSeparator())
         dependentSections.flex.addItem(browsePhotosAndVideosView)
-        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(SingleSeparator())
         dependentSections.flex.addItem(browseLikesAndReactionsView)
-        dependentSections.flex.addItem(SectionSeparator())
+        dependentSections.flex.addItem(SingleSeparator())
     }
 }
 
@@ -221,9 +241,7 @@ extension InsightViewController {
     }
 
     fileprivate func makeUploadProgressView() -> ProgressView {
-        let progressView = ProgressView()
-        progressView.isHidden = true
-        return progressView
+        return ProgressView()
     }
 
     fileprivate func makeAutomateRequestInfoView() -> AutomateRequestInfoView {

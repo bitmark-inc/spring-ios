@@ -66,22 +66,27 @@ class UploadDataViewController: ViewController, BackNavigator {
     }
 
     fileprivate func signUpAndSetupAutomate() {
+        loadingState.onNext(.loading)
         thisViewModel.signUp(isAutomate: true)
             .subscribe(onCompleted: { [weak self] in
                 guard let self = self else { return }
+                loadingState.onNext(.hide)
                 self.gotoHomeTab(missions: [.requestData])
 
             }, onError: { [weak self] (error) in
+                loadingState.onNext(.hide)
                 self?.errorWhenSignUp(error: error)
             })
             .disposed(by: disposeBag)
     }
 
     fileprivate func signUpAndSubmitArchive() {
+        loadingState.onNext(.loading)
         thisViewModel.signUp(isAutomate: false)
             .subscribe(onCompleted: { [weak self] in
                 self?.thisViewModel.submitArchiveData()
             }, onError: { [weak self] (error) in
+                loadingState.onNext(.hide)
                 self?.errorWhenSignUp(error: error)
             })
             .disposed(by: disposeBag)

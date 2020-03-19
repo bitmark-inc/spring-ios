@@ -26,7 +26,7 @@ class MoreComingView: UIView {
         super.init(frame: frame)
 
         flex.direction(.column)
-            .padding(30, 18, 18, 18)
+            .padding(18)
             .define { (flex) in
                 flex.addItem(notifyMeButton).height(notifyMeButtonHeight)
             }

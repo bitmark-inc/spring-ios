@@ -25,11 +25,11 @@ class Global {
 
     var account: Account?
     var currency: Currency?
-    lazy var userDefault: UserDefaults? = {
+    var userDefault: UserDefaults? {
         guard let accountNumber = account?.getAccountNumber()
             else { return nil }
         return UserDefaults.userStandard(for: accountNumber)
-    }()
+    }
 
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -81,6 +81,7 @@ class Global {
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
         UserDefaults.standard.FBArchiveCreatedAt = nil
         Global.current.userDefault?.latestAppArchiveStatus = nil
+        BackgroundTaskManager.shared.urlSession(identifier: SessionIdentifier.upload.rawValue).invalidateAndCancel()
 
         // clear user cookie in webview
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
@@ -95,7 +96,6 @@ class Global {
         SettingsBundle.setAccountNumber(accountNumber: nil)
 
         Global.current = Global() // reset local variable
-        AppArchiveStatus.currentState.accept(nil)
         AuthService.shared = AuthService()
         BackgroundTaskManager.shared = BackgroundTaskManager()
 
@@ -106,11 +106,16 @@ class Global {
     }
 
     static func pollingSyncAppArchiveStatus() {
+        // avoid override the tracking status in local
+        let currentState = AppArchiveStatus.currentState.value
+        guard currentState == nil || !currentState!.isRequestingPoint else {
+            return
+        }
+
         func pollingFunction() -> Observable<Void> {
             return ArchiveDataEngine.fetchAppArchiveStatus()
                 .do(onSuccess: {
                     Global.current.userDefault?.latestAppArchiveStatus = $0
-                    AppArchiveStatus.currentState.accept($0)
                 })
                 .asObservable()
                 .flatMap({ (appArchiveStatus) -> Observable<Void> in
@@ -231,7 +236,10 @@ extension UserDefaults {
     // Per Account
     var latestAppArchiveStatus: AppArchiveStatus? {
         get { return AppArchiveStatus(rawValue: string(forKey: #function) ?? "") }
-        set { set(newValue?.rawValue, forKey: #function) }
+        set {
+            AppArchiveStatus.currentState.accept(newValue)
+            set(newValue?.rawValue, forKey: #function)
+        }
     }
 
     var isAccountSecured: Bool {

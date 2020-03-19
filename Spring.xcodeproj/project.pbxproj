@@ -601,6 +601,12 @@
 		5BC91CC523CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
 		5BC91CC623CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
 		5BC91CC723CC3DB6000058A7 /* ReleaseNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */; };
+		5BD5EB542423674E00319799 /* VideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */; };
+		5BD5EB552423674E00319799 /* VideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */; };
+		5BD5EB562423674E00319799 /* VideoPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */; };
+		5BD5EB582423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
+		5BD5EB592423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
+		5BD5EB5A2423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
 		5BDC63E823F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63E923F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63EA23F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
@@ -1125,6 +1131,8 @@
 		5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionWithDelete.swift; sourceTree = "<group>"; };
 		5BC91CBF23CC29CB000058A7 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseNoteViewController.swift; sourceTree = "<group>"; };
+		5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerDelegate.swift; sourceTree = "<group>"; };
+		5BD5EB572423795C00319799 /* TrackingRequestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingRequestState.swift; sourceTree = "<group>"; };
 		5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateAnalysisView.swift; sourceTree = "<group>"; };
 		5BDC63EB23F3EFAF004C7532 /* stats-posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-posts.json"; sourceTree = "<group>"; };
 		5BDC63EF23F3EFC1004C7532 /* stats-reactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-reactions.json"; sourceTree = "<group>"; };
@@ -1454,6 +1462,7 @@
 				5832FC21237A863300FA3196 /* NavigationController.swift */,
 				E236B678238EAAF200C1A280 /* NavigationView.swift */,
 				5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */,
+				5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2099,6 +2108,7 @@
 				5B93B2B023D59D17004CCD51 /* Deeplink.swift */,
 				5BB2E3752414CA930013EA0D /* AppArchiveStatus.swift */,
 				5BBE45792420C63D0004F7D9 /* GetYourData.swift */,
+				5BD5EB572423795C00319799 /* TrackingRequestState.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3163,6 +3173,7 @@
 				E28B55FE238D0AFC00F1BCF2 /* AuthService.swift in Sources */,
 				5B2097BA23B4676D0079B421 /* ReactionTableView.swift in Sources */,
 				E222909F2395116900412CBC /* PostDataEngine+Rx.swift in Sources */,
+				5BD5EB542423674E00319799 /* VideoPlayerDelegate.swift in Sources */,
 				5BAAE59624067A140073F93A /* UploadDataViewController.swift in Sources */,
 				E2442040239910E100520FE9 /* UpdatePostTableViewCell.swift in Sources */,
 				E28B55F7238D03D100F1BCF2 /* FBArchiveService.swift in Sources */,
@@ -3186,6 +3197,7 @@
 				5B4A237F23B1145100447366 /* TimeFilterView.swift in Sources */,
 				5B93B2B523D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
 				5B75C826241E7C9F00D241E0 /* MediaListSectionViewController.swift in Sources */,
+				5BD5EB582423795C00319799 /* TrackingRequestState.swift in Sources */,
 				5B93B2B123D59D17004CCD51 /* Deeplink.swift in Sources */,
 				5832FC43237A863300FA3196 /* ThemeManager.swift in Sources */,
 				5B892928241F743A00DA6F31 /* HomeTabbarController+WebViewRequestData.swift in Sources */,
@@ -3404,6 +3416,7 @@
 				5B2097BC23B4676D0079B421 /* ReactionTableView.swift in Sources */,
 				5B5D002223A1F0F4003D1A1C /* PostDataEngine+Rx.swift in Sources */,
 				5B5D002323A1F0F4003D1A1C /* UIViewController+Error.swift in Sources */,
+				5BD5EB562423674E00319799 /* VideoPlayerDelegate.swift in Sources */,
 				5BAAE59824067A140073F93A /* UploadDataViewController.swift in Sources */,
 				5B5D002423A1F0F4003D1A1C /* UpdatePostTableViewCell.swift in Sources */,
 				5B5D002523A1F0F4003D1A1C /* InsightViewModel.swift in Sources */,
@@ -3427,6 +3440,7 @@
 				5B93B2B723D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
 				5B93B2B323D59D17004CCD51 /* Deeplink.swift in Sources */,
 				5B75C828241E7C9F00D241E0 /* MediaListSectionViewController.swift in Sources */,
+				5BD5EB5A2423795C00319799 /* TrackingRequestState.swift in Sources */,
 				5B5D003023A1F0F4003D1A1C /* UsageViewModel.swift in Sources */,
 				5B5D003223A1F0F4003D1A1C /* MoyaAuthPlugin.swift in Sources */,
 				5B89292A241F743A00DA6F31 /* HomeTabbarController+WebViewRequestData.swift in Sources */,
@@ -3641,6 +3655,7 @@
 				5B2097BB23B4676D0079B421 /* ReactionTableView.swift in Sources */,
 				E22290A02395116900412CBC /* PostDataEngine+Rx.swift in Sources */,
 				E2DB66A6237D3B69005367C2 /* UIViewController+Error.swift in Sources */,
+				5BD5EB552423674E00319799 /* VideoPlayerDelegate.swift in Sources */,
 				5BAAE59724067A140073F93A /* UploadDataViewController.swift in Sources */,
 				E2442041239910E100520FE9 /* UpdatePostTableViewCell.swift in Sources */,
 				5832D704238BC23D0074AEDC /* InsightViewModel.swift in Sources */,
@@ -3664,6 +3679,7 @@
 				5B93B2B623D5B99E004CCD51 /* LaunchingDeeplinkViewController.swift in Sources */,
 				5B93B2B223D59D17004CCD51 /* Deeplink.swift in Sources */,
 				5B75C827241E7C9F00D241E0 /* MediaListSectionViewController.swift in Sources */,
+				5BD5EB592423795C00319799 /* TrackingRequestState.swift in Sources */,
 				5832D6E5238BBE390074AEDC /* UsageViewModel.swift in Sources */,
 				E28B55FC238D0A6800F1BCF2 /* MoyaAuthPlugin.swift in Sources */,
 				5B892929241F743A00DA6F31 /* HomeTabbarController+WebViewRequestData.swift in Sources */,

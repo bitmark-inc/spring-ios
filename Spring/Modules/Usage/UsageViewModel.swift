@@ -35,6 +35,7 @@ class UsageViewModel: ViewModel {
 
     func fetchActivity() -> Completable {
         return FbmAccountDataEngine.syncMe()
+            .observeOn(MainScheduler.asyncInstance)
             .catchError({ (error) in
                 guard !AppError.errorByNetworkConnection(error) else {
                     return Completable.empty()

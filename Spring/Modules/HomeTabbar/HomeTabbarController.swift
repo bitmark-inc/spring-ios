@@ -13,6 +13,14 @@ import RxCocoa
 import SnapKit
 
 class HomeTabbarController: ESTabBarController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .default
+        }
+    }
+
     class func tabbarController() -> HomeTabbarController {
         let usageVC = UsageViewController(viewModel: UsageViewModel())
         let usageNavVC = NavigationController(rootViewController: usageVC)
@@ -104,7 +112,6 @@ class HomeTabbarController: ESTabBarController {
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
                     Global.current.userDefault?.latestAppArchiveStatus = .processing
-                    AppArchiveStatus.currentState.accept(.processing)
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                         Global.pollingSyncAppArchiveStatus()

@@ -15,8 +15,8 @@ class BrowseView: UIView {
 
     // MARK: - Properties
     fileprivate lazy var titleLabel = makeTitleLabel()
-    fileprivate lazy var infoLabel = makeInfoLabel()
     lazy var selectButton = makeSelectButton()
+    fileprivate lazy var tapGestureRecognizer = makeTapGestureRecognizer()
 
     weak var containerLayoutDelegate: ContainerLayoutDelegate?
     let disposeBag = DisposeBag()
@@ -24,6 +24,8 @@ class BrowseView: UIView {
     // MARK: - Inits
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        addGestureRecognizer(tapGestureRecognizer)
 
         flex.direction(.column)
             .padding(20, 18, 18, 18)
@@ -34,8 +36,8 @@ class BrowseView: UIView {
                         flex.addItem(titleLabel)
                         flex.addItem(selectButton)
                 }
-                flex.addItem(infoLabel).marginTop(12)
             }
+
     }
 
     required init?(coder: NSCoder) {
@@ -46,15 +48,12 @@ class BrowseView: UIView {
         switch section {
         case .browsePosts:
             titleLabel.setText(R.string.phrase.browsePostsTitle().localizedUppercase)
-            infoLabel.setText(R.string.phrase.browsePostsInfo())
 
         case .browsePhotosAndVideos:
             titleLabel.setText(R.string.phrase.browsePhotosVideosTitle().localizedUppercase)
-            infoLabel.setText(R.string.phrase.browsePhotosVideosInfo())
 
         case .browseLikesAndReactions:
             titleLabel.setText(R.string.phrase.browseLikesReactionsTitle().localizedUppercase)
-            infoLabel.setText(R.string.phrase.browseLikesReactionsInfo())
 
         default:
             break
@@ -71,27 +70,19 @@ extension BrowseView {
         return label
     }
 
-    fileprivate func makeInfoLabel() -> Label {
-        let label = Label()
-        label.numberOfLines = 0
-        label.apply(
-            font: R.font.atlasGroteskLight(size: 16),
-            colorTheme: ColorTheme.black,
-            lineHeight: 1.25)
-        return label
-    }
-
-    fileprivate func makeQuestionButton() -> Button {
-        let button = Button()
-        button.contentEdgeInsets = UIEdgeInsets(top: 5, left: 0, bottom: 23, right: 28)
-        button.setImage(R.image.questionIcon(), for: .normal)
-        return button
-    }
-
     fileprivate func makeSelectButton() -> Button {
         let button = Button()
         button.setImage(R.image.next_period()!, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 34, bottom: 10, right: 0)
+        button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 34, bottom: 10, right: 0)
         return button
+    }
+
+    fileprivate func makeTapGestureRecognizer() -> UITapGestureRecognizer {
+        let tapGestureRecognizer = UITapGestureRecognizer()
+        isUserInteractionEnabled = true
+        tapGestureRecognizer.rx.event.bind { [weak self] (t) in
+            self?.selectButton.sendActions(for: .touchUpInside)
+        }.disposed(by: disposeBag)
+        return tapGestureRecognizer
     }
 }

@@ -62,3 +62,22 @@ class SectionSeparator: UIView {
         super.init(coder: coder)
     }
 }
+
+class SingleSeparator: UIView {
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        flex.direction(.column).define { (flex) in
+            flex.addItem()
+                .backgroundColor(UIColor(hexString: "#828180")!)
+                .marginLeft(0)
+                .marginRight(0)
+                .height(1)
+        }
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}

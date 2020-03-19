@@ -30,6 +30,10 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                     })
             })
             .map { (archives) -> AppArchiveStatus in
+                if UserDefaults.standard.FBArchiveCreatedAt != nil {
+                    return .requesting
+                }
+
                 guard archives.count > 0 else {
                     return .none
                 }

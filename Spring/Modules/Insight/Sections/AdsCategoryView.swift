@@ -28,7 +28,7 @@ class AdsCategoryView: UIView {
         super.init(frame: frame)
 
         flex.define({ (flex) in
-            flex.padding(30, 18, 30, 48)
+            flex.padding(30, 18, 18, 48)
                 .define { (flex) in
                     flex.addItem(headerLabel)
                     flex.addItem(descriptionLabel).marginTop(7)
@@ -36,10 +36,10 @@ class AdsCategoryView: UIView {
                     flex.addItem(loadingIndicator)
                         .top(150).position(.absolute)
                         .alignSelf(.center)
-                    flex.addItem(space).height(30)
+                    flex.addItem(space).height(50)
 
                     flex.addItem(adsCategoryInfoView)
-                        .padding(10, 18, 0, 40)
+                        .padding(5, 18, 0, 40)
                         .maxWidth(100%)
                 }
         })
@@ -83,7 +83,7 @@ class AdsCategoryView: UIView {
             }
         } else {
             adsCategoryInfoView.flex.define { (flex) in
-                flex.addItem(makeNoDataView())
+                flex.addItem(makeNoDataView()).margin(18, -18, 16, 0)
             }
         }
 

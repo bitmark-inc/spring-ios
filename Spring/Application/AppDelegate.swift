@@ -86,8 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        guard Global.current.account != nil else { return }
         Navigator.evaluatePolicyWhenUserSetEnable()
         Navigator.refreshOnboardingStateIfNeeded()
+        Global.pollingSyncAppArchiveStatus()
     }
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

@@ -178,10 +178,12 @@ class UsageViewController: ViewController {
         )
         .subscribe(onNext: { [weak self] (getYourDataOption, currentState) in
             guard let self = self else { return }
+            Global.log.debug("[renew usage]: with \(getYourDataOption) - \(currentState)")
             self.dependentSections.removeSubviews()
 
             switch currentState {
             case .none, .invalid, .created: self.makeUIWhenNone(option: getYourDataOption)
+            case .requesting:               self.makeUIWhenNone(option: getYourDataOption)
             case .uploading, .processing:   self.makeUIWhenProcessing(option: getYourDataOption)
             case .processed:                self.makeUIWhenProcessed(option: getYourDataOption)
             }

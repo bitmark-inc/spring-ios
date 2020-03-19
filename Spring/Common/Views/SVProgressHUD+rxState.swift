@@ -25,7 +25,7 @@ extension Reactive where Base: SVProgressHUD {
                 SVProgressHUD.showSuccess(withStatus: nil)
             case .failed:
                 SVProgressHUD.showError(withStatus: nil)
-            case .hide:
+            case .hide, .done:
                 SVProgressHUD.dismiss()
             }
         }
@@ -38,4 +38,5 @@ enum LoadState {
     case failed
     case hide
     case tickSuccess
+    case done
 }

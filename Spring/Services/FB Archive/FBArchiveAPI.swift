@@ -23,8 +23,8 @@ extension FBArchiveAPI: AuthorizedTargetType, VersionTargetType {
 
     var path: String {
         switch self {
-        case .submitByURL: return "url"
-        case .submit, .getAll, .getPresignedURL:
+        case .submitByURL, .submit: return "url"
+        case .getAll, .getPresignedURL:
             return ""
         }
     }

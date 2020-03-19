@@ -12,6 +12,7 @@ import RxCocoa
 
 enum AppArchiveStatus {
     case created
+    case requesting
     case uploading
     case processing
     case processed
@@ -23,6 +24,24 @@ enum AppArchiveStatus {
     }
 
     static var currentState = BehaviorRelay<AppArchiveStatus?>(value: localLatestArchiveStatus)
+
+    var isStartPoint: Bool {
+        switch self {
+        case .none, .created, .invalid:
+            return true
+        default:
+            return false
+        }
+    }
+
+    var isRequestingPoint: Bool {
+        switch self {
+        case .uploading, .requesting:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension AppArchiveStatus: RawRepresentable {
@@ -31,6 +50,7 @@ extension AppArchiveStatus: RawRepresentable {
     public init?(rawValue: RawValue) {
         switch rawValue {
         case "created":     self = .created
+        case "requesting":  self = .requesting
         case "uploading":   self = .uploading
         case "processing":  self = .processing
         case "processed":   self = .processed
@@ -44,6 +64,7 @@ extension AppArchiveStatus: RawRepresentable {
     public var rawValue: RawValue {
         switch self {
         case .created:      return "created"
+        case .requesting:   return "requesting"
         case .uploading:    return "uploading"
         case .processing:   return "processing"
         case .processed:    return "processed"
