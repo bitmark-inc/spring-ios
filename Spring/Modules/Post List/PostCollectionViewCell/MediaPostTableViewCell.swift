@@ -22,6 +22,7 @@ class MediaPostTableViewCell: TableViewCell, PostDataTableViewCell {
     }()
 
     var post: Post?
+    weak var videoPlayerDelegate: VideoPlayerDelegate?
     weak var clickableDelegate: ClickableDelegate?
 
     // MARK: - Inits
@@ -180,7 +181,7 @@ extension MediaPostTableViewCell {
         let button = Button()
         button.setImage(R.image.playVideo(), for: .normal)
         button.rx.tap.bind { [weak self] in
-            self?.clickableDelegate?.playVideo(mediaSourceKey)
+            self?.videoPlayerDelegate?.playVideo(key: mediaSourceKey)
         }.disposed(by: disposeBag)
         return button
     }

@@ -118,7 +118,7 @@ extension CheckDataRequestedViewController {
         let label = Label()
         label.numberOfLines = 0
         label.apply(
-            font: R.font.atlasGroteskThinItalic(size: 15),
+            font: R.font.atlasGroteskThinItalic(size: 18),
             colorTheme: .black, lineHeight: 1.2)
         return label
     }

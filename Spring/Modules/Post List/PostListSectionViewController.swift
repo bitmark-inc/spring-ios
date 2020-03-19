@@ -27,6 +27,7 @@ class PostListSectionViewController: ViewController, BackNavigator, ListSectionD
     fileprivate lazy var tableView = makePostTableView()
     fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
+    fileprivate lazy var activityIndicator = makeActivityIndicator()
 
     lazy var thisViewModel = viewModel as! PostListSectionViewModel
     var timeUnitRelay = BehaviorRelay<SecondaryTimeUnit>(value: .month)
@@ -65,6 +66,7 @@ class PostListSectionViewController: ViewController, BackNavigator, ListSectionD
         timeUnitRelay.subscribe(onNext: { [weak self] (timeUnit) in
             guard let self = self else { return }
             self.postSections = self.groupPosts(realmPosts, timeUnit: timeUnit)
+            self.refreshView(hasData: self.postSections.count > 0)
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
 
@@ -76,6 +78,11 @@ class PostListSectionViewController: ViewController, BackNavigator, ListSectionD
                 Global.log.error(error)
             })
             .disposed(by: self.disposeBag)
+    }
+
+    func refreshView(hasData: Bool) {
+        emptyView.isHidden = hasData
+        tableView.isScrollEnabled = hasData
     }
 
     // MARK: - setup Views
@@ -95,22 +102,15 @@ class PostListSectionViewController: ViewController, BackNavigator, ListSectionD
                         flex.addItem(headingView).padding(OurTheme.titleListSectionPaddingInset)
                         flex.addItem(filterSegment).height(40)
                     }
-                flex.addItem(tableView).grow(1)
+                flex.addItem(tableView).grow(1).height(1)
                 flex.addItem(emptyView)
-                    .position(.absolute)
-                    .top(200).left(OurTheme.paddingInset.left)
-            }
-    }
+                    .position(.absolute).top(200)
+                    .alignSelf(.center)
 
-    fileprivate func makeEmptyView() -> Label {
-        let label = Label()
-        label.isDescription = true
-        label.apply(
-            text: R.string.phrase.postsEmpty(),
-            font: R.font.atlasGroteskLight(size: 32),
-            colorTheme: .black)
-        label.isHidden = true
-        return label
+                flex.addItem(activityIndicator)
+                    .position(.absolute).top(250)
+                    .alignSelf(.center)
+            }
     }
 }
 
@@ -125,29 +125,9 @@ extension PostListSectionViewController: UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let post = postSections[indexPath.section].value[indexPath.row]
-        guard let postType = PostType(rawValue: post.type) else {
-            return UITableViewCell()
-        }
-
-        let cell: PostDataTableViewCell!
-        switch postType {
-        case .update:
-            cell = tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
-
-        case .link:
-            cell = tableView.dequeueReusableCell(withClass: LinkPostTableViewCell.self, for: indexPath)
-
-        case .media:
-            if post.mediaData.count > 0 {
-                cell = tableView.dequeueReusableCell(withClass: MediaPostTableViewCell.self, for: indexPath)
-            } else {
-                fallthrough
-            }
-
-        default:
-            cell = tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
-        }
+        let cell = PostTableView.extractPostCell(with: post, tableView, indexPath)
         cell.clickableDelegate = self
+        cell.videoPlayerDelegate = self
         cell.bindData(post: post)
         return cell
     }
@@ -166,7 +146,7 @@ extension PostListSectionViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return makeFooterView()
+        return PostTableView.makeFooterView()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -179,32 +159,10 @@ extension PostListSectionViewController: UITableViewDataSource, UITableViewDeleg
     }
 }
 
-extension PostListSectionViewController: ClickableDelegate {
+extension PostListSectionViewController: ClickableDelegate, VideoPlayerDelegate {
     func click(_ textView: UITextView, url: URL) {
         let safariVC = SFSafariViewController(url: url)
         self.present(safariVC, animated: true, completion: nil)
-    }
-
-    func playVideo(_ videoKey: String) {
-        MediaService.makeVideoURL(key: videoKey)
-            .subscribe(onSuccess: { [weak self] (asset) in
-                guard let self = self else { return }
-                let playerItem = AVPlayerItem(asset: asset)
-
-                let player = AVPlayer(playerItem: playerItem)
-                let playerVC = AVPlayerViewController()
-
-                playerVC.player = player
-                self.present(playerVC, animated: true) {
-                    player.play()
-                }
-            }, onError: { [weak self] (error) in
-                guard !AppError.errorByNetworkConnection(error) else { return }
-                guard let self = self, !self.showIfRequireUpdateVersion(with: error) else { return }
-
-                Global.log.error(error)
-            })
-            .disposed(by: disposeBag)
     }
 
     func errorWhenLoadingMedia(error: Error) {
@@ -230,5 +188,27 @@ extension PostListSectionViewController {
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
+    }
+
+    fileprivate func makeActivityIndicator() -> ActivityIndicator {
+        let indicator = ActivityIndicator()
+
+        TrackingRequestState.standard.syncPostsState
+            .map { $0 == .loading }
+            .bind(to: indicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        return indicator
+    }
+
+    fileprivate func makeEmptyView() -> Label {
+        let label = Label()
+        label.isDescription = true
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 18),
+            colorTheme: .tundora)
+        label.isHidden = true
+        return label
     }
 }

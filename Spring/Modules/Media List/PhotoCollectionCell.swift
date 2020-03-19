@@ -25,7 +25,7 @@ class PhotoCollectionCell: CollectionViewCell {
     }
 
     func setData(media: Media) {
-        photoImage.loadPhotoMedia(media)
+        photoImage.loadPhotoMedia(for: media.id, photoPath: media.source)
     }
 
     required init?(coder: NSCoder) {

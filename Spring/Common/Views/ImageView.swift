@@ -35,14 +35,21 @@ class ImageView: UIImageView {
         setupViews()
     }
 
-    func loadPhotoMedia(_ media: Media) {
-        guard let photoURL = URL(string: media.url) else {
-            Global.log.error("invalid photo URL: \(media.url)")
+    func loadPhotoMedia(for mediaID: String, photoPath: String) {
+        guard let photoURL = URL(string: photoPath) else {
+            Global.log.error("invalid photo URL: \(photoPath)")
             return
         }
-        let imageResource = ImageResource(downloadURL: photoURL, cacheKey: media.id)
 
-        kf.setImage(with: imageResource)
+        let imageResource = ImageResource(downloadURL: photoURL, cacheKey: mediaID)
+        kf.setImage(with: imageResource) { (result) in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let error):
+                Global.log.debug(error)
+            }
+        }
     }
 
     func loadURL(_ url: URL, width: CGFloat) -> Completable {

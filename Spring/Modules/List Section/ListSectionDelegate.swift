@@ -13,7 +13,6 @@ protocol ListSectionDelegate {
     func makeFilterSegment() -> FilterSegment
     func makeSectionView(periodName: [String]) -> SectionFilter
     func makeHeaderView(sectionHeader: SectionFilter) -> UIView
-    func makeFooterView() -> UIView
 }
 
 extension ListSectionDelegate {
@@ -51,16 +50,6 @@ extension ListSectionDelegate {
             make.edges.centerY.equalToSuperview()
         }
 
-        return view
-    }
-
-    func makeFooterView() -> UIView {
-        let separatorLine = SectionSeparator(autoLayout: true)
-        let view = UIView()
-        view.addSubview(separatorLine)
-        separatorLine.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
         return view
     }
 }

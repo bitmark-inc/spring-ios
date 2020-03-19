@@ -19,7 +19,8 @@ class MediaListSectionViewController: ViewController, BackNavigator, ListSection
     fileprivate lazy var headingView = makeHeadingView()
     fileprivate lazy var filterSegment = makeFilterSegment()
     fileprivate lazy var collectionView = makeMediaCollectionView()
-    fileprivate lazy var backItem = makeBlackBackItem()
+    fileprivate lazy var emptyView = makeEmptyView()
+    fileprivate lazy var activityIndicator = makeActivityIndicator()
 
     private let sectionInsets = UIEdgeInsets(top: 1.33, left: 1.33, bottom: 0.0, right: 0.0)
 
@@ -60,6 +61,7 @@ class MediaListSectionViewController: ViewController, BackNavigator, ListSection
         timeUnitRelay.subscribe(onNext: { [weak self] (timeUnit) in
             guard let self = self else { return }
             self.mediaSections = self.groupMedias(realmMedias, timeUnit: timeUnit)
+            self.refreshView(hasData: self.mediaSections.count > 0)
             self.collectionView.reloadData()
         }).disposed(by: disposeBag)
 
@@ -71,6 +73,11 @@ class MediaListSectionViewController: ViewController, BackNavigator, ListSection
                 Global.log.error(error)
             })
             .disposed(by: self.disposeBag)
+    }
+
+    func refreshView(hasData: Bool) {
+        emptyView.isHidden = hasData
+        collectionView.isScrollEnabled = hasData
     }
 
     // MARK: - setup views
@@ -87,7 +94,15 @@ class MediaListSectionViewController: ViewController, BackNavigator, ListSection
                         flex.addItem(headingView).padding(OurTheme.titleListSectionPaddingInset)
                         flex.addItem(filterSegment).height(40)
                     }
-                flex.addItem(collectionView).grow(1).height(80%)
+                flex.addItem(collectionView).grow(1).height(1)
+
+                flex.addItem(emptyView)
+                    .position(.absolute).top(200)
+                    .alignSelf(.center)
+
+                flex.addItem(activityIndicator)
+                    .position(.absolute).top(250)
+                    .alignSelf(.center)
             }
     }
 }
@@ -104,12 +119,13 @@ extension MediaListSectionViewController: UICollectionViewDataSource, UICollecti
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let media = mediaSections[indexPath.section].value[indexPath.row]
 
-        if media.isVideo {
+        if !media.isVideo {
             let cell = collectionView.dequeueReusableCell(withClass: PhotoCollectionCell.self, for: indexPath)
             cell.setData(media: media)
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withClass: VideoCollectionCell.self, for: indexPath)
+            cell.videoPlayerDelegate = self
             cell.setData(media: media)
             return cell
         }
@@ -127,6 +143,7 @@ extension MediaListSectionViewController: UICollectionViewDataSource, UICollecti
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension MediaListSectionViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingSpace = sectionInsets.left * 2
@@ -144,6 +161,12 @@ extension MediaListSectionViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - VideoPlayerDelegate
+extension MediaListSectionViewController: VideoPlayerDelegate {
+
+}
+
+// MARK: - Setup views
 extension MediaListSectionViewController {
     fileprivate func makeHeadingView() -> Label {
         let label = Label()
@@ -167,5 +190,27 @@ extension MediaListSectionViewController {
         collectionView.delegate = self
 
         return collectionView
+    }
+
+    fileprivate func makeActivityIndicator() -> ActivityIndicator {
+        let indicator = ActivityIndicator()
+
+        TrackingRequestState.standard.syncMediaState
+            .map { $0 == .loading }
+            .bind(to: indicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        return indicator
+    }
+
+    fileprivate func makeEmptyView() -> Label {
+        let label = Label()
+        label.isDescription = true
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 18),
+            colorTheme: .tundora)
+        label.isHidden = true
+        return label
     }
 }

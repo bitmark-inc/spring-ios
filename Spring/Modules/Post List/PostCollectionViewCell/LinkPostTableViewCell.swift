@@ -18,6 +18,7 @@ class LinkPostTableViewCell: TableViewCell, PostDataTableViewCell {
     fileprivate lazy var captionLabel = makeCaptionLabel()
     fileprivate lazy var linkLabel = makeLinkLabel()
     weak var clickableDelegate: ClickableDelegate?
+    weak var videoPlayerDelegate: VideoPlayerDelegate?
 
     // MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

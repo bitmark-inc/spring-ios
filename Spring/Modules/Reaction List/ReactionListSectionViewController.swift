@@ -19,7 +19,9 @@ class ReactionListSectionViewController: ViewController, BackNavigator, ListSect
     fileprivate lazy var headingView = makeHeadingView()
     fileprivate lazy var filterSegment = makeFilterSegment()
     fileprivate lazy var tableView = makeReactionTableView()
+    fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
+    fileprivate lazy var activityIndicator = makeActivityIndicator()
 
     private let sectionInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0.0, right: 0.0)
 
@@ -60,6 +62,7 @@ class ReactionListSectionViewController: ViewController, BackNavigator, ListSect
         timeUnitRelay.subscribe(onNext: { [weak self] (timeUnit) in
             guard let self = self else { return }
             self.reactionSections = self.groupReactions(realmReactions, timeUnit: timeUnit)
+            self.refreshView(hasData: self.reactionSections.count > 0)
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
 
@@ -72,6 +75,11 @@ class ReactionListSectionViewController: ViewController, BackNavigator, ListSect
                     Global.log.error(error)
             })
             .disposed(by: self.disposeBag)
+    }
+
+    func refreshView(hasData: Bool) {
+        emptyView.isHidden = hasData
+        tableView.isScrollEnabled = hasData
     }
 
     // MARK: - setup views
@@ -87,7 +95,16 @@ class ReactionListSectionViewController: ViewController, BackNavigator, ListSect
                     flex.addItem(headingView).padding(OurTheme.titleListSectionPaddingInset)
                     flex.addItem(filterSegment).height(40)
             }
-            flex.addItem(tableView).grow(1)
+            flex.addItem(tableView).grow(1).height(1)
+
+            flex.addItem(emptyView)
+                .position(.absolute).alignSelf(.center)
+                .top(200)
+
+            flex.addItem(activityIndicator)
+                .position(.absolute)
+                .alignSelf(.center)
+                .top(250)
         }
     }
 }
@@ -123,7 +140,7 @@ extension ReactionListSectionViewController: UITableViewDataSource, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return makeFooterView()
+        return ReactionTableView.makeFooterView()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -151,5 +168,27 @@ extension ReactionListSectionViewController {
         tableView.dataSource = self
         tableView.delegate = self
         return tableView
+    }
+
+    fileprivate func makeActivityIndicator() -> ActivityIndicator {
+        let indicator = ActivityIndicator()
+
+        TrackingRequestState.standard.syncReactionsState
+            .map { $0 == .loading }
+            .bind(to: indicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        return indicator
+    }
+
+    fileprivate func makeEmptyView() -> Label {
+        let label = Label()
+        label.isDescription = true
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 18),
+            colorTheme: .tundora)
+        label.isHidden = true
+        return label
     }
 }

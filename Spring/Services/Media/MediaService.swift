@@ -16,10 +16,14 @@ class MediaService {
 
     static func getAll(startDate: Date, endDate: Date) -> Single<[Media]> {
         Global.log.info("[start] MediaService.get(startDate, endDate)")
+        TrackingRequestState.standard.syncMediaState.accept(.loading)
 
         return provider.rx.requestWithRefreshJwt(.get(startDate: startDate, endDate: endDate))
             .filterSuccess()
             .map([Media].self, atKeyPath: "result")
+            .do {
+                TrackingRequestState.standard.syncMediaState.accept(.done)
+            }
     }
 
     static func makePhotoURL(key: String) -> Single<(photoURL: URL, modifier: AnyModifier)> {

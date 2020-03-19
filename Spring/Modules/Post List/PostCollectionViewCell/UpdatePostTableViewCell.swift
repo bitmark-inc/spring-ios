@@ -17,6 +17,7 @@ class UpdatePostTableViewCell: TableViewCell, PostDataTableViewCell {
     fileprivate lazy var postInfoLabel = makePostInfoLabel()
     fileprivate lazy var captionLabel = makeCaptionLabel()
     weak var clickableDelegate: ClickableDelegate?
+    weak var videoPlayerDelegate: VideoPlayerDelegate?
 
     // MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
