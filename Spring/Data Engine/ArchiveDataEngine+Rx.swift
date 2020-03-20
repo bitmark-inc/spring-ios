@@ -14,11 +14,11 @@ import RxSwift
 protocol ArchiveDataEngineDelegate {
     static func store(_ archives: [Archive]) -> Completable
     static func issueBitmarkIfNeeded() -> Completable
-    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus>
+    static func fetchAppArchiveStatus() -> Single<[AppArchiveStatus]>
 }
 
 class ArchiveDataEngine: ArchiveDataEngineDelegate {
-    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus> {
+    static func fetchAppArchiveStatus() -> Single<[AppArchiveStatus]> {
         return FBArchiveService.getAll()
             .do(onSuccess: { (archives) in
                 _ = ArchiveDataEngine.store(archives)
@@ -29,38 +29,19 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                         Global.log.error(error)
                     })
             })
-            .map { (archives) -> AppArchiveStatus in
+            .map { (archives) -> [AppArchiveStatus] in
+                var appArchiveStatuses = [AppArchiveStatus?]()
+
+                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.processed))
+                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.processing))
+                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.invalid))
+                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.created))
+
                 if UserDefaults.standard.FBArchiveCreatedAt != nil {
-                    return .requesting
+                    appArchiveStatuses.append(.requesting)
                 }
 
-                guard archives.count > 0 else {
-                    return .none
-                }
-
-                if archives.contains(where: { $0.status == ArchiveStatus.processed.rawValue }) {
-                    return .processed
-                } else if archives.contains(where: { [ArchiveStatus.submitted.rawValue, ArchiveStatus.processing.rawValue].contains($0.status) }) {
-                    return .processing
-                } else {
-                    let sortedInvalidArchiveIDs = archives
-                        .filter { $0.status == ArchiveStatus.invalid.rawValue }
-                        .sorted { $0.updatedAt > $1.updatedAt }
-
-                    if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
-                        switch latestInvalidArchive.messageError {
-                        case .failToCreateArchive, .failToDownloadArchive:
-                            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
-                        default:
-                            return .processing
-                        }
-
-                    } else if archives.contains(where: { $0.status == ArchiveStatus.created.rawValue }) {
-                        return .created
-                    } else {
-                        return .processing
-                    }
-                }
+                return appArchiveStatuses.compactMap { $0 }
             }
     }
 
@@ -158,6 +139,29 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                         return Disposables.create()
                     }
                 }
+        }
+    }
+}
+
+extension Array where Element: Archive {
+    func appArchiveStatusIfContains(_ status: ArchiveStatus) -> AppArchiveStatus? {
+        guard contains(where: { $0.status == status.rawValue }) else {
+            return nil
+        }
+
+        switch status {
+        case .processed:               return .processed
+        case .processing, .submitted:  return .processing
+        case .created:                 return .created
+        case .invalid:
+            let sortedInvalidArchiveIDs = self
+                .filter { $0.status == ArchiveStatus.invalid.rawValue }
+                .sorted { $0.updatedAt > $1.updatedAt }
+
+            guard let latestInvalidArchive = sortedInvalidArchiveIDs.first else {
+                return nil
+            }
+            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
         }
     }
 }

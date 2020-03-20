@@ -42,3 +42,13 @@ extension ObservableType where Element == Stats? {
             }
     }
 }
+
+extension ObservableType where Element == [AppArchiveStatus] {
+    func mapHighestStatus() -> Observable<AppArchiveStatus> {
+        return map { $0.first ?? .none }
+    }
+
+    func mapLowestStatus() -> Observable<AppArchiveStatus> {
+        return map { $0.last ?? .none }
+    }
+}

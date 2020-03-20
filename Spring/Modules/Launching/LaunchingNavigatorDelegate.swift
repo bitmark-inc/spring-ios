@@ -83,7 +83,7 @@ extension LaunchingNavigatorDelegate {
 
                 Global.current.userDefault?.latestAppArchiveStatus = appArchiveStatus
 
-                appArchiveStatus.isStartPoint ?
+                AppArchiveStatus.isStartPoint ?
                     self.gotoTrustIsCritialScreen() :
                     self.gotoHomeTab()
 

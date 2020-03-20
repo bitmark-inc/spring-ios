@@ -52,7 +52,7 @@ class FBArchiveService: FBArchiveServiceDelegate {
 
         BackgroundTaskManager.shared.uploadInfoRelay
             .accept([SessionIdentifier.upload.rawValue: fileURL.lastPathComponent])
-        AppArchiveStatus.currentState.accept(.uploading)
+        AppArchiveStatus.append(.uploading)
     }
 
     static func submitByURL(_ fileURL: URL) -> Completable {

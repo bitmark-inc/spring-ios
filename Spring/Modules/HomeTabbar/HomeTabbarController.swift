@@ -111,7 +111,7 @@ class HomeTabbarController: ESTabBarController {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
-                    Global.current.userDefault?.latestAppArchiveStatus = .processing
+                    AppArchiveStatus.transfer(from: .uploading, to: .processing)
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                         Global.pollingSyncAppArchiveStatus()
@@ -125,9 +125,14 @@ class HomeTabbarController: ESTabBarController {
         // 3
         AppArchiveStatus.currentState
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (appArchiveStatus) in
-                guard let self = self else { return }
-                switch appArchiveStatus {
+            .subscribe(onNext: { [weak self] (appArchiveStatuses) in
+                guard let self = self,
+                    let invalidStatus = appArchiveStatuses.first(where: { $0.rawValue == "invalid" })
+                    else {
+                        return
+                }
+
+                switch invalidStatus {
                 case .invalid(let invalidArchiveIDs, let messageError):
                     guard let latestInvalidArchiveID = invalidArchiveIDs.first,
                         !UserDefaults.standard.showedInvalidArchiveIDs.contains(latestInvalidArchiveID)

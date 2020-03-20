@@ -36,7 +36,8 @@ class AggregateAnalysisView: UIView {
             }
 
         AppArchiveStatus.currentState
-            .filter { $0?.rawValue == "processed" }
+            .mapHighestStatus()
+            .filter { $0 == .processed }
             .take(1).ignoreElements()
             .subscribe(onCompleted: { [weak self, weak subHeadingView] in
                 guard let self = self, let subHeadingView = subHeadingView else { return }

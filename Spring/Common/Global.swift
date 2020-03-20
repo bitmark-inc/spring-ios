@@ -80,7 +80,7 @@ class Global {
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
         UserDefaults.standard.FBArchiveCreatedAt = nil
-        Global.current.userDefault?.latestAppArchiveStatus = nil
+        Global.current.userDefault?.latestAppArchiveStatus = []
         BackgroundTaskManager.shared.urlSession(identifier: SessionIdentifier.upload.rawValue).invalidateAndCancel()
 
         // clear user cookie in webview
@@ -108,7 +108,7 @@ class Global {
     static func pollingSyncAppArchiveStatus() {
         // avoid override the tracking status in local
         let currentState = AppArchiveStatus.currentState.value
-        guard currentState == nil || !currentState!.isRequestingPoint else {
+        guard currentState.isEmpty || !AppArchiveStatus.isRequestingPoint else {
             return
         }
 
@@ -118,8 +118,8 @@ class Global {
                     Global.current.userDefault?.latestAppArchiveStatus = $0
                 })
                 .asObservable()
-                .flatMap({ (appArchiveStatus) -> Observable<Void> in
-                    return appArchiveStatus == .processing ?
+                .flatMap({ (appArchiveStatuses) -> Observable<Void> in
+                    return appArchiveStatuses.contains(where: { $0 == .processing }) ?
                         Observable.error(AppError.archiveIsNotProcessed) :
                         Observable.empty()
                 })
@@ -234,11 +234,14 @@ extension UserDefaults {
     }
 
     // Per Account
-    var latestAppArchiveStatus: AppArchiveStatus? {
-        get { return AppArchiveStatus(rawValue: string(forKey: #function) ?? "") }
+    var latestAppArchiveStatus: [AppArchiveStatus] {
+        get {
+            let archiveStatusStrings = stringArray(forKey: #function) ?? []
+            return archiveStatusStrings.compactMap { AppArchiveStatus(rawValue: $0) }
+        }
         set {
-            AppArchiveStatus.currentState.accept(newValue)
-            set(newValue?.rawValue, forKey: #function)
+            let archiveStatusStrings = newValue.compactMap { $0.rawValue }
+            set(archiveStatusStrings, forKey: #function)
         }
     }
 

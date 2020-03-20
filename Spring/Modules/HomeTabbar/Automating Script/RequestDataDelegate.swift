@@ -107,7 +107,7 @@ extension RequestDataDelegate where Self: UIViewController {
                 case .completed:
                     Global.log.info("[done] SignUpAndSubmitArchive")
                     UserDefaults.standard.FBArchiveCreatedAt = nil
-                    Global.current.userDefault?.latestAppArchiveStatus = .processing
+                    AppArchiveStatus.transfer(from: .requesting, to: .processing)
 
                     Global.pollingSyncAppArchiveStatus()
 
@@ -306,7 +306,7 @@ extension RequestDataDelegate where Self: UIViewController {
 
             Global.log.info("[done] createFBArchive")
             UserDefaults.standard.FBArchiveCreatedAt = Date()
-            Global.current.userDefault?.latestAppArchiveStatus = .requesting
+            AppArchiveStatus.append(.requesting)
 
             self.finishMission()
         }
@@ -519,14 +519,7 @@ extension RequestDataDelegate where Self: UIViewController {
     func makeAutomateRequestDataView() -> AutomateRequestDataView {
         let automateRequestDataView = AutomateRequestDataView()
         automateRequestDataView.webView.navigationDelegate = self
-
-        switch AppArchiveStatus.currentState.value {
-        case .none, .created, .invalid:
-            automateRequestDataView.closeButton.isHidden = false
-        default:
-            automateRequestDataView.closeButton.isHidden = true
-        }
-
+        automateRequestDataView.closeButton.isHidden = !AppArchiveStatus.isStartPoint
         return automateRequestDataView
     }
 }

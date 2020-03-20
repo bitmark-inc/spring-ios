@@ -37,9 +37,9 @@ class ProgressView: UIView {
         }
     }
 
-    var appArchiveStatusCurrentState: AppArchiveStatus? {
+    var progressStatus: AppArchiveStatus? {
         didSet {
-            switch appArchiveStatusCurrentState {
+            switch progressStatus {
             case .processing:
                 self.titleLabel.setText(R.string.localizable.processing().localizedUppercase)
                 self.fileLabel.setText(nil)
@@ -55,7 +55,7 @@ class ProgressView: UIView {
                 break
             }
 
-            if let appArchiveStatusCurrentState = appArchiveStatusCurrentState {
+            if let appArchiveStatusCurrentState = progressStatus {
                 toggleProgressBar(isProgressing:
                     appArchiveStatusCurrentState == .processing)
             }
@@ -131,11 +131,11 @@ class ProgressView: UIView {
             .disposed(by: disposeBag)
 
         AppArchiveStatus.currentState
-            .filterNil()
-            .distinctUntilChanged { $0.rawValue == $1.rawValue }
+            .mapLowestStatus()
+            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.appArchiveStatusCurrentState = $0
+                self.progressStatus = $0
             })
             .disposed(by: disposeBag)
     }

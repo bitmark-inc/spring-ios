@@ -19,28 +19,44 @@ enum AppArchiveStatus {
     case none
     case invalid([Int64], ArchiveMessageError?)
 
-    static var localLatestArchiveStatus: AppArchiveStatus {
-        return Global.current.userDefault?.latestAppArchiveStatus ?? .none
+    static var localLatestArchiveStatuses: [AppArchiveStatus] {
+        return Global.current.userDefault?.latestAppArchiveStatus ?? []
     }
 
-    static var currentState = BehaviorRelay<AppArchiveStatus?>(value: localLatestArchiveStatus)
+    static var currentState = BehaviorRelay<[AppArchiveStatus]>(value: localLatestArchiveStatuses)
 
-    var isStartPoint: Bool {
-        switch self {
-        case .none, .created, .invalid:
+    static func transfer(from oldStatus: AppArchiveStatus, to status: AppArchiveStatus) {
+        guard let userDefaults = Global.current.userDefault else { return }
+        var currentStatuses = userDefaults.latestAppArchiveStatus
+        currentStatuses.removeAll(where: { $0 == oldStatus })
+        currentStatuses.append(status)
+        userDefaults.latestAppArchiveStatus = currentStatuses
+    }
+
+    static func append(_ status: AppArchiveStatus) {
+        guard let userDefaults = Global.current.userDefault else { return }
+        var currentStatuses = userDefaults.latestAppArchiveStatus
+        currentStatuses.append(status)
+        userDefaults.latestAppArchiveStatus = currentStatuses
+    }
+
+    static var isStartPoint: Bool {
+        let statues = currentState.value
+
+        if let firstStatus = statues.first {
+            switch firstStatus {
+            case .none, .created, .invalid: return true
+            default:
+                return false
+            }
+        } else {
             return true
-        default:
-            return false
         }
     }
 
-    var isRequestingPoint: Bool {
-        switch self {
-        case .uploading, .requesting:
-            return true
-        default:
-            return false
-        }
+    static var isRequestingPoint: Bool {
+        return currentState.value
+            .contains(where: { return $0 == .uploading || $0 == .requesting })
     }
 }
 
@@ -72,4 +88,8 @@ extension AppArchiveStatus: RawRepresentable {
         case .invalid:      return "invalid"
         }
     }
+}
+
+extension AppArchiveStatus: Equatable {
+    
 }

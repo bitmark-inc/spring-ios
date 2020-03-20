@@ -123,7 +123,8 @@ class UsageViewController: ViewController {
         viewModel.fetchSpringStats()
 
         AppArchiveStatus.currentState
-            .filter { $0?.rawValue == "processed" }
+            .mapHighestStatus()
+            .filter { $0 == .processed }
             .take(1).ignoreElements()
             .andThen(viewModel.fetchActivity())
             .subscribe(onCompleted: {
@@ -173,8 +174,8 @@ class UsageViewController: ViewController {
 
     fileprivate func observeArchiveStatusToBuildUsage() {
         BehaviorRelay.combineLatest(
-            GetYourData.standard.optionRelay.distinctUntilChanged { $0.rawValue == $1.rawValue },
-            AppArchiveStatus.currentState.filterNil().distinctUntilChanged { $0.rawValue == $1.rawValue }
+            GetYourData.standard.optionRelay.distinctUntilChanged(),
+            AppArchiveStatus.currentState.mapHighestStatus().distinctUntilChanged()
         )
         .subscribe(onNext: { [weak self] (getYourDataOption, currentState) in
             guard let self = self else { return }
