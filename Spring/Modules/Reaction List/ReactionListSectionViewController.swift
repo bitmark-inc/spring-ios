@@ -115,10 +115,15 @@ extension ReactionListSectionViewController: UITableViewDataSource, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return reactionSections[section].value.count
+        return reactionSections[section].value.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        guard indexPath.row < reactionSections[indexPath.section].value.count else {
+            return FooterCell()
+        }
+
         let reaction = reactionSections[indexPath.section].value[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withClass: ReactionTableViewCell.self, for: indexPath)
@@ -130,17 +135,9 @@ extension ReactionListSectionViewController: UITableViewDataSource, UITableViewD
         return 50
     }
 
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
-
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = makeSectionView(periodName: reactionSections[section].key)
         return makeHeaderView(sectionHeader: sectionHeader)
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return ReactionTableView.makeFooterView()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

@@ -102,6 +102,15 @@ class UpdateYourDataViewController: ViewController, BackNavigator {
                 }
             }).disposed(by: disposeBag)
 
+        AppArchiveStatus.currentState.mapLowestStatus().distinctUntilChanged()
+            .skipUntil(AppArchiveStatus.currentState.mapLowestStatus().filter { $0 == .processing })
+            .filter { $0 == .processed }.take(1)
+            .subscribe(onCompleted: { [weak self] in
+                loadingState.onNext(.success)
+                self?.navigationController?.popViewController()
+            })
+            .disposed(by: disposeBag)
+
         BehaviorRelay.combineLatest(GetYourData.standard.runningState, AppArchiveStatus.currentState.mapLowestStatus().distinctUntilChanged())
             .subscribe(onNext: { [weak self] (loadState, latestAppArchiveStatus) in
                 guard let self = self else { return }
@@ -123,19 +132,11 @@ class UpdateYourDataViewController: ViewController, BackNavigator {
         uploadProgressView.bindInfoInUpload()
     }
 
+    // MARK: - Handlers
+    // - updateAndSetupAutomate
+    // - signUpAndSubmitArchive
     fileprivate func updateAndSetupAutomate() {
         loadingState.onNext(.loading)
-
-        if GetYourData.standard.requestedAtRelay.value != nil {
-            GetYourData.standard.runningState
-                .subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    $0 == .loading ?
-                        self.uploadProgressView.restartIndeterminateProgressBar() :
-                        self.uploadProgressView.indeterminateProgressBar.stopAnimating()
-                })
-                .disposed(by: self.disposeBag)
-        }
 
         thisViewModel.update(isAutomate: true)
             .subscribe(onCompleted: { [weak self] in
@@ -152,10 +153,12 @@ class UpdateYourDataViewController: ViewController, BackNavigator {
             .disposed(by: disposeBag)
     }
 
+    // MARK: - signUpAndSubmitArchive
     fileprivate func signUpAndSubmitArchive() {
         thisViewModel.submitArchiveData()
     }
 
+    // MARK: - Error Handlers
     fileprivate func errorWhenUpdate(error: Error) {
         guard !AppError.errorByNetworkConnection(error),
             !handleErrorIfAsAFError(error),
@@ -290,10 +293,6 @@ extension UpdateYourDataViewController {
     fileprivate func moveToDYIFacebookPage() {
         guard let dyiFacebookURL = URL(string: dyiFacebookPath) else { return }
         navigator.show(segue: .safariController(dyiFacebookURL), sender: self, transition: .alert)
-    }
-
-    fileprivate func gotoHomeTab(missions: [Mission] = []) {
-        navigator.show(segue: .hometabs(missions: missions), sender: self, transition: .replace(type: .none))
     }
 }
 

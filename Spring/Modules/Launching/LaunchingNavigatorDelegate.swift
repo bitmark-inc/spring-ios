@@ -75,8 +75,16 @@ extension LaunchingNavigatorDelegate {
         // - no connect Spring; no data requesting: goto HowItWork Screen
         // - connected Spring: .gotoHomeTab()
         FbmAccountDataEngine.syncMe()
-            .andThen(Single.just(FbmAccountDataEngine.fetchMe()))
+            .andThen(Single.deferred {
+                Single.just(FbmAccountDataEngine.fetchMe())
+            })
             .flatMap { _ in ArchiveDataEngine.fetchAppArchiveStatus() }
+            .catchError({ (error) -> Single<[AppArchiveStatus]> in // support offline
+                guard !AppError.errorByNetworkConnection(error) else {
+                    return Single.just(Global.current.userDefault?.latestAppArchiveStatus ?? [])
+                }
+                return Single.error(error)
+            })
             .subscribe(onSuccess: { [weak self] (appArchiveStatus) in
                 guard let self = self else { return }
                 loadingState.onNext(.hide)

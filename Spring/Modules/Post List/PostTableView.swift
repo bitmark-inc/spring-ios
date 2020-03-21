@@ -18,6 +18,7 @@ class PostTableView: TableView {
         self.register(cellWithClass: MediaPostTableViewCell.self)
         self.register(cellWithClass: UpdatePostTableViewCell.self)
         self.register(cellWithClass: LinkPostTableViewCell.self)
+        self.register(cellWithClass: FooterCell.self)
 
         themeService.rx
             .bind({ $0.background }, to: rx.backgroundColor)

@@ -180,6 +180,7 @@ extension MediaListSectionViewController {
     fileprivate func makeMediaCollectionView() -> UICollectionView {
         let flowlayout = UICollectionViewFlowLayout()
         flowlayout.sectionHeadersPinToVisibleBounds = true
+        flowlayout.sectionFootersPinToVisibleBounds = false
         let collectionView = UICollectionView(frame: view.frame, collectionViewLayout: flowlayout)
         collectionView.backgroundColor = .clear
 

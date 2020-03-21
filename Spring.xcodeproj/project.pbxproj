@@ -589,6 +589,9 @@
 		5BBE457A2420C63D0004F7D9 /* GetYourData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE45792420C63D0004F7D9 /* GetYourData.swift */; };
 		5BBE457B2420C63D0004F7D9 /* GetYourData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE45792420C63D0004F7D9 /* GetYourData.swift */; };
 		5BBE457C2420C63D0004F7D9 /* GetYourData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBE45792420C63D0004F7D9 /* GetYourData.swift */; };
+		5BC1888C242640BD0056A7F9 /* FooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1888B242640BD0056A7F9 /* FooterCell.swift */; };
+		5BC1888D242640BD0056A7F9 /* FooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1888B242640BD0056A7F9 /* FooterCell.swift */; };
+		5BC1888E242640BD0056A7F9 /* FooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC1888B242640BD0056A7F9 /* FooterCell.swift */; };
 		5BC278152408C58100564A98 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */; };
 		5BC278162408C58100564A98 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */; };
 		5BC278172408C58100564A98 /* DocumentPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */; };
@@ -1136,6 +1139,7 @@
 		5BBE45682420AC440004F7D9 /* AutomateRequestInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomateRequestInfoView.swift; sourceTree = "<group>"; };
 		5BBE456D2420B2C80004F7D9 /* CheckDataRequestedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckDataRequestedViewController.swift; sourceTree = "<group>"; };
 		5BBE45792420C63D0004F7D9 /* GetYourData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetYourData.swift; sourceTree = "<group>"; };
+		5BC1888B242640BD0056A7F9 /* FooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCell.swift; sourceTree = "<group>"; };
 		5BC278142408C58100564A98 /* DocumentPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentPickerDelegate.swift; sourceTree = "<group>"; };
 		5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionWithDelete.swift; sourceTree = "<group>"; };
 		5BC91CBF23CC29CB000058A7 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
@@ -1665,6 +1669,7 @@
 			isa = PBXGroup;
 			children = (
 				E22BC2EA239E3FF000018BC4 /* ListHeadingViewCell.swift */,
+				5BC1888B242640BD0056A7F9 /* FooterCell.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -3140,6 +3145,7 @@
 				5B93B2AD23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				5832FC94237A889A00FA3196 /* Storage.swift in Sources */,
 				E222909223950B2500412CBC /* Post.swift in Sources */,
+				5BC1888C242640BD0056A7F9 /* FooterCell.swift in Sources */,
 				5832FC59237A863300FA3196 /* IconButtonView.swift in Sources */,
 				5BBE457A2420C63D0004F7D9 /* GetYourData.swift in Sources */,
 				5832FCB3237A9F6200FA3196 /* Application.swift in Sources */,
@@ -3386,6 +3392,7 @@
 				5B93B2AF23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				5B5DFFFF23A1F0F4003D1A1C /* FbmAccountDataEngine+Rx.swift in Sources */,
 				5B5D000023A1F0F4003D1A1C /* IconButtonView.swift in Sources */,
+				5BC1888E242640BD0056A7F9 /* FooterCell.swift in Sources */,
 				5B5D000123A1F0F4003D1A1C /* Post.swift in Sources */,
 				5BBE457C2420C63D0004F7D9 /* GetYourData.swift in Sources */,
 				5B5D000223A1F0F4003D1A1C /* Application.swift in Sources */,
@@ -3628,6 +3635,7 @@
 				5B93B2AE23D567CA004CCD51 /* DocumentationService.swift in Sources */,
 				E236B677238E37D200C1A280 /* FbmAccountDataEngine+Rx.swift in Sources */,
 				E2DB6698237D3B69005367C2 /* IconButtonView.swift in Sources */,
+				5BC1888D242640BD0056A7F9 /* FooterCell.swift in Sources */,
 				E222909323950B2500412CBC /* Post.swift in Sources */,
 				5BBE457B2420C63D0004F7D9 /* GetYourData.swift in Sources */,
 				E2DB6699237D3B69005367C2 /* Application.swift in Sources */,

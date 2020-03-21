@@ -54,8 +54,9 @@ class AccountViewController: ViewController, BackNavigator {
         super.bindViewModel()
 
         AppArchiveStatus.currentState
+            .mapHighestStatus()
             .map { (appArchiveStatus) -> Bool in
-                return !AppArchiveStatus.isStartPoint && !appArchiveStatus.contains(where: { $0 == .processing })
+                return appArchiveStatus == .processed // only enable when at least one archive is proccessed
             }
             .bind(to: updateFacebookArchiveButton.rx.isEnabled)
             .disposed(by: disposeBag)

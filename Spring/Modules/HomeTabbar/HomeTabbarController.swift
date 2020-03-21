@@ -178,10 +178,15 @@ extension HomeTabbarController {
                 DispatchQueue.main.async {
                     guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
                         let sender = selectedNavigation.topViewController,
-                        !(sender is UploadDataViewController) else { return }
+                        !(sender is UploadDataViewController), !(sender is UpdateYourDataViewController) else { return }
 
-                    let viewModel = UploadDataViewModel()
-                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    if AppArchiveStatus.currentState.value.contains(.processed) {
+                        let viewModel = UpdateYourDataViewModel()
+                        Navigator.default.show(segue: .updateYourData(viewModel: viewModel), sender: sender)
+                    } else {
+                        let viewModel = UploadDataViewModel()
+                        Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    }
                 }
             }
         alertController.show()

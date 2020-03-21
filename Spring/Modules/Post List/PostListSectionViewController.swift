@@ -120,10 +120,14 @@ extension PostListSectionViewController: UITableViewDataSource, UITableViewDeleg
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return postSections[section].value.count
+        return postSections[section].value.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard indexPath.row < postSections[indexPath.section].value.count else {
+            return FooterCell()
+        }
+
         let post = postSections[indexPath.section].value[indexPath.row]
         let cell = PostTableView.extractPostCell(with: post, tableView, indexPath)
         cell.clickableDelegate = self
@@ -139,14 +143,6 @@ extension PostListSectionViewController: UITableViewDataSource, UITableViewDeleg
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
-
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return PostTableView.makeFooterView()
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

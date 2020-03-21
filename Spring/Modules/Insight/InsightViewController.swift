@@ -128,7 +128,7 @@ class InsightViewController: ViewController {
 
         case .automate, .manual:
             dependentSections.flex.addItem(uploadProgressView).marginTop(-22)
-            dependentSections.flex.addItem(moreInsightsComingView).marginTop(-22)
+            dependentSections.flex.addItem(moreInsightsComingView).marginTop(-30)
         }
     }
 

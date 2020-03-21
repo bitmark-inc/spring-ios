@@ -54,11 +54,16 @@ class UpdateYourDataViewModel: ViewModel {
         }
     }
 
+    // only calls to update in case automate
     func update(isAutomate: Bool? = nil) -> Completable {
         guard let isAutomate = isAutomate else {
             return Completable.empty()
         }
 
-        return FbmAccountDataEngine.update(isAutomate: isAutomate).asCompletable()
+        return FbmAccountDataEngine.update(isAutomate: isAutomate)
+            .flatMapCompletable { (_) -> Completable in
+                GetYourData.standard.optionRelay.accept(.automate)
+                return Completable.empty()
+        }
     }
 }

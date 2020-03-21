@@ -16,6 +16,7 @@ class ReactionTableView: TableView {
         super.init(frame: frame, style: style)
         self.register(cellWithClass: ListHeadingViewCell.self)
         self.register(cellWithClass: ReactionTableViewCell.self)
+        self.register(cellWithClass: FooterCell.self)
 
         themeService.rx
             .bind({ $0.background }, to: rx.backgroundColor)

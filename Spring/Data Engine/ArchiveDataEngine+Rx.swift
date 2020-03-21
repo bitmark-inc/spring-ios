@@ -58,6 +58,8 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                     appArchiveStatuses.append(.requesting)
                 }
 
+                Global.log.debug("[done] convertAppArchiveStatus: \(appArchiveStatuses)")
+
                 return appArchiveStatuses.compactMap { $0 }
             }
     }
@@ -143,7 +145,6 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                             guard !AppError.errorByNetworkConnection(error) else { return }
                             Global.log.error(error)
                         }, onCompleted: {
-                            print(Thread.current.threadName)
                             autoreleasepool {
                                 do {
                                     try realm.write {
@@ -177,14 +178,27 @@ extension Array where Element: Archive {
         case .processing, .submitted:  return .processing
         case .created:                 return .created
         case .invalid:
+            // only fetch invalid archives hasn't retried: invalid archives which is later than other status archives
+            let notInvalidArchivesLatestDate = filter { $0.status != ArchiveStatus.invalid.rawValue }.map { $0.updatedAt }.max()
             let sortedInvalidArchiveIDs = self
                 .filter { $0.status == ArchiveStatus.invalid.rawValue }
+                .filter {
+                    guard let notInvalidArchivesLatestDate = notInvalidArchivesLatestDate else {
+                        return true
+                    }
+                    return $0.updatedAt > notInvalidArchivesLatestDate
+                }
                 .sorted { $0.updatedAt > $1.updatedAt }
 
             guard let latestInvalidArchive = sortedInvalidArchiveIDs.first else {
                 return nil
             }
-            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+            switch latestInvalidArchive.messageError {
+            case .invalidArchive, .failToCreateArchive, .failToDownloadArchive:
+                return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+            default:
+                return .processing
+            }
         }
     }
 }

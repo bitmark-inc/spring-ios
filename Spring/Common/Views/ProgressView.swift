@@ -96,14 +96,11 @@ class ProgressView: UIView {
                     self.showIndeterminateProgressBar = true
 
                 case .uploading:
-                    self.showIndeterminateProgressBar = false
                     self.titleLabel.setText(R.string.localizable.uploading().localizedUppercase)
+                    self.showIndeterminateProgressBar = false
 
                 case .requesting:
-                    if let fbArchiveCreatedAt = GetYourData.standard.requestedAtRelay.value {
-                        self.titleLabel.setText(R.string.localizable.facebookRequested().localizedUppercase)
-                        self.fileLabel.setText(fbArchiveCreatedAt.string(withFormat: Constant.TimeFormat.archive))
-                    }
+                    self.titleLabel.setText(R.string.localizable.facebookRequested().localizedUppercase)
                     self.showIndeterminateProgressBar = true
 
                 default:
@@ -152,13 +149,13 @@ class ProgressView: UIView {
                         flex.addItem(progressBar)
                         flex.addItem(indeterminateProgressBar)
                     }
-                    flex.addItem(valueLabel).marginTop(5).alignSelf(.end).height(16).width(100%)
+                    flex.addItem(valueLabel).alignSelf(.end)
+                        .height(16).width(100%)
+                        .marginBottom(8).marginTop(5)
             }
         }
         bindInfo()
     }
-
-
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
