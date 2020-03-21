@@ -14,6 +14,7 @@ protocol FbmAccountDataEngineDelegate {
     static func createOrUpdate(isAutomate: Bool) -> Single<FbmAccount>
     static func syncMe() -> Completable
     static func fetchMe() -> FbmAccount?
+    static func fetchResultsMe() -> Results<FbmAccount>?
 }
 
 class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
@@ -24,7 +25,6 @@ class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
 
     static func fetchMe() -> FbmAccount? {
         guard let number = Global.current.account?.getAccountNumber() else {
-            Global.log.error("incorrect flow: call fetchMe when no Global.current.account")
             return nil
         }
 
@@ -37,6 +37,20 @@ class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
             }
 
             return me
+        } catch {
+            Global.log.error(error)
+            return nil
+        }
+    }
+
+    static func fetchResultsMe() -> Results<FbmAccount>? {
+        guard let number = Global.current.account?.getAccountNumber() else {
+            return nil
+        }
+
+        do {
+            let realm = try RealmConfig.currentRealm()
+            return realm.objects(FbmAccount.self).filter("accountNumber == %@", number)
         } catch {
             Global.log.error(error)
             return nil
@@ -56,11 +70,29 @@ class FbmAccountDataEngine: FbmAccountDataEngineDelegate {
                     return Single.just(fbmAccount)
                 } else {
                     return FbmAccountService.updateMe(metadata: metadata)
+                        .flatMap({ (fbmAccount) in
+                            Storage.store(fbmAccount)
+                                .andThen(Single.just(fbmAccount))
+                        })
                 }
             }
-            .flatMap({ (fbmAccount) in
-                Storage.store(fbmAccount)
-                    .andThen(Single.just(fbmAccount))
-            })
+    }
+
+    static func update(isAutomate: Bool) -> Single<FbmAccount> {
+        return Single.just(fetchMe())
+            .errorOnNil()
+            .flatMap { (fbmAccount) in
+                let metadata = ["automate": isAutomate]
+
+                if fbmAccount.metadataInfo?.automate == isAutomate {
+                    return Single.just(fbmAccount)
+                } else {
+                    return FbmAccountService.updateMe(metadata: metadata)
+                        .flatMap({ (fbmAccount) in
+                            Storage.store(fbmAccount)
+                                .andThen(Single.just(fbmAccount))
+                        })
+                }
+            }
     }
 }

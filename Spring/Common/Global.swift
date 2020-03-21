@@ -105,6 +105,18 @@ class Global {
         ErrorReporting.setUser(bitmarkAccountNumber: nil)
     }
 
+    static func clearCacheStorage() {
+        Global.log.info("[start] clearCacheStorage")
+        do {
+            let realm = try RealmConfig.currentRealm()
+            try realm.write {
+                realm.delete(realm.objects(QueryTrack.self))
+            }
+        } catch {
+            Global.log.error(error)
+        }
+    }
+
     static func pollingSyncAppArchiveStatus() {
         // avoid override the tracking status in local
         let currentState = AppArchiveStatus.currentState.value
@@ -126,7 +138,7 @@ class Global {
         }
 
         pollingFunction()
-            .retry(.delayed(maxCount: 1000, time: 5 * 60))
+            .retry(.delayed(maxCount: 1000, time: 2 * 60))
             .subscribe()
             .disposed(by: disposeBag)
     }
@@ -240,6 +252,7 @@ extension UserDefaults {
             return archiveStatusStrings.compactMap { AppArchiveStatus(rawValue: $0) }
         }
         set {
+            AppArchiveStatus.currentState.accept(newValue)
             let archiveStatusStrings = newValue.compactMap { $0.rawValue }
             set(archiveStatusStrings, forKey: #function)
         }
@@ -247,6 +260,11 @@ extension UserDefaults {
 
     var isAccountSecured: Bool {
         get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var numberOfProcessedArchives: Int {
+        get { return integer(forKey: #function) }
         set { set(newValue, forKey: #function) }
     }
 }

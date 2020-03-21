@@ -607,6 +607,15 @@
 		5BD5EB582423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
 		5BD5EB592423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
 		5BD5EB5A2423795C00319799 /* TrackingRequestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5EB572423795C00319799 /* TrackingRequestState.swift */; };
+		5BD78F182424869100B301FC /* UpdateYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F172424869100B301FC /* UpdateYourDataViewController.swift */; };
+		5BD78F192424869100B301FC /* UpdateYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F172424869100B301FC /* UpdateYourDataViewController.swift */; };
+		5BD78F1A2424869100B301FC /* UpdateYourDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F172424869100B301FC /* UpdateYourDataViewController.swift */; };
+		5BD78F1C2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1B2424869C00B301FC /* UpdateYourDataViewModel.swift */; };
+		5BD78F1D2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1B2424869C00B301FC /* UpdateYourDataViewModel.swift */; };
+		5BD78F1E2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1B2424869C00B301FC /* UpdateYourDataViewModel.swift */; };
+		5BD78F20242496B700B301FC /* CoverLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1F242496B700B301FC /* CoverLayerView.swift */; };
+		5BD78F21242496B700B301FC /* CoverLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1F242496B700B301FC /* CoverLayerView.swift */; };
+		5BD78F22242496B700B301FC /* CoverLayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD78F1F242496B700B301FC /* CoverLayerView.swift */; };
 		5BDC63E823F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63E923F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
 		5BDC63EA23F3BF9F004C7532 /* AggregateAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */; };
@@ -1133,6 +1142,9 @@
 		5BC91CC423CC3DB6000058A7 /* ReleaseNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseNoteViewController.swift; sourceTree = "<group>"; };
 		5BD5EB532423674E00319799 /* VideoPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerDelegate.swift; sourceTree = "<group>"; };
 		5BD5EB572423795C00319799 /* TrackingRequestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingRequestState.swift; sourceTree = "<group>"; };
+		5BD78F172424869100B301FC /* UpdateYourDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateYourDataViewController.swift; sourceTree = "<group>"; };
+		5BD78F1B2424869C00B301FC /* UpdateYourDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateYourDataViewModel.swift; sourceTree = "<group>"; };
+		5BD78F1F242496B700B301FC /* CoverLayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverLayerView.swift; sourceTree = "<group>"; };
 		5BDC63E723F3BF9F004C7532 /* AggregateAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateAnalysisView.swift; sourceTree = "<group>"; };
 		5BDC63EB23F3EFAF004C7532 /* stats-posts.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-posts.json"; sourceTree = "<group>"; };
 		5BDC63EF23F3EFC1004C7532 /* stats-reactions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "stats-reactions.json"; sourceTree = "<group>"; };
@@ -1496,6 +1508,7 @@
 				E23807C52396023F0079A3C4 /* LinkAttributedString.swift */,
 				5BC278182408CD2B00564A98 /* SelectionWithDelete.swift */,
 				5B837642240D0F380041B0C0 /* ProgressView.swift */,
+				5BD78F1F242496B700B301FC /* CoverLayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1949,6 +1962,7 @@
 			isa = PBXGroup;
 			children = (
 				5BAAE59424067A010073F93A /* Upload */,
+				5BD78F162424867800B301FC /* Update */,
 			);
 			path = "Upload Data";
 			sourceTree = "<group>";
@@ -2013,6 +2027,15 @@
 				5BF45665241B4776009D9736 /* ReleaseNotes.md */,
 			);
 			path = ReleaseNotes;
+			sourceTree = "<group>";
+		};
+		5BD78F162424867800B301FC /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				5BD78F172424869100B301FC /* UpdateYourDataViewController.swift */,
+				5BD78F1B2424869C00B301FC /* UpdateYourDataViewModel.swift */,
+			);
+			path = Update;
 			sourceTree = "<group>";
 		};
 		5BE39E7823E3D84B0098811C /* Mocks */ = {
@@ -3053,6 +3076,7 @@
 				5832FC52237A863300FA3196 /* ActivityIndicator.swift in Sources */,
 				5B590A6E23B302D6006C194D /* MoodView.swift in Sources */,
 				E28B5611238D180B00F1BCF2 /* FbmAccountAPI.swift in Sources */,
+				5BD78F1C2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */,
 				5832FCA6237A8A9200FA3196 /* UITableView+ApplyChanges.swift in Sources */,
 				5832FC97237A889A00FA3196 /* Credential.swift in Sources */,
 				5B75C832241E8D1600D241E0 /* MediaDataEngine.swift in Sources */,
@@ -3086,6 +3110,7 @@
 				5BBAF82C2418F83F00467C86 /* PostListSectionViewController.swift in Sources */,
 				58E8B24923F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF6F23B23CAA00E57A20 /* IncomeView.swift in Sources */,
+				5BD78F20242496B700B301FC /* CoverLayerView.swift in Sources */,
 				5832FCB0237A8A9300FA3196 /* String+Helper.swift in Sources */,
 				E22290A223953B0600412CBC /* PostTableView.swift in Sources */,
 				5832FC4D237A863300FA3196 /* NoInternetBanner.swift in Sources */,
@@ -3220,6 +3245,7 @@
 				5B98DFAA241F40960028D78F /* VideoCollectionCell.swift in Sources */,
 				E22290992395108F00412CBC /* PostService.swift in Sources */,
 				5B4A238723B115D100447366 /* FilterDayView.swift in Sources */,
+				5BD78F182424869100B301FC /* UpdateYourDataViewController.swift in Sources */,
 				5832FCA8237A8A9200FA3196 /* Observable+Operators.swift in Sources */,
 				E28B5607238D103300F1BCF2 /* Auth.swift in Sources */,
 				5832FC3F237A863300FA3196 /* Global+Log.swift in Sources */,
@@ -3296,6 +3322,7 @@
 				5B590A7023B302D6006C194D /* MoodView.swift in Sources */,
 				5B5DFFD523A1F0F4003D1A1C /* ActivityIndicator.swift in Sources */,
 				5B5DFFD623A1F0F4003D1A1C /* UITableView+ApplyChanges.swift in Sources */,
+				5BD78F1E2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */,
 				5B5DFFD723A1F0F4003D1A1C /* PostDataTableViewCell.swift in Sources */,
 				5B5DFFD823A1F0F4003D1A1C /* Credential.swift in Sources */,
 				5B75C834241E8D1600D241E0 /* MediaDataEngine.swift in Sources */,
@@ -3329,6 +3356,7 @@
 				5BBAF82E2418F83F00467C86 /* PostListSectionViewController.swift in Sources */,
 				58E8B24B23F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF7123B23CAA00E57A20 /* IncomeView.swift in Sources */,
+				5BD78F22242496B700B301FC /* CoverLayerView.swift in Sources */,
 				5B5DFFE923A1F0F4003D1A1C /* PostTableView.swift in Sources */,
 				5B5DFFEA23A1F0F4003D1A1C /* String+Helper.swift in Sources */,
 				5B5DFFEB23A1F0F4003D1A1C /* NoInternetBanner.swift in Sources */,
@@ -3463,6 +3491,7 @@
 				5B98DFAC241F40960028D78F /* VideoCollectionCell.swift in Sources */,
 				5B5D003B23A1F0F4003D1A1C /* PostService.swift in Sources */,
 				5B4A238923B115D100447366 /* FilterDayView.swift in Sources */,
+				5BD78F1A2424869100B301FC /* UpdateYourDataViewController.swift in Sources */,
 				5B5D003C23A1F0F4003D1A1C /* ViewModel.swift in Sources */,
 				5B5D003D23A1F0F4003D1A1C /* Observable+Operators.swift in Sources */,
 				5B5D003E23A1F0F4003D1A1C /* Global+Log.swift in Sources */,
@@ -3535,6 +3564,7 @@
 				5B590A6F23B302D6006C194D /* MoodView.swift in Sources */,
 				E2DB6685237D3B69005367C2 /* ActivityIndicator.swift in Sources */,
 				E2DB6686237D3B69005367C2 /* UITableView+ApplyChanges.swift in Sources */,
+				5BD78F1D2424869C00B301FC /* UpdateYourDataViewModel.swift in Sources */,
 				E23807CA239618000079A3C4 /* PostDataTableViewCell.swift in Sources */,
 				E2DB6687237D3B69005367C2 /* Credential.swift in Sources */,
 				5B75C833241E8D1600D241E0 /* MediaDataEngine.swift in Sources */,
@@ -3568,6 +3598,7 @@
 				5BBAF82D2418F83F00467C86 /* PostListSectionViewController.swift in Sources */,
 				58E8B24A23F269B90006D45B /* StatsView.swift in Sources */,
 				5BA9FF7023B23CAA00E57A20 /* IncomeView.swift in Sources */,
+				5BD78F21242496B700B301FC /* CoverLayerView.swift in Sources */,
 				E22290A323953B0600412CBC /* PostTableView.swift in Sources */,
 				E2DB668E237D3B69005367C2 /* String+Helper.swift in Sources */,
 				E2DB668F237D3B69005367C2 /* NoInternetBanner.swift in Sources */,
@@ -3702,6 +3733,7 @@
 				5B98DFAB241F40960028D78F /* VideoCollectionCell.swift in Sources */,
 				E222909A2395108F00412CBC /* PostService.swift in Sources */,
 				5B4A238823B115D100447366 /* FilterDayView.swift in Sources */,
+				5BD78F192424869100B301FC /* UpdateYourDataViewController.swift in Sources */,
 				E2DB66AF237D3B69005367C2 /* ViewModel.swift in Sources */,
 				E2DB66B0237D3B69005367C2 /* Observable+Operators.swift in Sources */,
 				E2DB66B1237D3B69005367C2 /* Global+Log.swift in Sources */,

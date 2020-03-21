@@ -25,7 +25,7 @@ class ReactionListSectionViewModel: ViewModel {
             remoteQuery: .reactions)
 
         realmReactions = ReactionDataEngine.fetch()
-        if realmReactions?.count == 0 {
+        if realmReactions?.count == 0 || syncLoadDataEngine.fetchQueryTrack() == nil  {
             loadMore()
         }
     }

@@ -36,6 +36,7 @@ class Navigator {
         case safariController(URL)
         case hometabs(missions: [Mission])
         case uploadData(viewModel: UploadDataViewModel)
+        case updateYourData(viewModel: UpdateYourDataViewModel)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
         case postListSection(viewModel: PostListSectionViewModel)
@@ -139,7 +140,7 @@ class Navigator {
         case .signOutWarning, .signOut,
              .biometricAuth,
              .viewRecoveryKeyWarning, .viewRecoverykey,
-             .deleteAccount,
+             .updateYourData, .deleteAccount,
              .increasePrivacyList, .increasePrivacy,
              .releaseNote:
 
@@ -150,6 +151,7 @@ class Navigator {
             case .biometricAuth:                    viewController = BiometricAuthViewController()
             case .viewRecoveryKeyWarning:           viewController = ViewRecoveryKeyWarningViewController()
             case .viewRecoverykey(let viewModel):   viewController = ViewRecoveryKeyViewController(viewModel: viewModel)
+            case .updateYourData(let viewModel):    viewController = UpdateYourDataViewController(viewModel: viewModel)
             case .deleteAccount(let viewModel):     viewController = DeleteAccountViewController(viewModel: viewModel)
             case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
             case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)

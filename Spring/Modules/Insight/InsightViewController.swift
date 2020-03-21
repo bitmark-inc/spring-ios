@@ -128,7 +128,7 @@ class InsightViewController: ViewController {
 
         case .automate, .manual:
             dependentSections.flex.addItem(uploadProgressView).marginTop(-22)
-            dependentSections.flex.addItem(moreInsightsComingView)
+            dependentSections.flex.addItem(moreInsightsComingView).marginTop(-22)
         }
     }
 
@@ -241,7 +241,9 @@ extension InsightViewController {
     }
 
     fileprivate func makeUploadProgressView() -> ProgressView {
-        return ProgressView()
+        let progressView = ProgressView()
+        progressView.bindInfoInDashboard()
+        return progressView
     }
 
     fileprivate func makeAutomateRequestInfoView() -> AutomateRequestInfoView {

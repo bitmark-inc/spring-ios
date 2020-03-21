@@ -40,6 +40,7 @@
 
 "Uploading..." = "Uploading...";
 "Processing..." = "Processing..";
+"FacebookRequested..." = "Processing..";
 "sizeProgress" = "%@ of %@";
 
 "Success" = "Success";

@@ -25,7 +25,7 @@ class PostListSectionViewModel: ViewModel {
             remoteQuery: .posts)
 
         realmPosts = PostDataEngine.fetch()
-        if realmPosts?.count == 0 {
+        if realmPosts?.count == 0 || syncLoadDataEngine.fetchQueryTrack() == nil {
             loadMore()
         }
     }

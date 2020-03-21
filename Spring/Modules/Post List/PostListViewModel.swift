@@ -33,7 +33,7 @@ class PostListViewModel: ViewModel {
             .fetch(with: filterScope)?
             .sorted(byKeyPath: "timestamp", ascending: false)
 
-        if realmPosts?.count == 0 {
+        if realmPosts?.count == 0 || syncLoadDataEngine.fetchQueryTrack() == nil {
             loadMore()
         }
     }

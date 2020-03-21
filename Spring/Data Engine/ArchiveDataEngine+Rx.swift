@@ -19,9 +19,12 @@ protocol ArchiveDataEngineDelegate {
 
 class ArchiveDataEngine: ArchiveDataEngineDelegate {
     static func fetchAppArchiveStatus() -> Single<[AppArchiveStatus]> {
+        Global.log.info("[start] ArchiveDataEngine.fetchAppArchiveStatus")
+
         return FBArchiveService.getAll()
             .do(onSuccess: { (archives) in
                 _ = ArchiveDataEngine.store(archives)
+                    .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                     .andThen(ArchiveDataEngine.issueBitmarkIfNeeded())
                     .subscribe(onCompleted: {
                         Global.log.info("[done] storeAndIssueBitmarkIfNeeded")
@@ -29,13 +32,27 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                         Global.log.error(error)
                     })
             })
+            .map { (archives) -> [Archive] in
+                // Check to clear cache storage
+                let numberOfProcessed = archives.filter({ $0.status == AppArchiveStatus.processed.rawValue }).count
+                let trackingNumberOfProcessed = Global.current.userDefault?.numberOfProcessedArchives ?? 0
+
+                if trackingNumberOfProcessed < numberOfProcessed {
+                    Global.clearCacheStorage()
+                    _ = FbmAccountDataEngine.syncMe().subscribe()
+                }
+
+                Global.current.userDefault?.numberOfProcessedArchives = numberOfProcessed
+
+                return archives
+            }
             .map { (archives) -> [AppArchiveStatus] in
                 var appArchiveStatuses = [AppArchiveStatus?]()
 
-                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.processed))
-                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.processing))
-                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.invalid))
-                appArchiveStatuses.append(archives.appArchiveStatusIfContains(.created))
+                let orderedArchiveStatuses: [ArchiveStatus] = [.processed, .processing, .submitted, .invalid, .created]
+                orderedArchiveStatuses.forEach { (orderedArchiveStatus) in
+                    appArchiveStatuses.append(archives.appArchiveStatusIfContains(orderedArchiveStatus))
+                }
 
                 if UserDefaults.standard.FBArchiveCreatedAt != nil {
                     appArchiveStatuses.append(.requesting)
@@ -82,63 +99,69 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                 return Completable.never()
             }
 
-            return RealmConfig.rxCurrentRealm()
-                .flatMapCompletable { (realm) -> Completable in
-                    return Completable.create { (event) -> Disposable in
-                        let archives = realm.objects(Archive.self).filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue && $0.contentHash != "" })
-                        for archive in archives {
-                                guard let assetID = RegistrationParams.computeAssetId(fingerprint: archive.contentHash)
-                                    else {
-                                        continue
-                                }
+            return Completable.create { (event) -> Disposable in
+                do {
+                    let realm = try RealmConfig.currentRealm()
+                    let archives = realm.objects(Archive.self)
+                        .filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue && $0.contentHash != "" })
 
-                                let createAssetIfNeededSingle = Maybe<String>.deferred {
-                                    if AssetService.getAsset(with: assetID) != nil {
-                                        return AssetService.rx.existsBitmarks(issuer: account, assetID: assetID)
-                                        .flatMapMaybe { $0 ? Maybe.empty() : Maybe.just(assetID) }
+                    for archive in archives {
+                        guard let assetID = RegistrationParams.computeAssetId(fingerprint: archive.contentHash)
+                            else {
+                                continue
+                        }
 
-                                    } else {
-                                        let appInfoSingle = ServerAssetsService.getAppInformation().asObservable().share()
-                                        let eulaSingle = appInfoSingle.flatMap { DocumentationService.get(linkPath: $0.docs.eula) }
+                        let createAssetIfNeededSingle = Maybe<String>.deferred {
+                            if AssetService.getAsset(with: assetID) != nil {
+                                return AssetService.rx.existsBitmarks(issuer: account, assetID: assetID)
+                                    .flatMapMaybe { $0 ? Maybe.empty() : Maybe.just(assetID) }
 
-                                        return Observable.zip(appInfoSingle, eulaSingle)
-                                            .map { (appInfo, eula) -> AssetInfo in
-                                                return AssetInfo(
-                                                    registrant: account,
-                                                    assetName: "", fingerprint: archive.contentHash,
-                                                    metadata: [
-                                                        "TYPE": "fbdata",
-                                                        "SYSTEM_VERSION": appInfo.systemVersion,
-                                                        "EULA": eula.sha3()
-                                                ])
-                                            }
-                                            .asSingle()
-                                            .flatMapMaybe { AssetService.rx.registerAsset(assetInfo: $0).asMaybe() }
+                            } else {
+                                let appInfoSingle = ServerAssetsService.getAppInformation().asObservable().share()
+                                let eulaSingle = appInfoSingle.flatMap { DocumentationService.get(linkPath: $0.docs.eula) }
+
+                                let archiveContentHash = archive.contentHash
+                                return Observable.zip(appInfoSingle, eulaSingle)
+                                    .map { (appInfo, eula) -> AssetInfo in
+                                        return AssetInfo(
+                                            registrant: account,
+                                            assetName: "", fingerprint: archiveContentHash,
+                                            metadata: [
+                                                "TYPE": "fbdata",
+                                                "SYSTEM_VERSION": appInfo.systemVersion,
+                                                "EULA": eula.sha3()
+                                        ])
                                     }
-                                }
-
-                                _ = createAssetIfNeededSingle
-                                    .flatMap { AssetService.rx.issueBitmark(issuer: account, assetID: $0).asMaybe() }
-                                    .subscribe(onSuccess: { (_) in
-                                        autoreleasepool {
-                                            do {
-                                                try realm.write {
-                                                    archive.issueBitmark = true
-                                                }
-                                            } catch {
-                                                Global.log.error(error)
-                                            }
-                                        }
-                                    }, onError: { (error) in
-                                        guard !AppError.errorByNetworkConnection(error) else { return }
-                                        Global.log.error(error)
-                                    })
+                                    .asSingle()
+                                    .flatMapMaybe { AssetService.rx.registerAsset(assetInfo: $0).asMaybe() }
                             }
+                        }
 
-                        event(.completed)
-                        return Disposables.create()
-                    }
+                    _ = createAssetIfNeededSingle
+                        .flatMap { AssetService.rx.issueBitmark(issuer: account, assetID: $0).asMaybe() }
+                        .subscribe(onError: { (error) in
+                            guard !AppError.errorByNetworkConnection(error) else { return }
+                            Global.log.error(error)
+                        }, onCompleted: {
+                            print(Thread.current.threadName)
+                            autoreleasepool {
+                                do {
+                                    try realm.write {
+                                        archive.issueBitmark = true
+                                    }
+                                } catch {
+                                    Global.log.error(error)
+                                }
+                            }
+                        })
                 }
+
+                    event(.completed)
+                } catch {
+                    event(.error(error))
+                }
+                return Disposables.create()
+            }
         }
     }
 }

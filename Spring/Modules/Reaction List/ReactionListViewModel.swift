@@ -33,7 +33,7 @@ class ReactionListViewModel: ViewModel {
             .fetch(with: filterScope)?
             .sorted(byKeyPath: "timestamp", ascending: false)
 
-        if realmReactions?.count == 0 {
+        if realmReactions?.count == 0 || syncLoadDataEngine.fetchQueryTrack() == nil  {
             loadMore()
         }
     }

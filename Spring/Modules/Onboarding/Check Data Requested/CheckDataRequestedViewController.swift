@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import FlexLayout
 
 class CheckDataRequestedViewController: ViewController {
@@ -40,10 +42,17 @@ class CheckDataRequestedViewController: ViewController {
         checkNowButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
             connectedToInternet()
-                .subscribe(onCompleted: { [weak self] in
-                    self?.gotoMainScreenWithDownloadMission()
+                .andThen(Single.just(AppArchiveStatus.currentState.value))
+                .subscribe(onSuccess: { [weak self] (appArchiveStatuses) in
+                    guard let self = self else { return }
+                    if appArchiveStatuses.contains(.processed) {
+                        self.gotoUpdateYourDataDownloadMission()
+                    } else {
+                        self.gotoMainScreenWithDownloadMission()
+                    }
                 })
                 .disposed(by: self.disposeBag)
+
         }.disposed(by: disposeBag)
     }
 
@@ -86,6 +95,26 @@ extension CheckDataRequestedViewController {
     func gotoMainScreenWithDownloadMission() {
         navigator.show(segue: .hometabs(missions: [.downloadData]),
                        sender: self, transition: .replace(type: .auto))
+
+        guard let hometabVC = (UIApplication.shared.keyWindow?.rootViewController as? NavigationController)?.viewControllers.first as? HomeTabbarController
+            else {
+                return
+        }
+        hometabVC.selectedIndex = 1
+    }
+
+    func gotoUpdateYourDataDownloadMission() {
+        navigator.show(segue: .hometabs(missions: [.downloadData]),
+                       sender: self, transition: .replace(type: .auto))
+
+        guard let hometabVC = (UIApplication.shared.keyWindow?.rootViewController as? NavigationController)?.viewControllers.first as? HomeTabbarController,
+            let selectedViewController = hometabVC.selectedViewController
+            else {
+                return
+        }
+
+        let viewModel = UpdateYourDataViewModel()
+        navigator.show(segue: .updateYourData(viewModel: viewModel), sender: selectedViewController)
     }
 }
 

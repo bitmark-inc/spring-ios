@@ -21,6 +21,7 @@ class AccountViewController: ViewController, BackNavigator {
     lazy var screenTitle = makeScreenTitle()
 
     // *** Section - Account
+    lazy var updateFacebookArchiveButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountUpdateFacebookArchive())
     lazy var deleteAccountButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountDeleteAccount())
     lazy var signOutOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountSignOut())
     lazy var recoveryKeyOptionButton = makeOptionButton(title: R.string.phrase.accountSettingsAccountRecoveryKey())
@@ -51,6 +52,17 @@ class AccountViewController: ViewController, BackNavigator {
 
     override func bindViewModel() {
         super.bindViewModel()
+
+        AppArchiveStatus.currentState
+            .map { (appArchiveStatus) -> Bool in
+                return !AppArchiveStatus.isStartPoint && !appArchiveStatus.contains(where: { $0 == .processing })
+            }
+            .bind(to: updateFacebookArchiveButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+
+        updateFacebookArchiveButton.rx.tap.bind { [weak self] in
+            self?.gotoUpdateYourDataScreen()
+        }.disposed(by: disposeBag)
 
         signOutOptionButton.rx.tap.bind { [weak self] in
             self?.gotoSignOutFlow()
@@ -116,7 +128,7 @@ class AccountViewController: ViewController, BackNavigator {
             flex.addItem(
                 makeOptionsSection(
                     name: R.string.phrase.accountSettingsAccount(),
-                    options: [signOutOptionButton, recoveryKeyOptionButton]))
+                    options: [updateFacebookArchiveButton, signOutOptionButton, recoveryKeyOptionButton]))
                 .marginTop(12)
 
             flex.addItem(
@@ -151,6 +163,11 @@ class AccountViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension AccountViewController {
+    fileprivate func gotoUpdateYourDataScreen() {
+        let viewModel = UpdateYourDataViewModel()
+        navigator.show(segue: .updateYourData(viewModel: viewModel), sender: self)
+    }
+
     fileprivate func gotoSignOutFlow() {
         navigator.show(segue: .signOutWarning, sender: self)
     }

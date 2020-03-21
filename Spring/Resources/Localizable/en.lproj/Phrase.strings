@@ -67,6 +67,10 @@
 "uploadData.browserFile" = "Add zip file »";
 "uploadData.provideURL" = "Add cloud storage URL";
 
+"updateYourData.title" = "Update Your Data";
+"updateYourData.option.2.instruction" = "Go to %@ and select “Download Your Information” in “JSON” format. You can use the “Date range” option to request only the data you need.\n\nWhen notified by Facebook that your data is ready, store your zip file in the cloud or on this device. To continue:";
+"updateYourData.dataInfo" = "Last updated: %@.\nNew data will be added to your archive.";
+
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
 "post.postInfo.locationTag" = " @%@";
@@ -91,6 +95,7 @@
 "account.settings.title" = "Settings";
 
 "account.settings.account" = "Account";
+"account.settings.account.updateFacebookArchive" = "Update Facebook archive »";
 "account.settings.account.deleteAccount" = "Delete data »";
 "account.settings.account.signOut" = "Sign out »";
 "account.settings.account.recoveryKey" = "Recovery key »";

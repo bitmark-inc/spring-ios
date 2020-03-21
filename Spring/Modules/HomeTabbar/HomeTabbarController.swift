@@ -90,18 +90,27 @@ class HomeTabbarController: ESTabBarController {
         themeService.rx
             .bind({ $0.background }, to: view.rx.backgroundColor)
             .disposed(by: disposeBag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
+            guard let self = self else { return }
+            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self.registerOneSignal()
+                }
+            }
+        }
 
         bindViewModel()
     }
 
-    // 1. polling archive status when archive status is still processing
-    // 2. observe the result of archive uploading
-    // 3. observe the result of archive processing, show error if invalid
+    // 1. observe the result of archive uploading
+    // 2. observe the result of archive processing, show error if invalid
     fileprivate func bindViewModel() {
-         // 1
-        Global.pollingSyncAppArchiveStatus()
-
-        // 2
+        // 1
         BackgroundTaskManager.shared.uploadProgressRelay
             .map { $0[SessionIdentifier.upload.rawValue] }.filterNil()
             .observeOn(MainScheduler.instance)
@@ -122,7 +131,7 @@ class HomeTabbarController: ESTabBarController {
             })
             .disposed(by: disposeBag)
 
-        // 3
+        // 2
         AppArchiveStatus.currentState
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] (appArchiveStatuses) in
@@ -148,19 +157,6 @@ class HomeTabbarController: ESTabBarController {
             })
             .disposed(by: disposeBag)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
-            guard let self = self else { return }
-            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
-                DispatchQueue.main.async {
-                    self.registerOneSignal()
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Handle Error
@@ -169,7 +165,7 @@ extension HomeTabbarController {
         var errorTitle = R.string.error.generalTitle()
         var errorMessage = R.string.error.system()
         switch messageError {
-        case .failToCreateArchive, .failToDownloadArchive:
+        case .failToCreateArchive, .failToDownloadArchive, .invalidArchive:
             errorTitle = R.string.error.invalidArchiveFileTitle()
             errorMessage = R.string.error.invalidArchiveFileMessage()
         default:

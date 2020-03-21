@@ -30,14 +30,14 @@ enum AppArchiveStatus {
         var currentStatuses = userDefaults.latestAppArchiveStatus
         currentStatuses.removeAll(where: { $0 == oldStatus })
         currentStatuses.append(status)
-        userDefaults.latestAppArchiveStatus = currentStatuses
+        Global.current.userDefault?.latestAppArchiveStatus = currentStatuses
     }
 
     static func append(_ status: AppArchiveStatus) {
         guard let userDefaults = Global.current.userDefault else { return }
         var currentStatuses = userDefaults.latestAppArchiveStatus
         currentStatuses.append(status)
-        userDefaults.latestAppArchiveStatus = currentStatuses
+        Global.current.userDefault?.latestAppArchiveStatus = currentStatuses
     }
 
     static var isStartPoint: Bool {

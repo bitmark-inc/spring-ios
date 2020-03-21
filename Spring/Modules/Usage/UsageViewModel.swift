@@ -43,7 +43,9 @@ class UsageViewModel: ViewModel {
 
                 return Completable.error(error)
             })
-            .andThen(Single.just(FbmAccountDataEngine.fetchMe()))
+            .andThen(Single.deferred {
+                return Single.just(FbmAccountDataEngine.fetchMe())
+            })
             .errorOnNil()
             .map { try Converter<Metadata>(from: $0.metadata).value }
             .map { $0.latestActivityDate }

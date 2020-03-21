@@ -108,6 +108,7 @@ extension RequestDataDelegate where Self: UIViewController {
                     Global.log.info("[done] SignUpAndSubmitArchive")
                     UserDefaults.standard.FBArchiveCreatedAt = nil
                     AppArchiveStatus.transfer(from: .requesting, to: .processing)
+                    Global.log.debug("[AppArchiveStatus]: \(AppArchiveStatus.currentState.value)")
 
                     Global.pollingSyncAppArchiveStatus()
 

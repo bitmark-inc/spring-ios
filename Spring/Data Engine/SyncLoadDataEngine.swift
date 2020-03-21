@@ -112,7 +112,7 @@ class SyncLoadDataEngine {
         QueryTrack.store(trackedDatePeriods: trackedDatePeriods, in: remoteQuery, syncedDatePeriod: syncedDatePeriod)
     }
 
-    fileprivate func fetchQueryTrack() -> QueryTrack? {
+    func fetchQueryTrack() -> QueryTrack? {
         do {
             let realm = try RealmConfig.currentRealm()
             switch remoteQuery {
