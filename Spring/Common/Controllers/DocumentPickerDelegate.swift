@@ -15,6 +15,8 @@ protocol DocumentPickerDelegate: AnyObject {
     func browseFile(fileTypes: [String])
     func didPickDocument(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL)
     func handle(selectedFileURL: URL)
+
+    func fileSizeIfValid(_ fileSize: Int64) -> Bool
 }
 
 extension DocumentPickerDelegate where Self: UIViewController {
@@ -66,5 +68,9 @@ extension DocumentPickerDelegate where Self: UIViewController {
                 }
             }
         }
+    }
+
+    func fileSizeIfValid(_ fileSize: Int64) -> Bool {
+        return fileSize <= 5 * 1024 * 1024 * 1024 // limit 5GB
     }
 }

@@ -35,7 +35,7 @@ class TimeFilterView: UIView {
         periodDescriptionLabel.textAlignment = .center
 
         flex.direction(.column)
-            .padding(0, 18, 34, 18)
+            .padding(0, 18, 18, 18)
             .define { (flex) in
                 flex.addItem(filterSegment).height(40)
                 flex.addItem().marginTop(18).direction(.row).define { (flex) in

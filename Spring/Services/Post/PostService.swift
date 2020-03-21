@@ -16,10 +16,14 @@ class PostService {
 
     static func getAll(startDate: Date, endDate: Date) -> Single<[Post]> {
         Global.log.info("[start] PostService.get(startDate, endDate)")
+        TrackingRequestState.standard.syncPostsState.accept(.loading)
 
         return provider.rx.requestWithRefreshJwt(.get(startDate: startDate, endDate: endDate))
             .filterSuccess()
             .map([Post].self, atKeyPath: "result")
+            .do {
+                TrackingRequestState.standard.syncPostsState.accept(.done)
+            }
     }
 
     static func getSpringStats(startDate: Date, endDate: Date) -> Single<Stats> {

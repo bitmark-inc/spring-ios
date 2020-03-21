@@ -71,8 +71,6 @@ class FilterDayView: UIView {
         weak var container = container
         self.section = section
 
-        var dataObserver: Disposable? // stop observing old-data
-
         container?.thisViewModel.timeUnitRelay
             .subscribe(onNext: { [weak self] (timeUnit) in
                 self?.updateFilterText(timeUnit: timeUnit)
@@ -81,66 +79,40 @@ class FilterDayView: UIView {
 
         switch section {
         case .post:
-            container?.thisViewModel.realmPostUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container  else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsPostUsageObservable
-                            .map { $0.subPeriod }
-                            .map { [weak container] (graphDatas) -> [Date: (String, [Double])]? in
-                                guard let graphDatas = graphDatas, let container = container
-                                    else {
-                                        return nil
-                                }
-
-                                return GraphDataConverter.getDataGroupByDay(
-                                    with: graphDatas,
-                                    timeUnit: container.thisViewModel.timeUnitRelay.value,
-                                    startDate: container.thisViewModel.dateRelay.value,
-                                    in: .post)
-                            }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+            container?.thisViewModel.realmPostUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
+                    guard let self = self, let container = container else { return }
+                    if let subPeriodGroups = groups?.subPeriod {
+                        let graphData = GraphDataConverter.getDataGroupByDay(
+                            with: subPeriodGroups,
+                            timeUnit: container.thisViewModel.timeUnitRelay.value,
+                            startDate: container.thisViewModel.dateRelay.value,
+                            in: .post)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })
                 .disposed(by: disposeBag)
 
         case .reaction:
-            container?.thisViewModel.realmReactionUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
+            container?.thisViewModel.realmReactionUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
                     guard let self = self, let container = container  else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsReactionUsageObservable
-                            .map { $0.subPeriod }
-                            .map { [weak container] (graphDatas) -> [Date: (String, [Double])]? in
-                                guard let graphDatas = graphDatas, let container = container
-                                    else {
-                                        return nil
-                                }
-
-                                return GraphDataConverter.getDataGroupByDay(
-                                    with: graphDatas,
-                                    timeUnit: container.thisViewModel.timeUnitRelay.value,
-                                    startDate: container.thisViewModel.dateRelay.value,
-                                    in: .reaction)
-                            }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+                    if let subPeriodGroups = groups?.subPeriod {
+                        let graphData = GraphDataConverter.getDataGroupByDay(
+                            with: subPeriodGroups,
+                            timeUnit: container.thisViewModel.timeUnitRelay.value,
+                            startDate: container.thisViewModel.dateRelay.value,
+                            in: .reaction)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })

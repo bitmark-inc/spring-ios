@@ -34,7 +34,7 @@ class ListHeadingViewCell: TableViewCell {
                         flex.addItem(timelineLabel).marginTop(7)
                 }
 
-                flex.addItem(SectionSeparator()).marginTop(27)
+                flex.addItem().marginTop(27)
         }
     }
 

@@ -18,6 +18,7 @@ class LinkPostTableViewCell: TableViewCell, PostDataTableViewCell {
     fileprivate lazy var captionLabel = makeCaptionLabel()
     fileprivate lazy var linkLabel = makeLinkLabel()
     weak var clickableDelegate: ClickableDelegate?
+    weak var videoPlayerDelegate: VideoPlayerDelegate?
 
     // MARK: - Inits
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,12 +28,12 @@ class LinkPostTableViewCell: TableViewCell, PostDataTableViewCell {
             .bind({ $0.postCellBackgroundColor }, to: rx.backgroundColor)
 
         contentView.flex.direction(.column).define { (flex) in
+            flex.addItem(makeSeparator())
             flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
                 flex.addItem(postInfoLabel)
                 flex.addItem(captionLabel)
                 flex.addItem(linkLabel)
             }
-            flex.addItem(makeSeparator())
         }
     }
 

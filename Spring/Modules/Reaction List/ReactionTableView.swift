@@ -16,6 +16,7 @@ class ReactionTableView: TableView {
         super.init(frame: frame, style: style)
         self.register(cellWithClass: ListHeadingViewCell.self)
         self.register(cellWithClass: ReactionTableViewCell.self)
+        self.register(cellWithClass: FooterCell.self)
 
         themeService.rx
             .bind({ $0.background }, to: rx.backgroundColor)
@@ -24,5 +25,17 @@ class ReactionTableView: TableView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension ReactionTableView {
+    static func makeFooterView() -> UIView {
+        let separatorLine = SectionSeparator(autoLayout: true)
+        let view = UIView()
+        view.addSubview(separatorLine)
+        separatorLine.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        return view
     }
 }

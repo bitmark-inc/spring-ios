@@ -124,6 +124,11 @@ extension Label {
                 .bind({ $0.themeGreenColor }, to: rx.textColor)
                 .disposed(by: disposeBag)
 
+        case .internationalKleinBlue:
+            themeService.rx
+                .bind({ $0.themeBlueColor }, to: rx.textColor)
+                .disposed(by: disposeBag)
+
         default:
             themeService.rx
                 .bind({ $0.blackTextColor }, to: rx.textColor)

@@ -11,90 +11,45 @@ import RealmSwift
 import RxSwift
 
 protocol StatsDataEngineDelegate {
-    static func fetchAndSyncPostStats(startDate: Date, endDate: Date) -> Single<Stats?>
-    static func fetchAndSyncReactionStats(startDate: Date, endDate: Date) -> Single<Stats?>
+    static func fetch(section: Section, startDate: Date, endDate: Date) -> Results<Stats>?
+    static func syncPostStats(startDate: Date, endDate: Date) -> Completable
+    static func syncReactionStats(startDate: Date, endDate: Date) -> Completable
 }
 
 class StatsDataEngine: StatsDataEngineDelegate {
-    static func fetchAndSyncPostStats(startDate: Date, endDate: Date) -> Single<Stats?> {
-        return Single<Stats?>.create { (event) -> Disposable in
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else {
-                        throw AppError.incorrectThread
-                    }
-
-                    let realm = try RealmConfig.currentRealm()
-                    let postStatsID = SectionTimeScope(startDate: startDate, endDate: endDate, section: .post).makeID()
-
-                    let postStats = realm.object(ofType: Stats.self, forPrimaryKey: postStatsID)
-
-                    if postStats != nil  {
-                        event(.success(postStats))
-
-                        _ = PostService.getSpringStats(startDate: startDate, endDate: endDate)
-                            .flatMapCompletable { Storage.store($0) }
-                            .subscribe(onError: { (error) in
-                                Global.backgroundErrorSubject.onNext(error)
-                            })
-                    } else {
-                        _ = PostService.getSpringStats(startDate: startDate, endDate: endDate)
-                            .flatMapCompletable { Storage.store($0) }
-                            .observeOn(MainScheduler.instance)
-                            .subscribe(onCompleted: {
-                                let postStats = realm.object(ofType: Stats.self, forPrimaryKey: postStatsID)
-                                event(.success(postStats))
-                            }, onError: { (error) in
-                                event(.error(error))
-                            })
-                    }
-                } catch {
-                    event(.error(error))
-                }
-
-                return Disposables.create()
+    static func fetch(section: Section, startDate: Date, endDate: Date) -> Results<Stats>? {
+        do {
+            guard Thread.current.isMainThread else {
+                throw AppError.incorrectThread
             }
+
+            let statsID = SectionTimeScope(startDate: startDate, endDate: endDate, section: section).makeID()
+
+            let realm = try RealmConfig.currentRealm()
+            return realm.objects(Stats.self).filter("id == %@", statsID)
+        } catch {
+            Global.log.error(error)
+            return nil
         }
     }
 
-    static func fetchAndSyncReactionStats(startDate: Date, endDate: Date) -> Single<Stats?> {
-        return Single<Stats?>.create { (event) -> Disposable in
-            autoreleasepool {
-                do {
-                    guard Thread.current.isMainThread else {
-                        throw AppError.incorrectThread
-                    }
+    static func syncPostStats(startDate: Date, endDate: Date) -> Completable {
+        Global.log.info("[start] StatsDataEngine.syncPostStats")
 
-                    let realm = try RealmConfig.currentRealm()
-                    let reactionStatsID = SectionTimeScope(startDate: startDate, endDate: endDate, section: .reaction).makeID()
+        return PostService.getSpringStats(startDate: startDate, endDate: endDate)
+            .flatMapCompletable { Storage.store($0) }
+            .do(onError: { (error) in
+                Global.backgroundErrorSubject.onNext(error)
+            })
+    }
 
-                    let reactionStats = realm.object(ofType: Stats.self, forPrimaryKey: reactionStatsID)
+    static func syncReactionStats(startDate: Date, endDate: Date) -> Completable {
+        Global.log.info("[start] StatsDataEngine.syncReactionStats")
 
-                    if reactionStats != nil {
-                        event(.success(reactionStats))
-
-                        _ = ReactionService.getSpringStats(startDate: startDate, endDate: endDate)
-                            .flatMapCompletable { Storage.store($0) }
-                            .subscribe(onError: { (error) in
-                                Global.backgroundErrorSubject.onNext(error)
-                            })
-                    } else {
-                        _ = ReactionService.getSpringStats(startDate: startDate, endDate: endDate)
-                            .flatMapCompletable { Storage.store($0) }
-                            .observeOn(MainScheduler.instance)
-                            .subscribe(onCompleted: {
-                                let reactionStats = realm.object(ofType: Stats.self, forPrimaryKey: reactionStatsID)
-                                event(.success(reactionStats))
-                            }, onError: { (error) in
-                                event(.error(error))
-                            })
-                    }
-                } catch {
-                    event(.error(error))
-                }
-
-                return Disposables.create()
-            }
-        }
+        return ReactionService.getSpringStats(startDate: startDate, endDate: endDate)
+            .flatMapCompletable { Storage.store($0) }
+            .do(onError: { (error) in
+                Global.backgroundErrorSubject.onNext(error)
+            })
     }
 }

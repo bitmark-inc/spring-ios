@@ -90,3 +90,17 @@ extension String {
         return Date(timeIntervalSince1970: TimeInterval(Double(self) ?? 0))
     }
 }
+
+// Year to Decade
+extension Int {
+    var decadeText: String {
+        switch self {
+        case 0..<2000:      return "1990-1999"
+        case 2000...2009:   return "2000-2009"
+        case 2010...2019:   return "2010-2019"
+        case 2020...2029:   return "2020-2029"
+        default:
+            return "2030-2039"
+        }
+    }
+}

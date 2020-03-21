@@ -22,6 +22,7 @@ class MediaPostTableViewCell: TableViewCell, PostDataTableViewCell {
     }()
 
     var post: Post?
+    weak var videoPlayerDelegate: VideoPlayerDelegate?
     weak var clickableDelegate: ClickableDelegate?
 
     // MARK: - Inits
@@ -33,13 +34,13 @@ class MediaPostTableViewCell: TableViewCell, PostDataTableViewCell {
 
         contentView.flex.direction(.column)
             .define { (flex) in
+                flex.addItem(makeSeparator())
                 flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
-                flex.addItem(postInfoLabel)
-                flex.addItem(captionLabel)
-                flex.addItem(photosView).width(100%)
+                    flex.addItem(postInfoLabel)
+                    flex.addItem(captionLabel)
+                    flex.addItem(photosView).width(100%)
+                }
             }
-            flex.addItem(makeSeparator())
-        }
 
         contentView.flex.layout(mode: .adjustHeight)
     }
@@ -180,7 +181,7 @@ extension MediaPostTableViewCell {
         let button = Button()
         button.setImage(R.image.playVideo(), for: .normal)
         button.rx.tap.bind { [weak self] in
-            self?.clickableDelegate?.playVideo(mediaSourceKey)
+            self?.videoPlayerDelegate?.playVideo(key: mediaSourceKey)
         }.disposed(by: disposeBag)
         return button
     }

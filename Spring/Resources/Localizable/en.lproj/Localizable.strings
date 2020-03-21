@@ -20,9 +20,10 @@
 "Settings" = "Settings";
 "Lens" = "Lens";
 "YourAuthorizationIsRequired" = "Your authorization is required.";
-"notify_me" = "Notify me »";
+"notify_me_when_done" = "Notify me when it’s done »";
 "Enable" = "Enable";
 "Week" = "Week";
+"Month" = "Month";
 "Year" = "Year";
 "Decade" = "Decade";
 "and" = "and";
@@ -30,6 +31,7 @@
 "HOW YOU USE FACEBOOK" = "HOW YOU USE FACEBOOK";
 "HOW FACEBOOK USES YOU" = "HOW FACEBOOK USES YOU";
 "No_thanks" = "No thanks";
+"Automate_now" = "Automate now »";
 "Check_now" = "Check now »";
 "View_insights" = "View insights »";
 "SubmitArrow" = "Submit »";
@@ -37,7 +39,8 @@
 "View_progress" = "View progress »";
 
 "Uploading..." = "Uploading...";
-"Processing..." = "Processing";
+"Processing..." = "Processing..";
+"FacebookRequested..." = "Processing..";
 "sizeProgress" = "%@ of %@";
 
 "Success" = "Success";

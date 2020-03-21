@@ -40,25 +40,20 @@ class SectionHeadingView: UIView {
     func setProperties(section: Section, container: UsageViewController) {
         weak var container = container
         self.section = section
-        var dataObserver: Disposable? // stop observing old-data
 
         switch section {
         case .post:
-            container?.thisViewModel.realmPostUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.postUsageObservable
-                            .map { $0.quantity }
-                            .subscribe(onNext: { [weak self] in
-                                self?.fillData(
-                                    countText: R.string.localizable.numberOfPosts($0.commaRepresentation),
-                                    actionDescriptionText: R.string.localizable.you_made())
-                            })
-                        dataObserver?.disposed(by: self.disposeBag)
+            container?.thisViewModel.realmPostUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .subscribe(onNext: { [weak self] (postUsage) in
+                    guard let self = self else { return }
+
+                    if let quantity = postUsage?.quantity {
+                        self.fillData(
+                            countText: R.string.localizable.numberOfPosts(quantity.commaRepresentation),
+                            actionDescriptionText: R.string.localizable.you_made())
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(
                             countText: R.string.localizable.numberOfPosts("0"),
                             actionDescriptionText: R.string.localizable.you_made())
@@ -67,23 +62,17 @@ class SectionHeadingView: UIView {
                 .disposed(by: disposeBag)
 
         case .reaction:
-            container?.thisViewModel.realmReactionUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.reactionUsageObservable
-                            .map { $0.quantity }
-                            .subscribe(onNext: { [weak self] in
-                                self?.fillData(
-                                    countText: R.string.localizable.numberOfReactions($0.commaRepresentation),
-                                    actionDescriptionText: R.string.localizable.you_gave())
-                            })
+            container?.thisViewModel.realmReactionUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .subscribe(onNext: { [weak self] (reactionUsage) in
+                    guard let self = self else { return }
 
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+                    if let quantity = reactionUsage?.quantity {
+                        self.fillData(
+                            countText: R.string.localizable.numberOfReactions(quantity.commaRepresentation),
+                            actionDescriptionText: R.string.localizable.you_gave())
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(
                             countText: R.string.localizable.numberOfReactions("0"),
                             actionDescriptionText: R.string.localizable.you_gave())

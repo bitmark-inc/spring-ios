@@ -18,6 +18,7 @@ class PostTableView: TableView {
         self.register(cellWithClass: MediaPostTableViewCell.self)
         self.register(cellWithClass: UpdatePostTableViewCell.self)
         self.register(cellWithClass: LinkPostTableViewCell.self)
+        self.register(cellWithClass: FooterCell.self)
 
         themeService.rx
             .bind({ $0.background }, to: rx.backgroundColor)
@@ -26,5 +27,34 @@ class PostTableView: TableView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension PostTableView {
+    static func extractPostCell(with post: Post, _ tableView: UITableView, _ indexPath: IndexPath) -> PostDataTableViewCell {
+        switch PostType(rawValue: post.type) {
+        case .update:
+            return tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
+        case .link:
+            return tableView.dequeueReusableCell(withClass: LinkPostTableViewCell.self, for: indexPath)
+        case .media:
+            if post.mediaData.count > 0 {
+                return tableView.dequeueReusableCell(withClass: MediaPostTableViewCell.self, for: indexPath)
+            } else {
+                fallthrough
+            }
+        default:
+            return tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
+        }
+    }
+
+    static func makeFooterView() -> UIView {
+        let separatorLine = SectionSeparator(autoLayout: true)
+        let view = UIView()
+        view.addSubview(separatorLine)
+        separatorLine.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
+        return view
     }
 }

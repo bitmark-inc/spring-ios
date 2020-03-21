@@ -82,8 +82,6 @@ class FilterGeneralView: UIView {
         self.section = section
         self.groupKey = groupKey
 
-        var dataObserver: Disposable? // stop observing old-data
-
         switch groupKey {
         case .friend:
             headingLabel.setText(R.string.localizable.byFriendTagged())
@@ -95,62 +93,36 @@ class FilterGeneralView: UIView {
 
         switch section {
         case .post:
-            container?.thisViewModel.realmPostUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsPostUsageObservable
-                            .map { groupKey == .friend ? $0.friend : $0.place }
-                            .map { (graphDatas) -> [(names: [String], sumData: Double, data: [Double])]? in
-                                guard let graphDatas = graphDatas
-                                    else {
-                                        return nil
-                                }
+            container?.thisViewModel.realmPostUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
+                    guard let self = self else { return }
+                    let groupsByKey = groupKey == .friend ? groups?.friend : groups?.place
 
-                                return GraphDataConverter.getDataGroupByNameValue(
-                                    with: graphDatas,
-                                    in: .post)
-                            }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+                    if let groupsByKey = groupsByKey {
+                        let graphData = GraphDataConverter.getDataGroupByNameValue(with: groupsByKey, in: .post)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })
                 .disposed(by: disposeBag)
 
         case .reaction:
-            container?.thisViewModel.realmReactionUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsReactionUsageObservable
-                            .map { groupKey == .friend ? $0.friend : $0.place }
-                            .map { (graphDatas) -> [(names: [String], sumData: Double, data: [Double])]? in
-                                guard let graphDatas = graphDatas
-                                    else {
-                                        return nil
-                                }
+            container?.thisViewModel.realmReactionUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
+                    guard let self = self else { return }
+                    let groupsByKey = groupKey == .friend ? groups?.friend : groups?.place
 
-                                return GraphDataConverter.getDataGroupByNameValue(
-                                    with: graphDatas,
-                                    in: .post)
-                            }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+                    if let groupsByKey = groupsByKey {
+                        let graphData = GraphDataConverter.getDataGroupByNameValue(with: groupsByKey, in: .reaction)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })

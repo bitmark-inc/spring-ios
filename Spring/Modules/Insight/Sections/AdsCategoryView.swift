@@ -17,6 +17,8 @@ class AdsCategoryView: UIView {
     lazy var headerLabel = makeHeaderLabel()
     lazy var descriptionLabel = makeDescriptionLabel()
     lazy var adsCategoryInfoView = makeAdsCategoryInfoView()
+    lazy var loadingIndicator = makeLoadingIndicator()
+    lazy var space = UIView()
 
     weak var containerLayoutDelegate: ContainerLayoutDelegate?
     let disposeBag = DisposeBag()
@@ -26,12 +28,18 @@ class AdsCategoryView: UIView {
         super.init(frame: frame)
 
         flex.define({ (flex) in
-            flex.padding(30, 18, 30, 18)
+            flex.padding(30, 18, 18, 48)
                 .define { (flex) in
                     flex.addItem(headerLabel)
                     flex.addItem(descriptionLabel).marginTop(7)
+
+                    flex.addItem(loadingIndicator)
+                        .top(150).position(.absolute)
+                        .alignSelf(.center)
+                    flex.addItem(space).height(50)
+
                     flex.addItem(adsCategoryInfoView)
-                        .padding(10, 18, 0, 40)
+                        .padding(5, 18, 0, 40)
                         .maxWidth(100%)
                 }
         })
@@ -41,19 +49,28 @@ class AdsCategoryView: UIView {
         super.init(coder: coder)
     }
 
-    func setProperties(container: InsightViewController) {
+    func setProperties(container: UsageViewController) {
         weak var container = container
 
-        container?.thisViewModel.realmAdsCategoriesRelay.filterNil()
-            .subscribe(onNext: { [weak self] (adsCategoryInfos) in
-                guard let self = self,
-                    let adsCategories: [String] = adsCategoryInfos.valueObject()
-                    else {
-                        return
+        GetYourData.standard.getCategoriesState
+            .subscribe(onNext: { [weak self] (state) in
+                guard let self = self else { return }
+                switch state {
+                case .loading:  self.loadingIndicator.startAnimating()
+                default:        self.loadingIndicator.stopAnimating()
                 }
+            })
+            .disposed(by: disposeBag)
 
-                self.fillData(adsCategories: adsCategories)
-            }).disposed(by: disposeBag)
+        container?.thisViewModel.realmAdsCategoriesResultsRelay
+            .filterNil()
+            .observeObject()
+            .map { $0?.valueObject() }
+            .filterNil()
+            .subscribe(onNext: { [weak self] (adsCategories) in
+                self?.fillData(adsCategories: adsCategories)
+            })
+            .disposed(by: disposeBag)
     }
 
     fileprivate func fillData(adsCategories: [String]) {
@@ -66,9 +83,11 @@ class AdsCategoryView: UIView {
             }
         } else {
             adsCategoryInfoView.flex.define { (flex) in
-                flex.addItem(makeNoDataView())
+                flex.addItem(makeNoDataView()).margin(18, -18, 16, 0)
             }
         }
+
+        space.flex.height(0)
 
         adsCategoryInfoView.flex.layout()
         containerLayoutDelegate?.layout()
@@ -90,7 +109,7 @@ extension AdsCategoryView {
         label.numberOfLines = 0
         label.apply(
             text: R.string.phrase.adsCategoryDescription(),
-            font: R.font.atlasGroteskLight(size: 12),
+            font: R.font.atlasGroteskLight(size: 16),
             colorTheme: .black, lineHeight: 1.27)
         return label
     }
@@ -128,5 +147,16 @@ extension AdsCategoryView {
                     colorTheme: .black,
                     lineHeight: 1.056)
         return label
+    }
+
+    fileprivate func makeLoadingIndicator() -> UIActivityIndicatorView {
+        let indicator = UIActivityIndicatorView()
+        if #available(iOS 13.0, *) {
+            indicator.style = .large
+        } else {
+            indicator.style = .gray
+        }
+        indicator.color = UIColor(hexString: "#000", transparency: 0.4)!
+        return indicator
     }
 }

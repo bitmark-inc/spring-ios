@@ -40,6 +40,7 @@ def sharedPods
   pod 'UPCarouselFlowLayout'
   pod 'SwiftRichString'
   pod 'MaterialProgressBar'
+  pod 'RxAppState'
 end
 
 target 'Spring' do

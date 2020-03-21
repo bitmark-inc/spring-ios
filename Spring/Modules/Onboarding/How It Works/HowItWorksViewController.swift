@@ -23,24 +23,8 @@ class HowItWorksViewController: ViewController, BackNavigator {
     override func bindViewModel() {
         super.bindViewModel()
 
-        guard let viewModel = viewModel as? HowItWorksViewModel else { return }
-
-        viewModel.signUpResultSubject
-            .subscribe(onNext: { [weak self] (event) in
-                guard let self = self else { return }
-                switch event {
-                case .error(let error):
-                    self.errorWhenSignUp(error: error)
-                case .completed:
-                    Global.log.info("[done] SignUp")
-                    self.gotoHomeTab()
-                default:
-                    break
-                }
-            }).disposed(by: disposeBag)
-
-        continueButton.rx.tap.bind {
-            viewModel.signUp()
+        continueButton.rx.tap.bind { [weak self] in
+            self?.gotoUploadDataScreen()
         }.disposed(by: disposeBag)
     }
 
@@ -109,9 +93,10 @@ class HowItWorksViewController: ViewController, BackNavigator {
 
 // MARK: - Navigator
 extension HowItWorksViewController {
-    fileprivate func gotoHomeTab() {
-       navigator.show(segue: .hometabs, sender: self, transition: .replace(type: .none))
-   }
+    fileprivate func gotoUploadDataScreen() {
+        let viewModel = UploadDataViewModel()
+        navigator.show(segue: .uploadData(viewModel: viewModel), sender: self)
+    }
 }
 
 extension HowItWorksViewController {

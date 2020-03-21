@@ -11,14 +11,19 @@ import SwiftDate
 
 struct DatePeriod: Codable {
     let startDate: Date
-    let endDate: Date
+    var endDate: Date
 }
 
 extension DatePeriod {
     func makeTimelinePeriodText(in timeUnit: TimeUnit) -> String {
         switch timeUnit {
         case .week:
-            return startDate.toFormat(Constant.TimeFormat.full) + "-" + endDate.toFormat(Constant.TimeFormat.short)
+            if startDate.year == endDate.year {
+                return startDate.toFormat(Constant.TimeFormat.full) + "-" + endDate.toFormat(Constant.TimeFormat.short)
+            } else {
+                return startDate.toFormat(Constant.TimeFormat.full) + "-" + endDate.toFormat(Constant.TimeFormat.full)
+            }
+
         case .year:
             return "\(startDate.toFormat("yyyy"))"
         case .decade:

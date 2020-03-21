@@ -19,7 +19,8 @@
 "howitworks.content.3" = "We’ll give you ways to use your data for good (Future).";
 
 "trustIsCritical.title" = "Trust is Critical";
-"trustIsCritical.description" = "Spring is from Bitmark, makers of the internet protocol that secures data provenance. Our mission is to restore trust in data. We believe an internet where individuals control their own data will lead to a better future. Building this protocol to unlock the value of your data is our business.";
+"trustIsCritical.description" = "Spring is from Bitmark, creators of the Bitmark Protocol, an end-to-end Internet protocol for securing data provenance and restoring trust in data. We see SPRING as the first step in a movement to restore trust in data and help fix the Internet. We believe that our personal data can be used for so much more than selling us out to advertisers. Personal data can enrich and improve our lives in profound ways. SPRING is Bitmark’s first tool to help us all realize this vision.";
+"trustIsCritical.description.1" = "Want to learn more? Read our <a>FAQ</a>.";
 "trustIsCritical.sincerely" = "Sincerely,";
 "trustIsCritical.titleSignature" = "Sean Moss-Pultz\nCo-founder and CEO ";
 
@@ -31,9 +32,8 @@
 "guide.requiredLogin" = "Login To Get Your Data";
 
 "dataRequested.screenTitle" = "Data Requested";
-"dataRequested.check.description1" = "Facebook is now preparing your data archive. This may take up to a few days, depending on how much data you have.";
-"dataRequested.check.description2" = "When you receive an email from Facebook that your archive is ready, come back here. We'll handle the rest.";
-"dataRequested.descriptionTime" = "Facebook data requested: %@.";
+"dataRequested.check.description" = "We’re waiting for Facebook to finish preparing your data archive. This may take up to a few days, depending on how much data you have.";
+"dataRequested.descriptionTime" = "You requested your Facebook data archive on %@.";
 
 "dataRequested.waiting.screenTitle" = "Still Waiting";
 
@@ -55,29 +55,21 @@
 "adsCategory.header" = "CATEGORIES FOR ADS";
 "adsCategory.description" = "These categories are based on your activity. They are used by advertisers to personalize your information.";
 
-"moreInsightsComing.title" = "More insights coming!";
-"moreInsightsComing.description" = "Your Facebook data archive is being processed. This might take 1-2 days. We will notify you when it’s done.";
-"moreInsightsComing.description.withNotify" = "Your Facebook data archive is being processed. This might take 1-2 days. We can notify you when it’s done. Or you can check back on your own.";
-
-"morePersonalAnalyticsComing.title" = "Personal Analytics are coming!";
-"morePersonalAnalyticsComing.description" = "Your Facebook data archive is being processed. This might take 1-2 days. We will notify you when it’s done.";
-"morePersonalAnalyticsComing.description.withNotify" = "Your Facebook data archive is being processed. This might take 1-2 days. We can notify you when it’s done. Or you can check back on your own.";
-
 "aggAnalysis.heading" = "All Of Spring";
 "aggAnalysis.subHeading" = "aggregate analysis";
 "aggAnalysis.springUserAvergatePosts" = "SPRING users average";
 
-"uploadData.title" = "Get Your Data";
-"uploadData.instruction.step1.title" = "Step 1: Request your Facebook data";
-"uploadData.instruction.step1.desc.1" = "Go to %@ and select “Download Your Information”.";
-"uploadData.instruction.step1.desc.2" = "Make sure to select “JSON” for the format.";
-
-"uploadData.instruction.step2.title" = "Step 2: Make your backup";
-"uploadData.instruction.step2.desc.1" = "Facebook will let you know when your data is ready for download. Typically, this takes 1-2 days.";
-"uploadData.instruction.step2.desc.2" = "When notified, store your zip file in the cloud or on this device. We recommend doing this on a fast Internet connection.";
+"getYourData.title" = "Get Your Data";
+"getYourData.option.1" = "Option 1: Automated";
+"getYourData.option.2" = "Option 2: Manual";
+"getYourData.option.2.instruction" = "Go to %@ and select “Download Your Information” in “JSON” format. Facebook will let you know when your download is ready. Typically, it’s 1-2 days.\n\nWhen notified, store your zip file in the cloud or on this device. To continue:";
 
 "uploadData.browserFile" = "Add zip file »";
-"uploadData.provideURL" = "Add cloud url";
+"uploadData.provideURL" = "Add cloud storage URL";
+
+"updateYourData.title" = "Update Your Data";
+"updateYourData.option.2.instruction" = "Go to %@ and select “Download Your Information” in “JSON” format. You can use the “Date range” option to request only the data you need.\n\nWhen notified by Facebook that your data is ready, store your zip file in the cloud or on this device. To continue:";
+"updateYourData.dataInfo" = "Last updated: %@.\nNew data will be added to your archive.";
 
 "posts.empty" = "You have no posts!";
 "post.postInfo.friendTags" = " W/%@";
@@ -90,9 +82,20 @@
 "incomeQuestion.title" = "How much you're worth to facebook";
 "incomeQuestion.description" = "Average revenue per user, or ARPU is how Facebook assesses its ability to monetize users. ARPU is calculated by computing revenue by user geography based on Facebook’s estimate of the geography in which ad impressions are delivered. These numbers are made public in <a href='https://investor.fb.com/financials/?section=quarterlyearnings'>their quarterly earning reports</a>.\n\nYet besides the dollar value, analyzing user value based only on ARPU underestimates the value to Facebook. Even though Facebook doesn’t make much money with their users outside US, Canada, and Western Europe, they still collect lots of data. That data creates the network effect that makes their platform become stronger and more valuable over time.\n";
 
+"browse.waitingArchive.description" = "Facebook will let you know when your data is ready for download. Typically, this takes 1-2 days.\n\nWhen notified, come back here. We’ll handle the rest.";
+"browse.waitingArchive.descriptionTime" = "Facebook data requested: %@.";
+
+"browse.posts.title" = "Posts";
+"browse.posts.info" = "Posts you’ve shared on Facebook and posts you’ve been tagged in";
+"browse.photos&videos.title" = "Photos & videos";
+"browse.photos&videos.info" = "Photos and videos you've shared or been tagged in";
+"browse.likes&reactions.title" = "Reactions";
+"browse.likes&reactions.info" = "Posts, comments and Pages you've liked or reacted to";
+
 "account.settings.title" = "Settings";
 
 "account.settings.account" = "Account";
+"account.settings.account.updateFacebookArchive" = "Update Facebook archive »";
 "account.settings.account.deleteAccount" = "Delete data »";
 "account.settings.account.signOut" = "Sign out »";
 "account.settings.account.recoveryKey" = "Recovery key »";

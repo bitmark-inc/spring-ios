@@ -14,14 +14,17 @@ import RxSwift
 protocol ArchiveDataEngineDelegate {
     static func store(_ archives: [Archive]) -> Completable
     static func issueBitmarkIfNeeded() -> Completable
-    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus>
+    static func fetchAppArchiveStatus() -> Single<[AppArchiveStatus]>
 }
 
 class ArchiveDataEngine: ArchiveDataEngineDelegate {
-    static func fetchAppArchiveStatus() -> Single<AppArchiveStatus> {
+    static func fetchAppArchiveStatus() -> Single<[AppArchiveStatus]> {
+        Global.log.info("[start] ArchiveDataEngine.fetchAppArchiveStatus")
+
         return FBArchiveService.getAll()
             .do(onSuccess: { (archives) in
                 _ = ArchiveDataEngine.store(archives)
+                    .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
                     .andThen(ArchiveDataEngine.issueBitmarkIfNeeded())
                     .subscribe(onCompleted: {
                         Global.log.info("[done] storeAndIssueBitmarkIfNeeded")
@@ -29,34 +32,35 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                         Global.log.error(error)
                     })
             })
-            .map { (archives) -> AppArchiveStatus in
-                guard archives.count > 0 else {
-                    return .none
+            .map { (archives) -> [Archive] in
+                // Check to clear cache storage
+                let numberOfProcessed = archives.filter({ $0.status == AppArchiveStatus.processed.rawValue }).count
+                let trackingNumberOfProcessed = Global.current.userDefault?.numberOfProcessedArchives ?? 0
+
+                if trackingNumberOfProcessed < numberOfProcessed {
+                    Global.clearCacheStorage()
+                    _ = FbmAccountDataEngine.syncMe().subscribe()
                 }
 
-                if archives.contains(where: { $0.status == ArchiveStatus.processed.rawValue }) {
-                    return .processed
-                } else if archives.contains(where: { [ArchiveStatus.submitted.rawValue, ArchiveStatus.processing.rawValue].contains($0.status) }) {
-                    return .processing
-                } else {
-                    let sortedInvalidArchiveIDs = archives
-                        .filter { $0.status == ArchiveStatus.invalid.rawValue }
-                        .sorted { $0.updatedAt > $1.updatedAt }
+                Global.current.userDefault?.numberOfProcessedArchives = numberOfProcessed
 
-                    if let latestInvalidArchive = sortedInvalidArchiveIDs.first {
-                        switch latestInvalidArchive.messageError {
-                        case .failToCreateArchive, .failToDownloadArchive:
-                            return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
-                        default:
-                            return .processing
-                        }
+                return archives
+            }
+            .map { (archives) -> [AppArchiveStatus] in
+                var appArchiveStatuses = [AppArchiveStatus?]()
 
-                    } else if archives.contains(where: { $0.status == ArchiveStatus.created.rawValue }) {
-                        return .created
-                    } else {
-                        return .processing
-                    }
+                let orderedArchiveStatuses: [ArchiveStatus] = [.processed, .processing, .submitted, .invalid, .created]
+                orderedArchiveStatuses.forEach { (orderedArchiveStatus) in
+                    appArchiveStatuses.append(archives.appArchiveStatusIfContains(orderedArchiveStatus))
                 }
+
+                if UserDefaults.standard.FBArchiveCreatedAt != nil {
+                    appArchiveStatuses.append(.requesting)
+                }
+
+                Global.log.debug("[done] convertAppArchiveStatus: \(appArchiveStatuses)")
+
+                return appArchiveStatuses.compactMap { $0 }
             }
     }
 
@@ -97,63 +101,104 @@ class ArchiveDataEngine: ArchiveDataEngineDelegate {
                 return Completable.never()
             }
 
-            return RealmConfig.rxCurrentRealm()
-                .flatMapCompletable { (realm) -> Completable in
-                    return Completable.create { (event) -> Disposable in
-                        let archives = realm.objects(Archive.self).filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue && $0.contentHash != "" })
-                        for archive in archives {
-                                guard let assetID = RegistrationParams.computeAssetId(fingerprint: archive.contentHash)
-                                    else {
-                                        continue
-                                }
+            return Completable.create { (event) -> Disposable in
+                do {
+                    let realm = try RealmConfig.currentRealm()
+                    let archives = realm.objects(Archive.self)
+                        .filter({ !$0.issueBitmark && $0.status == ArchiveStatus.processed.rawValue && $0.contentHash != "" })
 
-                                let createAssetIfNeededSingle = Maybe<String>.deferred {
-                                    if AssetService.getAsset(with: assetID) != nil {
-                                        return AssetService.rx.existsBitmarks(issuer: account, assetID: assetID)
-                                        .flatMapMaybe { $0 ? Maybe.empty() : Maybe.just(assetID) }
+                    for archive in archives {
+                        guard let assetID = RegistrationParams.computeAssetId(fingerprint: archive.contentHash)
+                            else {
+                                continue
+                        }
 
-                                    } else {
-                                        let appInfoSingle = ServerAssetsService.getAppInformation().asObservable().share()
-                                        let eulaSingle = appInfoSingle.flatMap { DocumentationService.get(linkPath: $0.docs.eula) }
+                        let createAssetIfNeededSingle = Maybe<String>.deferred {
+                            if AssetService.getAsset(with: assetID) != nil {
+                                return AssetService.rx.existsBitmarks(issuer: account, assetID: assetID)
+                                    .flatMapMaybe { $0 ? Maybe.empty() : Maybe.just(assetID) }
 
-                                        return Observable.zip(appInfoSingle, eulaSingle)
-                                            .map { (appInfo, eula) -> AssetInfo in
-                                                return AssetInfo(
-                                                    registrant: account,
-                                                    assetName: "", fingerprint: archive.contentHash,
-                                                    metadata: [
-                                                        "TYPE": "fbdata",
-                                                        "SYSTEM_VERSION": appInfo.systemVersion,
-                                                        "EULA": eula.sha3()
-                                                ])
-                                            }
-                                            .asSingle()
-                                            .flatMapMaybe { AssetService.rx.registerAsset(assetInfo: $0).asMaybe() }
+                            } else {
+                                let appInfoSingle = ServerAssetsService.getAppInformation().asObservable().share()
+                                let eulaSingle = appInfoSingle.flatMap { DocumentationService.get(linkPath: $0.docs.eula) }
+
+                                let archiveContentHash = archive.contentHash
+                                return Observable.zip(appInfoSingle, eulaSingle)
+                                    .map { (appInfo, eula) -> AssetInfo in
+                                        return AssetInfo(
+                                            registrant: account,
+                                            assetName: "", fingerprint: archiveContentHash,
+                                            metadata: [
+                                                "TYPE": "fbdata",
+                                                "SYSTEM_VERSION": appInfo.systemVersion,
+                                                "EULA": eula.sha3()
+                                        ])
                                     }
-                                }
-
-                                _ = createAssetIfNeededSingle
-                                    .flatMap { AssetService.rx.issueBitmark(issuer: account, assetID: $0).asMaybe() }
-                                    .subscribe(onSuccess: { (_) in
-                                        autoreleasepool {
-                                            do {
-                                                try realm.write {
-                                                    archive.issueBitmark = true
-                                                }
-                                            } catch {
-                                                Global.log.error(error)
-                                            }
-                                        }
-                                    }, onError: { (error) in
-                                        guard !AppError.errorByNetworkConnection(error) else { return }
-                                        Global.log.error(error)
-                                    })
+                                    .asSingle()
+                                    .flatMapMaybe { AssetService.rx.registerAsset(assetInfo: $0).asMaybe() }
                             }
+                        }
 
-                        event(.completed)
-                        return Disposables.create()
-                    }
+                    _ = createAssetIfNeededSingle
+                        .flatMap { AssetService.rx.issueBitmark(issuer: account, assetID: $0).asMaybe() }
+                        .subscribe(onError: { (error) in
+                            guard !AppError.errorByNetworkConnection(error) else { return }
+                            Global.log.error(error)
+                        }, onCompleted: {
+                            autoreleasepool {
+                                do {
+                                    try realm.write {
+                                        archive.issueBitmark = true
+                                    }
+                                } catch {
+                                    Global.log.error(error)
+                                }
+                            }
+                        })
                 }
+
+                    event(.completed)
+                } catch {
+                    event(.error(error))
+                }
+                return Disposables.create()
+            }
+        }
+    }
+}
+
+extension Array where Element: Archive {
+    func appArchiveStatusIfContains(_ status: ArchiveStatus) -> AppArchiveStatus? {
+        guard contains(where: { $0.status == status.rawValue }) else {
+            return nil
+        }
+
+        switch status {
+        case .processed:               return .processed
+        case .processing, .submitted:  return .processing
+        case .created:                 return .created
+        case .invalid:
+            // only fetch invalid archives hasn't retried: invalid archives which is later than other status archives
+            let notInvalidArchivesLatestDate = filter { $0.status != ArchiveStatus.invalid.rawValue }.map { $0.updatedAt }.max()
+            let sortedInvalidArchiveIDs = self
+                .filter { $0.status == ArchiveStatus.invalid.rawValue }
+                .filter {
+                    guard let notInvalidArchivesLatestDate = notInvalidArchivesLatestDate else {
+                        return true
+                    }
+                    return $0.updatedAt > notInvalidArchivesLatestDate
+                }
+                .sorted { $0.updatedAt > $1.updatedAt }
+
+            guard let latestInvalidArchive = sortedInvalidArchiveIDs.first else {
+                return nil
+            }
+            switch latestInvalidArchive.messageError {
+            case .invalidArchive, .failToCreateArchive, .failToDownloadArchive:
+                return .invalid(sortedInvalidArchiveIDs.map { $0.id }, latestInvalidArchive.messageError)
+            default:
+                return .processing
+            }
         }
     }
 }

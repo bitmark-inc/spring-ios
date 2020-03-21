@@ -21,41 +21,30 @@ class ReactionListViewController: ViewController, BackNavigator {
     fileprivate lazy var tableView = ReactionTableView()
     fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
+    fileprivate lazy var activityIndicator = makeActivityIndicator()
 
-    var reactions: Results<Reaction>?
     lazy var thisViewModel = viewModel as! ReactionListViewModel
 
     // MARK: - bind ViewModel
     override func bindViewModel() {
         super.bindViewModel()
 
-        guard let viewModel = viewModel as? ReactionListViewModel else { return }
+        guard let viewModel = viewModel as? ReactionListViewModel,
+            let realmReactions = viewModel.realmReactions else { return }
 
-        viewModel.reactionsRelay.filterNil()
-            .subscribe(onNext: { [weak self] (realmReactions) in
+        Observable.changeset(from: realmReactions)
+            .subscribe(onNext: { [weak self] (_, _) in
                 guard let self = self else { return }
-                self.reactions = realmReactions
-                self.tableView.reloadData()
                 self.refreshView()
-
-                Observable.changeset(from: realmReactions)
-                    .subscribe(onNext: { [weak self] (_, _) in
-                        guard let self = self else { return }
-                        self.refreshView()
-                        self.tableView.reloadData()
-                    }, onError: { (error) in
-                        Global.log.error(error)
-                    })
-                    .disposed(by: self.disposeBag)
-
+                self.tableView.reloadData()
+            }, onError: { (error) in
+                Global.log.error(error)
             })
-            .disposed(by: disposeBag)
-
-        viewModel.getReactions()
+            .disposed(by: self.disposeBag)
     }
 
     func refreshView() {
-        let hasReactions = reactions != nil && !reactions!.isEmpty
+        let hasReactions = thisViewModel.realmReactions != nil && !thisViewModel.realmReactions!.isEmpty
         emptyView.isHidden = hasReactions
         tableView.isScrollEnabled = hasReactions
     }
@@ -71,22 +60,16 @@ class ReactionListViewController: ViewController, BackNavigator {
 
         contentView.flex
             .direction(.column).alignContent(.center).define { (flex) in
-                flex.addItem(tableView).grow(1)
-                flex.addItem(emptyView)
-                    .position(.absolute)
-                    .top(200).left(OurTheme.paddingInset.left)
-            }
-    }
+                flex.addItem(tableView).grow(1).height(1)
 
-    fileprivate func makeEmptyView() -> Label {
-        let label = Label()
-        label.isDescription = true
-        label.apply(
-            text: R.string.phrase.reactionsEmpty(),
-            font: R.font.atlasGroteskLight(size: 32),
-            colorTheme: .black)
-        label.isHidden = true
-        return label
+                flex.addItem(emptyView)
+                    .position(.absolute).top(200)
+                    .alignSelf(.center)
+
+                flex.addItem(activityIndicator)
+                    .position(.absolute).top(250)
+                    .alignSelf(.center)
+            }
     }
 }
 
@@ -98,7 +81,7 @@ extension ReactionListViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:     return 1
-        case 1:     return reactions?.count ?? 0
+        case 1:     return thisViewModel.realmReactions?.count ?? 0
         default:    return 0
         }
     }
@@ -117,7 +100,7 @@ extension ReactionListViewController: UITableViewDataSource, UITableViewDelegate
             return cell
 
         case 1:
-            let reaction = reactions![indexPath.row]
+            let reaction = thisViewModel.realmReactions![indexPath.row]
             let cell = tableView.dequeueReusableCell(withClass: ReactionTableViewCell.self, for: indexPath)
             cell.bindData(reaction: reaction)
             return cell
@@ -136,5 +119,38 @@ extension ReactionListViewController: UITableViewDataSource, UITableViewDelegate
         if indexPath.row == lastIndexPathInItemsSection.row {
             thisViewModel.loadMore()
         }
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 1 ? 10 : 0
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return section == 1 ? ReactionTableView.makeFooterView() : nil
+    }
+}
+
+// MARK: - Setup views
+extension ReactionListViewController {
+    fileprivate func makeActivityIndicator() -> ActivityIndicator {
+        let indicator = ActivityIndicator()
+
+        TrackingRequestState.standard.syncReactionsState
+            .map { $0 == .loading }
+            .bind(to: indicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        return indicator
+    }
+
+    fileprivate func makeEmptyView() -> Label {
+        let label = Label()
+        label.isDescription = true
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 18),
+            colorTheme: .tundora)
+        label.isHidden = true
+        return label
     }
 }

@@ -20,14 +20,33 @@ class UsageViewModel: ViewModel {
 
     // MARK: - Outputs
     let fetchDataResultSubject = PublishSubject<Event<Void>>()
-    let realmPostUsageRelay = BehaviorRelay<Usage?>(value: nil)
-    let realmReactionUsageRelay = BehaviorRelay<Usage?>(value: nil)
+    let realmAdsCategoriesResultsRelay = BehaviorRelay<Results<UserInfo>?>(value: nil)
+    let realmPostUsageResultsRelay = BehaviorRelay<Results<Usage>?>(value: nil)
+    let realmReactionUsageResultsRelay = BehaviorRelay<Results<Usage>?>(value: nil)
     let realmMoodRelay = BehaviorRelay<Usage?>(value: nil)
-    let realmPostStatsRelay = BehaviorRelay<Stats?>(value: nil)
-    let realmReactionStatsRelay = BehaviorRelay<Stats?>(value: nil)
+    let realmPostStatsResultsRelay = BehaviorRelay<Results<Stats>?>(value: nil)
+    let realmReactionStatsResultsRelay = BehaviorRelay<Results<Stats>?>(value: nil)
+
+    override init() {
+        super.init()
+
+        realmAdsCategoriesResultsRelay.accept(InsightDataEngine.fetch(.adsCategory))
+    }
 
     func fetchActivity() -> Completable {
-        return FbmAccountDataEngine.fetchLatestFbmAccount()
+        return FbmAccountDataEngine.syncMe()
+            .observeOn(MainScheduler.asyncInstance)
+            .catchError({ (error) in
+                guard !AppError.errorByNetworkConnection(error) else {
+                    return Completable.empty()
+                }
+
+                return Completable.error(error)
+            })
+            .andThen(Single.deferred {
+                return Single.just(FbmAccountDataEngine.fetchMe())
+            })
+            .errorOnNil()
             .map { try Converter<Metadata>(from: $0.metadata).value }
             .map { $0.latestActivityDate }
             .map { (latestActivityDate) -> Date in
@@ -70,18 +89,14 @@ class UsageViewModel: ViewModel {
                 guard let self = self else { return }
                 let timeUnit = self.timeUnitRelay.value
 
-                _ = UsageDataEngine.rx.fetchAndSyncUsage(timeUnit: timeUnit, startDate: date)
-                    .catchError({ [weak self] (error) -> Single<[Section: Usage?]> in
-                        self?.fetchDataResultSubject.onNext(Event.error(error))
-                        return Single.just([:])
-                    })
-                    .asObservable()
-                    .subscribe(onNext: { [weak self] (usages) in
-                        guard let self = self else { return }
-                        self.realmPostUsageRelay.accept(usages[.post] ?? nil)
-                        self.realmReactionUsageRelay.accept(usages[.reaction] ?? nil)
-                        self.realmMoodRelay.accept(usages[.mood] ?? nil)
-                    })
+                self.realmPostUsageResultsRelay
+                    .accept(UsageDataEngine.fetch(.post, timeUnit: timeUnit, startDate: date))
+                self.realmReactionUsageResultsRelay
+                    .accept(UsageDataEngine.fetch(.reaction, timeUnit: timeUnit, startDate: date))
+
+                UsageDataEngine.sync(timeUnit: timeUnit, startDate: date)
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
     }
@@ -91,25 +106,22 @@ class UsageViewModel: ViewModel {
             .subscribe(onNext: { [weak self] (date) in
                 guard let self = self else { return }
                 let timeUnit = self.timeUnitRelay.value
-
                 let datePeriod = date.extractDatePeriod(timeUnit: timeUnit)
-                _ = StatsDataEngine.fetchAndSyncPostStats(startDate: datePeriod.startDate, endDate: datePeriod.endDate)
-                    .catchError({ [weak self] (error) -> Single<Stats?> in
-                        self?.fetchDataResultSubject.onNext(Event.error(error))
-                        return Single.just(nil)
-                    })
-                    .subscribe(onSuccess: { [weak self] (stats) in
-                        self?.realmPostStatsRelay.accept(stats)
-                    })
+                let (startDate, endDate) = (datePeriod.startDate, datePeriod.endDate)
 
-                _ = StatsDataEngine.fetchAndSyncReactionStats(startDate: datePeriod.startDate, endDate: datePeriod.endDate)
-                    .catchError({ [weak self] (error) -> Single<Stats?> in
-                        self?.fetchDataResultSubject.onNext(Event.error(error))
-                        return Single.just(nil)
-                    })
-                    .subscribe(onSuccess: { [weak self] (stats) in
-                        self?.realmReactionStatsRelay.accept(stats)
-                    })
+                self.realmPostStatsResultsRelay
+                    .accept(StatsDataEngine.fetch(section: .post, startDate: startDate, endDate: endDate))
+
+                self.realmReactionStatsResultsRelay
+                    .accept(StatsDataEngine.fetch(section: .reaction, startDate: startDate, endDate: endDate))
+
+                StatsDataEngine.syncPostStats(startDate: startDate, endDate: endDate)
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
+
+                StatsDataEngine.syncReactionStats(startDate: startDate, endDate: endDate)
+                    .subscribe()
+                    .disposed(by: self.disposeBag)
             })
             .disposed(by: disposeBag)
     }

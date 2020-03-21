@@ -88,47 +88,35 @@ class FilterTypeView: UIView {
     func setProperties(section: Section, container: UsageViewController) {
         weak var container = container
         self.section = section
-        var dataObserver: Disposable? // stop observing old-data
 
         switch section {
         case .post:
-            container?.thisViewModel.realmPostUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsPostUsageObservable
-                            .map { $0.type }
-                            .map { GraphDataConverter.getDataGroupByType(with: $0, in: .post) }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+            container?.thisViewModel.realmPostUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
+                    guard let self = self else { return }
+                    if let groups = groups {
+                        let graphData = GraphDataConverter.getDataGroupByType(with: groups.type, in: .post)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })
                 .disposed(by: disposeBag)
 
         case .reaction:
-            container?.thisViewModel.realmReactionUsageRelay
-                .subscribe(onNext: { [weak self] (usage) in
-                    guard let self = self, let container = container else { return }
-                    if usage != nil {
-                        dataObserver?.dispose()
-                        dataObserver = container.groupsReactionUsageObservable
-                            .map { $0.type }
-                            .map { GraphDataConverter.getDataGroupByType(with: $0, in: .reaction) }
-                            .subscribe(onNext: { [weak self] (data) in
-                                self?.fillData(with: data)
-                            })
-
-                        dataObserver?
-                            .disposed(by: self.disposeBag)
+            container?.thisViewModel.realmReactionUsageResultsRelay
+                .filterNil()
+                .observeObject()
+                .mapGroupsValue()
+                .subscribe(onNext: { [weak self] (groups) in
+                    guard let self = self else { return }
+                    if let groups = groups {
+                        let graphData = GraphDataConverter.getDataGroupByType(with: groups.type, in: .reaction)
+                        self.fillData(with: graphData)
                     } else {
-                        dataObserver?.dispose()
                         self.fillData(with: nil)
                     }
                 })

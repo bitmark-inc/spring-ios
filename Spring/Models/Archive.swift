@@ -77,4 +77,5 @@ enum ArchiveMessageError: String {
     case failToDownloadArchive  = "FAIL_TO_DOWNLOAD_ARCHIVE"
     case failToExtractPost      = "FAIL_TO_EXTRACT_POST"
     case failToExtractReaction  = "FAIL_TO_EXTRACT_REACTION"
+    case invalidArchive         = "INVALID_ARCHIVE"
 }

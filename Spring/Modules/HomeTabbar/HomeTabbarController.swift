@@ -10,8 +10,17 @@ import UIKit
 import ESTabBarController_swift
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class HomeTabbarController: ESTabBarController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .default
+        }
+    }
+
     class func tabbarController() -> HomeTabbarController {
         let usageVC = UsageViewController(viewModel: UsageViewModel())
         let usageNavVC = NavigationController(rootViewController: usageVC)
@@ -44,6 +53,33 @@ class HomeTabbarController: ESTabBarController {
         return tabbarController
     }
 
+    // MARK: - Request Data Properties
+    lazy var automateRequestDataView = makeAutomateRequestDataView()
+    let requestDataViewTop: CGFloat = 80
+    var bottomRequestDataViewConstraint: Constraint?
+
+    var missions = [Mission]() {
+        didSet {
+            if GetYourData.standard.optionRelay.value == .automate && InsightDataEngine.noExistsAdsCategories()  {
+                missions.prepend(.getCategories)
+                GetYourData.standard.getCategoriesState.accept(.loading)
+            }
+
+            undoneMissions = missions
+            if missions.count > 0 {
+                startAutomatingFbScripts()
+            }
+        }
+    }
+
+    var undoneMissions = [Mission]()
+    var fbScripts = [FBScript]()
+    var cachedRequestHeader: [String : String]?
+    lazy var archivePageScript = fbScripts.find(.archive)
+
+    let guideStateRelay = BehaviorRelay<GuideState>(value: .start)
+    let signUpAndSubmitArchiveResultSubject = PublishSubject<Event<Never>>()
+
     let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -54,18 +90,27 @@ class HomeTabbarController: ESTabBarController {
         themeService.rx
             .bind({ $0.background }, to: view.rx.backgroundColor)
             .disposed(by: disposeBag)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
+            guard let self = self else { return }
+            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self.registerOneSignal()
+                }
+            }
+        }
 
         bindViewModel()
     }
 
-    // 1. polling archive status when archive status is still processing
-    // 2. observe the result of archive uploading
-    // 3. observe the result of archive processing, show error if invalid
+    // 1. observe the result of archive uploading
+    // 2. observe the result of archive processing, show error if invalid
     fileprivate func bindViewModel() {
-         // 1
-        Global.pollingSyncAppArchiveStatus()
-
-        // 2
+        // 1
         BackgroundTaskManager.shared.uploadProgressRelay
             .map { $0[SessionIdentifier.upload.rawValue] }.filterNil()
             .observeOn(MainScheduler.instance)
@@ -75,8 +120,7 @@ class HomeTabbarController: ESTabBarController {
                 case .error(let error):
                     self.handleErrorWhenUpload(error: error)
                 case .completed:
-                    Global.current.userDefault?.latestAppArchiveStatus = .processing
-                    AppArchiveStatus.currentState.accept(.processing)
+                    AppArchiveStatus.transfer(from: .uploading, to: .processing)
 
                     DispatchQueue.main.asyncAfter(deadline: .now() + 10) {
                         Global.pollingSyncAppArchiveStatus()
@@ -87,12 +131,17 @@ class HomeTabbarController: ESTabBarController {
             })
             .disposed(by: disposeBag)
 
-        // 3
+        // 2
         AppArchiveStatus.currentState
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (appArchiveStatus) in
-                guard let self = self else { return }
-                switch appArchiveStatus {
+            .subscribe(onNext: { [weak self] (appArchiveStatuses) in
+                guard let self = self,
+                    let invalidStatus = appArchiveStatuses.first(where: { $0.rawValue == "invalid" })
+                    else {
+                        return
+                }
+
+                switch invalidStatus {
                 case .invalid(let invalidArchiveIDs, let messageError):
                     guard let latestInvalidArchiveID = invalidArchiveIDs.first,
                         !UserDefaults.standard.showedInvalidArchiveIDs.contains(latestInvalidArchiveID)
@@ -108,19 +157,6 @@ class HomeTabbarController: ESTabBarController {
             })
             .disposed(by: disposeBag)
     }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        UNUserNotificationCenter.current().getNotificationSettings { [weak self] (settings) in
-            guard let self = self else { return }
-            if settings.authorizationStatus == .provisional || settings.authorizationStatus == .authorized {
-                DispatchQueue.main.async {
-                    self.registerOneSignal()
-                }
-            }
-        }
-    }
 }
 
 // MARK: - Handle Error
@@ -129,7 +165,7 @@ extension HomeTabbarController {
         var errorTitle = R.string.error.generalTitle()
         var errorMessage = R.string.error.system()
         switch messageError {
-        case .failToCreateArchive, .failToDownloadArchive:
+        case .failToCreateArchive, .failToDownloadArchive, .invalidArchive:
             errorTitle = R.string.error.invalidArchiveFileTitle()
             errorMessage = R.string.error.invalidArchiveFileMessage()
         default:
@@ -142,10 +178,15 @@ extension HomeTabbarController {
                 DispatchQueue.main.async {
                     guard let self = self, let selectedNavigation = self.selectedViewController as? NavigationController,
                         let sender = selectedNavigation.topViewController,
-                        !(sender is UploadDataViewController) else { return }
+                        !(sender is UploadDataViewController), !(sender is UpdateYourDataViewController) else { return }
 
-                    let viewModel = UploadDataViewModel()
-                    Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    if AppArchiveStatus.currentState.value.contains(.processed) {
+                        let viewModel = UpdateYourDataViewModel()
+                        Navigator.default.show(segue: .updateYourData(viewModel: viewModel), sender: sender)
+                    } else {
+                        let viewModel = UploadDataViewModel()
+                        Navigator.default.show(segue: .uploadData(viewModel: viewModel), sender: sender)
+                    }
                 }
             }
         alertController.show()
@@ -166,6 +207,27 @@ extension HomeTabbarController {
                 }
             }
         alertController.show()
+    }
+}
+
+// MARK: - Automate Request FB Archive  Data
+extension HomeTabbarController: RequestDataDelegate {
+    func startAutomatingFbScripts() {
+        automateRequestDataView.removeFromSuperview()
+        view.insertSubview(automateRequestDataView, aboveSubview: tabBar)
+
+        automateRequestDataView.snp.makeConstraints { (make) in
+            make.leading.trailing.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview().offset(-requestDataViewTop)
+            bottomRequestDataViewConstraint = make.top.equalToSuperview().offset(view.height + 200).constraint
+        }
+
+        automateRequestDataView.closeButton.rx.tap.bind { [weak self] in
+            self?.closeAutomateRequestData()
+        }.disposed(by: disposeBag)
+
+        startAndObserveEvents()
     }
 }
 

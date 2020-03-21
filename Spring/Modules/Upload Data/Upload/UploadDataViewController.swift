@@ -18,11 +18,10 @@ class UploadDataViewController: ViewController, BackNavigator {
     fileprivate lazy var scroll = UIScrollView()
     fileprivate lazy var scrollContentView = UIView()
     fileprivate lazy var screenTitle = makeScreenTitle()
-    fileprivate lazy var instructionView = makeInstructionView()
+    fileprivate lazy var automateButton = makeAutomateButton()
     fileprivate lazy var uploadFileButton = makeUploadFileButton()
     fileprivate lazy var uploadDataView = makeUploadDataView()
     fileprivate lazy var provideURLTextField = makeProvideURLTextField()
-    fileprivate lazy var uploadProgressView = makeUploadProgressView()
 
     fileprivate var lockTextViewClick: Bool = false
     let dyiFacebookPath = "https://m.facebook.com/dyi"
@@ -31,17 +30,15 @@ class UploadDataViewController: ViewController, BackNavigator {
     weak var documentPickerDelegate: DocumentPickerDelegate?
     let lock = NSLock()
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        uploadProgressView.indeterminateProgressBar.startAnimating()
-    }
-
     // MARK: - Binds Model
     override func bindViewModel() {
         super.bindViewModel()
 
         guard let viewModel = viewModel as? UploadDataViewModel else { return }
+
+        automateButton.rx.tap.bind { [weak self] in
+            self?.signUpAndSetupAutomate()
+        }.disposed(by: disposeBag)
 
         uploadFileButton.rx.tap.bind { [weak self] in
             guard let self = self else { return }
@@ -51,18 +48,59 @@ class UploadDataViewController: ViewController, BackNavigator {
 
         viewModel.submitArchiveDataResultSubject
             .subscribe(onNext: { [weak self] (event) in
+                loadingState.onNext(.hide)
+
                 guard let self = self else { return }
                 switch event {
                 case .error(let error):
-                    loadingState.onNext(.hide)
                     self.errorWhenSubmitArchiveData(error: error)
                 case .completed:
+                    Global.log.info("[done] submitArchiveDataResult")
                     Global.pollingSyncAppArchiveStatus()
-                    Global.log.info("[done] submitArchiveDataResult; submitByURL")
+                    self.gotoHomeTab(missions: [])
+
                 default:
                     break
                 }
             }).disposed(by: disposeBag)
+    }
+
+    fileprivate func signUpAndSetupAutomate() {
+        loadingState.onNext(.loading)
+        thisViewModel.signUp(isAutomate: true)
+            .subscribe(onCompleted: { [weak self] in
+                guard let self = self else { return }
+                loadingState.onNext(.hide)
+                self.gotoHomeTab(missions: [.requestData])
+
+            }, onError: { [weak self] (error) in
+                loadingState.onNext(.hide)
+                self?.errorWhenSignUp(error: error)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func signUpAndSubmitArchive() {
+        loadingState.onNext(.loading)
+        thisViewModel.signUp(isAutomate: false)
+            .subscribe(onCompleted: { [weak self] in
+                self?.thisViewModel.submitArchiveData()
+            }, onError: { [weak self] (error) in
+                loadingState.onNext(.hide)
+                self?.errorWhenSignUp(error: error)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    fileprivate func errorWhenSignUp(error: Error) {
+        guard !AppError.errorByNetworkConnection(error),
+            !handleErrorIfAsAFError(error),
+            !showIfRequireUpdateVersion(with: error) else {
+                return
+        }
+
+        Global.log.error(error)
+        showErrorAlertWithSupport(message: R.string.error.system())
     }
 
     fileprivate func errorWhenSubmitArchiveData(error: Error) {
@@ -89,8 +127,11 @@ class UploadDataViewController: ViewController, BackNavigator {
 
         scrollContentView.flex.define { (flex) in
             flex.addItem(screenTitle).margin(OurTheme.titlePaddingInset)
-            flex.addItem(instructionView)
-            flex.addItem(uploadDataView).marginTop(12)
+            flex.addItem(makeOptionTitleLabel(R.string.phrase.getYourDataOption1()))
+            flex.addItem(automateButton).height(40).marginTop(20)
+            flex.addItem(makeOptionTitleLabel(R.string.phrase.getYourDataOption2())).marginTop(60)
+            flex.addItem(makeInstructionTextView()).marginTop(20)
+            flex.addItem(uploadDataView).marginTop(25)
         }
         scroll.addSubview(scrollContentView)
 
@@ -99,62 +140,7 @@ class UploadDataViewController: ViewController, BackNavigator {
             .define { (flex) in
                 flex.addItem(backItem)
                 flex.addItem(scroll).height(100%)
-
-                flex.addItem(uploadProgressView)
-                    .height(130)
-                    .position(.absolute)
-                    .bottom(0).left(0).right(0)
             }
-
-        BackgroundTaskManager.shared
-            .uploadProgressRelay
-            .map { $0[SessionIdentifier.upload.rawValue] }
-            .filterNil()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [weak self, weak uploadProgressView] (event) in
-                guard let self = self, let uploadProgressView = uploadProgressView else { return }
-                switch event {
-                case .next(let progressInfo):
-                    uploadProgressView.progressInfo = progressInfo
-                    self.setEnableOptionButton(isEnabled: false)
-
-                case .error:
-                    uploadProgressView.isHidden = true
-                    self.setEnableOptionButton(isEnabled: true)
-
-                default:
-                    self.setEnableOptionButton(isEnabled: false)
-                }
-            })
-            .disposed(by: disposeBag)
-
-        AppArchiveStatus.currentState
-            .filterNil()
-            .do(onNext: {
-                if $0.rawValue != AppArchiveStatus.created.rawValue {
-                    loadingState.onNext(.hide)
-                }
-            })
-            .distinctUntilChanged { $0.rawValue == $1.rawValue }
-            .subscribe(onNext: { [weak self] (appArchiveStatus) in
-                guard let self = self else { return }
-
-                if appArchiveStatus.rawValue == AppArchiveStatus.processed.rawValue {
-                    loadingState.onNext(.tickSuccess)
-                    self.navigationController?.popViewController()
-                    return
-                }
-
-                self.uploadProgressView.appArchiveStatusCurrentState = appArchiveStatus
-                self.setEnableOptionButton(isEnabled:
-                    ["none", "created", "invalid"].contains(appArchiveStatus.rawValue))
-            })
-            .disposed(by: disposeBag)
-    }
-
-    fileprivate func setEnableOptionButton(isEnabled: Bool) {
-        uploadFileButton.isEnabled = isEnabled
-        provideURLTextField.isEnabled = isEnabled
     }
 }
 
@@ -171,7 +157,8 @@ extension UploadDataViewController: DocumentPickerDelegate, UIDocumentPickerDele
 
             if fileSizeIfValid(fileSize) {
                 thisViewModel.archiveZipRelay.accept((url: selectedFileURL, size: fileSize))
-                thisViewModel.submitArchiveData()
+                signUpAndSubmitArchive()
+
             } else {
                 showErrorAlert(title: R.string.error.excessFileSizeTitle(),
                                message: R.string.error.excessFileSizeMessage())
@@ -179,10 +166,6 @@ extension UploadDataViewController: DocumentPickerDelegate, UIDocumentPickerDele
         } catch {
             Global.log.error(error)
         }
-    }
-
-    fileprivate func fileSizeIfValid(_ fileSize: Int64) -> Bool {
-        return fileSize <= 5 * 1024 * 1024 * 1024 // limit 5GB
     }
 }
 
@@ -216,7 +199,7 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
         }
 
         thisViewModel.downloadableURLRelay.accept(url)
-        thisViewModel.submitArchiveData()
+        signUpAndSubmitArchive()
 
         return true
     }
@@ -225,9 +208,12 @@ extension UploadDataViewController: UITextViewDelegate, UITextFieldDelegate {
 
 extension UploadDataViewController {
     fileprivate func moveToDYIFacebookPage() {
-        uploadProgressView.indeterminateProgressBar.stopAnimating()
         guard let dyiFacebookURL = URL(string: dyiFacebookPath) else { return }
         navigator.show(segue: .safariController(dyiFacebookURL), sender: self, transition: .alert)
+    }
+
+    fileprivate func gotoHomeTab(missions: [Mission] = []) {
+        navigator.show(segue: .hometabs(missions: missions), sender: self, transition: .replace(type: .none))
     }
 }
 
@@ -235,42 +221,18 @@ extension UploadDataViewController {
     fileprivate func makeScreenTitle() -> Label {
         let label = Label()
         label.apply(
-            text: R.string.phrase.uploadDataTitle().localizedUppercase,
+            text: R.string.phrase.getYourDataTitle().localizedUppercase,
             font: R.font.domaineSansTextLight(size: 36),
-            colorTheme: OurTheme.usageColorTheme, lineHeight: 1.06)
+            colorTheme: .black, lineHeight: 1.06)
         label.numberOfLines = 0
         return label
     }
 
-    fileprivate func makeInstructionView() -> UIView {
-        func makeTitleLabel(_ text: String) -> Label {
-            let label = Label()
-            label.apply(text: text, font: R.font.atlasGroteskMedium(size: 16), colorTheme: .black, lineHeight: 1.25)
-            label.numberOfLines = 0
-            return label
-        }
-
-        func makeDescLabel(_ text: String) -> Label {
-            let label = Label()
-            label.apply(text: text, font: R.font.atlasGroteskLight(size: 16), colorTheme: .black, lineHeight: 1.25)
-            label.numberOfLines = 0
-            return label
-        }
-
-        let paragraphDistance: CGFloat = 18
-
-        let view = UIView()
-        view.flex.define { (flex) in
-            flex.addItem(makeTitleLabel(R.string.phrase.uploadDataInstructionStep1Title()))
-            flex.addItem(makeInstructionTextView()).marginTop(paragraphDistance)
-            flex.addItem(makeDescLabel(R.string.phrase.uploadDataInstructionStep1Desc2())).marginTop(paragraphDistance)
-
-            flex.addItem(makeTitleLabel(R.string.phrase.uploadDataInstructionStep2Title())).marginTop(38)
-            flex.addItem(makeDescLabel(R.string.phrase.uploadDataInstructionStep2Desc1())).marginTop(paragraphDistance)
-            flex.addItem(makeDescLabel(R.string.phrase.uploadDataInstructionStep2Desc2())).marginTop(paragraphDistance)
-            flex.addItem(makeDescLabel(R.string.localizable.to_continue())).marginTop(paragraphDistance)
-        }
-        return view
+    fileprivate func makeOptionTitleLabel(_ text: String) -> Label {
+        let label = Label()
+        label.apply(text: text, font: R.font.atlasGroteskMedium(size: 16), colorTheme: .black, lineHeight: 1.25)
+        label.numberOfLines = 0
+        return label
     }
 
     fileprivate func makeInstructionTextView() -> UITextView {
@@ -283,7 +245,7 @@ extension UploadDataViewController {
         ]
 
         textView.attributedText = LinkAttributedString.make(
-            string: R.string.phrase.uploadDataInstructionStep1Desc1(dyiFacebookPath),
+            string: R.string.phrase.getYourDataOption2Instruction(dyiFacebookPath),
             lineHeight: 1.25,
             attributes: [
                 .font: R.font.atlasGroteskLight(size: 16)!,
@@ -317,6 +279,13 @@ extension UploadDataViewController {
         return view
     }
 
+    fileprivate func makeAutomateButton() -> Button {
+        let button = Button()
+        button.applyBackground(title: R.string.localizable.automate_now(),
+                               font: R.font.atlasGroteskLight(size: 18), colorTheme: .cognac)
+        return button
+    }
+
     fileprivate func makeUploadFileButton() -> Button {
         let button = Button()
         button.applyBackground(
@@ -342,11 +311,5 @@ extension UploadDataViewController {
         textField.delegate = self
         textField.clearButtonMode = .whileEditing
         return textField
-    }
-
-    fileprivate func makeUploadProgressView() -> ProgressView {
-        let progressView = ProgressView()
-        progressView.isHidden = true
-        return progressView
     }
 }

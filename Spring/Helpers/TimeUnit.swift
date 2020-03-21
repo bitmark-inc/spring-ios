@@ -31,9 +31,9 @@ enum TimeUnit: String {
 
     func shortenDayName(for date: Date) -> String {
         switch self {
-        case .week: return date.dayName(ofStyle: .oneLetter)
-        case .year: return date.monthName(ofStyle: .oneLetter)
-        case .decade: return date.toFormat("yy")
+        case .week:     return date.dayName(ofStyle: .oneLetter)
+        case .year:     return date.monthName(ofStyle: .oneLetter)
+        case .decade:   return date.toFormat("yy")
         }
     }
 
@@ -42,4 +42,10 @@ enum TimeUnit: String {
             "meaningWord.\(rawValue)".localized(),
             abs(Int32(distance)))
     }
+}
+
+enum SecondaryTimeUnit: String {
+    case month
+    case year
+    case decade
 }

@@ -35,27 +35,59 @@ class ImageView: UIImageView {
         setupViews()
     }
 
+    func loadPhotoMedia(for mediaID: String, photoPath: String) {
+        guard let photoURL = URL(string: photoPath) else {
+            Global.log.error("invalid photo URL: \(photoPath)")
+            return
+        }
+
+        let imageResource = ImageResource(downloadURL: photoURL, cacheKey: mediaID)
+        kf.setImage(with: imageResource) { (result) in
+            switch result {
+            case .success(_):
+                break
+            case .failure(let error):
+                Global.log.debug(error)
+            }
+        }
+    }
+
     func loadURL(_ url: URL, width: CGFloat) -> Completable {
         return Completable.create { (event) -> Disposable in
-            _ = MediaService.makePhotoURL(key: url.path)
-                .observeOn(MainScheduler.instance)
-                .subscribe(onSuccess: { [weak self] (photoURL, modifier) in
-                    guard let self = self else { return }
-                    self.kf.setImage(with: photoURL, options: [.requestModifier(modifier)]) { (result) in
-                        switch result {
-                        case .success(_):
-                            event(.completed)
-                        case .failure(let error):
-                            if error.isInvalidResponseStatusCode(406) {
-                                event(.error(ServerAPIError(code: .RequireUpdateVersion, message: "")))
-                            } else {
-                                event(.error(error))
+            if ImageCache.default.isCached(forKey: url.path) {
+                let imageResource = ImageResource(downloadURL: URL(string: url.path)!, cacheKey: url.path)
+                self.kf.setImage(with: imageResource) {
+                    (result) in
+                    switch result {
+                    case .success(_):
+                        event(.completed)
+                    case .failure(let error):
+                        event(.error(error))
+                    }
+                }
+            } else {
+                _ = MediaService.makePhotoURL(key: url.path)
+                    .observeOn(MainScheduler.instance)
+                    .subscribe(onSuccess: { [weak self] (photoURL, modifier) in
+                        guard let self = self else { return }
+
+                        let imageResource = ImageResource(downloadURL: photoURL, cacheKey: url.path)
+                        self.kf.setImage(with: imageResource, options: [.requestModifier(modifier)]) { (result) in
+                            switch result {
+                            case .success(_):
+                                event(.completed)
+                            case .failure(let error):
+                                if error.isInvalidResponseStatusCode(406) {
+                                    event(.error(ServerAPIError(code: .RequireUpdateVersion, message: "")))
+                                } else {
+                                    event(.error(error))
+                                }
                             }
                         }
-                    }
-                }, onError: { (error) in
-                    event(.error(error))
-                })
+                    }, onError: { (error) in
+                        event(.error(error))
+                    })
+            }
             return Disposables.create()
         }
     }

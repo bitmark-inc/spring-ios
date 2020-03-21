@@ -57,3 +57,9 @@ class FbmAccount: Object, Decodable {
         super.init(realm: realm, schema: schema)
     }
 }
+
+extension FbmAccount {
+    var metadataInfo: Metadata? {
+        return try? Converter<Metadata>(from: metadata).value
+    }
+}

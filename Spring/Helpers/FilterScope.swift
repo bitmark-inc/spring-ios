@@ -16,6 +16,23 @@ struct FilterScope {
     let filterValue: Any
 }
 
+extension FilterScope {
+    var datePeriod: DatePeriod? {
+        switch filterBy {
+        case .day:
+            guard let filterDay = filterValue as? Date
+                else {
+                    Global.log.error("formatInDay is incorrect.")
+                    return nil
+            }
+
+            return filterDay.extractSubPeriod(timeUnit: timeUnit)
+        default:
+            return date.extractDatePeriod(timeUnit: timeUnit)
+        }
+    }
+}
+
 struct SectionScope {
     let date: Date
     let timeUnit: TimeUnit

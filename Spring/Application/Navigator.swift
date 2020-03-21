@@ -30,13 +30,18 @@ class Navigator {
         case signInWall(viewModel: SignInWallViewModel)
         case signIn(viewModel: SignInViewModel)
         case trustIsCritical(buttonItemType: ButtonItemType)
-        case howItWorks(viewModel: HowItWorksViewModel)
+        case howItWorks
+        case checkDataRequested
         case safari(URL)
         case safariController(URL)
-        case hometabs
+        case hometabs(missions: [Mission])
         case uploadData(viewModel: UploadDataViewModel)
+        case updateYourData(viewModel: UpdateYourDataViewModel)
         case postList(viewModel: PostListViewModel)
         case reactionList(viewModel: ReactionListViewModel)
+        case postListSection(viewModel: PostListSectionViewModel)
+        case mediaListSection(viewModel: MediaListSectionViewModel)
+        case reactionListSection(viewModel: ReactionListSectionViewModel)
         case incomeQuestion
         case account(viewModel: AccountViewModel)
         case signOutWarning
@@ -80,7 +85,8 @@ class Navigator {
             trustIsCriticalViewController.buttonItemType = buttonItemType
             return trustIsCriticalViewController
 
-        case .howItWorks(let viewModel): return HowItWorksViewController(viewModel: viewModel)
+        case .howItWorks: return HowItWorksViewController()
+        case .checkDataRequested: return CheckDataRequestedViewController()
         case .safari(let url):
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             return nil
@@ -90,10 +96,29 @@ class Navigator {
             vc.hidesBottomBarWhenPushed = true
             return vc
 
-        case .hometabs:
-            return HomeTabbarController.tabbarController()
+        case .hometabs(let missions):
+            let hometabVC = HomeTabbarController.tabbarController()
+            hometabVC.missions = missions
+            return hometabVC
+
         case .postList(let viewModel): return PostListViewController(viewModel: viewModel)
         case .reactionList(let viewModel): return ReactionListViewController(viewModel: viewModel)
+
+        case .postListSection, .mediaListSection, .reactionListSection:
+            let viewController: UIViewController!
+            switch segue {
+            case .postListSection(let viewModel):
+                viewController = PostListSectionViewController(viewModel: viewModel)
+            case .mediaListSection(let viewModel):
+                viewController = MediaListSectionViewController(viewModel: viewModel)
+            case .reactionListSection(let viewModel):
+                viewController = ReactionListSectionViewController(viewModel: viewModel)
+            default:
+                viewController = UIViewController()
+            }
+
+            viewController.hidesBottomBarWhenPushed = true
+            return viewController
 
         case .incomeQuestion, .uploadData:
             let viewController: UIViewController!
@@ -115,7 +140,7 @@ class Navigator {
         case .signOutWarning, .signOut,
              .biometricAuth,
              .viewRecoveryKeyWarning, .viewRecoverykey,
-             .deleteAccount,
+             .updateYourData, .deleteAccount,
              .increasePrivacyList, .increasePrivacy,
              .releaseNote:
 
@@ -126,6 +151,7 @@ class Navigator {
             case .biometricAuth:                    viewController = BiometricAuthViewController()
             case .viewRecoveryKeyWarning:           viewController = ViewRecoveryKeyWarningViewController()
             case .viewRecoverykey(let viewModel):   viewController = ViewRecoveryKeyViewController(viewModel: viewModel)
+            case .updateYourData(let viewModel):    viewController = UpdateYourDataViewController(viewModel: viewModel)
             case .deleteAccount(let viewModel):     viewController = DeleteAccountViewController(viewModel: viewModel)
             case .increasePrivacyList:              viewController = IncreasePrivacyListViewController()
             case .increasePrivacy(let viewModel):   viewController = IncreasePrivacyViewController(viewModel: viewModel)
@@ -226,6 +252,13 @@ class Navigator {
             }
         default: break
         }
+    }
+
+    // MARK: - refreshOnboardingStateIfNeeded
+    static func refreshOnboardingStateIfNeeded() {
+        guard GetYourData.standard.requestedAtRelay.value != nil else { return }
+
+        Navigator.default.show(segue: .checkDataRequested, sender: nil, transition: .replace(type: .none))
     }
 
     static let requireAuthorizationTime = 30 // minutes

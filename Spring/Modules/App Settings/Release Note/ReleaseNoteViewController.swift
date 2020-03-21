@@ -73,7 +73,7 @@ class ReleaseNoteViewController: ViewController, BackNavigator, LaunchingNavigat
             .padding(OurTheme.paddingInset)
             .define { (flex) in
                 flex.addItem(screenTitle).margin(OurTheme.titlePaddingIgnoreBack)
-                        flex.addItem(versionLabel)
+                flex.addItem(versionLabel)
                 flex.addItem(scroll).grow(1).height(0)
 
                 switch buttonItemType {
@@ -167,7 +167,7 @@ extension ReleaseNoteViewController {
         view.flex.define { (flex) in
             for (index, section) in sections.enumerated() {
                 flex.addItem(makeLabel(text: "releaseNote.section.\(index + 1)".localized(tableName: "Phrase")))
-                    .marginTop(15)
+                    .marginTop(25)
 
                 for content in section.split(separator: "\n").map(String.init) {
                     flex.addItem().marginTop(5).direction(.row).alignItems(.start).define { (flex) in

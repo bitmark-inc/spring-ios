@@ -43,25 +43,6 @@ class IncomeView: UIView {
         super.init(coder: coder)
     }
 
-    func setProperties(section: Section, container: InsightViewController) {
-        weak var container = container
-
-        switch section {
-        case .fbIncome:
-            container?.realmInsightObservable
-                .subscribe(onNext: { [weak self] (insight) in
-                    self?.fillData(amount: insight.fbIncome, since: insight.fbIncomeFrom)
-                }).disposed(by: disposeBag)
-
-            questionButton.rx.tap.bind { [weak container] in
-                container?.gotoIncomeQuestionURL()
-            }.disposed(by: disposeBag)
-
-        default:
-            break
-        }
-    }
-
     func fillData(amount: Double?, since: Date) {
         if let amount = amount, amount > 0 {
             amountLabel.text = String(format: "$%.02f", amount)

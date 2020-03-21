@@ -25,11 +25,11 @@ class Global {
 
     var account: Account?
     var currency: Currency?
-    lazy var userDefault: UserDefaults? = {
+    var userDefault: UserDefaults? {
         guard let accountNumber = account?.getAccountNumber()
             else { return nil }
         return UserDefaults.userStandard(for: accountNumber)
-    }()
+    }
 
     lazy var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -79,7 +79,9 @@ class Global {
         try FileManager.default.removeItem(at: FileManager.filesDocumentDirectoryURL)
         try RealmConfig.removeRealm(of: account.getAccountNumber())
         UserDefaults.standard.clickedIncreasePrivacyURLs = nil
-        Global.current.userDefault?.latestAppArchiveStatus = nil
+        UserDefaults.standard.FBArchiveCreatedAt = nil
+        Global.current.userDefault?.latestAppArchiveStatus = []
+        BackgroundTaskManager.shared.urlSession(identifier: SessionIdentifier.upload.rawValue).invalidateAndCancel()
 
         // clear user cookie in webview
         HTTPCookieStorage.shared.cookies?.forEach(HTTPCookieStorage.shared.deleteCookie)
@@ -94,7 +96,6 @@ class Global {
         SettingsBundle.setAccountNumber(accountNumber: nil)
 
         Global.current = Global() // reset local variable
-        AppArchiveStatus.currentState.accept(nil)
         AuthService.shared = AuthService()
         BackgroundTaskManager.shared = BackgroundTaskManager()
 
@@ -104,23 +105,40 @@ class Global {
         ErrorReporting.setUser(bitmarkAccountNumber: nil)
     }
 
+    static func clearCacheStorage() {
+        Global.log.info("[start] clearCacheStorage")
+        do {
+            let realm = try RealmConfig.currentRealm()
+            try realm.write {
+                realm.delete(realm.objects(QueryTrack.self))
+            }
+        } catch {
+            Global.log.error(error)
+        }
+    }
+
     static func pollingSyncAppArchiveStatus() {
+        // avoid override the tracking status in local
+        let currentState = AppArchiveStatus.currentState.value
+        guard currentState.isEmpty || !AppArchiveStatus.isRequestingPoint else {
+            return
+        }
+
         func pollingFunction() -> Observable<Void> {
             return ArchiveDataEngine.fetchAppArchiveStatus()
                 .do(onSuccess: {
                     Global.current.userDefault?.latestAppArchiveStatus = $0
-                    AppArchiveStatus.currentState.accept($0)
                 })
                 .asObservable()
-                .flatMap({ (appArchiveStatus) -> Observable<Void> in
-                    return appArchiveStatus == .processing ?
+                .flatMap({ (appArchiveStatuses) -> Observable<Void> in
+                    return appArchiveStatuses.contains(where: { $0 == .processing }) ?
                         Observable.error(AppError.archiveIsNotProcessed) :
                         Observable.empty()
                 })
         }
 
         pollingFunction()
-            .retry(.delayed(maxCount: 1000, time: 5 * 60))
+            .retry(.delayed(maxCount: 1000, time: 2 * 60))
             .subscribe()
             .disposed(by: disposeBag)
     }
@@ -171,6 +189,7 @@ enum AppError: Error {
     case didRemoteQuery
     case archiveIsNotProcessed
     case invalidPresignedURL
+    case fbRequiredPageIsNotReady
 
     static func errorByNetworkConnection(_ error: Error) -> Bool {
         guard let error = error as? Self else { return false }
@@ -207,6 +226,14 @@ extension UserDefaults {
         set { set(newValue, forKey: #function) }
     }
 
+    var FBArchiveCreatedAt: Date? {
+        get { return date(forKey: #function) }
+        set {
+            GetYourData.standard.requestedAtRelay.accept(newValue)
+            set(newValue, forKey: #function)
+        }
+    }
+
     // MARK: - Settings
     var appVersion: String? {
         get { return string(forKey: "version_preference") }
@@ -219,13 +246,25 @@ extension UserDefaults {
     }
 
     // Per Account
-    var latestAppArchiveStatus: AppArchiveStatus? {
-        get { return AppArchiveStatus(rawValue: string(forKey: #function) ?? "") }
-        set { set(newValue?.rawValue, forKey: #function) }
+    var latestAppArchiveStatus: [AppArchiveStatus] {
+        get {
+            let archiveStatusStrings = stringArray(forKey: #function) ?? []
+            return archiveStatusStrings.compactMap { AppArchiveStatus(rawValue: $0) }
+        }
+        set {
+            AppArchiveStatus.currentState.accept(newValue)
+            let archiveStatusStrings = newValue.compactMap { $0.rawValue }
+            set(archiveStatusStrings, forKey: #function)
+        }
     }
 
     var isAccountSecured: Bool {
         get { return bool(forKey: #function) }
+        set { set(newValue, forKey: #function) }
+    }
+
+    var numberOfProcessedArchives: Int {
+        get { return integer(forKey: #function) }
         set { set(newValue, forKey: #function) }
     }
 }

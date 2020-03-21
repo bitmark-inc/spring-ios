@@ -12,17 +12,52 @@ import RxCocoa
 
 enum AppArchiveStatus {
     case created
+    case requesting
     case uploading
     case processing
     case processed
     case none
     case invalid([Int64], ArchiveMessageError?)
 
-    static var localLatestArchiveStatus: AppArchiveStatus {
-        return Global.current.userDefault?.latestAppArchiveStatus ?? .none
+    static var localLatestArchiveStatuses: [AppArchiveStatus] {
+        return Global.current.userDefault?.latestAppArchiveStatus ?? []
     }
 
-    static var currentState = BehaviorRelay<AppArchiveStatus?>(value: localLatestArchiveStatus)
+    static var currentState = BehaviorRelay<[AppArchiveStatus]>(value: localLatestArchiveStatuses)
+
+    static func transfer(from oldStatus: AppArchiveStatus, to status: AppArchiveStatus) {
+        guard let userDefaults = Global.current.userDefault else { return }
+        var currentStatuses = userDefaults.latestAppArchiveStatus
+        currentStatuses.removeAll(where: { $0 == oldStatus })
+        currentStatuses.append(status)
+        Global.current.userDefault?.latestAppArchiveStatus = currentStatuses
+    }
+
+    static func append(_ status: AppArchiveStatus) {
+        guard let userDefaults = Global.current.userDefault else { return }
+        var currentStatuses = userDefaults.latestAppArchiveStatus
+        currentStatuses.append(status)
+        Global.current.userDefault?.latestAppArchiveStatus = currentStatuses
+    }
+
+    static var isStartPoint: Bool {
+        let statues = currentState.value
+
+        if let firstStatus = statues.first {
+            switch firstStatus {
+            case .none, .created, .invalid: return true
+            default:
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+
+    static var isRequestingPoint: Bool {
+        return currentState.value
+            .contains(where: { return $0 == .uploading || $0 == .requesting })
+    }
 }
 
 extension AppArchiveStatus: RawRepresentable {
@@ -31,6 +66,7 @@ extension AppArchiveStatus: RawRepresentable {
     public init?(rawValue: RawValue) {
         switch rawValue {
         case "created":     self = .created
+        case "requesting":  self = .requesting
         case "uploading":   self = .uploading
         case "processing":  self = .processing
         case "processed":   self = .processed
@@ -44,6 +80,7 @@ extension AppArchiveStatus: RawRepresentable {
     public var rawValue: RawValue {
         switch self {
         case .created:      return "created"
+        case .requesting:   return "requesting"
         case .uploading:    return "uploading"
         case .processing:   return "processing"
         case .processed:    return "processed"
@@ -51,4 +88,8 @@ extension AppArchiveStatus: RawRepresentable {
         case .invalid:      return "invalid"
         }
     }
+}
+
+extension AppArchiveStatus: Equatable {
+    
 }

@@ -16,9 +16,14 @@ class ReactionService {
     static func getAll(startDate: Date, endDate: Date) -> Single<[Reaction]> {
         Global.log.info("[start] ReactionService.get(startDate, endDate)")
 
+        TrackingRequestState.standard.syncReactionsState.accept(.loading)
+
         return provider.rx.requestWithRefreshJwt(.get(startDate: startDate, endDate: endDate))
             .filterSuccess()
             .map([Reaction].self, atKeyPath: "result")
+            .do {
+                TrackingRequestState.standard.syncReactionsState.accept(.done)
+            }
     }
 
     static func getSpringStats(startDate: Date, endDate: Date) -> Single<Stats> {

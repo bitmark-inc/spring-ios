@@ -25,41 +25,30 @@ class PostListViewController: ViewController, BackNavigator {
     fileprivate lazy var tableView = PostTableView()
     fileprivate lazy var emptyView = makeEmptyView()
     fileprivate lazy var backItem = makeBlackBackItem()
+    fileprivate lazy var activityIndicator = makeActivityIndicator()
 
-    var posts: Results<Post>?
     lazy var thisViewModel = viewModel as! PostListViewModel
 
     // MARK: - bind ViewModel
     override func bindViewModel() {
         super.bindViewModel()
 
-        guard let viewModel = viewModel as? PostListViewModel else { return }
+        guard let viewModel = viewModel as? PostListViewModel,
+            let realmPost = viewModel.realmPosts else { return }
 
-        viewModel.postsRelay.filterNil()
-            .subscribe(onNext: { [weak self] (realmPosts) in
+        Observable.changeset(from: realmPost)
+            .subscribe(onNext: { [weak self] (_, _) in
                 guard let self = self else { return }
-                self.posts = realmPosts
-                self.tableView.reloadData()
                 self.refreshView()
-
-                Observable.changeset(from: realmPosts)
-                    .subscribe(onNext: { [weak self] (_, _) in
-                        guard let self = self else { return }
-                        self.refreshView()
-                        self.tableView.reloadData()
-                    }, onError: { (error) in
-                        Global.log.error(error)
-                    })
-                    .disposed(by: self.disposeBag)
-
+                self.tableView.reloadData()
+            }, onError: { (error) in
+                Global.log.error(error)
             })
             .disposed(by: disposeBag)
-
-        viewModel.getPosts()
     }
 
     func refreshView() {
-        let hasPosts = posts != nil && !posts!.isEmpty
+        let hasPosts = thisViewModel.realmPosts != nil && !thisViewModel.realmPosts!.isEmpty
         emptyView.isHidden = hasPosts
         tableView.isScrollEnabled = hasPosts
     }
@@ -75,22 +64,15 @@ class PostListViewController: ViewController, BackNavigator {
 
         contentView.flex
             .direction(.column).alignContent(.center).define { (flex) in
-                flex.addItem(tableView).grow(1)
+                flex.addItem(tableView).grow(1).height(1)
                 flex.addItem(emptyView)
-                    .position(.absolute)
-                    .top(200).left(OurTheme.paddingInset.left)
-            }
-    }
+                    .position(.absolute).top(200)
+                    .alignSelf(.center)
 
-    fileprivate func makeEmptyView() -> Label {
-        let label = Label()
-        label.isDescription = true
-        label.apply(
-            text: R.string.phrase.postsEmpty(),
-            font: R.font.atlasGroteskLight(size: 32),
-            colorTheme: .black)
-        label.isHidden = true
-        return label
+                flex.addItem(activityIndicator)
+                    .position(.absolute).top(250)
+                    .alignSelf(.center)
+            }
     }
 }
 
@@ -104,7 +86,7 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate {
         case 0:
             return 1
         case 1:
-            return posts?.count ?? 0
+            return thisViewModel.realmPosts?.count ?? 0
         default:
             return 0
         }
@@ -125,30 +107,10 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
 
         case 1:
-            let post = posts![indexPath.row]
-            guard let postType = PostType(rawValue: post.type) else {
-                return UITableViewCell()
-            }
-
-            let cell: PostDataTableViewCell!
-            switch postType {
-            case .update:
-                cell = tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
-
-            case .link:
-                cell = tableView.dequeueReusableCell(withClass: LinkPostTableViewCell.self, for: indexPath)
-
-            case .media:
-                if post.mediaData.count > 0 {
-                    cell = tableView.dequeueReusableCell(withClass: MediaPostTableViewCell.self, for: indexPath)
-                } else {
-                    fallthrough
-                }
-
-            default:
-                cell = tableView.dequeueReusableCell(withClass: UpdatePostTableViewCell.self, for: indexPath)
-            }
+            let post = thisViewModel.realmPosts![indexPath.row]
+            let cell = PostTableView.extractPostCell(with: post, tableView, indexPath)
             cell.clickableDelegate = self
+            cell.videoPlayerDelegate = self
             cell.bindData(post: post)
             return cell
 
@@ -167,9 +129,18 @@ extension PostListViewController: UITableViewDataSource, UITableViewDelegate {
             thisViewModel.loadMore()
         }
     }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 1 ? 10 : 0
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return section == 1 ? PostTableView.makeFooterView() : nil
+    }
 }
 
-extension PostListViewController: ClickableDelegate {
+// MARK: - ClickableDelegate, VideoPlayerDelegate
+extension PostListViewController: ClickableDelegate, VideoPlayerDelegate {
     func click(_ textView: UITextView, url: URL) {
         if url.scheme == Constant.appName {
             guard let host = url.host,
@@ -184,28 +155,6 @@ extension PostListViewController: ClickableDelegate {
             let safariVC = SFSafariViewController(url: url)
             self.present(safariVC, animated: true, completion: nil)
         }
-    }
-
-    func playVideo(_ videoKey: String) {
-        MediaService.makeVideoURL(key: videoKey)
-            .subscribe(onSuccess: { [weak self] (asset) in
-                guard let self = self else { return }
-                let playerItem = AVPlayerItem(asset: asset)
-
-                let player = AVPlayer(playerItem: playerItem)
-                let playerVC = AVPlayerViewController()
-
-                playerVC.player = player
-                self.present(playerVC, animated: true) {
-                    player.play()
-                }
-            }, onError: { [weak self] (error) in
-                guard !AppError.errorByNetworkConnection(error) else { return }
-                guard let self = self, !self.showIfRequireUpdateVersion(with: error) else { return }
-
-                Global.log.error(error)
-            })
-            .disposed(by: disposeBag)
     }
 
     func errorWhenLoadingMedia(error: Error) {
@@ -228,5 +177,30 @@ extension PostListViewController {
 
         let postListviewModel = PostListViewModel(filterScope: newFilterScope)
         navigator.show(segue: .postList(viewModel: postListviewModel), sender: self)
+    }
+}
+
+// MARK: - Setup views
+extension PostListViewController {
+    fileprivate func makeEmptyView() -> Label {
+        let label = Label()
+        label.isDescription = true
+        label.apply(
+            text: R.string.localizable.graphNoActivity(),
+            font: R.font.atlasGroteskLight(size: 18),
+            colorTheme: .tundora)
+        label.isHidden = true
+        return label
+    }
+
+    fileprivate func makeActivityIndicator() -> ActivityIndicator {
+        let indicator = ActivityIndicator()
+
+        TrackingRequestState.standard.syncPostsState
+            .map { $0 == .loading }
+            .bind(to: indicator.rx.isAnimating)
+            .disposed(by: disposeBag)
+
+        return indicator
     }
 }

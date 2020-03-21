@@ -57,6 +57,11 @@ extension Button {
                 .bind({ $0.themeColor }, to: rx.titleColor(for: .normal))
                 .disposed(by: disposeBag)
 
+        case .internationalKleinBlue:
+            themeService.rx
+                .bind({ $0.themeBlueColor }, to: rx.titleColor(for: .normal))
+                .disposed(by: disposeBag)
+
         default:
             themeService.rx
                 .bind({ $0.blackButtonTextColor }, to: rx.titleColor(for: .normal))
@@ -73,6 +78,12 @@ extension Button {
             themeService.rx
                 .bind({ $0.blackButtonTextColor }, to: rx.titleColor(for: .normal))
                 .bind({ $0.themeMercuryColor }, to: rx.backgroundColor)
+                .disposed(by: disposeBag)
+
+        case .cognac:
+            themeService.rx
+                .bind({ $0.lightButtonTextColor }, to: rx.titleColor(for: .normal))
+                .bind({ $0.themeColor }, to: rx.backgroundColor)
                 .disposed(by: disposeBag)
 
         default:

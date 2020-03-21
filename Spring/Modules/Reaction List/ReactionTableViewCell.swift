@@ -26,12 +26,12 @@ class ReactionTableViewCell: TableViewCell {
             .bind({ $0.reactionCellBackgroundColor }, to: rx.backgroundColor)
 
         contentView.flex.direction(.column).define { (flex) in
+            flex.addItem(SectionSeparator())
             flex.addItem().padding(OurTheme.postCellPadding).define { (flex) in
                 flex.addItem(timeLabel)
                 flex.addItem(descriptionLabel).marginTop(12)
                 flex.addItem(reactionImageView).marginTop(23).alignSelf(.start)
             }
-            flex.addItem(SectionSeparator())
         }
     }
 
@@ -51,26 +51,23 @@ class ReactionTableViewCell: TableViewCell {
         descriptionLabel.setText(reaction.title)
         reactionImageView.image = reaction.reactionType?.reactionImage
 
-        timeLabel.flex.markDirty()
         descriptionLabel.flex.markDirty()
-        reactionImageView.flex.markDirty()
-        flex.layout()
+        contentView.flex.layout(mode: .adjustHeight)
     }
 }
 
 extension ReactionTableViewCell {
     fileprivate func makeTimeLabel() -> Label {
         let label = Label()
-        label.apply(text: "",
-                    font: R.font.atlasGroteskRegular(size: 14),
+        label.apply(font: R.font.atlasGroteskRegular(size: 14),
                     colorTheme: .black)
         return label
     }
 
     fileprivate func makeDescriptionLabel() -> Label {
         let label = Label()
-        label.apply(text: "",
-                    font: R.font.atlasGroteskLight(size: 16),
+        label.numberOfLines = 0
+        label.apply(font: R.font.atlasGroteskLight(size: 16),
                     colorTheme: .black, lineHeight: 1.2)
         return label
     }

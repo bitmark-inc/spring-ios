@@ -12,18 +12,24 @@ import RxCocoa
 
 class UploadDataViewModel: ViewModel {
 
+    // MARK: - Properties
+    static var AccountServiceBase: AccountServiceDelegate.Type = AccountService.self
+
     // MARK: - Inputs
     var archiveZipRelay = BehaviorRelay<(url: URL, size: Int64)?>(value: nil)
     var downloadableURLRelay = BehaviorRelay<URL?>(value: nil)
 
     // MARK: - Outputs
+    let signUpResultSubject = PublishSubject<Event<Never>>()
     let submitArchiveDataResultSubject = PublishSubject<Event<Never>>()
 
     func submitArchiveData() {
         if let archiveZip = archiveZipRelay.value {
             FBArchiveService.getPresignedURL(with: archiveZip.size)
-                .subscribe(onSuccess: { (presignedURL) in
+                .subscribe(onSuccess: { [weak self] (presignedURL) in
+                    guard let self = self else { return }
                     FBArchiveService.submitByFile(archiveZip.url, with: presignedURL)
+                    self.submitArchiveDataResultSubject.onNext(Event.completed)
                 }, onError: { [weak self] (error) in
                     self?.submitArchiveDataResultSubject.onNext(Event.error(error))
                 })
@@ -38,5 +44,21 @@ class UploadDataViewModel: ViewModel {
                 }
                 .disposed(by: disposeBag)
         }
+    }
+
+    func signUp(isAutomate: Bool) -> Completable {
+        return Self.AccountServiceBase.rxCreateAndSetupNewAccountIfNotExist()
+            .andThen(FbmAccountDataEngine.createOrUpdate(isAutomate: isAutomate))
+            .flatMapCompletable{ (_) -> Completable in
+                GetYourData.standard.optionRelay.accept(isAutomate ? .automate : .manual)
+                return Completable.empty()
+            }
+            .catchError { (error) -> Completable in
+                if let error = error as? ServerAPIError, error.code == .AccountHasTaken {
+                    return Completable.empty()
+                }
+
+                return Completable.error(error)
+            }
     }
 }
