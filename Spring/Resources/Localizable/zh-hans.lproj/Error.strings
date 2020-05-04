@@ -1,0 +1,29 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: 500000000006城
+
+"requestData" = "从服务器请求数据时出错。";
+"fb.requestData" = "创建Facebook数据存档时出错。";
+"fb.downloadData" = "下载Facebook数据存档时出错。";
+"fb.credential.incorrect.title" = "帐户不匹配";
+"fb.credential.incorrect.description" = "您必须使用最初链接到Spring的Facebook帐户。";
+"notification.title" = "启用推送通知";
+"notification.message" = "允许“ Spring”向您发送推送通知，以提醒您检查存档是否已准备好？";
+"system" = "发生系统错误。 我们将更新以尽快修复它。 请稍后再试。";
+"account.signOut.invalidRecoveryKey" = "您的恢复密钥无效。请重新检查并再试一次。";
+"account.signOut.error" = "从该设备断开您的帐户链接时出错。";
+"biometric.notConfigured" = "可能未配置面部ID/触摸ID。";
+"biometric.error" = "验证您的身份时出现问题。";
+"signIn.incorrectRecoveryKey.title" = "错误的恢复密钥！";
+"signIn.incorrectRecoveryKey.description" = "请重新检查您的恢复密钥，然后点击以编辑上面所有不正确的词。";
+"signIn.error" = "登录时出现问题。";
+"generalTitle" = "错误";
+"NoInternetConnection" = "无网络连接";
+"biometricAuth.required" = "%@必填";
+"biometricAuth.description" = "已启用%@以保护此应用的安全。";
+"error.deeplink" = "链接无效。请重新检查";
+"invalid.archiveFile.title" = "无效的文件格式";
+"invalid.archiveFile.message" = "您上传的文件不是有效的Facebook存档。";
+"invalid.archiveURL.title" = "无效的URL格式";
+"invalid.archiveURL.message" = "您提供的URL无效。";
+"excessFileSize.title" = "文件大小过大";
+"excessFileSize.message" = "您的文件大小超过5GB，请提供url";

@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Gomoko
+
+NSPhotoLibraryUsageDescription = "Spring utilisera les photos de votre bibliothèque.";
+NSFaceIDUsageDescription = "Spring utilisera Face ID pour sécuriser votre compte et vos données.";

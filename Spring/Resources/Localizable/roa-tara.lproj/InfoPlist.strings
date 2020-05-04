@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Joetaras
+
+NSPhotoLibraryUsageDescription = "Spring ause le fote da 'a libbreria soie.";
+NSFaceIDUsageDescription = "Spring ause le ID d'a faccie pe assecurà 'u cunde tune e le date.";

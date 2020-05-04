@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Movses
+
+NSPhotoLibraryUsageDescription = "Spring буде використовувати фото з вашої бібліотеки.";
+NSFaceIDUsageDescription = "Spring буде використовувати Face ID на захист вашого облікового запису та даних.";

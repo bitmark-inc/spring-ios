@@ -1,0 +1,29 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Bjankuloski06
+
+"requestData" = "Се појави грешка при побарувањето на податоци од опслужувачот.";
+"fb.requestData" = "Се појави грешка при создавањето на вашата архива на податоци од Facebook.";
+"fb.downloadData" = "Се појави грешка при преземањето на вашата податочна архива од Facebook.";
+"fb.credential.incorrect.title" = "Сметките не се совпаѓаат";
+"fb.credential.incorrect.description" = "Ќе мора да ја користите сметката на Facebook која првично ја имате поврзано со Пролет.";
+"notification.title" = "Овозможи истакнување на известувања";
+"notification.message" = "Дозволи му на „Пролет“ да испраќа истакнати известувања со потсетување да проверите дали архивата ви е готова?";
+"system" = "Се јави системска грешка. Набргу ќе ја поправиме со поднова. Обидете се подоцна.";
+"account.signOut.invalidRecoveryKey" = "Вашиот клуч за повраток е неважечки. Проверете повторно и обидете се пак.";
+"account.signOut.error" = "Се јави грешка при одвојувањето на вашата сметка од овој уред.";
+"biometric.notConfigured" = "Ликовното/допирното препознавање може да не е нагодено.";
+"biometric.error" = "Се јави проблем при потврдувањето на вашиот идентитет.";
+"signIn.incorrectRecoveryKey.title" = "Погрешен клуч за повраток!";
+"signIn.incorrectRecoveryKey.description" = "Повторно проверете си го клучот за повраток и допрете за да измените ако има неисправни зборови погоре.";
+"signIn.error" = "Се јави проблем при најавата.";
+"generalTitle" = "Грешка";
+"NoInternetConnection" = "Не сте поврзани со семрежјето";
+"biometricAuth.required" = "Се бара %@";
+"biometricAuth.description" = "%@ е вклучено за да го обезбеди прилогов.";
+"error.deeplink" = "Врската е неважечка. Проверете повторно";
+"invalid.archiveFile.title" = "Неважечки податотечен формат";
+"invalid.archiveFile.message" = "Податотеката што ја подигнавте не претставува важечка архива на Facebook.";
+"invalid.archiveURL.title" = "Неважечки URL-формат";
+"invalid.archiveURL.message" = "Укажаната URL е неважечка.";
+"excessFileSize.title" = "Прекумерно голема податотека";
+"excessFileSize.message" = "Податотеката ви е поголема од 5 ГБ; внесете URL";

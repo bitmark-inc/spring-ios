@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Kly
+
+NSPhotoLibraryUsageDescription = "Spring 將會從您的圖庫使用照片。";
+NSFaceIDUsageDescription = "Spring 將會使用 Face ID 來保護您的帳號與資料。";

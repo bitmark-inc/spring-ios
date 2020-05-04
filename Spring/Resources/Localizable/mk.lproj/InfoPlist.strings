@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Bjankuloski06
+
+NSPhotoLibraryUsageDescription = "Пролет ќе користи слики од вашата библиотека.";
+NSFaceIDUsageDescription = "Пролет ќе користи ликовно препознавање како обезбедување за вашата сметка и податоци.";
