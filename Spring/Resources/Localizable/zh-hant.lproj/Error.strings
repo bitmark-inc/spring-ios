@@ -1,0 +1,29 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Kly
+
+"requestData" = "從伺服器請求資料時發生錯誤。";
+"fb.requestData" = "建立您的 Facebook 資料存檔時發生錯誤。";
+"fb.downloadData" = "下載您的 Facebook 資料存檔時發生錯誤。";
+"fb.credential.incorrect.title" = "帳號不符合";
+"fb.credential.incorrect.description" = "您必須使用您原先連結到 Spring 的 Facebook 帳號。";
+"notification.title" = "啟用推送通知";
+"notification.message" = "允許「Spring」發送給您推送通知，來提醒您檢查您的存檔是否準備好？";
+"system" = "系統發生錯誤，我們將會立即更新修正，請稍後再試。";
+"account.signOut.invalidRecoveryKey" = "您的恢復密鑰無效。請重新檢查並再試一次。";
+"account.signOut.error" = "取消您的帳號與此設備之間的連結時發生錯誤。";
+"biometric.notConfigured" = "Face ID/Touch ID 可能未設置。";
+"biometric.error" = "驗證您的身份時發生錯誤。";
+"signIn.incorrectRecoveryKey.title" = "恢復密鑰錯誤！";
+"signIn.incorrectRecoveryKey.description" = "請重新檢查您的恢復密鑰，並輕觸來編輯在上方任何不正確的字。";
+"signIn.error" = "登入時發生錯誤。";
+"generalTitle" = "錯誤";
+"NoInternetConnection" = "無網路連線";
+"biometricAuth.required" = "需要%@";
+"biometricAuth.description" = "已啟用%@來保護此應用程式。";
+"error.deeplink" = "連結無效。請重新檢查";
+"invalid.archiveFile.title" = "無效的檔案格式";
+"invalid.archiveFile.message" = "您上傳的檔案不是有效的 Facebook 存檔。";
+"invalid.archiveURL.title" = "無效的網址格式";
+"invalid.archiveURL.message" = "您提供的網址無效。";
+"excessFileSize.title" = "超出檔案大小";
+"excessFileSize.message" = "您的檔案大小超出 5GB，請提供網址";

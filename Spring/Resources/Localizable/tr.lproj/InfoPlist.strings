@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: BaRaN6161 TURK
+
+NSPhotoLibraryUsageDescription = "İlkbahar, kütüphanenizdeki fotoğrafları kullanacaktır.";
+NSFaceIDUsageDescription = "İlkbahar, hesabınızı ve verilerinizi korumak için Face ID'yi kullanacaktır.";

@@ -1,0 +1,43 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Ykhwong
+
+"signIn.title" = "로그인";
+"signIn.submitButton" = "제출 »";
+"howitworks.title" = "동작 방식";
+"askNotifications.title" = "알림";
+"guide.automating" = "자동화 중... 기다려 주십시오.";
+"guide.requiredHelp" = "도움이 필요합니다";
+"requestUploadData.insights.title" = "내 페이스북 데이터 가져오기";
+"morePersonalAnalyticsComing.description" = "페이스북 데이터 보관을 처리하고 있습니다. 하루 이틀 소요될 수 있습니다. 작업이 끝나면 알려드리겠습니다.";
+"uploadData.title" = "내 데이터 가져오기";
+"uploadData.browserFile" = "ZIP 파일 추가 »";
+"uploadData.provideURL" = "클라우드 URL 추가";
+"account.settings.title" = "설정";
+"account.settings.account" = "계정";
+"account.settings.account.deleteAccount" = "데이터 삭제 »";
+"account.settings.account.signOut" = "로그아웃 »";
+"account.settings.account.recoveryKey" = "복구 키 »";
+"account.settings.security" = "보안";
+"account.settings.development" = "개발";
+"account.settings.development.personalAPI" = "개인 API »";
+"account.settings.development.sourceCode" = "소스 코드 »";
+"account.settings.support" = "지원";
+"account.settings.support.faq" = "FAQ »";
+"account.settings.support.whatsNew" = "새로운 소식 »";
+"account.settings.support.contact" = "문의하기 »";
+"account.signOut.warning.title" = "계정 연결 해제";
+"account.signOut.submitTitle" = "계정 연결 해제 »";
+"signOut.success.title" = "계정 연결이 해제됨";
+"account.signOut.title" = "계정 연결 해제";
+"account.recoveryKey.warning.title" = "복구 키";
+"account.recoveryKey.title" = "복구 키";
+"account.deleteAccount.title" = "계정 삭제";
+"account.deleteAccount.action" = "삭제 »";
+"deleteAccount.confirmation.title" = "계정 삭제";
+"fb.increasePrivacy.turnOffFaceRecognition.title" = "<a>안면 인식 끄기</a> »";
+"fb.increasePrivacy.deleteAllEmailContacts.title" = "<a>모든 이메일 연락처 삭제</a> »";
+"fb.increasePrivacy.deleteAllPhoneContacts.title" = "<a>모든 전화 연락처 삭제</a> »";
+"releaseNote.title" = "새로운 소식";
+"releaseNote.appVersion" = "버전 %@";
+"eula" = "EULA";
+"privacyPolicy" = "개인정보처리방침";

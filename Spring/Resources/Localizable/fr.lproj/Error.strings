@@ -1,0 +1,31 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Gomoko
+// Author: Thibaut120094
+// Author: Wladek92
+
+"requestData" = "Il y a eu une erreur en demandant les données du serveur.";
+"fb.requestData" = "Il y a eu une erreur en créant votre archive de données Facebook.";
+"fb.downloadData" = "Il y a eu une erreur en téléchargeant votre archive de données Facebook.";
+"fb.credential.incorrect.title" = "Les comptes ne correspondent pas";
+"fb.credential.incorrect.description" = "Vous devez utiliser le compte Facebook que vous avez lié initialement à Spring.";
+"notification.title" = "Permettre d'envoyer des notifications";
+"notification.message" = "Permettre à « Spring » de vous envoyer une notification pour vous rappeler de vérifier si votre archive est prête ?";
+"system" = "Il y a eu une erreur système. Nous ferons une mise à jour pour la corriger bientôt. Veuillez réessayer ultérieurement.";
+"account.signOut.invalidRecoveryKey" = "Votre clé de récupération n’est pas valide. Veuillez revérifier et réessayer.";
+"account.signOut.error" = "Il y a eu une erreur en dissociant votre compte de cet appareil.";
+"biometric.notConfigured" = "Face ID/Touch ID n’est peut-être pas configuré.";
+"biometric.error" = "Il y a eu un problème en vérifiant votre identité.";
+"signIn.incorrectRecoveryKey.title" = "Mauvaise clé de récupération !";
+"signIn.incorrectRecoveryKey.description" = "Veuillez revérifier votre clé de récupération et taper pour corriger les mots non corrects ci-dessus.";
+"signIn.error" = "Il y a eu un problème en se connectant.";
+"generalTitle" = "Erreur";
+"NoInternetConnection" = "Pas de connexion internet";
+"biometricAuth.required" = "%@ obligatoire";
+"biometricAuth.description" = "%@ a été activé pour sécuriser cette application.";
+"error.deeplink" = "Le lien n'est pas valide. Veuillez revérifier.";
+"invalid.archiveFile.title" = "Format de fichier non valide";
+"invalid.archiveFile.message" = "Le fichier que vous avez téléversé n'est pas une archive Facebook valide.";
+"invalid.archiveURL.title" = "Format d’URL non valide";
+"invalid.archiveURL.message" = "L’URL que vous avez fournie n’est pas valide.";
+"excessFileSize.title" = "Fichier trop long";
+"excessFileSize.message" = "La taille de votre fichier dépasse 5 Go, veuillez fournir l’URL";

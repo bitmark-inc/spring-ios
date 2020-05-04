@@ -1,0 +1,33 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Fitoschido
+
+"launch.name" = "Spring";
+"signIn.submitButton" = "Enviar →";
+"howitworks.title" = "Cómo funciona";
+"trustIsCritical.title" = "La confianza es crucial";
+"askNotifications.title" = "Notificaciones";
+"adsCategory.header" = "CATEGORÍAS DE ANUNCIOS";
+"aggAnalysis.heading" = "Todo Spring";
+"aggAnalysis.subHeading" = "análisis totalizado";
+"uploadData.browserFile" = "Añadir archivo ZIP →";
+"account.settings.title" = "Configuración";
+"account.settings.account" = "Cuenta";
+"account.settings.account.deleteAccount" = "Eliminar datos →";
+"account.settings.account.recoveryKey" = "Clave de recuperación →";
+"account.settings.security" = "Seguridad";
+"account.settings.development.personalAPI" = "API personal →";
+"account.settings.development.sourceCode" = "Código fuente →";
+"account.settings.support.faq" = "Preguntas frecuentes →";
+"account.signOut.warning.title" = "Desenlazar cuenta";
+"account.signOut.submitTitle" = "Desenlazar cuenta →";
+"account.signOut.title" = "Desenlazar cuenta";
+"account.recoveryKey.title" = "Clave de recuperación";
+"account.recoveryKey.index" = "Palabra %@ de 12";
+"account.deleteAccount.title" = "Eliminar cuenta";
+"deleteAccount.confirmation.title" = "Eliminar cuenta";
+"fb.increasePrivacy.turnOffFaceRecognition.title" = "<a>Desactivar reconocimiento facial</a> →";
+"fb.increasePrivacy.deleteAllPhoneContacts.title" = "<a>Eliminar todos los contactos telefónicos</a> →";
+"releaseNote.title" = "Novedades";
+"releaseNote.appVersion" = "Versión %@";
+"releaseNote.section.2" = "Mejoras";
+"eula" = "CLUF";

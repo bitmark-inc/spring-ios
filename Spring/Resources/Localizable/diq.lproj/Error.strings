@@ -1,0 +1,22 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: 1917 Ekim Devrimi
+
+"requestData" = "Server ra data waştış de yew xeta veciyê";
+"fb.requestData" = "Facebook arşive datay vıraştış de yew xeta veciyê";
+"fb.downloadData" = "Facebook arşive datay ronayış de yew xeta veciyê";
+"fb.credential.incorrect.title" = "Hesabi pê ninê";
+"fb.credential.incorrect.description" = "Springa gırebıyaye hesabê Facebookiyê ho gani bıkarnê";
+"notification.title" = "Pêhesnayışanê Push aktiv kerê";
+"signIn.incorrectRecoveryKey.title" = "Xırab Kılite Reynayışi";
+"signIn.error" = "Ronıştış dê yew xeta veciyê";
+"generalTitle" = "Xeta";
+"NoInternetConnection" = "Gırebıyayışê interneti çıniyo";
+"biometricAuth.required" = "%@ lazımo";
+"biometricAuth.description" = "%@ seba itimadiya aplikasyoni kerdo aktiv.";
+"error.deeplink" = "Gıre vêrdeyo. Reyna kontrol kerê";
+"invalid.archiveFile.title" = "Vêrde tewrê dosya";
+"invalid.archiveFile.message" = "Barbıyaye dosyay şıma ravêrdi yew Arşiva Facebooki niya";
+"invalid.archiveURL.title" = "Xırab tewrê URL";
+"invalid.archiveURL.message" = "Definaye URL vêrdeyo";
+"excessFileSize.title" = "Vêşêri ebati dosya";
+"excessFileSize.message" = "Ebatê dosya 5 GB ra vêşiyo, yew url tedarik kerê";

@@ -1,0 +1,29 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: BaRaN6161 TURK
+
+"requestData" = "Sunucudan veri istenirken bir hata oluştu.";
+"fb.requestData" = "Facebook veri arşivinizi oluştururken bir hata oluştu.";
+"fb.downloadData" = "Facebook veri arşivinizi indirirken bir hata oluştu.";
+"fb.credential.incorrect.title" = "Hesaplar eşleşmiyor";
+"fb.credential.incorrect.description" = "İlkbahar'a ilk bağladığınız Facebook hesabını kullanmalısınız.";
+"notification.title" = "Push Bildirimleri Etkinleştir";
+"notification.message" = "Arşivinizin hazır olup olmadığını kontrol etmenizi hatırlatmak için “İlkbahar”'ın size push bildirimi göndermesine izin verilsin mi?";
+"system" = "Bir sistem hatası oluştu. Yakında düzeltmek için güncelleyeceğiz. Lütfen daha sonra tekrar deneyin.";
+"account.signOut.invalidRecoveryKey" = "Kurtarma anahtarınız geçersiz. Lütfen tekrar kontrol edin ve tekrar deneyin.";
+"account.signOut.error" = "Hesabınızla bu cihaz arasındaki bağlantı kesilirken bir hata oluştu.";
+"biometric.notConfigured" = "Face ID/Touch ID yapılandırılmamış olabilir.";
+"biometric.error" = "Kimliğiniz doğrulanırken bir sorun oluştu.";
+"signIn.incorrectRecoveryKey.title" = "Yanlış Kurtarma Anahtarı!";
+"signIn.incorrectRecoveryKey.description" = "Lütfen kurtarma anahtarınızı tekrar kontrol edin ve yukarıdaki yanlış kelimeleri düzenlemek için üzerine dokunun.";
+"signIn.error" = "Oturum açılırken bir sorun oluştu.";
+"generalTitle" = "Hata";
+"NoInternetConnection" = "İnternet bağlantısı yok";
+"biometricAuth.required" = "%@ Gerekli";
+"biometricAuth.description" = "%@ bu uygulamanın güvenliğini sağlamak için etkinleştirildi.";
+"error.deeplink" = "Bağlantı geçersiz. Lütfen tekrar kontrol edin";
+"invalid.archiveFile.title" = "Geçersiz dosya biçimi";
+"invalid.archiveFile.message" = "Yüklediğiniz dosya geçerli bir Facebook arşivi değildi.";
+"invalid.archiveURL.title" = "Geçersiz URL biçimi";
+"invalid.archiveURL.message" = "Girdiğiniz URL geçersiz.";
+"excessFileSize.title" = "Aşırı dosya boyutu";
+"excessFileSize.message" = "Dosya boyutunuz 5 GB'tan fazla, lütfen url sağlayın";

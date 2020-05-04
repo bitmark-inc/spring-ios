@@ -1,0 +1,42 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Robby
+
+"Confirm" = "Confirméieren";
+"ContinueArrow" = "Virufueren »";
+"BackNavigator" = "< ZRÉCK";
+"Summary" = "Resumé";
+"Settings" = "Astellungen";
+"Enable" = "Aschalten";
+"Week" = "Woch";
+"Year" = "Joer";
+"Decade" = "Joerzéngt";
+"or" = "oder";
+"No_thanks" = "Nee, Merci";
+"DownloadArrow" = "Eroflueden »";
+"requireAppUpdate.action" = "Elo aktualiséieren";
+"ok" = "OK";
+"plural.link" = "Linken";
+"plural.story" = "Geschichten";
+"plural.update" = "Aktualiséierungen";
+"plural.video" = "Videoen";
+"plural.photo" = "Fotoen";
+"plural.reaction" = "Reaktiounen";
+"plural.message" = "Messagen";
+"ComingSoon!" = "Deemnächst!";
+"ByType" = "NO TYP";
+"ByDay" = "PRO DAG";
+"ByMonth" = "PRO MOUNT";
+"graph.key.story" = "Geschichten";
+"graph.key.link" = "Linken";
+"graph.key.LOVE" = "Léift";
+"graph.key.HAHA" = "Ha ha";
+"graph.key.ANGER" = "Rosen";
+"income" = "Akommes";
+"mood" = "Stëmmung";
+"yourMood" = "Är Stëmmung";
+"Happy" = "Glécklech";
+"Contact" = "Kontakt";
+"Cancel" = "Ofbriechen";
+"TryAgain" = "Nach eng Kéier probéieren";
+"Contact_us" = "Kontaktéiert eis";
+"ReactionsByType" = "Reaktioune Pro Typ";

@@ -1,0 +1,6 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Robby
+
+"askNotifications.title" = "{{identical|Notification}}";
+"account.settings.security" = "{{identical|Security}}";
+"account.settings.development" = "{{identical|Development}}";

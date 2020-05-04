@@ -1,0 +1,5 @@
+// Copyright © 2020 Bitmark Inc. All rights reserved.
+// Author: Xuacu
+
+NSPhotoLibraryUsageDescription = "Spring usará les semeyes de la to biblioteca.";
+NSFaceIDUsageDescription = "Spring usará Face ID p'asegurar la to cuenta y datos.";
